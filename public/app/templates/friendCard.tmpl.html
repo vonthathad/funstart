@@ -1,0 +1,19 @@
+<md-list-item class="md-3-line friend-item">
+    <a ng-href="/user/{{::item.username}}" class="a-item"><img ng-src="{{::item.avatar}}" class="md-avatar"></a>
+    <div class="md-list-item-text">
+        <a ng-href="/user/{{::item.username}}" class="a-item"><h4>{{::item.displayName}}</h4></a>
+        <p ng-if="mode=='friend' || mode=='search' || mode=='invite'" class="clearfix">Level {{::item.level}}</p>
+        <p ng-if="mode=='room'" class="clearfix">@{{::item.username}}</p>
+        <p class="clearfix" ng-if="mode == 'game'">Điểm: <b>{{item.score}}</b></p>
+        <p ng-if="item.turn && item.turn!=0" class="clearfix">{{item.turn}} lượt nữa</p>
+    </div>
+    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead && !item.isWin)">Tạch</h5>
+    <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin)">Thắng</h5>
+    <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && (item.token)">Đánh</h5>
+    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'room' && item.isReady">Sẵn sàng</h5>
+    <h5 ng-if="mode=='friend'">Học sĩ</h5>
+    <md-button ng-click="invite({input: item})" ng-if="mode=='invite'" class="md-raised md-primary"><i class="ion-android-add"></i> Mời</md-button>
+    <md-button ng-if="isHost" ng-click="kick({input: item})" ng-if="mode=='room'" class="md-fab md-mini md-accent"><i class="ion-android-close"></i></md-button>
+    <md-button ng-click="follow({input: item, callback: updateFriendList({bool:true,input:item})})" ng-if="mode=='search' && item.isFriend == false" class="md-raised md-primary"><i class="ion-android-add"></i> Thêm</md-button>
+    <md-button ng-click="unfollow({input: item, callback: updateFriendList({bool:false,input:item})})" ng-if="mode=='search' && item.isFriend == true" class="md-raised md-accent"><i class="ion-android-done"></i> Bạn</md-button>
+</md-list-item>
