@@ -1,6 +1,3 @@
-/**
- * Created by andh on 8/30/16.
- */
 angular.module('funstart').directive('href', function() {
     return {
         compile: function(element) {
