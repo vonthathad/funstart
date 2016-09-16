@@ -2,12 +2,23 @@ var passport = require('passport');
 var users =  require('../controllers/user.server.controller.js');
 var games =  require('../controllers/game.server.controller.js');
 var Game = require('mongoose').model('Game');
+var Config = require('../config/config');
 module.exports = function(app) {
-  app.get('/oauth/facebook', passport.authenticate('facebook', {scope: ['user_friends','email','public_profile']}));
-  app.get('/oauth/facebook/callback',  passport.authenticate('facebook',users.authFacebookFail,users.authFacebookSuccess));
-  app.post('/auth/signin',users.authSignin);
+  app.route('/auth/signin')
+      .post(passport.authenticate('local'),users.authSignin);
   app.get('/auth/action',users.renderAction);
   app.post('/auth/signup',users.authSignup);
+  app.get('/oauth/facebook', passport.authenticate('facebook', {scope: ['user_friends','email','public_profile']}));
+  app.get('/oauth/facebook/callback',  passport.authenticate('facebook',{
+    successRedirect: 'back',
+    failureRedirect: 'back'
+  }));
+  app.get('/logout',users.authLogout);
+  app.route('/action/verify/:token')
+      .get(users.verifyEmail);
+  // app.route('/action/reset/:token')
+  //     .get(users.resetPage)
+  //     .post(users.resetDone);
   app.get('/game/:gameId',games.renderGame);
   app.get('/test/:key/:game',games.renderTest);
   app.param('gameId', games.gameByID);
@@ -15,13 +26,19 @@ module.exports = function(app) {
     if(req.url.indexOf('sources')<0 && req.url.indexOf('api')<0 && req.url.indexOf('uploaded')<0){
       console.log(req.url);
       var app = {
-        id: '170584416691811',
-        name: 'Fun Start',
-        description: 'Phá đảo thế giới ảo!',
-        url: 'http://www.funstart.net',
-        image: 'http://www.funstart.net/sources/ads.jpg'
+        id: Config.app.id,
+        name: Config.app.name,
+        description: Config.app.description,
+        url: Config.app.url,
+        image: Config.app.image
       };
-      res.render('index', {app: app});
+      var user = null;
+      if(req.user){
+        user = req.user;
+        user._doc.created = parseInt(user._doc.created.getTime());
+        user._doc.active = parseInt(user._doc.active.getTime());
+      }
+      res.render('index', {app: app, user: user, message: null});
     } else {
       next();
     }

@@ -90,7 +90,7 @@ angular.module('funstart').controller('NavbarController', ['$timeout', '$q','$lo
                         $mdDialog.hide(answer);
                     };
                 },
-                templateUrl: 'app/templates/signin.tmpl.html',
+                templateUrl: 'app/templates/authDialog.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose:true

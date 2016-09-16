@@ -15,15 +15,23 @@ angular.module('funstart').config([
         }).
         when('/all', {
             templateUrl: '/app/views/topic.html'
-        }).when('/topic/:topicId', {
+        })
+        .when('/topic/:topicId', {
             templateUrl: '/app/views/topic.html'
         }).
         when('/auth/action',{
             templateUrl: '/app/views/action.html'
         }).
+        when('/action/verify/:token',{
+            templateUrl: '/app/views/login.html'
+        }).
+        when('/login',{
+            templateUrl: '/app/views/login.html'
+        }).
         when('/avatar', {
             templateUrl: '/app/views/avatar.html'
-        }).otherwise({
+        })
+        .otherwise({
             redirectTo: '/'
         });
 

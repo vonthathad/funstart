@@ -44,6 +44,10 @@
 
 <!--Bootstrap AngularJS Application-->
 <script defer type="text/javascript" src="/app/main.client.module.js"></script>
+<script type="text/javascript">
+  window.user = <%- user || 'null' %>;
+  window.message = "<%- message || 'null' %>";
+</script>
 <!--ANGULAR SOURCES-->
 <script defer type="text/javascript" src="/libs/angular-route/angular-route.min.js"></script>
 <script defer type="text/javascript" src="/libs/angular-resource/angular-resource.min.js"></script>

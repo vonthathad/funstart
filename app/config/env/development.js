@@ -16,5 +16,22 @@ module.exports = {
         clientSecret: '3a3cabfcbe1fcc2782b977aae1787d6c',
         callbackURL: '/oauth/facebook/callback',
         profileFields: ['id', 'displayName','email','gender']
-    }
+    },
+    email: {
+        username: "funstart.net",
+        password: "brandnew123",
+        accountName: "Fun Start",
+        verifyEmailUrl: "action/verify",
+        resetPasswordUrl: "action/reset"
+    },
+    server: {
+        host: 'http://www.funstart.net'
+    },
+    app: {
+        id: '170584416691811',
+        name: 'Fun Start',
+        description: 'Phá đảo thế giới ảo!',
+        url: 'http://www.funstart.net',
+        image: 'http://www.funstart.net/sources/ads.jpg'
+    },
 }

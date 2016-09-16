@@ -1,12 +1,13 @@
 /**
  * Created by andh on 8/4/16.
  */
-var User = require('mongoose').model('User');
-var Jwt = require('jsonwebtoken');
-var Config = require('../config/config');
-var privateKey = Config.key.privateKey;
-var https = require('https');
-var paging = 7;
+var User = require('mongoose').model('User'),
+    Jwt = require('jsonwebtoken'),
+    Mail = require('../config/mail'),
+    Config = require('../config/config'),
+    privateKey = Config.key.privateKey,
+    https = require('https'),
+    paging = 7;
 var getErrorMessage = function(err) {
     var message = 'Xảy ra lỗi. Vui lòng thử lại sau';
     if (err.code) {
@@ -25,79 +26,88 @@ exports.authFacebookSuccess = function(req,res){
 exports.authFacebookFail = function(req,res){
     res.status(400).send();
 };
+exports.authLogout = function(req,res){
+    req.logout();
+    console.log(req.user);
+    res.redirect('/');
+};
 exports.authSignin = function(req,res){
-    firebase.auth().verifyIdToken(req.body.token).then(function(decodedToken) {
-        // console.log(decodedToken);
-        User.findById(decodedToken.sub,'-salt -password', function(err, user) {
-            if (err) {
-                return res.status(400).send({message: getErrorMessage(err)});
-            } else {
-                // console.log(req.body.password);
-                // firebase.apps[0].v.databaseAuthVariableOverride.uid = decodedToken.sub;
-                if(req.body.password || user.isVerified!=decodedToken["email_verified"]){
-                    if(req.body.password) user.password = req.body.password;
-                    if(user.isVerified!=decodedToken["email_verified"]) {
-                        user.isVerified = decodedToken["email_verified"];
-                        firebase.database().ref("users").child(decodedToken.sub).update({"isVerified": decodedToken["email_verified"]},function(err){
-                            // console.log(err);
-                        });
-                    }
-                    user.save();
-                }
-                User.find({exp : {$gt : user.exp}}).count(function (err,count){
-                    var rank = 0;
-                    if(!err) rank = count + 1;
-                    user.rank = rank;
-                    return res.json({data:user});
-                });
-            }
-        });
-    }).catch(function(error) {
-        res.status(400).send();
-        // Handle error
-    });
-
+    return res.status(200).send({user: req.user});
 };
 exports.authSignup = function(req,res){
-    //firebase.apps[0].v.databaseAuthVariableOverride.uid = req.body.uid;
-    // console.log(req.body.token);
-    firebase.auth().verifyIdToken(req.body.token).then(function(decodedToken) {
-        // console.log(decodedToken);
-        var uid = decodedToken.uid;
-        var email = decodedToken.email;
-        var username = locdau(email.split("@")[0]);
-        // console.log(username);
-        // ...
-        var tokenData = {
-            uid: uid
+    if (!req.user) {
+        var user = new User();
+        user.email = req.body.email;
+        user.username = req.body.username;
+        user.displayName = req.body.username;
+        user.password = req.body.password;
+        user.provider = 'local';
+        user.isVerified = false;
+        user.avatar = "http://www.funstart.net/sources/avatar.jpg";
+        var tokenDt = {
+            email: req.body.email
         };
-        var userToken = Jwt.sign(tokenData, privateKey);
-        var profile = {
-            _id: uid,
-            email: email,
-            password: req.body.password,
-            avatar: 'http://www.funstart.net/sources/avatar.jpg',
-            username: username,
-            displayName: username,
-            token: userToken,
-            isVerified: false,
-            provider: 'email'
-        };
-        User.findUniqueUsername(profile.username, null, function(availableUsername){
-            profile.username = availableUsername;
-            user = new User(profile);
-            user.save(function(err,user) {
-                if (err) {
-                    return res.status(400).send({message: getErrorMessage(err)});
-                };
-                delete user.salt;
-                delete user.password
-                return res.json({data: user});
+        var userToken = Jwt.sign(tokenDt, privateKey);
+        user.token = userToken;
+        user.save(function(err,result) {
+            if (err) {
+                var message = getErrorMessage(err);
+                console.log(message);
+                return res.status(400).send({
+                    message: message
+                });
+            }
+            var tokenData = {
+                email: user.email
+            };
+            Mail.sentMailVerificationLink(user,Jwt.sign(tokenData, privateKey));
+            //message = "Hãy kiểm tra email của bạn để xác nhận tài khoản";
+            //req.flash('error', message);
+            return res.status(200).send({
+                user: result,
+                message : "Hãy kiểm tra email của bạn để xác nhận tài khoản"
             });
+            //return res.redirect('/signup');
         });
-    }).catch(function(error) {
-        res.status(400).send();
-        // Handle error
+    } else {
+        return res.redirect('/');
+    }
+};
+exports.verifyEmail = function(req, res, next) {
+    var token = req.params.token;
+    var app = {
+        id: Config.app.id,
+        name: Config.app.name,
+        description: Config.app.description,
+        url: Config.app.url,
+        image: Config.app.image
+    };
+    Jwt.verify(token, privateKey, function(err, decoded) {
+        if(decoded === undefined) {
+            message = "Mã token này không tồn tại";
+            return res.render('index', {user: null, message: message, app: app});
+        }
+        User.findOne({email : decoded.email}, function(err, user){
+            if (err) {
+                message = "Không tồn tại token, hoặc đã hết hạn";
+                return res.render('index', {user: null, message: message, app: app});
+            }
+            if (user === null) {
+                message="Tài khoản không tồn tại";
+                return res.render('index', {user: null, message: message, app: app});
+            }
+            user.isVerified = true;
+            User.findByIdAndUpdate(user._id,user, function(err, user){
+                if (err) {
+                    message="Đã xảy ra lỗi. Hãy thử lại sau";
+                    return res.render('index', {user: null, message: message, app: app});
+                } else {
+                    message="Chúc mừng, tài khoản đã được xác thực!";
+                    return res.render('index', {user: null, message: message, app: app});
+                }
+            })
+        })
+
     });
 
 };

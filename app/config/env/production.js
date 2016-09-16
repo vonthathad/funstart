@@ -16,5 +16,8 @@ module.exports = {
         clientSecret: '3a3cabfcbe1fcc2782b977aae1787d6c',
         callbackURL: '/oauth/facebook/callback',
         profileFields: ['id', 'displayName','email','gender']
+    },
+    server: {
+        host: 'http://www.funstart.net'
     }
 }

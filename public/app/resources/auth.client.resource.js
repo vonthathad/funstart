@@ -10,9 +10,6 @@ angular.module('auth').factory('AuthSignup',['$resource',function($resource){
 angular.module('auth').factory('AuthSignin',['$resource',function($resource){
     return $resource('/auth/signin');
 }]);
-angular.module('auth').factory('AuthSignout',['$resource',function($resource){
-    return $resource('/auth/signout');
-}]);
 angular.module('auth').factory('AuthAction',['$resource',function($resource){
     return $resource('/auth/action');
 }]);

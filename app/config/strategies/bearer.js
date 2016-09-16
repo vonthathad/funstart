@@ -14,14 +14,15 @@ module.exports = function(){
                 return done(null,'guest');
             }
             Jwt.verify(token, privateKey, function(err, decoded) {
+                console.log(err);
                 if (decoded === undefined) {
                     return done(null,false);
                 }
-                User.findById(decoded.uid,function(err,user){
+                console.log('decoded',decoded);
+                User.findOne({email : decoded.email},function(err,user){
+
                     if(!user)
                         return done(null,false);
-                    // firebase.apps[0].v.databaseAuthVariableOverride.uid = decoded.uid;
-                    if(user.role == 'developer');
                     return done(null,user);
                 })
             });

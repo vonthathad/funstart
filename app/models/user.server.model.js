@@ -112,6 +112,26 @@ UserSchema.plugin(autoIncrement.plugin, {
     model: 'User',
     startAt: 1
 });
+
+
+UserSchema.virtual('level').get(function() {
+    return parseInt(Math.sqrt(this.exp/100));
+});
+UserSchema.virtual('fire').get(function() {
+    var time = Date.now() - this.created;
+    var days = parseInt(time / 86400000);
+    var games = 10 * days;
+    var fire = parseInt(this.games*1000/games);
+    if (fire >1000) fire = 1000;
+    return fire;
+});
+UserSchema.virtual('next').get(function() {
+    var level = parseInt(Math.sqrt(this.exp/100));
+    return (level+1)*(level+1)*100;
+});
+UserSchema.methods.authenticate = function(password) {
+    return this.password === this.hashPassword(password);
+};
 UserSchema.pre('save', function(next) {
     if (this.password) {
         this.salt = new
@@ -127,22 +147,6 @@ UserSchema.methods.hashPassword = function(password) {
 
 
 
-
-UserSchema.virtual('level').get(function() {
-    return parseInt(Math.sqrt(this.exp/100));
-});
-UserSchema.virtual('fire').get(function() {
-    var time = Date.now() - this.created;
-    var days = parseInt(time / 86400000);
-    var games = 10*days;
-    var fire = parseInt(this.games*1000/games);
-    if (fire>1000) fire = 1000;
-    return fire;
-});
-UserSchema.virtual('next').get(function() {
-    var level = parseInt(Math.sqrt(this.exp/100));
-    return (level+1)*(level+1)*100;
-});
 UserSchema.statics.findUniqueUsername = function(username, suffix,
                                                  callback) {
     var _this = this;

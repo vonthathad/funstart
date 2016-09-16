@@ -8,21 +8,21 @@ angular.module('auth').controller('ActionController',['$scope','$rootScope','Mis
         }
 
 }]);
-angular.module('auth').controller('AuthController',['$scope','AuthSignout','AuthFacebook','AuthSignup','AuthSignin','MissionsService','$rootScope','$http',
-    function($scope,AuthSignout,AuthFacebook,AuthSignup,AuthSignin,MissionsService,$rootScope,$http){
+angular.module('auth').controller('AuthController',['$scope','AuthFacebook','AuthSignup','AuthSignin','MissionsService','$rootScope','$http',
+    function($scope,AuthFacebook,AuthSignup,AuthSignin,MissionsService,$rootScope,$http){
         $scope.signupModel = {};
         $scope.submitting = false;
         $scope.onSignOut = function(){
-            AuthSignout.get(function () {
-                localStorage.removeItem('token');
-                sessionStorage.removeItem('user');
-                window.location.href = '/';
-            },function () {
-                //thu lai
-            });
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('user');
+            user = null;
+            window.location.href = "logout";
         };
         $scope.action = {};
         $scope.signinModel = {};
+        if(message != "null"){
+            $scope.errorSignin = message;
+        }
         $scope.onLoginFacebook = function(){
             $scope.errorSignin = null;
             $scope.submitting = true;
@@ -40,18 +40,17 @@ angular.module('auth').controller('AuthController',['$scope','AuthSignout','Auth
         $scope.onSignup = function(){
             $scope.submitting = true;
             $scope.errorSignup = null;
-
-            AuthSignup.save(signupModel,function(res){
-                $rootScope.user = res.data;
-                $rootScope.missions = MissionsService;
-                $rootScope.missions.loadMissions($rootScope.user._id);
-                localStorage.setItem('token',res.data.token);
-                sessionStorage.setItem('user',JSON.stringify(res.data));
-                $http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
+            AuthSignup.save($scope.signupModel,function(res){
+                $rootScope.user = res.user;
+                // $rootScope.missions = MissionsService;
+                // $rootScope.missions.loadMissions($rootScope.user._id);
+                localStorage.setItem('token',res.user.token);
+                sessionStorage.setItem('user',JSON.stringify(res.user));
+                $http.defaults.headers.common['Authorization'] = 'Bearer ' + res.user.token;
                 $scope.submitting = false;
                 $scope.cancel();
             },function(err){
-                $scope.errorSignin = err.message;
+                $scope.errorSignin = "Tài khoản không tồn tại, hoặc sai mật khẩu";
                 $scope.submitting = false;
             });
         };
@@ -59,16 +58,20 @@ angular.module('auth').controller('AuthController',['$scope','AuthSignout','Auth
             $scope.submitting = true;
             $scope.errorSignin = null;
             console.log('here');
-            AuthSignin.save(signinModel,function(res){
-                $rootScope.user = res.data;
-                localStorage.setItem('token',res.data.token);
+            AuthSignin.save($scope.signinModel,function(res){
+                $rootScope.user = res.user;
+                localStorage.setItem('token',res.user.token);
                 sessionStorage.setItem('user',JSON.stringify($rootScope.user));
                 $rootScope.missions = MissionsService;
                 $rootScope.missions.loadMissions($rootScope.user._id);
                 $scope.submitting = false;
                 $scope.cancel();
             },function(err){
-                $scope.errorSignin = err.message;
+                if(err.status == 401){
+                    $scope.errorSignin = "Tài khoản không tồn tại, hoặc sai mật khẩu";
+                } else if(err.status == 500){
+                    $scope.errorSignin = "Có lỗi hệ thống, vui lòng thử lại sau!";
+                }
                 $scope.submitting = false;
             });
         };

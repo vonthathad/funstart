@@ -1,8 +1,12 @@
 angular.module('funstart').config([
     '$httpProvider', '$sceDelegateProvider', function ($httpProvider, $sceDelegateProvider) {
-        if (localStorage.getItem('token')) {
+        if (window.user){
+            $httpProvider.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
+        } else if (localStorage.getItem('token')) {
+            console.log('zô token');
             $httpProvider.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
         } else {
+            console.log('zô đây');
             $httpProvider.defaults.headers.common['Authorization'] = 'Bearer CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My';
         }
         $sceDelegateProvider.resourceUrlWhitelist(['**']);
@@ -43,15 +47,19 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,Missions
             sessionStorage.setItem('topics',JSON.stringify(res.data));
         })
     }
-
-    if (sessionStorage.getItem('user')){
+    if(window.user){
+        $rootScope.user = user;
+        sessionStorage.setItem('user',JSON.stringify($rootScope.user));
+        localStorage.setItem('token',$rootScope.user.token);
+        $rootScope.missions = MissionsService;
+        $rootScope.missions.loadMissions($rootScope.user._id);
+    } else if (sessionStorage.getItem('user')){
         $rootScope.user = JSON.parse(sessionStorage.getItem('user'));
         $rootScope.missions = MissionsService;
         $rootScope.missions.loadMissions($rootScope.user._id);
-
         //doan nay nho set online
 
-    } else if(localStorage.getItem('token'))
+    } else if(localStorage.getItem('token')){
         AuthToken.get(function(res){
             $rootScope.user = res.data;
             sessionStorage.setItem('user',JSON.stringify($rootScope.user));
@@ -62,4 +70,6 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,Missions
         },function (err) {
             $rootScope.user = null;
         })
+    }
+
 });

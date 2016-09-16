@@ -3,7 +3,9 @@
  */
 var Game = require('mongoose').model('Game'),
     Topic = require('mongoose').model('Topic'),
+    Config = require('../config/config'),
     paging = 12;
+
 var getSortType = function(sortType){
     if(sortType==="top"){
         return {top : -1} ;
@@ -144,13 +146,18 @@ exports.renderGame = function(req,res){
 
 
     var app = {
-        id: '170584416691811',
+        id: Config.app.id,
         name: title,
         description: des,
         url: url,
         image: thumb
     };
-    res.render('index', {app : app});
+    if(req.user){
+        user = req.user;
+        user._doc.created = parseInt(user._doc.created.getTime());
+        user._doc.active = parseInt(user._doc.active.getTime());
+    }
+    res.render('index', {app : app, message: null, user: user});
 };
 exports.renderTest = function(req,res){
     console.log('here');
@@ -175,14 +182,19 @@ exports.renderTest = function(req,res){
             }
         }
         var app = {
-            id: '170584416691811',
+            id: Config.app.id,
             name: title,
             description: des,
             url: url,
             image: thumb
         };
-
-        res.render('index', {app : app});
+        var user = null;
+        if(req.user){
+            user = req.user;
+            user._doc.created = parseInt(user._doc.created.getTime());
+            user._doc.active = parseInt(user._doc.active.getTime());
+        }
+        res.render('index', {app : app, message: null, user: user});
     } else {
         res.status(401).send();
     }
