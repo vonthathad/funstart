@@ -547,13 +547,13 @@ a.search-link {
     max-height: calc(100% - 10px);
   }
 }
-.md-button.md-facebook{
-  background-color: #3d5998;
-  color: #fff;
+.md-facebook{
+  background-color: #3d5998!important;
+  color: #fff!important;
 }
-.md-button.md-facebook:not([disabled]):hover,.md-button.md-facebook:not([disabled]):focus{
-  background-color: #4666ae;
-  color: #fff;
+.md-facebook:not([disabled]):hover,a.md-facebook:not([disabled]):focus{
+  background-color: #4666ae!important;
+  color: #fff!important;
 }
 .pre-game{
   position: absolute;

@@ -152,6 +152,7 @@ exports.renderGame = function(req,res){
         url: url,
         image: thumb
     };
+    var user = null;
     if(req.user){
         user = req.user;
         user._doc.created = parseInt(user._doc.created.getTime());

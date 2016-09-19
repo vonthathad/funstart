@@ -16,9 +16,11 @@ module.exports = function(app) {
   app.get('/logout',users.authLogout);
   app.route('/action/verify/:token')
       .get(users.verifyEmail);
-  // app.route('/action/reset/:token')
-  //     .get(users.resetPage)
-  //     .post(users.resetDone);
+  app.route('/action/reset')
+      .post(users.resetPassword);
+  app.route('/action/reset/:token')
+      .get(users.resetPage)
+      .post(users.resetDone);
   app.get('/game/:gameId',games.renderGame);
   app.get('/test/:key/:game',games.renderTest);
   app.param('gameId', games.gameByID);

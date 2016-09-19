@@ -1,0 +1,185 @@
+<script async defer type="text/javascript" src="/js/ads.js"></script>
+<script async defer type="text/javascript" src="/js/html2canvas.js"></script>
+
+<div ng-controller="PlayController" ng-init="loadGame()" >
+    <div class="game-section" id="contentElement" flex>
+        <!--them game vao day-->
+        <div class="game-area" ng-class="{'full-mode' : battle.status.isFullscreen}">
+            <div class="game-frame" ng-if="!isInit" ng-show="isPlay && !isEnd" ng-include="games.currentGame.link" onload="finishLoading()"></div>
+        </div>
+
+
+        <!--<div ng-if="!games.isLoading" ng-include="'/sources/game/9/'" onload="finishLoading()"></div>-->
+        <div ng-if="!isPlay" class="pre-game" layout="column" layout-align="center center">
+            <md-progress-circular ng-if="isLoad"  md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+            <md-button ng-if="!isLoad" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
+            <md-button ng-if="!isLoad && $root.user" ng-click="onBattleCall()" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
+            <md-button ng-if="!isLoad && $root.user" ng-click="onCreateRoom()" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
+        </div>
+        <div ng-if="battle.status.isFullscreen" class="full-mode-2" hide-xs hide-sm>
+            <md-toolbar class="md-theme-light">
+                <h2 class="md-toolbar-tools">
+                    <span>Xếp hạng:</span>
+                </h2>
+            </md-toolbar>
+            <md-content>
+                <md-list>
+                    <div class="player-list">
+                        <friend-card ng-repeat="item in battle.game.room.players | orderBy: battle.orderPlayer"
+                                     status-class="statusClass(input)"
+                                     type="games.currentGame.type"
+                                     mode="'game'"
+                                     item="item">
+                        </friend-card>
+                    </div>
+                </md-list>
+            </md-content>
+        </div>
+        <div class="full-mode divider-right battle-room" ng-if="battle.status.isWaitRoom && isBattle">
+            <md-toolbar class="md-theme-light" hide-sm hide-xs>
+                <h2 class="md-toolbar-tools">
+                    <span>Phòng chơi:</span>
+                </h2>
+            </md-toolbar>
+            <md-content>
+                <md-tabs md-dynamic-height>
+                    <md-tab label="THÀNH VIÊN">
+                        <md-list>
+                        <div class="room-list"
+                             infinite-scroll="suggest.loadMore()">
+                            <friend-card ng-repeat="item in battle.game.room.members"
+                                         item="item"
+                                         is-host="battle.isHost"
+                                         status-class="statusClass(input)"
+                                         mode="'room'">
+                            </friend-card>
+                        </div>
+
+                        </md-list>
+
+                    </md-tab>
+                    <md-tab label="MỜI BẠN" ng-click="onListInvite()">
+                        <md-list>
+                            <div class="room-list"
+                                 ng-if="mode=='friend'"
+                                 infinite-scroll="friends.loadMore()"
+                                 infinite-scroll-immediate-check="false"
+                                 infinite-scroll-distance="1">
+                                <friend-card ng-repeat="item in friendsOnline.data"
+                                             item="item"
+                                             mode="'invite'">
+                                </friend-card>
+                                <loading-circle flex="100" is-loading="friends.isLoading"></loading-circle>
+                            </div>
+                        </md-list>
+                    </md-tab>
+                    <md-tab ng-if="battle.isHost" label="MỜI LINK" ng-click="onListInvite()">
+                        <div layout="column" layout-padding style="height: calc(100vh - 200px);">
+                            <div>
+                                <h4>Copy link bên dưới và gửi cho bạn bè:</h4>
+                            </div>
+                            <div>
+                                <md-input-container md-no-float class="md-block">
+                                    <input class="invite-text" ng-model="battle.game.room.link">
+                                </md-input-container>
+                            </div>
+
+                        </div>
+
+                    </md-tab>
+                </md-tabs>
+                <md-button ng-click="battle.onReady(onBattleCallback)" class="md-raised md-primary room-btn">
+                    <span ng-if="battle.isHost"><i class="ion-play"></i> Bắt đầu</span>
+                    <span ng-if="!battle.isHost"><i class="ion-play"></i> Sẵn sàng</span>
+                </md-button>
+            </md-content>
+        </div>
+        <div ng-if="battle.status.isFullscreen" class="full-mode-3" hide-md hide-lg>
+            <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal>
+                <div md-virtual-repeat="item in battle.game.room.players  | orderBy: battle.orderPlayer"
+                     class="repeated-item" flex>
+                    <div layout="row" style="position: relative">
+                        <img class="mini-avatar" ng-src="{{item.avatar}}"/>
+                        <div layout="column" layout-align="center start">
+                            <h5>{{item.displayName}}</h5>
+                            <p ng-if="item.score">Điểm: {{item.score}}</p>
+                            <p ng-if="item.turn && item.turn !=0">{{item.turn}} lượt nữa</p>
+                            <p ng-if="item.turn ==0">Đang đánh</p>
+                        </div>
+                        <div ng-if = "item.connect==0 || item.isDead || item.token" class="status-mobile" layout="row" layout-align="center center">
+                            <h5 class="bb" ng-class="statusClass(0)" ng-if="(item.connect==0 || item.isDead && !item.isWin)">Tạch</h5>
+                            <h5 class="bb" ng-class="statusClass(1)" ng-if="item.isWin">Thắng</h5>
+                            <h5 class="bb" ng-class="statusClass(2)" ng-if="item.token">Đánh</h5>
+                        </div>
+                    </div>
+                </div>
+            </md-virtual-repeat-container>
+        </div>
+        <div ng-if="isEnd"  ng-class="{'full-mode' : battle.status.isFullscreen}" class="recommend-games animate-if" layout="column" layout-padding layout-align="center center">
+            <div layout="row" layout-wrap >
+                <div id="canvan" ng-bind-html="result | trustAsHTML"></div>
+            </div>
+            <div layout="row" layout-wrap layout-align="center center">
+                <md-button flex-xs="100" ng-disabled="submitting" class="md-raised md-facebook recommend-btn" ng-click="onShareFacebook()">
+                    <i class="ion-social-facebook" style="font-size: 1.25em"></i>
+                    <span ng-if="!submitting">Chia sẻ điểm</span>
+                    <span ng-if="submitting">Đang chia sẻ</span>
+                </md-button>
+                <md-button ng-if="!isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onPlay()">
+                    <i class="ion-refresh" style="font-size: 1.25em"></i>
+                    Chơi lại
+                </md-button>
+                <md-button ng-if="isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onBattleAgain()">
+                    <i class="ion-refresh" style="font-size: 1.25em"></i>
+                    Thách đấu lại
+                </md-button>
+            </div>
+            <div ng-if="!isBattle" layout="row" class="group-game-card" layout-wrap>
+                <game-card ng-repeat="item in games.data track by $index" ng-if="filterMobile($index)" item="item" flex="33" flex-sm="50" flex-xs="100" class="recommend-card"></game-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainAds" id="mainAds" style="position: absolute;width: 100%;top: 0;margin: 0 auto 0;z-index: 9999;left: 0;right: 0;">
+        <div id="adContainer" ng-click="skipAds()" style="position: relative;margin: 0px auto;"></div>
+    </div>
+    <div ng-if="isBattle" class="spinner-bg animate-if" layout="column" layout-align="center center">
+        <div class="search-text" ng-if="battle.status.isSearching">đang tìm kiếm</div>
+        <div class="search-text" ng-if="battle.status.isFullRoom">đã tìm thấy</div>
+        <div ng-if="battle.status.isSearching" >
+            <div class="search-spinner"></div>
+        </div>
+        <div ng-if="battle.status.isFullRoom">
+            <div role="button" ng-click="battle.onReady(onBattleCallback)" class="search-ready">
+                <span>Chiến!</span>
+            </div>
+        </div>
+        <div ng-if="battle.status.isReady">
+            <div class="search-ready">
+                <span>{{battle.currentPlayers}}/{{battle.game.room.people}}</span>
+            </div>
+        </div>
+        <div ng-if="battle.status.isIntro" class="rect-info">
+            <div id="rect-orange" class="rect-orange" layout="row" layout-align="end center">
+                <div class="fight-info" layout="column" layout-align="center end">
+                    <h1 style="text-align: right" id="name-opponent">{{battle.opponent.displayName}}</h1>
+                    <h3 ng-if="(battle.game.room.people - 2)>0" style="text-align: right" id="des-opponent">và {{battle.opponent.amount}} người chơi khác</h3>
+                </div>
+                <img class="fight-avatar" ng-src="{{battle.opponent.avatar}}"/>
+            </div>
+            <div id="rect-blue" class="rect-blue" layout="row" layout-align="start center">
+                <img class="fight-avatar" ng-src="{{$root.user.avatar}}"/>
+                <div class="fight-info" layout="column"  layout-align="center start">
+                    <h1>{{::$root.user.displayName}}</h1>
+                    <h3>Level {{::$root.user.level}}</h3>
+                </div>
+            </div>
+            <div class="versus-text anim-0">VS</div>
+            <div class="versus-text anim-3">3</div>
+            <div class="versus-text anim-2">2</div>
+            <div class="versus-text anim-1">1</div>
+        </div>
+
+    </div>
+    <md-button ng-if="isBattle" ng-click="onCloseBattle()" class="search-close-btn md-icon-button"><i class="ion-close-circled"></i></md-button>
+</div>

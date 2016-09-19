@@ -1,15 +1,24 @@
-angular.module('auth').controller('ActionController',['$scope','$rootScope','MissionsService','$location','AuthSignin',
-    function($scope,$rootScope,MissionsService,$location,AuthSignin){
-        $scope.mode = $location.search().mode;
+angular.module('auth').controller('ActionController',['$scope','$rootScope','$location','ActionReset','$routeParams',
+    function($scope,$rootScope,$location,ActionReset,$routeParams){
+        console.log($routeParams);
         $scope.new = {};
         $scope.submitting = false;
         $scope.onReset = function() {
-
+            ActionReset.save({token: $routeParams.token,password: $scope.new.password},function(res){
+                $scope.successAction = res.message;
+                $rootScope.user = res.data;
+                localStorage.setItem('token',res.data.token);
+                sessionStorage.setItem('user',JSON.stringify($rootScope.user));
+                $scope.submitting = false;
+            },function(err){
+                $scope.errorAction = err.message;
+                $scope.submitting = false;
+            });
         }
 
 }]);
-angular.module('auth').controller('AuthController',['$scope','AuthFacebook','AuthSignup','AuthSignin','MissionsService','$rootScope','$http',
-    function($scope,AuthFacebook,AuthSignup,AuthSignin,MissionsService,$rootScope,$http){
+angular.module('auth').controller('AuthController',['$scope','AuthFacebook','AuthSignup','AuthSignin','ActionReset','$rootScope','$http',
+    function($scope,AuthFacebook,AuthSignup,AuthSignin,ActionReset,$rootScope,$http){
         $scope.signupModel = {};
         $scope.submitting = false;
         $scope.onSignOut = function(){
@@ -28,8 +37,8 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             $scope.submitting = true;
             AuthFacebook.get(function(res){
                 $rootScope.user = res.data;
-                $rootScope.missions = MissionsService;
-                $rootScope.missions.loadMissions($rootScope.user._id);
+                // $rootScope.missions = MissionsService;
+                // $rootScope.missions.loadMissions($rootScope.user._id);
                 localStorage.setItem('token',res.data.token);
                 sessionStorage.setItem('user',JSON.stringify(res.data));
                 $scope.submitting = false;
@@ -62,8 +71,8 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
                 $rootScope.user = res.user;
                 localStorage.setItem('token',res.user.token);
                 sessionStorage.setItem('user',JSON.stringify($rootScope.user));
-                $rootScope.missions = MissionsService;
-                $rootScope.missions.loadMissions($rootScope.user._id);
+                // $rootScope.missions = MissionsService;
+                // $rootScope.missions.loadMissions($rootScope.user._id);
                 $scope.submitting = false;
                 $scope.cancel();
             },function(err){
@@ -75,4 +84,11 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
                 $scope.submitting = false;
             });
         };
+        $scope.onReset = function(){
+            ActionReset.save({email: $scope.action.email}, function (res) {
+                $scope.successAction = res.message;
+            },function (err) {
+                $scope.errorAction = err.message;
+            })
+        }
 }]);

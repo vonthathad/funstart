@@ -7,6 +7,7 @@ var User = require('mongoose').model('User'),
     Config = require('../config/config'),
     privateKey = Config.key.privateKey,
     https = require('https'),
+    crypto = require('crypto'),
     paging = 7;
 var getErrorMessage = function(err) {
     var message = 'Xảy ra lỗi. Vui lòng thử lại sau';
@@ -108,6 +109,98 @@ exports.verifyEmail = function(req, res, next) {
             })
         })
 
+    });
+
+};
+exports.resetPage = function(req,res){
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+            var app = {
+                id: Config.app.id,
+                name: Config.app.name,
+                description: Config.app.description,
+                url: Config.app.url,
+                image: Config.app.image
+            };
+            message = "Token để reset password không tồn tại, hoặc đã hết hạn.";
+            return res.render('index', {message: message, user: null, app: app});
+        }
+        return res.redirect('/action/' + req.params.token);
+    });
+}
+exports.resetDone= function(req,res){
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+            //req.flash('error', 'Token để reset password không tồn tại, hoặc đã hết hạn.');
+            //return res.redirect('back');
+            message="Token để reset password không tồn tại, hoặc đã hết hạn.";
+            return res.status(400).send({
+                message: message
+            });
+        } else {
+            user.password = req.body.password;
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+            user.save(function(err) {
+                if(err){
+                    message="Đã xảy ra lỗi. Hãy thử lại sau";
+                    return res.status(400).send({
+                        message: message
+                    });
+                } else{
+                    Mail.sendMailDoneResetPassword(user);
+                    message="Thay đổi mật khẩu thành công";
+                    return res.status(200).send({
+                        data: user,
+                        message: message
+                    });
+                }
+            });
+        }
+    });
+};
+exports.resetPassword = function(req, res) {
+    User.findOne({email: req.body.email}, function(err, user){
+        if (!err) {
+            if (user === null) {
+                message = "Tài khoản không tồn tại";
+                return res.status(400).send({
+                    message: message
+                });
+            }
+            crypto.randomBytes(20, function(err, buf) {
+                if(err){
+                    message = "Đã xảy ra lỗi. Hãy thử lại sau";
+                    return res.status(400).send({
+                        message: message
+                    });
+                } else {
+                    var token = buf.toString('hex');
+                    user.resetPasswordToken = token;
+                    user.resetPasswordExpires = Date.now()+ 3600000;
+                    user.save(function(err) {
+                        if(err){
+                            message = "Đã xảy ra lỗi. Hãy thử lại sau";
+                            return res.status(400).send({
+                                message: message
+                            });
+                        } else {
+                            Mail.sendMailResetPassword(user,token);
+                            message='Thành công. Yêu cầu thay đổi mật khẩu đã được gửi tới email của bạn';
+                            return res.status(200).send({
+                                message: message
+                            });
+                        }
+                    });
+
+                }
+            });
+        } else {
+            message = "Đã xảy ra lỗi. Hãy thử lại sau";
+            return res.status(400).send({
+                message: message
+            });
+        }
     });
 
 };

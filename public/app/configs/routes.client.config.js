@@ -19,9 +19,6 @@ angular.module('funstart').config([
         .when('/topic/:topicId', {
             templateUrl: '/app/views/topic.html'
         }).
-        when('/auth/action',{
-            templateUrl: '/app/views/action.html'
-        }).
         when('/action/verify/:token',{
             templateUrl: '/app/views/login.html'
         }).
@@ -30,6 +27,12 @@ angular.module('funstart').config([
         }).
         when('/avatar', {
             templateUrl: '/app/views/avatar.html'
+        }).
+        when('/action/reset/:token', {
+            templateUrl: '/app/views/login.html'
+        }).
+        when('/action/:token', {
+            templateUrl: '/app/views/action.html'
         })
         .otherwise({
             redirectTo: '/'

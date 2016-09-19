@@ -71,7 +71,7 @@
         <md-content class="md-padding">
             <div class="error-form" ng-if="errorAction" ng-bind="errorAction"></div>
             <div class="success-form" ng-if="successAction" ng-bind="successAction"></div>
-            <form name="actionForm" ng-submit="onAction('forgot')">
+            <form name="actionForm" ng-submit="onReset()">
                 <md-input-container class="md-block">
                     <label>Email: </label>
                     <input required name="actionEmail" type="email" ng-model="action.email" ng-pattern="/^.+@.+\..+$/">

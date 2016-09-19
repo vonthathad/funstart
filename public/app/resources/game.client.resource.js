@@ -5,7 +5,6 @@ angular.module('funstart').factory('Games', ['$resource',
     function($resource) {
         return $resource('api/games/:gameId', {
             gameId: '@_id'
-
         }, {
             update: {
                 method: 'PUT'
