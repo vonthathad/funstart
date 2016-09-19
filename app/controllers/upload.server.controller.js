@@ -6,7 +6,8 @@ var dir = 'uploaded/results/';
 var fs = require('fs');
 exports.uploadResult = function(req,res){
     var form = new formidable.IncomingForm();
-    form.uploadDir = __dirname + '../../public/' + dir;
+    form.uploadDir = __dirname + '/../../public/' + dir;
+    console.log(form.uploadDir);
     form.keepExtensions = true;
     form.maxFields = 0;
     form.maxFieldsSize = 0;
