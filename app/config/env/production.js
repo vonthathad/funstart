@@ -1,6 +1,3 @@
-/**
- * Created by andh on 7/19/16.
- */
 module.exports = {
     db: 'mongodb://admin:funbegin@23.88.239.10:61511/funstart',
     sessionSecret: 'PDLDHAHQTVTD',
@@ -17,7 +14,21 @@ module.exports = {
         callbackURL: '/oauth/facebook/callback',
         profileFields: ['id', 'displayName','email','gender']
     },
+    email: {
+        username: "funstart.net",
+        password: "brandnew123",
+        accountName: "Fun Start",
+        verifyEmailUrl: "action/verify",
+        resetPasswordUrl: "action/reset"
+    },
     server: {
         host: 'http://www.funstart.net'
-    }
+    },
+    app: {
+        id: '170584416691811',
+        name: 'Fun Start',
+        description: 'Phá đảo thế giới ảo!',
+        url: 'http://www.funstart.net',
+        image: 'http://www.funstart.net/sources/ads.jpg'
+    },
 }
