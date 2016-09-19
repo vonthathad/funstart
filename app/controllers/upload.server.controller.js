@@ -38,8 +38,6 @@ exports.uploadResult = function(req,res){
             console.log('loi dinh dang');
             return res.status(400).send();
         }
-
-
     });
     form.parse(req, function(err, fields, files) {
     });

@@ -3,6 +3,7 @@ var games = require('../controllers/game.server.controller.js');
 var missions =  require('../controllers/mission.server.controller.js');
 var activities =  require('../controllers/activity.server.controller.js');
 var users =  require('../controllers/user.server.controller.js');
+var battle =  require('../controllers/battle.server.controller.js');
 var uploads =  require('../controllers/upload.server.controller.js');
 var passport = require('passport');
 /* GET users listing. */
@@ -22,8 +23,15 @@ module.exports = function(router) {
         .delete(games.deleteGame);
     router.route('/findroom/:gameId')
         .get(games.findRoom);
+    router.route('/battle/:gameId')
+        .post(battle.findRoom)
+        .get(battle.createRoom);
+    router.route('/battle/:gameId/:roomId')
+        .get(battle.joinRoom)
+        .put(battle.updateObj);
     router.post('/uploadresult/:game',uploads.uploadResult);
     router.param('gameId', games.gameByID);
+    router.param('roomId', battle.roomByID);
     router.route('/activities')
         .get(activities.loadActivities)
         .post(activities.createActivity);
