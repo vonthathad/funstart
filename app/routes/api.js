@@ -21,14 +21,12 @@ module.exports = function(router) {
         .get(games.loadGame)
         .put(games.updateGame)
         .delete(games.deleteGame);
-    router.route('/findroom/:gameId')
-        .get(games.findRoom);
-    router.route('/battle/:gameId')
-        .post(battle.findRoom)
-        .get(battle.createRoom);
-    router.route('/battle/:gameId/:roomId')
+    router.route('/battle')
+        .get(battle.gameByID,battle.findRoom)
+        .post(battle.gameByID,battle.createRoom);
+    router.route('/battle/:roomId')
         .get(battle.joinRoom)
-        .put(battle.updateObj);
+        .put(battle.updateRoom);
     router.post('/uploadresult/:game',uploads.uploadResult);
     router.param('gameId', games.gameByID);
     router.param('roomId', battle.roomByID);

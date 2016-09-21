@@ -1,18 +1,31 @@
 var mongoose = require('mongoose');
 Schema = mongoose.Schema;
 var RoomSchema = new Schema({
-    players: {},
+    members: [{
+        type: Number,
+        ref: 'User'
+    }],
+    players: Schema.Types.Mixed,
     mode: {
         type: String,
-        enum: ["room","find"]
+        enum: ["room","find"],
+        default: "find"
+    },
+    game: {
+        type: Number,
+        ref: 'Game'
+    },
+    ready: [{
+        type: Number,
+        ref: 'User'
+    }],
+    host: {
+        type: Number,
+        ref: 'User'
     },
     people: {
         type: Number,
         default: 1
-    },
-    ready: {
-        type: Number,
-        default: 0
     },
     status: {
         type: Number,

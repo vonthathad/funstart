@@ -4,23 +4,23 @@
 /**
  * Created by andh on 7/28/16.
  */
-angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','FriendsService','ShareService','$location','$routeParams','$http','$timeout','$mdToast',
-    function($scope,$rootScope,GamesService,ActivityService,FriendsService,ShareService,$location,$routeParams,$http,$timeout,$mdToast){
+angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','FriendsService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast',
+    function($scope,$rootScope,GamesService,ActivityService,FriendsService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast){
         $scope.loadGame = function(){
             $scope.isInit = true;
             $scope.games = GamesService;
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
                 $scope.isInit = false;
-                // if($location.search().roomId){
-                //     $scope.isBattle = true;
-                //     $scope.battle = BattleService;
-                //     $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,null,function(){
-                //         $scope.isBattle = false;
-                //     });
-                // }
+                if($location.search().roomId){
+                    $scope.isBattle = true;
+                    $scope.battle = BattleService;
+                    $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,null,function(){
+                        $scope.isBattle = false;
+                    });
+                }
             });
-            // $scope.isBattleMode = false;
+            $scope.isBattleMode = false;
             //set order for recommend games and reset data list;
             $scope.games.order = 'random';
             $scope.games.hasMore = true;
@@ -32,7 +32,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.isBattle = false;
             $scope.time = Date.now();
             $scope.share = ShareService;
-            eventAdsense.load();
+            // eventAdsense.load();
         };
         $scope.loadTest = function(){
             $scope.isInit = true;
@@ -175,6 +175,80 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 });
             }
         };
+        //BATTLE
+        $scope.onBattleAgain = function(){
+            $scope.isEnd = false;
+            $scope.isPlay = false;
+            $scope.battle.onCreateRoom(function(){
+                console.log('vo day');
+                $timeout(function(){
+                    $mdDialog.show(
+                        $mdDialog.alert()
+                            .parent(angular.element(document.querySelector('.battle-room')))
+                            .clickOutsideToClose(true)
+                            .title('THÔNG BÁO!')
+                            .textContent('Lời mời đã được gửi đi')
+                            .ok('Okie!')
+                    );
+                },200);
+
+            });
+        }
+        $scope.onCreateRoom = function(){
+            $scope.isBattle = true;
+            $scope.battle = BattleService;
+            $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
+            $scope.battle.onCreateRoom();
+        }
+        $scope.statusClass = function(status){
+            return 'status-' + status;
+        }
+        $scope.onBattleCall = function () {
+            $scope.isBattle = true;
+            $scope.battle = BattleService;
+            $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
+            $scope.battle.onFindBattle(null,function(){
+                $scope.isBattle = false;
+            });
+        }
+        $scope.onBattleCallback = function(){
+            $scope.isPlay = true;
+            $scope.start();
+        }
+        $scope.onCloseBattle = function(){
+            console.log('Vo day');
+            var confirm = $mdDialog.confirm()
+                .title('Thoát chế độ thách đấu')
+                .textContent('Bạn chắc chắn muốn thoát chứ?')
+                .ok('Có')
+                .cancel('Không');
+            if($scope.battle.status.isEndGame){
+                confirm.parent(angular.element(document.querySelector('.recommend-games')))
+            } else if($scope.battle.status.isFullscreen){
+                confirm.parent(angular.element(document.querySelector('.game-area')))
+            } else if($scope.battle.status.isWaitRoom){
+                confirm.parent(angular.element(document.querySelector('.battle-room')));
+            } else {
+                confirm.parent(angular.element(document.querySelector('.spinner-bg')));
+            }
+            $mdDialog.show(confirm).then(function() {
+                $scope.isBattle = false;
+                //chuyen phase game ve chon choi
+                $scope.isPlay = false;
+                $scope.isEnd = false;
+                $scope.battle.onCloseBattle();
+            }, function() {
+
+            });
+
+        }
+        $scope.isMobile = function(){
+            if($(window).width() >= 960){
+                return false;
+            } else {
+                return true;
+            }
+        }
 
     }]);
 angular.module('funstart').directive('fsImg', function($routeParams) {

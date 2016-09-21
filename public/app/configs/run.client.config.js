@@ -51,6 +51,7 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
         $rootScope.user = user;
         sessionStorage.setItem('user',JSON.stringify($rootScope.user));
         localStorage.setItem('token',$rootScope.user.token);
+        socket.emit('user', $rootScope.user.token);
         // $rootScope.missions = MissionsService;
         // $rootScope.missions.loadMissions($rootScope.user._id);
     } else if (sessionStorage.getItem('user')){
@@ -58,14 +59,14 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
         // $rootScope.missions = MissionsService;
         // $rootScope.missions.loadMissions($rootScope.user._id);
         //doan nay nho set online
-
+        socket.emit('user', $rootScope.user.token);
     } else if(localStorage.getItem('token')){
         AuthToken.get(function(res){
             $rootScope.user = res.data;
             sessionStorage.setItem('user',JSON.stringify($rootScope.user));
             // $rootScope.missions = MissionsService;
             // $rootScope.missions.loadMissions($rootScope.user._id);
-
+            socket.emit('user', $rootScope.user.token);
             //doan nay nho set online
         },function (err) {
             $rootScope.user = null;

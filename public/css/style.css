@@ -865,7 +865,7 @@ md-toast {
   overflow-y: scroll;
 }
 .room-list{
-  height: calc(100vh - 200px);
+  height: calc(100vh - 270px);
   overflow-y: scroll;
 }
 .find-btn{
@@ -1179,6 +1179,15 @@ md-toast {
 }
 .full-mode>md-content{
   height: calc(100% - 64px);
+}
+.battle-room .invite-div{
+  padding: 0;
+}
+.battle-room md-input-container,.battle-room h4{
+  margin: 0
+}
+.battle-room md-input-container .md-errors-spacer{
+  min-height: 0;
 }
 @media screen and (max-width: 959px){
   .full-mode{

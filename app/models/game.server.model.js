@@ -42,6 +42,7 @@ var GameSchema = new Schema({
         default: 0
     },
     max: Number,
+    min: Number,
     type: {
         type: Number,
         enum: [0,1]
