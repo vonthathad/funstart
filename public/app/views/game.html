@@ -42,7 +42,7 @@
                 </h2>
             </md-toolbar>
             <md-content>
-                <div layout="column" layout-padding>
+                <div ng-if="battle.isHost" layout="column" layout-padding>
                     <div class="invite-div">
                         <h4>Copy link bên dưới và gửi cho bạn bè:</h4>
                     </div>
@@ -56,9 +56,9 @@
                 <md-tabs md-dynamic-height>
                     <md-tab label="THÀNH VIÊN">
                         <md-list>
-                        <div class="room-list"
+                        <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
                              infinite-scroll="suggest.loadMore()">
-                            <friend-card ng-repeat="item in battle.members"
+                            <friend-card ng-repeat="item in battle.room.members"
                                          item="item"
                                          is-host="battle.isHost"
                                          status-class="statusClass(input)"
@@ -85,7 +85,7 @@
                         </md-list>
                     </md-tab>
                 </md-tabs>
-                <md-button ng-click="battle.onReady(onBattleCallback)" class="md-raised md-primary room-btn">
+                <md-button ng-click="battle.onReady()" ng-disabled="battle.isReady" class="md-raised md-primary room-btn">
                     <span ng-if="battle.isHost"><i class="ion-play"></i> Bắt đầu</span>
                     <span ng-if="!battle.isHost"><i class="ion-play"></i> Sẵn sàng</span>
                 </md-button>

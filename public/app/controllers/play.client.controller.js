@@ -4,8 +4,8 @@
 /**
  * Created by andh on 7/28/16.
  */
-angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','FriendsService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast',
-    function($scope,$rootScope,GamesService,ActivityService,FriendsService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast){
+angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','FriendsService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog',
+    function($scope,$rootScope,GamesService,ActivityService,FriendsService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog){
         $scope.loadGame = function(){
             $scope.isInit = true;
             $scope.games = GamesService;
@@ -15,8 +15,12 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 if($location.search().roomId){
                     $scope.isBattle = true;
                     $scope.battle = BattleService;
-                    $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,null,function(){
+                    $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,function(){
+                        console.log('vo day ready het roi');
+                        $scope.onBattleCallback();
+                    },function(){
                         $scope.isBattle = false;
+                        $location.search().roomId = null;
                     });
                 }
             });
@@ -180,6 +184,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.isEnd = false;
             $scope.isPlay = false;
             $scope.battle.onCreateRoom(function(){
+
                 console.log('vo day');
                 $timeout(function(){
                     $mdDialog.show(
@@ -191,15 +196,18 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                             .ok('Okie!')
                     );
                 },200);
-
+            },function(){
+                $scope.onBattleCallback();
             });
-        }
+        };
         $scope.onCreateRoom = function(){
             $scope.isBattle = true;
             $scope.battle = BattleService;
             $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
-            $scope.battle.onCreateRoom();
-        }
+            $scope.battle.onCreateRoom(null,function(){
+                $scope.onBattleCallback();
+            });
+        };
         $scope.statusClass = function(status){
             return 'status-' + status;
         }
@@ -233,6 +241,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             }
             $mdDialog.show(confirm).then(function() {
                 $scope.isBattle = false;
+                $location.search().roomId = null;
                 //chuyen phase game ve chon choi
                 $scope.isPlay = false;
                 $scope.isEnd = false;
