@@ -25,7 +25,7 @@ module.exports = function(app) {
   app.get('/test/:key/:game',games.renderTest);
   app.param('gameId', games.gameByID);
   app.get('*', function (req, res, next) {
-    if(req.url.indexOf('sources')<0 && req.url.indexOf('api')<0 && req.url.indexOf('uploaded')<0){
+    if(req.url.indexOf('sources')<0 && req.url.indexOf('api')<0 && req.url.indexOf('uploaded')<0 && req.url.indexOf('socket.io')<0){
       console.log(req.url);
       var app = {
         id: Config.app.id,
