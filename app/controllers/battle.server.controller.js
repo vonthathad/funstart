@@ -1,8 +1,9 @@
 var User = require('mongoose').model('User'),
     Room = require('mongoose').model('Room'),
-    Game = require('mongoose').model('Game'),
-    socket = require('../config/socket');
-io = socket.getSocket();
+    Game = require('mongoose').model('Game');
+var app = require('http').createServer();
+var io = require('socket.io')(app);
+app.listen(8080);
 var connections = {};
 io.on('connection', function (socket) {
     socket.on('user', function(token) {

@@ -17,9 +17,7 @@
 //     return io;
 // };
 
-var app = require('http').createServer();
-var io = require('socket.io')(app);
-app.listen(8080);
-exports.getSocket = function(){
-    return io;
-};
+//
+// exports.getSocket = function(){
+//     return io;
+// };
