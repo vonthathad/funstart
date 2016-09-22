@@ -14,6 +14,9 @@ module.exports = function(app) {
     failureRedirect: 'back'
   }));
   app.get('/logout',users.authLogout);
+  app.get('/abc',function (req,res) {
+    res.render('index2');
+  });
   app.route('/action/verify/:token')
       .get(users.verifyEmail);
   app.route('/action/reset')
