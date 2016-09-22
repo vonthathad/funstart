@@ -11,7 +11,7 @@
 //    connections : connections,
 //    io : io
 //}
-var io = require('socket.io')(8080);
+var io = require('socket.io')(8888);
 console.log('io',io);
 exports.getSocket = function(){
     return io;
