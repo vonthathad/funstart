@@ -66,7 +66,6 @@ function disconnect(data){
     data.status = 0;
     data.room = null;
     data.save();
-    res.json();
 }
 function mergeObject(obj1,obj2){
     var obj3 = {};
@@ -76,6 +75,7 @@ function mergeObject(obj1,obj2){
 };
 exports.outRoom = function(req,res){
     disconnect(req.user);
+    res.json();
 };
 exports.findRoom = function(req,res){
     //$where:"this.members.length < " + req.game.min
