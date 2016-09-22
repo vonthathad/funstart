@@ -138,6 +138,7 @@ exports.resetDone= function(req,res){
                 message: message
             });
         } else {
+            console.log(req.body.password);
             user.password = req.body.password;
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;

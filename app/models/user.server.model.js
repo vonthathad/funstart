@@ -108,6 +108,7 @@ var UserSchema = new Schema({
         default: 1,
         enum: [0,1,2]
     },
+    room: String,
     rank: Number
 });
 UserSchema.plugin(autoIncrement.plugin, {

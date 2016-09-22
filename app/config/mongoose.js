@@ -13,6 +13,7 @@ module.exports = function(callback) {
     });
     require('../models/user.server.model');
     require('../models/game.server.model');
+    require('../models/room.server.model');
     require('../models/activity.server.model');
     require('../models/mission.server.model');
     require('../models/quest.server.model');
