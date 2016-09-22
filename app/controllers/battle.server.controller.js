@@ -8,7 +8,7 @@ io.on('connection', function (socket) {
     socket.on('user', function(token) {
         socket.token = token;
         User.findOne({token: socket.token},function (err,data) {
-            connections[data._id] = socket;
+            if(data) connections[data._id] = socket;
         })
         console.log('token',token);
     });
