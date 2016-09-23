@@ -2,11 +2,8 @@ var User = require('mongoose').model('User'),
     Room = require('mongoose').model('Room'),
     Game = require('mongoose').model('Game');
     socket = require('../config/socket');
-// io = socket.getSocket();
-// var connections = {};
-// Require HTTP module (to start server) and Socket.IO
-
-var io = socket.getSocket();
+io = socket.getSocket();
+var connections = {};
 io.on('connection', function (socket) {
     socket.on('user', function(token) {
         socket.token = token;
