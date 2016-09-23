@@ -692,10 +692,13 @@ md-toast {
   position: fixed;
 }
 @media (max-width: 959px){
-  md-toast {
+  md-toast.md-md-accent-theme {
     top: 50%;
     transform: translate(0,-50%);
     bottom: auto;
+  }
+  md-toast.invite-toast{
+    top: 0%;
   }
 }
 

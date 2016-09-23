@@ -50,6 +50,7 @@ angular.module('funstart').directive('friendCard', function () {
             'item' : '=',
             'type' : '=',
             'follow' : '&',
+            'invite': '&',
             'unfollow' : '&',
             'isHost': '=',
             'statusClass' : '&',

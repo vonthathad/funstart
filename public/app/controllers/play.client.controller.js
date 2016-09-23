@@ -14,17 +14,16 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 $scope.isInit = false;
                 if($location.search().roomId){
                     $scope.isBattle = true;
+                    $scope.isPlay = true;
+                    $scope.isEnd = false;
                     $scope.battle = BattleService;
                     $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,function(){
-                        console.log('vo day ready het roi');
-                        $scope.onBattleCallback();
-                    },function(){
+                        console.log('room err');
                         $scope.isBattle = false;
-                        $location.search().roomId = null;
+                        $location.search({});
                     });
                 }
             });
-            $scope.isBattleMode = false;
             //set order for recommend games and reset data list;
             $scope.games.order = 'random';
             $scope.games.hasMore = true;
@@ -179,32 +178,15 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 });
             }
         };
-        //BATTLE
-        $scope.onBattleAgain = function(){
+        $scope.onCreateRoom = function(){
             $scope.isEnd = false;
             $scope.isPlay = false;
+            if(!$scope.isBattle){
+                $scope.isBattle = true;
+                $scope.battle = BattleService;
+                $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
+            };
             $scope.battle.onCreateRoom(function(){
-
-                console.log('vo day');
-                $timeout(function(){
-                    $mdDialog.show(
-                        $mdDialog.alert()
-                            .parent(angular.element(document.querySelector('.battle-room')))
-                            .clickOutsideToClose(true)
-                            .title('THÔNG BÁO!')
-                            .textContent('Lời mời đã được gửi đi')
-                            .ok('Okie!')
-                    );
-                },200);
-            },function(){
-                $scope.onBattleCallback();
-            });
-        };
-        $scope.onCreateRoom = function(){
-            $scope.isBattle = true;
-            $scope.battle = BattleService;
-            $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
-            $scope.battle.onCreateRoom(null,function(){
                 $scope.onBattleCallback();
             });
         };
@@ -218,10 +200,6 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.battle.onFindBattle(null,function(){
                 $scope.isBattle = false;
             });
-        }
-        $scope.onBattleCallback = function(){
-            $scope.isPlay = true;
-            $scope.start();
         }
         $scope.onCloseBattle = function(){
             console.log('Vo day');

@@ -66,6 +66,7 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         if(bool){
             $scope.friends.data.push(obj);
             $rootScope.user.friends.push(obj._id);
+            sessionStorage.setItem('user',JSON.stringify($rootScope.user));
         } else {
             $scope.friends.data.splice($scope.friends.data.indexOf(obj),1);
             $rootScope.user.friends.splice($rootScope.user.friends.indexOf(obj._id),1);

@@ -21,6 +21,9 @@ io.on('connection', function (socket) {
         socket.token = token;
         User.findOne({token: socket.token},function (err,data) {
             if(data) connections[data._id] = socket;
+            data.status = 1;
+            data.save();
+
         })
         console.log('token',token);
     });
@@ -112,15 +115,16 @@ exports.findRoom = function(req,res){
     })
 };
 function enterRoom(room,user,success,error) {
+    console.log('thanh vien trong room', room.members);
     if(room.members.indexOf(user._id)<0){
         room.members.push(user._id);
+        room.people++;
     };
     var obj =  {};
     obj[user._id] = {score: 0, connect: 1};
     var tmp = mergeObject(room.players,obj);
     room.players = {};
     room.players = tmp;
-    room.people++;
     room.save(function(err,result){
         if(result){
             console.log('room moi ne', result);
@@ -135,7 +139,7 @@ function enterRoom(room,user,success,error) {
             user.room = room._id;
             user.save();
             if(connections[user._id]) connections[user._id].join(result._id);
-            io.to(result._id).emit('join',player);
+            io.to(result._id).emit('join',result.members);
             if(success) success(result);
         } else {
             if(error) error();
@@ -241,6 +245,8 @@ exports.updateRoom = function (req,res){
 exports.joinRoom = function(req,res){
     if(req.room.people >= req.room.game.max){
         return res.status(400).send({message: 'FULL'});
+    } else if (req.room.status == 1){
+        return res.status(400).send({message: 'PLAYED'});
     } else {
         enterRoom(req.room,req.user,function(result){
             return res.json({data: result});
@@ -248,6 +254,25 @@ exports.joinRoom = function(req,res){
             return res.status(400).send();
         });
     }
+};
+exports.inviteToRoom = function(req,res){
+    var data = {
+        game: req.room.game._id,
+        room: req.room._id,
+        user: {
+            _id: req.user._id,
+            username: req.user.username
+        }
+    };
+    if(req.body.players){
+        req.body.players.data.forEach(function (player) {
+            console.log(player, 'moi');
+            if(connections[player]) connections[player].emit('invite',data);
+        });
+    } else if(req.body.player){
+        if(connections[req.body.player]) connections[req.body.player].emit('invite',data);
+    };
+    res.json();
 };
 exports.gameByID = function(req, res, next) {
     var gameId = null;
@@ -273,7 +298,7 @@ exports.gameByID = function(req, res, next) {
 exports.roomByID = function(req, res, next, id) {
     Room.findById(id)
         .populate('members','username avatar displayName')
-        .populate('game','min max')
+        .populate('game','title min max')
         .exec(function(err, room){
             if (err) {
                 return res.status(400).send();

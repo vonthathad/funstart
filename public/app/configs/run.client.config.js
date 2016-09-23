@@ -13,7 +13,7 @@ angular.module('funstart').config([
         // $httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
     }
 ]);
-angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSidenav){
+angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdToast){
 
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         $(window).scrollTop(0);
@@ -51,7 +51,7 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
         $rootScope.user = user;
         sessionStorage.setItem('user',JSON.stringify($rootScope.user));
         localStorage.setItem('token',$rootScope.user.token);
-        socket.emit('user', $rootScope.user.token);
+        initSocket();
         // $rootScope.missions = MissionsService;
         // $rootScope.missions.loadMissions($rootScope.user._id);
     } else if (sessionStorage.getItem('user')){
@@ -59,18 +59,41 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
         // $rootScope.missions = MissionsService;
         // $rootScope.missions.loadMissions($rootScope.user._id);
         //doan nay nho set online
-        socket.emit('user', $rootScope.user.token);
+        initSocket();
     } else if(localStorage.getItem('token')){
         AuthToken.get(function(res){
             $rootScope.user = res.data;
             sessionStorage.setItem('user',JSON.stringify($rootScope.user));
             // $rootScope.missions = MissionsService;
             // $rootScope.missions.loadMissions($rootScope.user._id);
-            socket.emit('user', $rootScope.user.token);
+            initSocket();
             //doan nay nho set online
         },function (err) {
             $rootScope.user = null;
         })
     }
-
+    function initSocket(){
+        socket.emit('user', $rootScope.user.token);
+        socket.on('invite',function(data){
+            $mdToast.show({
+                templateUrl: '/app/templates/inviteToast.tmpl.html',
+                position: 'bottom right',
+                hideDelay: 20000,
+                controller: 'InviteToastCtrl',
+                locals:{parm:data}
+            });
+        })
+    };
 });
+angular.module('funstart')
+    .controller('InviteToastCtrl', ['$scope','$location','$mdToast', 'parm', function ($scope,$location,$mdToast, parm) {
+        $scope.data = parm;
+        $scope.goRoom = function(){
+            $location.path('/game/'+$scope.data.game);
+            $location.search({roomId : $scope.data.room});
+            $mdToast.hide();
+        }
+        $scope.closeToast = function () {
+            $mdToast.hide();
+        }
+    }]);
