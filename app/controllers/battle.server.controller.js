@@ -1,21 +1,12 @@
 var User = require('mongoose').model('User'),
     Room = require('mongoose').model('Room'),
     Game = require('mongoose').model('Game');
-//     socket = require('../config/socket');
+    socket = require('../config/socket');
 // io = socket.getSocket();
 // var connections = {};
 // Require HTTP module (to start server) and Socket.IO
-var http = require('http'), io = require('socket.io');
 
-// Start the server at port 8080
-var server = http.createServer(function(req, res){
-
-    // Send HTML headers and message
-    res.writeHead(200,{ 'Content-Type': 'text/html' });
-    res.end('<h1>Hello Socket Lover!</h1>');
-});
-server.listen(8080);
-var io = io.listen(server);
+var io = socket.getSocket();
 io.on('connection', function (socket) {
     socket.on('user', function(token) {
         socket.token = token;
