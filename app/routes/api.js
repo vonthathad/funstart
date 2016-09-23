@@ -28,6 +28,8 @@ module.exports = function(router) {
         .get(battle.joinRoom)
         .put(battle.updateRoom)
         .delete(battle.outRoom);
+    router.route('/invite/:roomId')
+        .post(battle.inviteToRoom);
     router.post('/uploadresult/:game',uploads.uploadResult);
     router.param('gameId', games.gameByID);
     router.param('roomId', battle.roomByID);

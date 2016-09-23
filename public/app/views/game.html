@@ -58,7 +58,7 @@
                         <md-list>
                         <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
                              infinite-scroll="suggest.loadMore()">
-                            <friend-card ng-repeat="item in battle.room.members"
+                            <friend-card ng-repeat="item in battle.room.members track by $index"
                                          item="item"
                                          is-host="battle.isHost"
                                          status-class="statusClass(input)"
@@ -73,11 +73,12 @@
                         <md-list>
                             <div class="room-list"
                                  ng-if="mode=='friend'"
-                                 infinite-scroll="friends.loadMore()"
+                                 infinite-scroll="battle.friends.loadMore()"
                                  infinite-scroll-immediate-check="false"
                                  infinite-scroll-distance="1">
-                                <friend-card ng-repeat="item in friendsOnline.data"
+                                <friend-card ng-repeat="item in battle.friends.data"
                                              item="item"
+                                             invite="battle.invite(input)"
                                              mode="'invite'">
                                 </friend-card>
                                 <loading-circle flex="100" is-loading="friends.isLoading"></loading-circle>
@@ -85,7 +86,7 @@
                         </md-list>
                     </md-tab>
                 </md-tabs>
-                <md-button ng-click="battle.onReady()" ng-disabled="battle.isReady" class="md-raised md-primary room-btn">
+                <md-button ng-click="battle.onReady(onPlay)" ng-disabled="battle.isReady" class="md-raised md-primary room-btn">
                     <span ng-if="battle.isHost"><i class="ion-play"></i> Bắt đầu</span>
                     <span ng-if="!battle.isHost"><i class="ion-play"></i> Sẵn sàng</span>
                 </md-button>
@@ -126,7 +127,7 @@
                     <i class="ion-refresh" style="font-size: 1.25em"></i>
                     Chơi lại
                 </md-button>
-                <md-button ng-if="isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onBattleAgain()">
+                <md-button ng-if="isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onCreateRoom()">
                     <i class="ion-refresh" style="font-size: 1.25em"></i>
                     Thách đấu lại
                 </md-button>
@@ -147,7 +148,7 @@
             <div class="search-spinner"></div>
         </div>
         <div ng-if="battle.status.isFullRoom">
-            <div role="button" ng-click="battle.onReady(onBattleCallback)" class="search-ready">
+            <div role="button" ng-click="battle.onReady(onPlay)" class="search-ready">
                 <span>Chiến!</span>
             </div>
         </div>

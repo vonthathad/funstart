@@ -310,7 +310,10 @@ exports.loadUsers = function(req,res){
             User.findById(req.query.friend,function(err,user){
                 if(user){
                     conds.push({_id: { $in: user.friends}});
-                }
+                    if(req.query.online){
+                        conds.push({status: 1});
+                    }
+                };
                 if(req.query.text) conds.push({$or:[
                     {email: { $regex: req.query.text, $options: 'i' }},
                     {username: {$regex: req.query.text,$options: 'i'}},

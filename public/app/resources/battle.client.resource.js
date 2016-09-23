@@ -9,35 +9,74 @@ angular.module('funstart').factory('Rooms', ['$resource',
         });
     }
 ]);
-// angular.module('funstart').factory('Players', ['$resource',
-//     function($resource) {
-//         return $resource('api/battle/:gameId/:roomId', {
-//             gameId: '@gameId',
-//
-//         }, {
-//             update: {
-//                 method: 'PUT'
-//             }
-//         });
-//     }
-// ]);
+angular.module('funstart').factory('Invite', ['$resource',
+    function($resource) {
+        return $resource('api/invite/:roomId', {
+            roomId: '@roomId'
+        });
+    }
+]);
+angular.module('funstart').service('FriendsOnlineService',['Users',function(Users){
+    var self = {
+        'isLoading': false,
+        'hasMore': true,
+        'data' : [],
+        'order' : 'exp',
+        'page' : 1,
+        'userId': null,
+        'init' :  function(){
+            self.isLoading = false;
+            self.hasMore = true;
+            self.page = 1;
+            self.data = [];
+            self.order = 'exp';
+        },
+        'loadMore' : function () {
+            self.loadFriends();
+        },
+        'loadFriends': function (callback) {
+            if (self.hasMore && !self.isLoading) {
+                self.isLoading = true;
+                var params = {
+                    friend: self.userId,
+                    page: self.page,
+                    order: self.order,
+                    online: true
+                };
+                Users.get(params,function (res) {
+                    angular.forEach(res.data,function(user){
+                        self.data.push(new Users(user));
 
-angular.module('funstart').service('BattleService', function ($rootScope,$timeout,Rooms,$mdDialog) {
+                    });
+                    console.log(self.data);
+                    self.isLoading = false;
+                    console.log(self.data);
+                    if(!res.isNext){
+                        self.hasMore = false;
+                    }
+                    self.page++;
+                    if(callback) callback();
+                });
+            }
+        }
+    };
+    return self;
+
+}]);
+angular.module('funstart').service('BattleService', function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService) {
     var self = this;
     self.status = {};
     self.friends = {};
     self.opponent = {};
-    self.currentPlayers = 0;
+    self.friends = {};
     self.isHost = true;
-    self.init = function(game,user,roomId,start,error){
-        self.currentPlayers = 0;
+    self.init = function(game,user,roomId,error){
         self.isHost = true;
-        console.log(game);
+        self.isReady = false;
         self.game = game;
         self.room = null;
         self.user = user;
         self.players = [];
-        self.members = [];
         self.opponent = {};
         self.status = {
             isSearching: false,
@@ -47,65 +86,49 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             isFullscreen: false,
             isEndGame: false,
             isWaitRoom: false
-        }
+        };
         if(roomId) {
-            console.log('here');
+            self.friends = FriendsOnlineService;
+            self.friends.userId = self.user._id;
+            self.friends.loadFriends();
             self.isHost = false;
-            self.joinRoom(roomId,start,function(message){
-                console.log(message);
+            self.joinRoom(roomId,function(message){
                 var alert = $mdDialog.alert()
                     .parent(angular.element(document.querySelector('.spinner-bg')))
                     .clickOutsideToClose(true)
                     .title('THÔNG BÁO!')
-
-                    .ok('Okie!')
+                    .ok('Okie!');
                 if(message == 'FULL'){
                     alert.textContent('Rất tiếc, phòng đã đầy')
-                    $mdDialog.show(alert).then(function() {
-                        self.game = null;
-                        self.status = {};
-                        if(error) error();
-                    }, function() {
-
-                    });
                 } else if(message == 'NULL'){
                     alert.textContent('Phòng không tồn tại');
-                    $mdDialog.show(alert).then(function() {
-                        self.game = null;
-                        self.status = {};
-                        if(error) error();
-                    }, function() {
-                    });
+                } else if(message == 'PLAYED'){
+                    alert.textContent('Phòng đã bắt đầu');
                 } else {
                     alert.textContent('Có lỗi. Vui lòng thử lại sau');
-                    $mdDialog.show(alert).then(function() {
-                        self.game = null;
-                        self.status = {};
-                        if(error) error();
-                    }, function() {
-                    });
                 }
+                $mdDialog.show(alert).then(function() {
+                    self.status = {};
+                    if(error) error();
+                }, function() {
+                });
                 self.onCloseBattle();
             });
-
-            console.log("In dialog");
-
-
         }
     }
     self.onCloseBattle = function(){
         //ket thuc man dau
         self.status = {};
         if(self.room) {
-            self.room.$remove();
-            self.room = null;
+            self.room.$remove(function(res){
+                self.room = null;
+            },function (err) {
+                
+            });
         }
-
-    }
+    };
     self.checkRoomFull = function(bool){
-        console.log('min', self.game.min);
         if(self.room.members.length >= self.game.min){
-            console.log("full roi");
             self.status.isSearching = false;
             if(self.room.status==0) {
                 self.status.isFullRoom = true;
@@ -114,8 +137,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         }
     }
     self.checkRoomReady = function(start){
-        if(self.room.ready.length >= self.room.members.length){
-            console.log("ready roi");
+        if(self.room && self.room.ready.length >= self.room.members.length){
             self.status.isReady = false;
             if(self.room.status==0) {
                 self.room.members.forEach(function(e){
@@ -125,7 +147,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                     }
                 });
                 self.players = self.room.members;
-                self.status.isIntro = true;
                 self.onBattle(start);
             }
         }
@@ -133,32 +154,28 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
     self.updateReady = function(start){
         Rooms.update({_id: self.room._id, ready: true});
         self.room.ready.push(self.user._id);
-        if(self.room.mode=="find"){
-            socket.on('ready',function(data){
-                console.log('ready',data);
+        socket.on('ready',function(data){
+            $rootScope.$apply(function () {
                 self.room.ready = data;
-                // var tmp = [];
-                // console.log(self.room.members);
-                // self.room.members.forEach(function(player){
-                //     data.forEach(function(e){
-                //         if(player._id == e){
-                //             player.isReady = true;
-                //             return true;
-                //         }
-                //     });
-                //     tmp.push(player);
-                // })
-                // console.log(tmp);
-                // self.room.members = tmp;
+                var tmp = [];
+                self.room.members.forEach(function(player){
+                    data.forEach(function(e){
+                        if(player._id == e){
+                            player.isReady = true;
+                            return true;
+                        }
+                    });
+                    tmp.push(player);
+                })
+                self.room.members = tmp;
                 self.checkRoomReady(start);
-                $rootScope.$apply();
             });
-        }
+
+        });
     };
     self.onFindBattle = function(success,error){
         self.status.isSearching = true;
         Rooms.get({gameId: self.game._id},function(res){
-            console.log(res.data);
             if(res.data == null){
                 self.createRoom("find");
             } else {
@@ -174,7 +191,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         var tmp = [];
         Object.keys(self.room.players).forEach(function(e){
 
-            console.log(self.room.players);
             self.players.forEach(function(player){
                 if(player._id == e){
                     player.score = self.room.players[e].score;
@@ -187,18 +203,17 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         });
         self.room.players = tmp;
     }
-    self.joinRoom = function(roomId,start,error){
+    self.joinRoom = function(roomId,error){
         Rooms.get({roomId: roomId},function(res){
-            console.log(res.data);
             self.room = new Rooms(res.data);
             self.status.isWaitRoom = true;
-            self.handlingRoom(start);
+            self.handlingRoom();
         },function(err){
             if(error) error(err.data.message);
         })
 
     };
-    self.createRoom = function(mode,start,callback){
+    self.createRoom = function(mode,callback){
         Rooms.save({gameId: self.game._id, mode: mode},function (res) {
             self.room = new Rooms(res.data);
             self.room.members = [{
@@ -208,7 +223,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                 avatar: self.user.avatar
             }];
             if(self.room.mode=="room"){
-                self.handlingRoom(start);
+                self.handlingRoom();
             } else{
                 self.listenRoom();
 
@@ -219,14 +234,14 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         });
     };
     self.listenRoom = function () {
-        console.log('te ra vo ca day');
         socket.on('join',function(data){
-            self.room.members.push(data);
-            self.checkRoomFull(true);
+            if(self.room) {
+                self.room.members = data;
+                if(self.room.mode = "find") self.checkRoomFull(true);
+            }
         });
         socket.on('leave',function(id){
-            console.log('thang' + id + 'vua roi khoi');
-            if(self.room && self.room.status == 0){
+            if(self.room && self.room.mode == "find" && self.room.status == 0){
                 $mdDialog.show(
                     $mdDialog.alert()
                         .parent(angular.element(document.querySelector('.spinner-bg')))
@@ -242,37 +257,17 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             }
         });
     };
-    self.handlingRoom = function(start){
+    self.handlingRoom = function(){
         socket.on('join',function(data){
-            self.room.members.push(data);
+            self.room.members = data;
         });
         socket.on('leave',function(id){
             if(self.room){
-            console.log('thang' + id + 'vua roi khoi');
             self.room.members.forEach(function(e,i){
                 if(e._id == id) self.room.members.splice(i,1);
                 return true;
             })
             }
-        });
-        socket.on('ready',function(data){
-            console.log('ready',data);
-            self.room.ready = data;
-            var tmp = [];
-            console.log(self.room.members);
-            self.room.members.forEach(function(player){
-                data.forEach(function(e){
-                    if(player._id == e){
-                        player.isReady = true;
-                        return true;
-                    }
-                });
-                tmp.push(player);
-            })
-            console.log(tmp);
-            self.room.members = tmp;
-            self.checkRoomReady(start);
-            $rootScope.$apply();
         });
     }
     self.onReady = function(start){
@@ -293,23 +288,26 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         self.status.isIntro = true;
         self.room.status = 1;
         Rooms.update({_id: self.room._id,status: true});
+
         socket.on('players',function (players) {
             self.room.players = players;
             self.updatePlayers();
             $rootScope.$apply();
         });
         socket.on('leave',function(id){
-            console.log('thang' + id + 'vua roi khoi');
             self.players.forEach(function(e){
                 if(e._id == id) e.connect = 0;
+                $rootScope.$apply();
             })
         });
         self.handleResultDialog();
-        $timeout(function () {
+        setTimeout(function () {
             //mo man choi
             //mo class battle
             self.status.isFullscreen = true;
-            if(callback) callback();
+            $rootScope.$apply(function () {
+                if(callback) callback();
+            });
             //bat dau game
         },6000)
     };
@@ -321,18 +319,61 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         } else {
             return item.displayName;
         }
-    }
-    self.onCreateRoom = function(callback,start){
-        self.isHost = true;
-        if(self.room){
-            self.room.$remove();
-            self.room = null;
-        }
-        self.status.isWaitRoom = true;
-        self.createRoom("room",start,function(key){
-            self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
+    };
+    self.invite = function (user) {
+        if(self.room) Invite.save({roomId: self.room._id,player: user._id},function(res){
+        },function (err) {
         });
-        if(callback) callback();
+    }
+    self.onCreateRoom = function(){
+        self.isHost = true;
+        self.friends = FriendsOnlineService;
+        self.friends.userId = self.user._id;
+        self.friends.loadFriends();
+        console.log(self.friends);
+        if(self.room){
+            var players = [];
+            self.players.forEach(function(player){
+                if(player._id != self.user._id) players.push(player._id);
+            });
+            self.room.$remove(function(){
+                self.isHost = true;
+                self.isReady = false;
+                self.room = null;
+                self.opponent = {};
+                self.status = {
+                    isSearching: false,
+                    isFullRoom: false,
+                    isReady: false,
+                    isIntro: false,
+                    isFullscreen: false,
+                    isEndGame: false,
+                    isWaitRoom: true
+                };
+                self.createRoom("room",function(key){
+                    if(players) Invite.save({roomId: key,players: {data: players}},function(res){
+                        $mdDialog.show(
+                            $mdDialog.alert()
+                                .parent(angular.element(document.querySelector('.battle-room')))
+                                .clickOutsideToClose(true)
+                                .title('THÔNG BÁO!')
+                                .textContent('Lời mời đã được gửi đi')
+                                .ok('Okie!')
+                        );
+                    },function (err) {
+
+                    });
+                    self.isReady = false;
+                    self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
+                });
+            });
+        } else {
+            self.status.isWaitRoom = true;
+            self.createRoom("room",function(key){
+                self.isReady = false;
+                self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
+            });
+        }
         // var toastBattleAgain = $mdToast.simple()
         //     .textContent('Lời mời đã được gửi đi')
         //     .position('center center');
@@ -357,7 +398,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
     self.handleResultDialog = function(){
         socket.on("end",function(stt){
             var win = null;
-            console.log('end',stt);
             Object.keys(stt).forEach(function(e){
                 if(e == self.user._id){
                    win = stt[e];
