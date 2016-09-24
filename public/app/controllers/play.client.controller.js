@@ -4,8 +4,8 @@
 /**
  * Created by andh on 7/28/16.
  */
-angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','FriendsService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog',
-    function($scope,$rootScope,GamesService,ActivityService,FriendsService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog){
+angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','FriendsService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
+    function($scope,$rootScope,GamesService,ActivityService,FriendsService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
         $scope.loadGame = function(){
             $scope.isInit = true;
             $scope.games = GamesService;
@@ -100,7 +100,37 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             }
 
         }
+        var timeCountdown = null;
+        $scope.setTimeProgress = function () {
+            if($scope.battle && $scope.battle.game && $scope.battle.game.time){
+                if(timeCountdown) $interval.cancel(timeCountdown);
+                $scope.battle.timedown = 100;
+                timeCountdown = $interval(function() {
+                    $scope.battle.timedown -= 10/$scope.battle.game.time;
+                    if($scope.battle.timedown <= 0) $interval.cancel(timeCountdown);
+                }, 100, 0, true);
+            }
+        }
         $scope.onPlay = function(){
+            if($scope.battle && $scope.battle.room && $scope.battle.room.time){
+                socket.on('turn',function(data){
+                    if($scope.battle.players){
+                        console.log(data);
+                        Object.keys(data).forEach(function(e){
+                            $scope.battle.players.forEach(function (player) {
+                                if(player._id == e){
+                                    player.turn = data[e];
+                                    return true;
+                                }
+                            });
+                        });
+                        console.log($scope.battle.players);
+                    }
+                    $scope.$apply();
+                    $scope.setTimeProgress();
+                });
+                $scope.setTimeProgress();
+            }
             $scope.isEnd = false;
             $scope.isPlay = true;
             $scope.start();
@@ -125,8 +155,6 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             // $scope.$apply(function () {
                 $scope.isEnd = true;
             // });
-            console.log('time',$scope.time);
-            console.log('now',Date.now());
             if(Date.now() - $scope.time >= 2*60*1000){
                 eventAdsense.load();
             }
@@ -187,7 +215,6 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
             };
             $scope.battle.onCreateRoom(function(){
-                $scope.onBattleCallback();
             });
         };
         $scope.statusClass = function(status){

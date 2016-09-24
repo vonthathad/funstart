@@ -10,7 +10,7 @@
     </div>
     <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead && !item.isWin)">Tạch</h5>
     <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin)">Thắng</h5>
-    <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && (item.token)">Đánh</h5>
+    <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && (item.turn == 0)">Đánh</h5>
     <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'room' && item.isReady">Sẵn sàng</h5>
     <h5 ng-if="mode=='friend'">Học sĩ</h5>
     <md-button ng-click="invite({input: item})" ng-if="mode=='invite'" class="md-raised md-primary"><i class="ion-android-add"></i> Mời</md-button>

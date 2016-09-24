@@ -19,10 +19,11 @@ var RoomSchema = new Schema({
         type: Number,
         ref: 'User'
     }],
-    host: {
+    turn: {
         type: Number,
         ref: 'User'
     },
+    time: Number,
     people: {
         type: Number,
         default: 1

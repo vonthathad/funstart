@@ -188,20 +188,20 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         })
     };
     self.updatePlayers = function(){
-        var tmp = [];
+        // var tmp = [];
         Object.keys(self.room.players).forEach(function(e){
-
             self.players.forEach(function(player){
                 if(player._id == e){
                     player.score = self.room.players[e].score;
                     player.isDead = self.room.players[e].isDead;
                     player.isWin = self.room.players[e].isWin;
-                    tmp.push(player);
+                    player.turn = self.room.players[e].turn;
+                    // tmp.push(player);
                     return true;
                 }
             })
         });
-        self.room.players = tmp;
+        // self.room.players = tmp;
     }
     self.joinRoom = function(roomId,error){
         Rooms.get({roomId: roomId},function(res){

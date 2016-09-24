@@ -4,6 +4,7 @@ var User = require('mongoose').model('User'),
     socket = require('../config/socket');
 io = socket.getSocket();
 var connections = {};
+var roomsInterval = {};
 io.on('connection', function (socket) {
     socket.on('user', function(token) {
         socket.token = token;
@@ -36,15 +37,17 @@ function disconnect(data){
                 room.remove();
             } else {
                 var indMember = room.members.indexOf(data._id);
+                var tmpTurn = null;
+                var tmp = room.players;
+                room.players = {};
                 if(room.status == 0){
                     if(indMember >= 0){
                         room.members.splice(indMember,1);
                         room.people--;
-                        var tmp = room.players;
-                        room.players = {};
+                        tmpTurn = tmp[data._id].turn;
                         delete tmp[data._id];
-                        room.players = tmp;
                         room.ready = [];
+                        room.players = tmp;
                     }
                     // var tmp = room.players;
                     // room.players = {};
@@ -53,14 +56,48 @@ function disconnect(data){
                     // });
                     // room.players = tmp;
                 } else if(room.status == 1){
-                    var tmp = room.players;
-                    room.players = {};
                     if (tmp[data._id]) {
                         tmp[data._id].connect = 0;
                         room.people--;
+                        if(room.time){
+                            console.log('vo update turn khi disconnect',tmp);
+                            var dataTurn = {};
+                            if(room.turn == data._id) {
+                                Object.keys(tmp).forEach(function(e){
+                                    if(tmp[e].connect == 1){
+                                        tmp[e].turn --;
+                                        if(tmp[e].turn == 0){
+                                            room.turn = e;
+                                        };
+                                        dataTurn[e] = tmp[e].turn;
+                                    } else {
+                                        tmp[e].turn = null;
+                                        dataTurn[e] = null;
+                                    }
+                                });
+                                console.log('vo trong nay',room.turn);
+                                console.log('vo trong nay data',dataTurn);
+                                io.to(room._id).emit('turn',dataTurn);
+                            } else {
+                                Object.keys(tmp).forEach(function(e){
+                                    if(tmp[e].connect == 1 && tmp[e].turn > tmpTurn){
+                                        tmp[e].turn --;
+                                        dataTurn[e] = tmp[e].turn;
+                                    } else {
+                                        tmp[e].turn = null;
+                                        dataTurn[e] = null;
+                                    }
+                                });
+                            }
+                            room.players = tmp;
+                            setRoomInterval(room);
+                        } else {
+                            room.players = tmp;
+                        }
                     }
-                    room.players = tmp;
+
                 }
+
                 room.save();
                 io.to(room._id).emit('leave',data._id);
                 connections[data._id].leave(room._id);
@@ -70,6 +107,47 @@ function disconnect(data){
     data.status = 0;
     data.room = null;
     data.save();
+}
+function setRoomInterval(room){
+    if(roomsInterval[room._id]){
+        clearInterval(roomsInterval[room._id]);
+        roomsInterval[room._id] = null;
+    }
+    roomsInterval[room._id] = setInterval(function () {
+        console.log('chui zo interval');
+        var dataTurn = {};
+        var amount = 0;
+        var player0 = null;
+        Room.findById(room._id,function(err,result){
+            if(result){
+                var tmp = result.players;
+                result.players = {};
+                Object.keys(tmp).forEach(function(e){
+                    if(tmp[e].connect == 1){
+                        if(tmp[e].turn != 0){
+                            tmp[e].turn --;
+                            if(tmp[e].turn == 0) result.turn = e;
+                            dataTurn[e] = tmp[e].turn;
+                        } else {
+                            player0 = e;
+                        }
+                        amount++;
+                    } else {
+                        tmp[e].turn = null;
+                        dataTurn[e] = null;
+                    }
+                });
+                tmp[player0].turn = amount - 1;
+                dataTurn[player0] = amount - 1;
+                io.to(result._id).emit('turn',dataTurn);
+                result.players = tmp;
+                result.save();
+            } else {
+                clearInterval(roomsInterval[room._id]);
+            }
+
+        });
+    }, room.time*1000);
 }
 function mergeObject(obj1,obj2){
     var obj3 = {};
@@ -109,7 +187,7 @@ function enterRoom(room,user,success,error) {
         room.people++;
     };
     var obj =  {};
-    obj[user._id] = {score: 0, connect: 1};
+    obj[user._id] = {score: 0, connect: 1, turn: room.people - 1};
     var tmp = mergeObject(room.players,obj);
     room.players = {};
     room.players = tmp;
@@ -137,11 +215,16 @@ function enterRoom(room,user,success,error) {
 exports.createRoom = function (req,res) {
     var room = new Room();
     room.game = req.game._id;
+    console.log('time',req.game.time);
+    if(req.game.time) {
+        room.time = req.game.time;
+    }
     room.mode = req.body.mode || "find";
     room.members = [req.user._id];
-    room.host = req.user._id;
+    room.turn = req.user._id;
     room.players = {};
-    room.players[req.user._id] = {score: 0, connect: 1};
+    room.players[req.user._id] = {score: 0, connect: 1, turn: 0};
+    console.log(room);
     room.save(function(err,data){
         if(err) {
             return res.status(400).send();
@@ -170,17 +253,44 @@ exports.updateRoom = function (req,res){
             return;
         }
     } else if (req.body.status){
-        req.room.status = 1;
+        if(req.room.status == 0) {
+            req.room.status = 1;
+            if(req.room.time) setRoomInterval(req.room);
+        };
         req.room.save();
         return res.json();
     } else if (req.body.obj) {
-        console.log(req.body.obj);
-        if(req.room.players[req.user._id]) {
+        if((!req.room.time || req.room.time && req.room.turn == req.user._id) && req.room.players[req.user._id]){
             var isEnd = false;
             var stt = {};
             var tmp = req.room.players;
             req.room.players = {};
-            if(req.body.obj.isDead != null) {
+            if(req.room.time){
+                var amount = 0;
+                var dataTurn = {};
+                console.log('set lai interval');
+                Object.keys(tmp).forEach(function(e){
+                    if(tmp[e].connect == 1){
+                        if(tmp[e].turn != 0){
+                            tmp[e].turn --;
+                            if(tmp[e].turn == 0) req.room.turn = e;
+                            dataTurn[e] = tmp[e].turn;
+                        } else {
+                            player0 = e;
+                        }
+                        amount++;
+                    } else {
+                        tmp[e].turn = null;
+                        dataTurn[e] = null;
+                    }
+                });
+
+                tmp[player0].turn = amount - 1;
+                dataTurn[player0] = amount - 1;
+                io.to(req.room._id).emit('turn',dataTurn);
+                setRoomInterval(req.room);
+            }
+            if(req.body.obj.isDead != null){
                 var amount = 0;
                 var length = 0;
                 var maxScore = 0;

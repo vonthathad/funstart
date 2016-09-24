@@ -2,6 +2,7 @@ var FunstartGame = function () {
     this.objAngular = {};
     this.user = {};
     this.isBattle = false;
+    this.players = {};
 };
 function dataURItoBlob(dataURI) {
 
@@ -51,7 +52,9 @@ FunstartGame.prototype.gameOver = function (data,callback){
 
     console.log('game over cmnr');
 };
+FunstartGame.prototype.fetchPlayers = function(){
 
+}
 FunstartGame.prototype.updateObj = function (obj,callback) {
     if(this.objAngular.battle) this.objAngular.battle.updateObj(obj);
     console.log('thuc hien update value');
@@ -168,6 +171,13 @@ angular.element(document).ready(function() {
         "isBattle",
         function( newValue, oldValue ) {
             fsGame.isBattle = newValue;
+        }
+    );
+    fsGame.objAngular.$watch(
+        "battle.room.players",
+        function( newValue, oldValue ) {
+            fsGame.players = newValue;
+            fsGame.fetchPlayers(newValue);
         }
     );
 });

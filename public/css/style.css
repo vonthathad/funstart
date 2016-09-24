@@ -1196,6 +1196,13 @@ md-toast {
 .battle-room md-input-container .md-errors-spacer{
   min-height: 0;
 }
+.top-progress{
+  position: absolute;
+  z-index: 102;
+  top: 0;
+  width: 100%;
+  left: 0;
+}
 @media screen and (max-width: 959px){
   .full-mode{
     overflow-y: scroll;

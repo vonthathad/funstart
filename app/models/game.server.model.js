@@ -41,6 +41,7 @@ var GameSchema = new Schema({
         type: Number,
         default: 0
     },
+    time: Number,
     max: Number,
     min: Number,
     type: {

@@ -6,6 +6,7 @@
         <!--them game vao day-->
         <div class="game-area" ng-class="{'full-mode' : battle.status.isFullscreen}">
             <div class="game-frame" ng-if="!isInit" ng-show="isPlay && !isEnd" ng-include="games.currentGame.link" onload="finishLoading()"></div>
+            <md-progress-linear ng-if="battle.game.time && battle.status.isFullscreen" class="top-progress" md-mode="determinate" value="{{battle.timedown}}"></md-progress-linear>
         </div>
 
 
@@ -137,7 +138,6 @@
             </div>
         </div>
     </div>
-
     <div class="mainAds" id="mainAds" style="position: absolute;width: 100%;top: 0;margin: 0 auto 0;z-index: 9999;left: 0;right: 0;">
         <div id="adContainer" ng-click="skipAds()" style="position: relative;margin: 0px auto;"></div>
     </div>
