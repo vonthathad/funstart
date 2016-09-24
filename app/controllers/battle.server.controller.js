@@ -125,7 +125,7 @@ function setRoomInterval(room){
                 result.players = {};
                 Object.keys(tmp).forEach(function(e){
                     if(tmp[e].connect == 1){
-                        if(tmp[e].turn != 0){
+                        if(tmp[e].turn > 0){
                             tmp[e].turn --;
                             if(tmp[e].turn == 0) result.turn = e;
                             dataTurn[e] = tmp[e].turn;
@@ -138,8 +138,10 @@ function setRoomInterval(room){
                         dataTurn[e] = null;
                     }
                 });
-                tmp[player0].turn = amount - 1;
-                dataTurn[player0] = amount - 1;
+                if(player0) {
+                    tmp[player0].turn = amount - 1;
+                    dataTurn[player0] = amount - 1;
+                }
                 io.to(result._id).emit('turn',dataTurn);
                 result.players = tmp;
                 result.save();
@@ -269,10 +271,11 @@ exports.updateRoom = function (req,res){
             if(req.room.time){
                 var amount = 0;
                 var dataTurn = {};
+                var player0 = null;
                 console.log('set lai interval');
                 Object.keys(tmp).forEach(function(e){
                     if(tmp[e].connect == 1){
-                        if(tmp[e].turn != 0){
+                        if(tmp[e].turn > 0){
                             tmp[e].turn --;
                             if(tmp[e].turn == 0) req.room.turn = e;
                             dataTurn[e] = tmp[e].turn;
@@ -286,8 +289,10 @@ exports.updateRoom = function (req,res){
                     }
                 });
 
-                tmp[player0].turn = amount - 1;
-                dataTurn[player0] = amount - 1;
+                if(player0) {
+                    tmp[player0].turn = amount - 1;
+                    dataTurn[player0] = amount - 1;
+                }
                 io.to(req.room._id).emit('turn',dataTurn);
                 setRoomInterval(req.room);
             }
