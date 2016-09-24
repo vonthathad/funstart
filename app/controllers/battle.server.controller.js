@@ -62,7 +62,7 @@ function disconnect(data){
                         if(room.time){
                             console.log('vo update turn khi disconnect',tmp);
                             var dataTurn = {};
-                            if(room.turn == data._id) {
+                            if(room.turn == data._id){
                                 Object.keys(tmp).forEach(function(e){
                                     if(tmp[e].connect == 1){
                                         tmp[e].turn --;
@@ -79,6 +79,7 @@ function disconnect(data){
                                 console.log('vo trong nay data',dataTurn);
                                 io.to(room._id).emit('turn',dataTurn);
                             } else {
+                                tmpTurn = tmp[data._id].turn;
                                 Object.keys(tmp).forEach(function(e){
                                     if(tmp[e].connect == 1 && tmp[e].turn > tmpTurn){
                                         tmp[e].turn --;
