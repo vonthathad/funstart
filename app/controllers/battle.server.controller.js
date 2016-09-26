@@ -296,7 +296,18 @@ exports.updateRoom = function (req,res){
                 io.to(req.room._id).emit('turn',dataTurn);
                 setRoomInterval(req.room);
             }
-            if(req.body.obj.isDead != null){
+            if(req.body.obj.isWin !=null){
+                isEnd = true;
+                Object.keys(tmp).forEach(function(e){
+                    if(e == req.user._id){
+                        tmp[e] = mergeObject(tmp[e],{isDead: true, isWin: true});
+                        stt[e] = true;
+                    } else {
+                        tmp[e] = mergeObject(tmp[e],{isDead: true, isWin: false});
+                        stt[e] = false;
+                    }
+                });
+            } else if (req.body.obj.isDead != null){
                 var amount = 0;
                 var length = 0;
                 var maxScore = 0;
@@ -314,18 +325,16 @@ exports.updateRoom = function (req,res){
                 console.log('So luong nguoi da choi xong',amount);
                 if(amount >= length - 1){
                     isEnd = true;
-                    if(req.body.obj.isWin == null){
-                        Object.keys(tmp).forEach(function(e){
-                            if(tmp[e].score == maxScore){
-                                tmp[e] = mergeObject(tmp[e],{isWin: true});
-                                stt[e] = true;
-                            } else {
-                                tmp[e] = mergeObject(tmp[e],{isWin: false});
-                                stt[e] = false;
-                            }
-                        });
-                        console.log('temp',tmp);
-                    }
+                    Object.keys(tmp).forEach(function(e){
+                        if(tmp[e].score == maxScore){
+                            tmp[e] = mergeObject(tmp[e],{isWin: true});
+                            stt[e] = true;
+                        } else {
+                            tmp[e] = mergeObject(tmp[e],{isWin: false});
+                            stt[e] = false;
+                        }
+                    });
+                    console.log('temp',tmp);
                 }
             }
             tmp[req.user._id] = mergeObject(tmp[req.user._id],req.body.obj);
