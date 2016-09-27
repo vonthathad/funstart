@@ -2,6 +2,7 @@ var FunstartGame = function () {
     this.objAngular = {};
     this.user = {};
     this.isBattle = false;
+    this.isHost = false;
     this.players = {};
 };
 function dataURItoBlob(dataURI) {
@@ -40,20 +41,19 @@ FunstartGame.prototype.updateUserScore = function (data) {
 
 FunstartGame.prototype.gameOver = function (data,callback){
     var self = this;
-    self.objAngular.endGame(data);
-    if(callback) callback();
-    if(self.objAngular.battle){
-        self.objAngular.battle.updateObj({isDead: true},function(){
-            self.objAngular.battle.checkWin(bool);
+    if(data && data.score) self.objAngular.endGame(data.score);
+    if(self.objAngular.battle && data){
+        self.objAngular.battle.updateObj(data,function(){
+            if(callback) callback();
         });
     } else {
-
+        if(callback) callback();
     }
 
     console.log('game over cmnr');
 };
-FunstartGame.prototype.fetchPlayers = function(){
-
+FunstartGame.prototype.fetchPlayers = function(callback){
+    if(callback)  this.updatePlayers = callback;
 }
 FunstartGame.prototype.updateObj = function (obj,callback) {
     if(this.objAngular.battle) this.objAngular.battle.updateObj(obj);
@@ -174,10 +174,19 @@ angular.element(document).ready(function() {
         }
     );
     fsGame.objAngular.$watch(
+        "battle.isHost",
+        function( newValue, oldValue ) {
+            console.log('isHost',newValue)
+            fsGame.isHost = newValue;
+        }
+    );
+    fsGame.objAngular.$watch(
         "battle.room.players",
         function( newValue, oldValue ) {
-            fsGame.players = newValue;
-            fsGame.fetchPlayers(newValue);
+            if(fsGame.isBattle){
+                fsGame.players = newValue;
+                fsGame.updatePlayers(newValue);
+            }
         }
     );
 });

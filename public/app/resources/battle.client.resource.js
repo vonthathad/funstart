@@ -179,6 +179,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             if(res.data == null){
                 self.createRoom("find");
             } else {
+                self.isHost = false;
                 self.room = new Rooms(res.data);
                 self.checkRoomFull(false);
                 self.listenRoom();

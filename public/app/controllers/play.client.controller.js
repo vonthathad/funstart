@@ -62,6 +62,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         $scope.finishLoading = function(){
             if($rootScope.user){
                 $scope.user = {
+                    _id: $rootScope.user._id,
                     username: $rootScope.user.username,
                     avatar: $rootScope.user.avatar,
                     displayName: $rootScope.user.displayName
