@@ -18,12 +18,10 @@ function locdau(str){
     return str;
 }
 var saveOAuthUserProfile = function(req, profile, done) {
-
     User.findOne({
         provider: profile.provider,
         providerId: profile.providerId
     }, function(err, user) {
-        console.log('vo day ne');
         if (err) {
             console.log(err);
             return done(err);
@@ -40,7 +38,7 @@ var saveOAuthUserProfile = function(req, profile, done) {
                             if (err) {
                                 return req.res.redirect('/signup');
                             }
-                            return done(err, user);
+                            return done(err, user.toObject({ virtuals: true }));
                         });
                     });
             } else {

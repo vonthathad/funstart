@@ -155,8 +155,8 @@ exports.renderGame = function(req,res){
     var user = null;
     if(req.user){
         user = req.user;
-        user._doc.created = parseInt(user._doc.created.getTime());
-        user._doc.active = parseInt(user._doc.active.getTime());
+        // user._doc.created = parseInt(user._doc.created.getTime());
+        // user._doc.active = parseInt(user._doc.active.getTime());
     }
     res.render('index', {app : app, message: null, user: user});
 };
@@ -192,8 +192,8 @@ exports.renderTest = function(req,res){
         var user = null;
         if(req.user){
             user = req.user;
-            user._doc.created = parseInt(user._doc.created.getTime());
-            user._doc.active = parseInt(user._doc.active.getTime());
+            // user._doc.created = parseInt(user._doc.created.getTime());
+            // user._doc.active = parseInt(user._doc.active.getTime());
         }
         res.render('index', {app : app, message: null, user: user});
     } else {

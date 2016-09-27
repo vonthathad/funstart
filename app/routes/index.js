@@ -42,8 +42,6 @@ module.exports = function(app) {
       var user = null;
       if(req.user){
         user = req.user;
-        user._doc.created = parseInt(user._doc.created.getTime());
-        user._doc.active = parseInt(user._doc.active.getTime());
       }
       res.render('index', {app: app, user: user, message: null});
     } else {

@@ -206,27 +206,61 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 });
             }
         };
-        $scope.onCreateRoom = function(){
-            $scope.isEnd = false;
-            $scope.isPlay = false;
-            if(!$scope.isBattle){
-                $scope.isBattle = true;
-                $scope.battle = BattleService;
-                $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
-            };
-            $scope.battle.onCreateRoom(function(){
-            });
+        $scope.openSigninDialog = function(ev){
+            $mdDialog.show({
+                    controller: function($scope, $mdDialog) {
+                        $scope.hide = function() {
+                            $mdDialog.hide();
+                        };
+                        $scope.cancel = function() {
+                            $mdDialog.cancel();
+                        };
+                        $scope.answer = function(answer) {
+                            $mdDialog.hide(answer);
+                        };
+                    },
+                    templateUrl: 'app/templates/authDialog.tmpl.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true
+                })
+                .then(function(answer) {
+
+                }, function() {
+
+                });
+        }
+        $scope.onCreateRoom = function(ev){
+            if($rootScope.user){
+                $scope.isEnd = false;
+                $scope.isPlay = false;
+                if(!$scope.isBattle){
+                    $scope.isBattle = true;
+                    $scope.battle = BattleService;
+                    $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
+                };
+                $scope.battle.onCreateRoom(function(){
+                });
+            } else {
+                $scope.openSigninDialog(ev);
+            }
+
         };
         $scope.statusClass = function(status){
             return 'status-' + status;
         }
-        $scope.onBattleCall = function () {
-            $scope.isBattle = true;
-            $scope.battle = BattleService;
-            $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
-            $scope.battle.onFindBattle(null,function(){
-                $scope.isBattle = false;
-            });
+        $scope.onBattleCall = function (ev) {
+            if($rootScope.user){
+                $scope.isBattle = true;
+                $scope.battle = BattleService;
+                $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
+                $scope.battle.onFindBattle(null,function(){
+                    $scope.isBattle = false;
+                });
+            } else {
+                $scope.openSigninDialog(ev);
+            }
+
         }
         $scope.onCloseBattle = function(){
             console.log('Vo day');

@@ -7,9 +7,20 @@
  * @param array
  * @returns {Array}
  */
-var shuffle = function(array) {
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] == obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+Array.prototype.shuffle = function() {
     var copy = [],
-        n = array.length,
+        n = this.length,
         i;
 
     // While there remain elements to shuffle…
@@ -17,13 +28,13 @@ var shuffle = function(array) {
 
         // Pick a remaining element…
         i = Math
-            .floor(Math.random() * array.length);
+            .floor(Math.random() * this.length);
 
         // If not already shuffled, move it to the new array.
-        if (i in array) {
+        if (i in this) {
             copy
-                .push(array[i]);
-            delete array[i];
+                .push(this[i]);
+            delete this[i];
             n--;
         }
     }

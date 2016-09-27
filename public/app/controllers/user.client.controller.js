@@ -53,16 +53,15 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         }
 
     });
-    $rootScope.$watch('$root.user', function () {
-        if($location.path().indexOf('user')<0){
-            $scope.data = $rootScope.user;
-            $scope.reloadFriendList();
-            sessionStorage.setItem('user',JSON.stringify($rootScope.user));
-            drawPoint($scope.data);
-        }
-    });
+    // $rootScope.$watch('$root.user', function () {
+    //     if($location.path().indexOf('user')<0){
+    //         $scope.data = $rootScope.user;
+    //         $scope.reloadFriendList();
+    //         sessionStorage.setItem('user',JSON.stringify($rootScope.user));
+    //         drawPoint($scope.data);
+    //     }
+    // });
     $scope.updateFriendList = function(bool,obj){
-
         if(bool){
             $scope.friends.data.push(obj);
             $rootScope.user.friends.push(obj._id);
@@ -86,16 +85,17 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
             $scope.username = null;
         }
         $scope.suggest.init();
-        $scope.friends.init();
         if($scope.username){
             $scope.userInfo.loadUser($scope.username,function(){
                 $scope.data = $scope.userInfo.data;
                 $scope.data.isFriend = isExist($rootScope.user.friends,$scope.data._id);
+                $scope.friends.init();
                 $scope.friends.userId = $scope.data._id;
                 $scope.friends.loadFriends();
                 drawPoint($scope.data);
             });
         } else {
+            $scope.friends.init();
             $scope.friends.userId = $rootScope.user._id;
             $scope.friends.loadFriends();
             $scope.data = $rootScope.user;
