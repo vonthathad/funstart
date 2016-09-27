@@ -56,6 +56,7 @@ module.exports = function() {
             passReqToCallback: true
         },
         function(req, accessToken, refreshToken, profile, done) {
+            console.log(profile);
             var providerData = profile._json;
             providerData.accessToken = accessToken;
             providerData.refreshToken = refreshToken;
@@ -79,7 +80,6 @@ module.exports = function() {
             if(profile.displayName){
                 providerUserProfile.displayName = profile.displayName;
             }
-            console.log(providerUserProfile);
             saveOAuthUserProfile(req, providerUserProfile, done);
         }));
 };
