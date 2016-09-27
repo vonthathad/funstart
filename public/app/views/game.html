@@ -14,8 +14,8 @@
         <div ng-if="!isPlay" class="pre-game" layout="column" layout-align="center center">
             <md-progress-circular ng-if="isLoad"  md-mode="indeterminate" md-diameter="100"></md-progress-circular>
             <md-button ng-if="!isLoad" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
-            <md-button ng-if="!isLoad && $root.user" ng-click="onBattleCall()" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
-            <md-button ng-if="!isLoad && $root.user" ng-click="onCreateRoom()" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
+            <md-button ng-if="!isLoad" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
+            <md-button ng-if="!isLoad" ng-click="onCreateRoom($event)" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
         </div>
         <div ng-if="battle.status.isFullscreen" class="full-mode-2" hide-xs hide-sm>
             <md-toolbar class="md-theme-light">

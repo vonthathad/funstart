@@ -144,6 +144,7 @@ UserSchema.pre('save', function(next) {
     next();
 });
 UserSchema.methods.hashPassword = function(password) {
+    console.log(crypto.pbkdf2Sync(password, this.salt, 10000,64).toString('base64'));
     return crypto.pbkdf2Sync(password, this.salt, 10000,
         64).toString('base64');
 };

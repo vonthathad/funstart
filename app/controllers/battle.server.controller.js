@@ -190,7 +190,12 @@ function enterRoom(room,user,success,error) {
         room.people++;
     };
     var obj =  {};
-    obj[user._id] = {score: 0, connect: 1, turn: room.people - 1};
+    if(room.time){
+        obj[user._id] = {score: 0, connect: 1, turn: room.people - 1};
+    } else {
+        obj[user._id] = {score: 0, connect: 1};
+    }
+
     var tmp = mergeObject(room.players,obj);
     room.players = {};
     room.players = tmp;
@@ -226,7 +231,12 @@ exports.createRoom = function (req,res) {
     room.members = [req.user._id];
     room.turn = req.user._id;
     room.players = {};
-    room.players[req.user._id] = {score: 0, connect: 1, turn: 0};
+    room.players[req.user._id] = {score: 0, connect: 1};
+    if(room.time){
+        room.players[req.user._id] = {score: 0, connect: 1, turn: 0};
+    } else {
+        room.players[req.user._id] = {score: 0, connect: 1};
+    }
     console.log(room);
     room.save(function(err,data){
         if(err) {
@@ -263,7 +273,8 @@ exports.updateRoom = function (req,res){
         req.room.save();
         return res.json();
     } else if (req.body.obj) {
-        if((!req.room.time || req.room.time && req.room.turn == req.user._id) && req.room.players[req.user._id]){
+        console.log('time',req.room.time);
+        if((req.room.time == undefined || req.room.turn == req.user._id) && req.room.players[req.user._id]){
             var isEnd = false;
             var stt = {};
             var tmp = req.room.players;
@@ -296,7 +307,19 @@ exports.updateRoom = function (req,res){
                 io.to(req.room._id).emit('turn',dataTurn);
                 setRoomInterval(req.room);
             }
-            if(req.body.obj.isDead != null){
+            if(req.body.obj.isWin !=null){
+                isEnd = true;
+                Object.keys(tmp).forEach(function(e){
+                    if(e == req.user._id){
+                        tmp[e] = mergeObject(tmp[e],{isDead: true, isWin: true});
+                        stt[e] = true;
+                    } else {
+                        tmp[e] = mergeObject(tmp[e],{isDead: true, isWin: false});
+                        stt[e] = false;
+                    }
+                });
+            }
+            if (req.body.obj.isDead != null){
                 var amount = 0;
                 var length = 0;
                 var maxScore = 0;
@@ -314,18 +337,16 @@ exports.updateRoom = function (req,res){
                 console.log('So luong nguoi da choi xong',amount);
                 if(amount >= length - 1){
                     isEnd = true;
-                    if(req.body.obj.isWin == null){
-                        Object.keys(tmp).forEach(function(e){
-                            if(tmp[e].score == maxScore){
-                                tmp[e] = mergeObject(tmp[e],{isWin: true});
-                                stt[e] = true;
-                            } else {
-                                tmp[e] = mergeObject(tmp[e],{isWin: false});
-                                stt[e] = false;
-                            }
-                        });
-                        console.log('temp',tmp);
-                    }
+                    Object.keys(tmp).forEach(function(e){
+                        if(tmp[e].score == maxScore){
+                            tmp[e] = mergeObject(tmp[e],{isWin: true});
+                            stt[e] = true;
+                        } else {
+                            tmp[e] = mergeObject(tmp[e],{isWin: false});
+                            stt[e] = false;
+                        }
+                    });
+                    console.log('temp',tmp);
                 }
             }
             tmp[req.user._id] = mergeObject(tmp[req.user._id],req.body.obj);

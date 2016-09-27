@@ -22,6 +22,7 @@ var getErrorMessage = function(err) {
     return message;
 };
 exports.authFacebookSuccess = function(req,res){
+    console.log(req.user);
     res.json(req.user);
 };
 exports.authFacebookFail = function(req,res){
@@ -373,6 +374,8 @@ exports.authToken = function(req,res){
         req.user.rank = rank;
         res.json({data:req.user});
     });
+    console.log(req.user.fire);
+    console.log(req.user.level);
     req.user.active = Date.now();
     req.user.update(function(){})
 };
