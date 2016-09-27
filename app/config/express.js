@@ -51,7 +51,7 @@ module.exports = function() {
     require('../routes/index')(secure);
     app.use('/', secure);
 
-    app.set('port', (process.env.PORT || 8235));
+    app.set('port', (process.env.PORT || 8236));
 
     app.listen(app.get('port'), function() {
         console.log('Node app is running on port', app.get('port'));
