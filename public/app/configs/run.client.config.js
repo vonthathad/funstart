@@ -49,21 +49,23 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
     }
     if(window.user){
         $rootScope.user = user;
-        sessionStorage.setItem('user',JSON.stringify($rootScope.user));
+        // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
         localStorage.setItem('token',$rootScope.user.token);
         initSocket();
         // $rootScope.missions = MissionsService;
         // $rootScope.missions.loadMissions($rootScope.user._id);
-    } else if (sessionStorage.getItem('user')){
-        $rootScope.user = JSON.parse(sessionStorage.getItem('user'));
-        // $rootScope.missions = MissionsService;
-        // $rootScope.missions.loadMissions($rootScope.user._id);
-        //doan nay nho set online
-        initSocket();
-    } else if(localStorage.getItem('token')){
+    }
+    // else if (sessionStorage.getItem('user')){
+    //     $rootScope.user = JSON.parse(sessionStorage.getItem('user'));
+    //     // $rootScope.missions = MissionsService;
+    //     // $rootScope.missions.loadMissions($rootScope.user._id);
+    //     //doan nay nho set online
+    //     initSocket();
+    // }
+    else if(localStorage.getItem('token')){
         AuthToken.get(function(res){
             $rootScope.user = res.data;
-            sessionStorage.setItem('user',JSON.stringify($rootScope.user));
+            // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
             // $rootScope.missions = MissionsService;
             // $rootScope.missions.loadMissions($rootScope.user._id);
             initSocket();

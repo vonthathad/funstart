@@ -374,10 +374,9 @@ exports.authToken = function(req,res){
         req.user.rank = rank;
         res.json({data:req.user});
     });
-    console.log(req.user.fire);
-    console.log(req.user.level);
+    req.user.status = 1;
     req.user.active = Date.now();
-    req.user.update(function(){})
+    req.user.save();
 };
 exports.loadUser = function(req,res,next){
     User.find({exp : {$gt : req.selectedUser.exp}}).count(function (err,count){

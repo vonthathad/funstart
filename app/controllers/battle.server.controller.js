@@ -21,8 +21,11 @@ io.on('connection', function (socket) {
           User.findOne({token: socket.token},function (err,data) {
 
               if(data){
-                  console.log('User ' + data._id + ' vua out room ' + data.room)
+                  console.log('User ' + data._id + ' vua out room ' + data.room);
                   disconnect(data);
+                  data.status = 0;
+                  data.room = null;
+                  data.save();
               }
           })
        }
@@ -105,9 +108,6 @@ function disconnect(data){
             }
         }
     });
-    data.status = 0;
-    data.room = null;
-    data.save();
 }
 function setRoomInterval(room){
     if(roomsInterval[room._id]){
@@ -160,6 +160,9 @@ function mergeObject(obj1,obj2){
 };
 exports.outRoom = function(req,res){
     disconnect(req.user);
+    req.user.status = 1;
+    req.user.room = null;
+    req.user.save();
     res.json();
 };
 exports.findRoom = function(req,res){

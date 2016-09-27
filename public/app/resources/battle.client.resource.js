@@ -88,9 +88,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             isWaitRoom: false
         };
         if(roomId) {
-            self.friends = FriendsOnlineService;
-            self.friends.userId = self.user._id;
-            self.friends.loadFriends();
             self.isHost = false;
             self.joinRoom(roomId,function(message){
                 var alert = $mdDialog.alert()
@@ -387,12 +384,10 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         // 4. Chi host moi co quyen thay doi status game sang 1. Khi do server se lang nghe va xoa het tat ca nguoi choi co status 0
     }
     self.onListInvite = function(){
-        self.friends.data = [];
-        //list friend
-        angular.forEach(FriendsService.data,function(friend){
-            self.friends.data.push(friend);
-        })
-    }
+        self.friends = FriendsOnlineService;
+        self.friends.userId = self.user._id;
+        self.friends.loadFriends();
+    };
     self.updateObj = function(obj,callback){
         Rooms.update({_id: self.room._id, obj: obj});
     };

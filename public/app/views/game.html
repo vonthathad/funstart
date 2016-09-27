@@ -13,7 +13,7 @@
         <!--<div ng-if="!games.isLoading" ng-include="'/sources/game/9/'" onload="finishLoading()"></div>-->
         <div ng-if="!isPlay" class="pre-game" layout="column" layout-align="center center">
             <md-progress-circular ng-if="isLoad"  md-mode="indeterminate" md-diameter="100"></md-progress-circular>
-            <md-button ng-if="!isLoad" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
+            <md-button ng-if="!isLoad && !games.currentGame.multi" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
             <md-button ng-if="!isLoad" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
             <md-button ng-if="!isLoad" ng-click="onCreateRoom($event)" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
         </div>
@@ -39,7 +39,7 @@
         <div class="full-mode divider-right battle-room" ng-if="battle.status.isWaitRoom && isBattle">
             <md-toolbar class="md-theme-light" hide-sm hide-xs>
                 <h2 class="md-toolbar-tools">
-                    <span>Phòng chơi:</span>
+                    <span>Phòng chơi [{{battle.room.people}}/{{battle.game.max}}]:</span>
                 </h2>
             </md-toolbar>
             <md-content>
@@ -70,9 +70,9 @@
                         </md-list>
 
                     </md-tab>
-                    <md-tab label="MỜI BẠN" ng-click="onListInvite()">
+                    <md-tab label="MỜI BẠN" ng-click="battle.onListInvite()">
                         <md-list>
-                            <div class="room-list"
+                            <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
                                  ng-if="mode=='friend'"
                                  infinite-scroll="battle.friends.loadMore()"
                                  infinite-scroll-immediate-check="false"
@@ -161,7 +161,7 @@
             <div id="rect-orange" class="rect-orange" layout="row" layout-align="end center">
                 <div class="fight-info" layout="column" layout-align="center end">
                     <h1 style="text-align: right" id="name-opponent">{{battle.opponent.displayName}}</h1>
-                    <h3 ng-if="(battle.room.people - 2)>0" style="text-align: right" id="des-opponent">và {{battle.opponent.amount}} người chơi khác</h3>
+                    <h3 ng-if="(battle.room.people - 2)>0" style="text-align: right" id="des-opponent">và {{battle.room.people - 2}} người chơi khác</h3>
                 </div>
                 <img class="fight-avatar" ng-src="{{battle.opponent.avatar}}"/>
             </div>

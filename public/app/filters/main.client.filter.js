@@ -10,23 +10,23 @@ angular.module('funstart').filter('timeAgo', function(){
     return function(date) {
         var seconds = Math.floor((Date.now() - new Date(date)) / 1000);
         var interval = Math.floor(seconds / 31536000);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " năm trước";
         }
         interval = Math.floor(seconds / 2592000);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " tháng trước";
         }
         interval = Math.floor(seconds / 86400);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " ngày trước";
         }
         interval = Math.floor(seconds / 3600);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " giờ trước";
         }
         interval = Math.floor(seconds / 60);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " phút trước";
         }
         if(seconds< 10) return "Tức thì";
