@@ -246,21 +246,22 @@ exports.loadUsers = function(req,res){
                         resdata = {
                             data: data,
                             isNext: isNext
-                        }
+                        };
                         res.json(resdata);
                     });
                 }
 
             })
         } else if (req.query.suggest = 'facebook'){
-            if(req.user.providerData && req.user.providerData.token){
-                // console.log('token',req.user.providerData.token)
+            console.log('here');
+            console.log(req.user.providerData);
+            if(req.user.providerData && req.user.providerData.accessToken){
+                console.log('token',req.user.providerData.accessToken)
                 var options = {
                     host: 'graph.facebook.com',
-                    path: '/me/friends?limit=100&access_token=' + req.user.providerData.token
+                    path: '/me/friends?limit=100&access_token=' + req.user.providerData.accessToken
                 };
                 https.get(options,function(resp){
-
                     var data = '';
                     resp.on('data', function (chunk) {
                         data += chunk;

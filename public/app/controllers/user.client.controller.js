@@ -1,7 +1,8 @@
 /**
  * Created by andh on 8/9/16.
  */
-angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService',function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService){
+angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService',
+    function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService){
     $scope.userInfo = UserInfoService;
     $scope.friends = FriendsService;
     $scope.suggest = SuggestService;
@@ -104,6 +105,7 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
             },500)
         }
         $scope.suggest.loadSuggest();
+        console.log($scope.suggest);
     }
 }]);
 

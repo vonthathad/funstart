@@ -151,23 +151,22 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
     self.updateReady = function(start){
         Rooms.update({_id: self.room._id, ready: true});
         self.room.ready.push(self.user._id);
+        socket.off('ready');
         socket.on('ready',function(data){
-            $rootScope.$apply(function () {
-                self.room.ready = data;
-                var tmp = [];
-                self.room.members.forEach(function(player){
-                    data.forEach(function(e){
-                        if(player._id == e){
-                            player.isReady = true;
-                            return true;
-                        }
-                    });
-                    tmp.push(player);
-                })
-                self.room.members = tmp;
-                self.checkRoomReady(start);
-            });
-
+            self.room.ready = data;
+            var tmp = [];
+            self.room.members.forEach(function(player){
+                data.forEach(function(e){
+                    if(player._id == e){
+                        player.isReady = true;
+                        return true;
+                    }
+                });
+                tmp.push(player);
+            })
+            self.room.members = tmp;
+            self.checkRoomReady(start);
+            $rootScope.$apply();
         });
     };
     self.onFindBattle = function(success,error){
@@ -236,6 +235,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             if(self.room) {
                 self.room.members = data;
                 if(self.room.mode = "find") self.checkRoomFull(true);
+
             }
         });
         socket.on('leave',function(id){
@@ -258,14 +258,34 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
     self.handlingRoom = function(){
         socket.on('join',function(data){
             self.room.members = data;
+            $rootScope.$apply();
         });
         socket.on('leave',function(id){
             if(self.room){
+            self.isReady = false;
+            console.log('here');
             self.room.members.forEach(function(e,i){
                 if(e._id == id) self.room.members.splice(i,1);
                 return true;
             })
+            $rootScope.$apply();
             }
+        });
+        socket.on('ready',function(data){
+            console.log('ready chua click');
+            self.room.ready = data;
+            var tmp = [];
+            self.room.members.forEach(function(player){
+                data.forEach(function(e){
+                    if(player._id == e){
+                        player.isReady = true;
+                        return true;
+                    }
+                });
+                tmp.push(player);
+            })
+            self.room.members = tmp;
+            $rootScope.$apply();
         });
     }
     self.onReady = function(start){
