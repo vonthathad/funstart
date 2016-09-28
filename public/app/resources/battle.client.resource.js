@@ -242,6 +242,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         socket.on('join',function(data){
             if(self.room) {
                 self.room.members = data;
+                self.room.people = self.room.members.length;
                 if(self.room.mode = "find") self.checkRoomFull(true);
 
             }
@@ -256,6 +257,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                         .textContent('Có đối thủ vừa thoát, hệ thống đang tìm kiếm lại!')
                         .ok('Okie!')
                 );
+                self.room.people = data.length;
                 self.status.isFullRoom = false;
                 self.status.isReady = false;
                 self.status.isSearching = true;
@@ -266,6 +268,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
     self.handlingRoom = function(){
         socket.on('join',function(data){
             self.room.members = data;
+            self.room.people = self.room.members.length;
             $rootScope.$apply();
         });
         socket.on('leave',function(data){
@@ -282,6 +285,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                 })
                 return check;
             });
+            self.room.people = self.room.members.length;
             $rootScope.$apply();
             }
         });
