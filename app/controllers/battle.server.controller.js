@@ -51,6 +51,7 @@ function disconnect(data){
                         delete tmp[data._id];
                         room.ready = [];
                         room.players = tmp;
+                        io.to(room._id).emit('leave',room.members);
                     }
                     // var tmp = room.players;
                     // room.players = {};
@@ -58,7 +59,7 @@ function disconnect(data){
                     //     delete tmp[e].isReady;
                     // });
                     // room.players = tmp;
-                } else if(room.status == 1){
+                } else if(room.status != 0){
                     if (tmp[data._id]) {
                         tmp[data._id].connect = 0;
                         room.people--;
@@ -98,12 +99,12 @@ function disconnect(data){
                         } else {
                             room.players = tmp;
                         }
+                        io.to(room._id).emit('leave',data._id);
                     }
 
                 }
 
                 room.save();
-                io.to(room._id).emit('leave',data._id);
                 connections[data._id].leave(room._id);
             }
         }

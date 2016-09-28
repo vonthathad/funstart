@@ -246,7 +246,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
 
             }
         });
-        socket.on('leave',function(id){
+        socket.on('leave',function(data){
             if(self.room && self.room.mode == "find" && self.room.status == 0){
                 $mdDialog.show(
                     $mdDialog.alert()
@@ -268,14 +268,11 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             self.room.members = data;
             $rootScope.$apply();
         });
-        socket.on('leave',function(id){
+        socket.on('leave',function(data){
             if(self.room){
             self.isReady = false;
             console.log('here');
-            self.room.members.forEach(function(e,i){
-                if(e._id == id) self.room.members.splice(i,1);
-                return true;
-            })
+                self.room.members = data;
             $rootScope.$apply();
             }
         });
@@ -320,6 +317,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             self.updatePlayers();
             $rootScope.$apply();
         });
+        socket.off('leave');
         socket.on('leave',function(id){
             self.players.forEach(function(e){
                 if(e._id == id) e.connect = 0;
