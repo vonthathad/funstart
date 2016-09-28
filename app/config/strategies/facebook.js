@@ -61,6 +61,7 @@ module.exports = function() {
             providerData.accessToken = accessToken;
             providerData.refreshToken = refreshToken;
             var username = (profile.emails)?profile.emails[0].value.split("@")[0]:locdau(profile.displayName);
+            username = username.substring(0, 14);
             var email = profile.emails?profile.emails[0].value:(username+"@funstart.net");
             var tokenData = {
                 email: email
