@@ -13,15 +13,19 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.games.loadGame($routeParams.gameId,function(){
                 $scope.isInit = false;
                 if($location.search().roomId){
-                    $scope.isBattle = true;
-                    $scope.isPlay = true;
-                    $scope.isEnd = false;
-                    $scope.battle = BattleService;
-                    $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,function(){
-                        console.log('room err');
-                        $scope.isBattle = false;
-                        $location.search({});
-                    });
+                    if($rootScope.user){
+                        $scope.isBattle = true;
+                        $scope.isPlay = true;
+                        $scope.isEnd = false;
+                        $scope.battle = BattleService;
+                        $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,function(){
+                            console.log('room err');
+                            $scope.isBattle = false;
+                            $location.search({});
+                        });
+                    } else {
+                        $scope.openSigninDialog();
+                    }
                 }
             });
             //set order for recommend games and reset data list;
