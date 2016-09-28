@@ -154,9 +154,9 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             // $scope.players.data[0].score = 2000;
             /*test*/
             console.log('end!');
-            // $scope.$apply(function () {
+            $scope.$apply(function () {
                 $scope.isEnd = true;
-            // });
+            });
             if(Date.now() - $scope.time >= 2*60*1000){
                 eventAdsense.load();
             }

@@ -600,7 +600,6 @@ a.search-link {
   border-radius: 50%;
   width: 90%;
   padding: 0;
-  border: 3px solid #fff;
 }
 @media screen and (min-width: 768px) and (max-width: 1100px){
   .canvas-info{
