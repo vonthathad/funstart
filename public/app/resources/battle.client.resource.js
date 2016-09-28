@@ -170,6 +170,10 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         });
     };
     self.onFindBattle = function(success,error){
+        socket.off('ready');
+        socket.off('join');
+        socket.off('leave');
+        socket.off('win');
         self.status.isSearching = true;
         Rooms.get({gameId: self.game._id},function(res){
             if(res.data == null){
@@ -201,6 +205,9 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         // self.room.players = tmp;
     }
     self.joinRoom = function(roomId,error){
+        socket.off('ready');
+        socket.off('join');
+        socket.off('leave');
         Rooms.get({roomId: roomId},function(res){
             self.room = new Rooms(res.data);
             self.status.isWaitRoom = true;
@@ -211,6 +218,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
 
     };
     self.createRoom = function(mode,callback){
+
         Rooms.save({gameId: self.game._id, mode: mode},function (res) {
             self.room = new Rooms(res.data);
             self.room.members = [{
@@ -344,6 +352,9 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         });
     }
     self.onCreateRoom = function(){
+        socket.off('ready');
+        socket.off('join');
+        socket.off('leave');
         self.isHost = true;
         self.friends = FriendsOnlineService;
         self.friends.userId = self.user._id;
@@ -409,7 +420,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         self.friends.loadFriends();
     };
     self.updateObj = function(obj,callback){
-        Rooms.update({_id: self.room._id, obj: obj});
+        if(self.room) Rooms.update({_id: self.room._id, obj: obj});
     };
     self.handleResultDialog = function(){
         socket.on("end",function(stt){
@@ -438,7 +449,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                         .ok('Okie!')
                 );
             }
-
         })
     };
     self.onDead = function(bool){

@@ -127,7 +127,7 @@
                                     <p>{{games.currentGame.title}}</p>
                                 </div>
                             </div>
-                            <div flex="65" layout="column">
+                            <div ng-if="!isBattle" flex="65" layout="column">
                                 <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
                                     <div flex="35" layout-padding style="text-align: right">
                                         <img ng-if="$root.user" class="canvas-avatar" ng-src="{{$root.user.avatar}}">
@@ -138,7 +138,21 @@
                                         <p>Điểm: {{score}}</p>
                                     </div>
                                 </div>
-                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{games.currentGame.des}}</div>
+                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{resultDes}}</div>
+                            </div>
+                            <div ng-if="isBattle" flex="65" layout="column">
+                                <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
+                                    <div flex="35" layout-padding style="text-align: right">
+                                        <img class="canvas-avatar" ng-src="{{$root.user.avatar}}">
+                                    </div>
+                                    <div flex="30" layout-padding class="canvas-info">
+                                        <h1>VS</h1>
+                                    </div>
+                                    <div flex="35" layout-padding style="text-align: left">
+                                        <img class="canvas-avatar" ng-src="{{battle.opponent.avatar}}">
+                                    </div>
+                                </div>
+                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{resultDes}}</div>
                             </div>
                         </div>
                     </div>
