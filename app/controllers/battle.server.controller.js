@@ -52,6 +52,7 @@ function disconnect(data){
                         room.ready = [];
                         room.players = tmp;
                         io.to(room._id).emit('leave',room.members);
+                        console.log('member',room.members);
                     }
                     // var tmp = room.players;
                     // room.players = {};
