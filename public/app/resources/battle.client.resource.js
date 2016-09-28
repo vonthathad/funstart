@@ -272,7 +272,16 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             if(self.room){
             self.isReady = false;
             console.log('here');
-            self.room.members = data;
+            self.room.members = self.room.members.filter(function(item){
+                var check = false;
+                data.forEach(function(e){
+                    if(e == item._id){
+                        check = true;
+                        return true;
+                    }
+                })
+                return check;
+            });
             $rootScope.$apply();
             }
         });
