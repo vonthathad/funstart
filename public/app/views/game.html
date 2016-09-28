@@ -6,7 +6,7 @@
         <!--them game vao day-->
         <div class="game-area" ng-class="{'full-mode' : battle.status.isFullscreen}">
             <div class="game-frame" ng-if="!isInit" ng-show="isPlay && !isEnd" ng-include="games.currentGame.link" onload="finishLoading()"></div>
-            <md-progress-linear ng-if="battle.game.time && battle.status.isFullscreen" class="top-progress" md-mode="determinate" value="{{battle.timedown}}"></md-progress-linear>
+            <md-progress-linear ng-if="battle.game.time && battle.status.isFullscreen && !isEnd" class="top-progress" md-mode="determinate" value="{{battle.timedown}}"></md-progress-linear>
         </div>
 
 
@@ -116,7 +116,33 @@
         </div>
         <div ng-if="isEnd"  ng-class="{'full-mode' : battle.status.isFullscreen}" class="recommend-games animate-if" layout="column" layout-padding layout-align="center center">
             <div layout="row" layout-wrap >
-                <div id="canvan" ng-bind-html="result | trustAsHTML"></div>
+                <div id="canvan">
+                    <div ng-if="result" ng-bind-html="result | trustAsHTML"></div>
+                    <div ng-if="!result" style="position: relative">
+                        <img style="width: 100%;" ng-src="{{games.currentGame.thumbResult}}"/>
+                        <div layout="row" class="canvas-content">
+                            <div flex="35" layout="column">
+                                <div flex="60" layout="row"></div>
+                                <div layout-align="center center" flex="40" layout="row" layout-padding class="canvas-info">
+                                    <p>{{games.currentGame.title}}</p>
+                                </div>
+                            </div>
+                            <div flex="65" layout="column">
+                                <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
+                                    <div flex="35" layout-padding style="text-align: right">
+                                        <img ng-if="$root.user" class="canvas-avatar" ng-src="{{$root.user.avatar}}">
+                                        <img ng-if="!$root.user" class="canvas-avatar" ng-src="/sources/ninja.svg">
+                                    </div>
+                                    <div flex="65" layout-padding class="canvas-info">
+                                        <p>{{$root.user.displayName}}</p>
+                                        <p>Điểm: {{score}}</p>
+                                    </div>
+                                </div>
+                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{share.des}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div layout="row" layout-wrap layout-align="center center">
                 <md-button flex-xs="100" ng-disabled="submitting" class="md-raised md-facebook recommend-btn" ng-click="onShareFacebook()">

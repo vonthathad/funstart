@@ -45,7 +45,7 @@ exports.authSignup = function(req,res){
         user.password = req.body.password;
         user.provider = 'local';
         user.isVerified = false;
-        user.avatar = "http://www.funstart.net/sources/avatar.jpg";
+        user.avatar = "http://www.funstart.net/sources/ninja.svg";
         var tokenDt = {
             email: req.body.email
         };
@@ -271,32 +271,35 @@ exports.loadUsers = function(req,res){
                     resp.on('end', function() {
                         var idArr = [];
                         results = JSON.parse(data);
-                        // console.log(results);
-                        for(var i = 0 ; i < results.data.length ; i++){
-                            idArr.push(results.data[i].id);
-                        }
-                        // console.log(idArr);
-                        User.find({$and:[{providerId:{$in: idArr}},{_id: {$nin: req.user.friends}}]}, 'username displayName avatar exp level friends', {
-                            skip: skip,
-                            limit: (paging+1),
-                            sort: getSortType(req.query.order)
-                        }, function(err, users) {
-                            if (err) {
-                                res.json(err);
-                            } else {
-
-                                var isNext = false;
-                                if(users.length==(paging+1)){
-                                    isNext = true;
-                                    users.pop();
-                                }
-                                resdata = {
-                                    data: users,
-                                    isNext: isNext
-                                }
-                                res.json(resdata);
+                        if(results.data){
+                            // console.log(results);
+                            for(var i = 0 ; i < results.data.length ; i++){
+                                idArr.push(results.data[i].id);
                             }
-                        });
+                            // console.log(idArr);
+                            User.find({$and:[{providerId:{$in: idArr}},{_id: {$nin: req.user.friends}}]}, 'username displayName avatar exp level friends', {
+                                skip: skip,
+                                limit: (paging+1),
+                                sort: getSortType(req.query.order)
+                            }, function(err, users) {
+                                if (err) {
+                                    res.json(err);
+                                } else {
+
+                                    var isNext = false;
+                                    if(users.length==(paging+1)){
+                                        isNext = true;
+                                        users.pop();
+                                    }
+                                    resdata = {
+                                        data: users,
+                                        isNext: isNext
+                                    }
+                                    res.json(resdata);
+                                }
+                            });
+                        }
+
                     });
                 });
             } else {

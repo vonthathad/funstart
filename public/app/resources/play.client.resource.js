@@ -16,7 +16,7 @@ angular.module('funstart').service('ShareService',function(){
             if(obj.des) self.des = obj.des;
         },
         'shareFacebook': function(obj,callback){
-
+            console.log(obj);
             FB.ui({
                 method: 'share',
                 href: self.url + "?ref=share&rs_image="+self.pic+"&rs_title="+self.name+"&rs_des="+self.des

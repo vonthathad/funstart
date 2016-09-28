@@ -30,7 +30,7 @@ var RoomSchema = new Schema({
     },
     status: {
         type: Number,
-        enum: [0,1],
+        enum: [0,1,2,3],
         default: 0
     }
 })

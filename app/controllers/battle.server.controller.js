@@ -121,30 +121,35 @@ function setRoomInterval(room){
         var player0 = null;
         Room.findById(room._id,function(err,result){
             if(result){
-                var tmp = result.players;
-                result.players = {};
-                Object.keys(tmp).forEach(function(e){
-                    if(tmp[e].connect == 1){
-                        if(tmp[e].turn > 0){
-                            tmp[e].turn --;
-                            if(tmp[e].turn == 0) result.turn = e;
-                            dataTurn[e] = tmp[e].turn;
+                if(result.status == 3){
+                    clearInterval(roomsInterval[room._id]);
+                } else {
+                    var tmp = result.players;
+                    result.players = {};
+                    Object.keys(tmp).forEach(function(e){
+                        if(tmp[e].connect == 1){
+                            if(tmp[e].turn > 0){
+                                tmp[e].turn --;
+                                if(tmp[e].turn == 0) result.turn = e;
+                                dataTurn[e] = tmp[e].turn;
+                            } else {
+                                player0 = e;
+                            }
+                            amount++;
                         } else {
-                            player0 = e;
+                            tmp[e].turn = null;
+                            dataTurn[e] = null;
                         }
-                        amount++;
-                    } else {
-                        tmp[e].turn = null;
-                        dataTurn[e] = null;
+                    });
+                    if(player0) {
+                        tmp[player0].turn = amount - 1;
+                        dataTurn[player0] = amount - 1;
                     }
-                });
-                if(player0) {
-                    tmp[player0].turn = amount - 1;
-                    dataTurn[player0] = amount - 1;
+                    io.to(result._id).emit('turn',dataTurn);
+                    result.players = tmp;
+                    result.save();
                 }
-                io.to(result._id).emit('turn',dataTurn);
-                result.players = tmp;
-                result.save();
+
             } else {
                 clearInterval(roomsInterval[room._id]);
             }
@@ -277,7 +282,7 @@ exports.updateRoom = function (req,res){
         return res.json();
     } else if (req.body.obj) {
         console.log('time',req.room.time);
-        if((req.room.time == undefined || req.room.turn == req.user._id) && req.room.players[req.user._id]){
+        if((req.room.status != 2 && req.room.time == undefined || req.room.turn == req.user._id) && req.room.players[req.user._id]){
             var isEnd = false;
             var stt = {};
             var tmp = req.room.players;
@@ -355,12 +360,13 @@ exports.updateRoom = function (req,res){
             tmp[req.user._id] = mergeObject(tmp[req.user._id],req.body.obj);
             req.room.players = tmp;
             console.log('update',req.room.players);
-            req.room.save();
             res.json();
             io.to(req.room._id).emit('players',req.room.players);
             if(isEnd) {
                 io.to(req.room._id).emit('end',stt);
+                req.room.status = 3;
             };
+            req.room.save();
             return;
         } else {
             res.status(400).send();

@@ -148,6 +148,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         }
         $scope.user = {};
         $scope.endGame = function(data){
+            $scope.score = data;
             /*test*/
             // $scope.isWin = true;
             // $scope.players.data[0].score = 2000;
@@ -175,6 +176,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 })
                 .success(function(res)
                 {
+                    console.log('obj ne',obj);
                     obj.pic = res.data;
                     $scope.share.setInfo(obj);
                     if(callback) callback();

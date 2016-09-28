@@ -53,7 +53,9 @@ FunstartGame.prototype.gameOver = function (data,callback){
     console.log('game over cmnr');
 };
 FunstartGame.prototype.fetchPlayers = function(callback){
-    if(callback)  this.updatePlayers = callback;
+    if(callback){
+        this.updatePlayers = callback;
+    }
 }
 FunstartGame.prototype.updateObj = function (obj,callback) {
     if(this.objAngular.battle) this.objAngular.battle.updateObj(obj);
@@ -109,7 +111,6 @@ FunstartGame.prototype.createShare = function (obj, callback) {
                     obj.file = dataURItoBlob(data);
                     console.log(obj.file);
                     self.objAngular.uploadResult(obj, function(){
-
                         if(cb) cb();
                     });
 
@@ -185,7 +186,7 @@ angular.element(document).ready(function() {
         function( newValue, oldValue ) {
             if(fsGame.isBattle){
                 fsGame.players = newValue;
-                fsGame.updatePlayers(newValue);
+                if(typeof fsGame.updatePlayers === 'function') fsGame.updatePlayers(newValue);
             }
         }
     );
