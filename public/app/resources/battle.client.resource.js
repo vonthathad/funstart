@@ -273,7 +273,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         });
         socket.on('leave',function(data){
             if(self.room){
-            self.isReady = false;
             console.log('here');
             self.room.members = self.room.members.filter(function(item){
                 var check = false;
@@ -286,6 +285,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                 return check;
             });
             self.room.people = self.room.members.length;
+            self.isReady = false;
             $rootScope.$apply();
             }
         });
