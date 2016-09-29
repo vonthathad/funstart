@@ -48,9 +48,7 @@ angular.module('funstart').service('FriendsOnlineService',['Users',function(User
                         self.data.push(new Users(user));
 
                     });
-                    console.log(self.data);
                     self.isLoading = false;
-                    console.log(self.data);
                     if(!res.isNext){
                         self.hasMore = false;
                     }
@@ -275,7 +273,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         });
         socket.on('leave',function(data){
             if(self.room){
-            console.log('here');
             self.room.members = self.room.members.filter(function(item){
                 var check = false;
                 data.forEach(function(e){
@@ -292,7 +289,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             }
         });
         socket.on('ready',function(data){
-            console.log('ready chua click');
             self.room.ready = data;
             var tmp = [];
             self.room.members.forEach(function(player){
@@ -339,10 +335,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                 $rootScope.$apply();
             })
         });
-        socket.on('again',function(){
-            console.log('vo again');
-            self.isInvite = true;
-        });
+
         self.handleResultDialog();
         setTimeout(function () {
             //mo man choi
@@ -377,7 +370,6 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         self.friends = FriendsOnlineService;
         self.friends.userId = self.user._id;
         self.friends.loadFriends();
-        console.log(self.friends);
         if(self.room){
             var players = [];
             self.players.forEach(function(player){
@@ -399,7 +391,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                     isWaitRoom: true
                 };
                 self.createRoom("room",function(key){
-                    if(players) Invite.save({roomId: key,players: {data: players},room: tmpRoom},function(res){
+                    if(players) Invite.save({roomId: key,players: {data: players},room: tmpRoom._id},function(res){
                         $mdDialog.show(
                             $mdDialog.alert()
                                 .parent(angular.element(document.querySelector('.battle-room')))
@@ -480,6 +472,9 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                 );
             }
         })
+        socket.on('again',function(){
+            self.isInvite = true;
+        });
     };
     self.onDead = function(bool){
         self.status.isEndGame = true;

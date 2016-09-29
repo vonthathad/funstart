@@ -411,7 +411,7 @@ exports.inviteToRoom = function(req,res){
         }
     };
     if(req.body.room){
-        console.log('here');
+        console.log('room again',req.body.room);
         io.to(req.body.room).emit('again',true);
     }
     if(req.body.players){

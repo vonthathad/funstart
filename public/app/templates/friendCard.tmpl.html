@@ -8,7 +8,7 @@
         <p class="clearfix" ng-if="mode == 'game'">Điểm: <b>{{item.score}}</b></p>
         <p ng-if="item.turn && item.turn!=0" class="clearfix">{{item.turn}} lượt nữa</p>
     </div>
-    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead && !item.isWin)">Tạch</h5>
+    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && ((item.connect==0 || item.isDead) && !item.isWin)">Tạch</h5>
     <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin)">Thắng</h5>
     <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && (item.isWin==null && item.turn == 0)">Đánh</h5>
     <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'room' && item.isReady">Sẵn sàng</h5>
