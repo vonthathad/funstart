@@ -106,7 +106,7 @@ function disconnect(data){
                 }
 
                 room.save();
-                connections[data._id].leave(room._id);
+                if(connections[data._id]) connections[data._id].leave(room._id);
             }
         }
     });
@@ -194,8 +194,8 @@ exports.findRoom = function(req,res){
     })
 };
 function enterRoom(room,user,success,error) {
-    console.log('thanh vien trong room', room.members);
-    if(room.members.indexOf(user._id)<0){
+    if(!room.players[user._id]){
+        console.log(user._id);
         room.members.push(user._id);
         room.people++;
     };
