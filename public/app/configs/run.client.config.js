@@ -13,7 +13,7 @@ angular.module('funstart').config([
         // $httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
     }
 ]);
-angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdToast){
+angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdDialog){
 
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         $(window).scrollTop(0);
@@ -77,25 +77,34 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
     function initSocket(){
         socket.emit('user', $rootScope.user.token);
         socket.on('invite',function(data){
-            $mdToast.show({
-                templateUrl: '/app/templates/inviteToast.tmpl.html',
-                position: 'bottom right',
-                hideDelay: 20000,
-                controller: 'InviteToastCtrl',
-                locals:{parm:data}
-            });
+            console.log(data);
+            $mdDialog.show({
+                    controller: function($scope, $mdDialog,$location) {
+                        $scope.hide = function() {
+                            $mdDialog.hide();
+                        };
+                        $scope.cancel = function() {
+                            $mdDialog.cancel();
+                        };
+                        $scope.answer = function(answer) {
+                            $mdDialog.hide(answer);
+                        };
+                        $scope.data = data;
+                        $scope.goRoom = function(){
+                            $location.path('/game/'+$scope.data.game._id);
+                            $location.search({roomId : $scope.data.room});
+                            $mdDialog.cancel();
+                        }
+                    },
+                    templateUrl: 'app/templates/inviteDialog.tmpl.html',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose:true
+                })
+                .then(function(answer) {
+
+                }, function() {
+
+                });
         })
     };
 });
-angular.module('funstart')
-    .controller('InviteToastCtrl', ['$scope','$location','$mdToast', 'parm', function ($scope,$location,$mdToast, parm) {
-        $scope.data = parm;
-        $scope.goRoom = function(){
-            $location.path('/game/'+$scope.data.game);
-            $location.search({roomId : $scope.data.room});
-            $mdToast.hide();
-        }
-        $scope.closeToast = function () {
-            $mdToast.hide();
-        }
-    }]);

@@ -270,17 +270,18 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             var confirm = $mdDialog.confirm()
                 .title('Thoát chế độ thách đấu')
                 .textContent('Bạn chắc chắn muốn thoát chứ?')
+                .parent(angular.element(document.body))
                 .ok('Có')
                 .cancel('Không');
-            if($scope.battle.status.isEndGame){
-                confirm.parent(angular.element(document.querySelector('.recommend-games')))
-            } else if($scope.battle.status.isFullscreen){
-                confirm.parent(angular.element(document.querySelector('.game-area')))
-            } else if($scope.battle.status.isWaitRoom){
-                confirm.parent(angular.element(document.querySelector('.battle-room')));
-            } else {
-                confirm.parent(angular.element(document.querySelector('.spinner-bg')));
-            }
+            // if($scope.battle.status.isEndGame){
+            //     confirm.parent(angular.element(document.querySelector('.recommend-games')))
+            // } else if($scope.battle.status.isFullscreen){
+            //     confirm.parent(angular.element(document.querySelector('.game-area')))
+            // } else if($scope.battle.status.isWaitRoom){
+            //     confirm.parent(angular.element(document.querySelector('.battle-room')));
+            // } else {
+            //     confirm.parent(angular.element(document.querySelector('.spinner-bg')));
+            // }
             $mdDialog.show(confirm).then(function() {
                 $scope.isBattle = false;
                 $location.search().roomId = null;

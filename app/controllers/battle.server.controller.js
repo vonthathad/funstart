@@ -400,13 +400,20 @@ exports.joinRoom = function(req,res){
 };
 exports.inviteToRoom = function(req,res){
     var data = {
-        game: req.room.game._id,
+        game: {
+            _id: req.room.game._id,
+            title: req.room.game.title
+        },
         room: req.room._id,
         user: {
             _id: req.user._id,
             username: req.user.username
         }
     };
+    if(req.body.room){
+        console.log('here');
+        io.to(req.body.room).emit('again',true);
+    }
     if(req.body.players){
         req.body.players.data.forEach(function (player) {
             console.log(player, 'moi');

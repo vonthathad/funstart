@@ -1267,3 +1267,6 @@ md-toast {
     height: 100%;
   }
 }
+.md-dialog-container{
+  z-index: 200;
+}

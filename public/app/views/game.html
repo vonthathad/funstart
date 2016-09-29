@@ -39,7 +39,7 @@
         <div class="full-mode divider-right battle-room" ng-if="battle.status.isWaitRoom && isBattle">
             <md-toolbar class="md-theme-light" hide-sm hide-xs>
                 <h2 class="md-toolbar-tools">
-                    <span>Phòng chơi [{{battle.room.people}}/{{battle.game.max}}]:</span>
+                    <span>Phòng chơi:</span>
                 </h2>
             </md-toolbar>
             <md-content>
@@ -169,7 +169,7 @@
                     <i class="ion-refresh" style="font-size: 1.25em"></i>
                     Chơi lại
                 </md-button>
-                <md-button ng-if="isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onCreateRoom()">
+                <md-button ng-if="isBattle&&!battle.isInvite" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onCreateRoom()">
                     <i class="ion-refresh" style="font-size: 1.25em"></i>
                     Thách đấu lại
                 </md-button>

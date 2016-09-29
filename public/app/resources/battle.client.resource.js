@@ -174,6 +174,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         socket.off('join');
         socket.off('leave');
         socket.off('win');
+        socket.off('again');
         self.status.isSearching = true;
         Rooms.get({gameId: self.game._id},function(res){
             if(res.data == null){
@@ -208,6 +209,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         socket.off('ready');
         socket.off('join');
         socket.off('leave');
+        socket.off('again');
         Rooms.get({roomId: roomId},function(res){
             self.room = new Rooms(res.data);
             self.status.isWaitRoom = true;
@@ -337,6 +339,10 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                 $rootScope.$apply();
             })
         });
+        socket.on('again',function(){
+            console.log('vo again');
+            self.isInvite = true;
+        });
         self.handleResultDialog();
         setTimeout(function () {
             //mo man choi
@@ -366,6 +372,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         socket.off('ready');
         socket.off('join');
         socket.off('leave');
+        socket.off('again');
         self.isHost = true;
         self.friends = FriendsOnlineService;
         self.friends.userId = self.user._id;
@@ -376,6 +383,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             self.players.forEach(function(player){
                 if(player._id != self.user._id) players.push(player._id);
             });
+            var tmpRoom = self.room;
             self.room.$remove(function(){
                 self.isHost = true;
                 self.isReady = false;
@@ -391,7 +399,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
                     isWaitRoom: true
                 };
                 self.createRoom("room",function(key){
-                    if(players) Invite.save({roomId: key,players: {data: players}},function(res){
+                    if(players) Invite.save({roomId: key,players: {data: players},room: tmpRoom},function(res){
                         $mdDialog.show(
                             $mdDialog.alert()
                                 .parent(angular.element(document.querySelector('.battle-room')))
