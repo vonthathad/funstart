@@ -45,7 +45,7 @@
             <md-content>
                 <div ng-if="battle.isHost" layout="column" layout-padding>
                     <div class="invite-div">
-                        <h4><span hide-md hide-lg hide-gt-lg>[{{battle.room.people}}/{{battle.game.max}}]</span>Copy link ở dưới và gửi cho bạn bè:</h4>
+                        <h4>Copy link ở dưới và gửi cho bạn bè:</h4>
                     </div>
                     <div class="invite-div">
                         <md-input-container md-no-float class="md-block">
@@ -55,7 +55,7 @@
 
                 </div>
                 <md-tabs md-dynamic-height>
-                    <md-tab label="THÀNH VIÊN">
+                    <md-tab label="THÀNH VIÊN [{{battle.room.people}}/{{battle.game.max}}]">
                         <md-list>
                         <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
                              infinite-scroll="suggest.loadMore()">

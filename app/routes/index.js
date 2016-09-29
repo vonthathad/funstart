@@ -8,15 +8,15 @@ module.exports = function(app) {
       .post(passport.authenticate('local'),users.authSignin);
   app.get('/auth/action',users.renderAction);
   app.post('/auth/signup',users.authSignup);
-  app.get('/oauth/facebook', passport.authenticate('facebook', {scope: ['user_friends','email','public_profile']}));
-  app.get('/oauth/facebook/callback',  passport.authenticate('facebook',{
-    successRedirect: 'back',
-    failureRedirect: 'back'
-  }));
-  app.get('/logout',users.authLogout);
-  app.get('/abc',function (req,res) {
-    res.render('index2');
+  app.get('/oauth/facebook',function (req,res,next) {
+    req.session.redirect = req.query.redirect || '/';
+    next();
+  }, passport.authenticate('facebook', {scope: ['user_friends','email','public_profile']}));
+  app.get('/oauth/facebook/callback',  passport.authenticate('facebook',{ failureRedirect: '/login' }),function(req,res){
+    console.log(req.session.redirect);
+    res.redirect(req.session.redirect || '/');
   });
+  app.get('/logout',users.authLogout);
   app.route('/action/verify/:token')
       .get(users.verifyEmail);
   app.route('/action/reset')

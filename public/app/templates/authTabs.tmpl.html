@@ -24,7 +24,7 @@
                     <span ng-if="submitting">Đang đăng nhập</span>
                 </md-button>
             </form>
-            <md-button href="/oauth/facebook" target="_self" style="width: 100%;margin: auto;margin-top: 10px" ng-disabled="submitting" class="md-raised md-facebook" aria-label="signin-facebook-submit">
+            <md-button href="/oauth/facebook?redirect={{location}}" target="_self" style="width: 100%;margin: auto;margin-top: 10px" ng-disabled="submitting" class="md-raised md-facebook" aria-label="signin-facebook-submit">
                 <span ng-if="!submitting">Đăng nhập Facebook</span>
                 <span ng-if="submitting">Đang đăng nhập</span>
             </md-button>

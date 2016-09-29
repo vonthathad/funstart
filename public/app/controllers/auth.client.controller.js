@@ -19,6 +19,7 @@ angular.module('auth').controller('ActionController',['$scope','$rootScope','$lo
 }]);
 angular.module('auth').controller('AuthController',['$scope','AuthFacebook','AuthSignup','AuthSignin','ActionReset','$rootScope','$http',
     function($scope,AuthFacebook,AuthSignup,AuthSignin,ActionReset,$rootScope,$http){
+        $scope.location = window.location.href;
         $scope.signupModel = {};
         $scope.submitting = false;
         $scope.onSignOut = function(){
