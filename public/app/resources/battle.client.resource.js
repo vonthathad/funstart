@@ -430,8 +430,19 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         self.friends.userId = self.user._id;
         self.friends.loadFriends();
     };
-    self.updateObj = function(obj,callback){
-        if(self.room) Rooms.update({_id: self.room._id, obj: obj});
+    self.updateObj = function(obj,prepare,callback){
+        if(self.room) Rooms.update({_id: self.room._id, obj: obj, prepare: prepare},function(res){
+            if(callback) callback();
+        },function(err){
+
+        });
+    };
+    self.updateData = function(data,callback){
+        if(self.room) Rooms.update({_id: self.room._id, data: data},function(res){
+            if(callback) callback();
+        },function(err){
+
+        });
     };
     self.handleResultDialog = function(){
         socket.on("end",function(stt){

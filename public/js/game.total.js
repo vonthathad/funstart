@@ -43,9 +43,7 @@ FunstartGame.prototype.gameOver = function (data,callback){
     var self = this;
     if(data && data.score) self.objAngular.endGame(data.score);
     if(self.objAngular.battle && data){
-        self.objAngular.battle.updateObj(data,function(){
-            if(callback) callback();
-        });
+        self.objAngular.battle.updateObj(data,false,callback);
     } else {
         if(callback) callback();
     }
@@ -57,8 +55,17 @@ FunstartGame.prototype.fetchPlayers = function(callback){
         this.updatePlayers = callback;
     }
 }
-FunstartGame.prototype.updateObj = function (obj,callback) {
-    if(this.objAngular.battle) this.objAngular.battle.updateObj(obj);
+FunstartGame.prototype.updateObj = function (obj,prepare,callback) {
+    if(this.objAngular.battle) {
+        if(prepare == null) prepare = false;
+        this.objAngular.battle.updateObj(obj,prepare,callback);
+    }
+    console.log('thuc hien update value');
+};
+FunstartGame.prototype.updateData = function (data,prepare,callback) {
+    if(this.objAngular.battle) {
+        this.objAngular.battle.updateData(data,callback);
+    }
     console.log('thuc hien update value');
 };
 //create img result

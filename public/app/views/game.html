@@ -37,7 +37,7 @@
             </md-content>
         </div>
         <div class="full-mode divider-right battle-room" ng-if="battle.status.isWaitRoom && isBattle">
-            <md-toolbar class="md-theme-light" hide-sm hide-xs>
+            <md-toolbar class="md-theme-light">
                 <h2 class="md-toolbar-tools">
                     <span>Phòng chơi [{{battle.room.people}}/{{battle.game.max}}]:</span>
                 </h2>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="invite-div">
                         <md-input-container md-no-float class="md-block">
-                            <input class="invite-text" ng-model="battle.room.link">
+                            <input onClick="this.select();" class="invite-text" ng-model="battle.room.link">
                         </md-input-container>
                     </div>
 
@@ -93,7 +93,7 @@
                 </md-button>
             </md-content>
         </div>
-        <div ng-if="battle.status.isFullscreen" class="full-mode-3" hide-md hide-lg>
+        <div ng-if="battle.status.isFullscreen" class="full-mode-3" hide-md hide-lg hide-lt-lg>
             <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal>
                 <div md-virtual-repeat="item in battle.players  | orderBy: battle.orderPlayer"
                      class="repeated-item" flex>

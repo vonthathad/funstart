@@ -284,12 +284,12 @@ exports.updateRoom = function (req,res){
         return res.json();
     } else if (req.body.obj) {
         console.log('time',req.room.time);
-        if((req.room.status != 2 && req.room.time == undefined || req.room.turn == req.user._id) && req.room.players[req.user._id]){
+        if(req.room.status !=2 && (req.body.prepare || req.room.status == 0 || req.room.time == undefined || req.room.turn == req.user._id) && req.room.players[req.user._id]){
             var isEnd = false;
             var stt = {};
             var tmp = req.room.players;
             req.room.players = {};
-            if(req.room.time){
+            if(req.room.time && !req.body.prepare){
                 var amount = 0;
                 var dataTurn = {};
                 var player0 = null;
@@ -366,7 +366,7 @@ exports.updateRoom = function (req,res){
             io.to(req.room._id).emit('players',req.room.players);
             if(isEnd) {
                 io.to(req.room._id).emit('end',stt);
-                req.room.status = 3;
+                req.room.status = 2;
             };
             req.room.save();
             return;
@@ -374,8 +374,15 @@ exports.updateRoom = function (req,res){
             res.status(400).send();
         }
 
+    } else if(req.body.data){
+        var tmp = req.room.data;
+        req.room.data = {};
+        tmp = mergeObject(tmp,req.body.data);
+        req.room.data = tmp;
+        req.room.save();
+        return res.json();
     } else {
-        res.status(400).send();
+        return res.status(400).send();
     }
 };
 exports.joinRoom = function(req,res){
