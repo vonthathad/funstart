@@ -3,6 +3,7 @@
  */
 module.exports = {
     db: 'mongodb://admin:funbegin@127.0.0.1:61511/funstart',
+    // db: 'mongodb://admin:funbegin@23.88.239.10:61511/funstart',
     sessionSecret: 'PDLDHAHQTVTD',
     key: {
         privateKey: 'CaS4mWZDOVghh122',
