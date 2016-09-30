@@ -66,11 +66,9 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         if(bool){
             $scope.friends.data.push(obj);
             $rootScope.user.friends.push(obj._id);
-            sessionStorage.setItem('user',JSON.stringify($rootScope.user));
         } else {
             $scope.friends.data.splice($scope.friends.data.indexOf(obj),1);
             $rootScope.user.friends.splice($rootScope.user.friends.indexOf(obj._id),1);
-            sessionStorage.setItem('user',JSON.stringify($rootScope.user));
         }
 
     };
@@ -206,43 +204,51 @@ function drawPoint(info){
     var point3 = {};
     var point4 = {};
     var point5 = {};
-    point0.y = 150 - parseInt(info.quick/1000*120);
-    point0.x = 150;
-    $('#hex-point-0').css('top',(point0.y-2) + 'px');
-    $('#hex-point-0').css('left',(point0.x-2) + 'px');
+    var square;
+    if($(window).width()<=456){
+        square = parseInt(($(window).width() - 72)/2);
+    } else {
+        square = 152;
+    }
+    console.log(square);
+    var square60 = Math.round(0.8*square);
+    point0.y = square - parseInt(info.quick/1000*square60);
+    point0.x = square;
+    $('#hex-point-0').css('top',(point0.y-4) + 'px');
+    $('#hex-point-0').css('left',(point0.x-4) + 'px');
 
-    point1.y = 150 - parseInt(info.flex/1000*120/2);
-    point1.x = 150 + parseInt(Math.sqrt(3)*info.flex/1000*120/2);
-    $('#hex-point-1').css('top',(point1.y-2) + 'px');
-    $('#hex-point-1').css('left',(point1.x-2) + 'px');
+    point1.y = square - parseInt(info.flex/1000*square60/2);
+    point1.x = square + parseInt(Math.sqrt(3)*info.flex/1000*square60/2);
+    $('#hex-point-1').css('top',(point1.y-4) + 'px');
+    $('#hex-point-1').css('left',(point1.x-4) + 'px');
 
     $('.hex-svg').append('<svg><polyline points="'+(point0.x+1)+','+(point0.y+1)+' '+(point1.x+1)+','+(point1.y+1)+'"></polyline></svg>');
 
-    point2.y = 150 + parseInt(info.memory/1000*120/2);
-    point2.x = 150 + parseInt(Math.sqrt(3)*info.memory/1000*120/2);
-    $('#hex-point-2').css('top',(point2.y-2) + 'px');
-    $('#hex-point-2').css('left',(point2.x-2) + 'px');
+    point2.y = square + parseInt(info.memory/1000*square60/2);
+    point2.x = square + parseInt(Math.sqrt(3)*info.memory/1000*square60/2);
+    $('#hex-point-2').css('top',(point2.y-4) + 'px');
+    $('#hex-point-2').css('left',(point2.x-4) + 'px');
 
     $('.hex-svg').append('<svg><polyline points="'+(point1.x+1)+','+(point1.y+1)+' '+(point2.x+1)+','+(point2.y+1)+'"></polyline></svg>');
 
-    point3.y = 150 + parseInt(info.focus/1000*120);
-    point3.x = 150;
-    $('#hex-point-3').css('top',(point3.y-2) + 'px');
-    $('#hex-point-3').css('left',(point3.x-2) + 'px');
+    point3.y = square + parseInt(info.focus/1000*square60);
+    point3.x = square;
+    $('#hex-point-3').css('top',(point3.y-4) + 'px');
+    $('#hex-point-3').css('left',(point3.x-4) + 'px');
 
     $('.hex-svg').append('<svg><polyline points="'+(point2.x+1)+','+(point2.y+1)+' '+(point3.x+1)+','+(point3.y+1)+'"></polyline></svg>');
 
-    point4.y = 150 + parseInt(info.wit/1000*120/2);
-    point4.x = 150 - parseInt(Math.sqrt(3)*info.wit/1000*120/2);
-    $('#hex-point-4').css('top',(point4.y-2) + 'px');
-    $('#hex-point-4').css('left',(point4.x-2) + 'px');
+    point4.y = square + parseInt(info.wit/1000*square60/2);
+    point4.x = square - parseInt(Math.sqrt(3)*info.wit/1000*square60/2);
+    $('#hex-point-4').css('top',(point4.y-4) + 'px');
+    $('#hex-point-4').css('left',(point4.x-4) + 'px');
 
     $('.hex-svg').append('<svg><polyline points="'+(point3.x+1)+','+(point3.y+1)+' '+(point4.x+1)+','+(point4.y+1)+'"></polyline></svg>');
 
-    point5.y = 150 - parseInt(info.fire/1000*120/2);
-    point5.x = 150 - parseInt(Math.sqrt(3)*info.fire/1000*120/2);
-    $('#hex-point-5').css('top',(point5.y-2) + 'px');
-    $('#hex-point-5').css('left',(point5.x-2) + 'px');
+    point5.y = square - parseInt(info.fire/1000*square60/2);
+    point5.x = square - parseInt(Math.sqrt(3)*info.fire/1000*square60/2);
+    $('#hex-point-5').css('top',(point5.y-4) + 'px');
+    $('#hex-point-5').css('left',(point5.x-4) + 'px');
 
     $('.hex-svg').append('<svg><polyline points="'+(point4.x+1)+','+(point4.y+1)+' '+(point5.x+1)+','+(point5.y+1)+'"></polyline></svg>');
 

@@ -92,15 +92,16 @@ user-card .md-button.md-fab{
 .group-game-index{
   padding: 20px;
 }
-.group-game-index .md-title{
-  font-weight: 800;
-  color: #2e2d7c;
-}
 .group-game-title{
-  text-transform: uppercase;
   padding-left: 15px;
 }
+.group-game-index .md-title{
+  line-height: 24px;
+  color: #2e2d7c;
+}
+
 .group-game-title .more-btn{
+  text-transform: uppercase;
   color: #f1702f!important;
 }
 .group-game-title>*{
@@ -130,7 +131,7 @@ user-card .md-button.md-fab{
 }
 .group-game-index .title a,.group-game-card .title a{
   text-decoration: none;
-  color: #000;
+  color: #252525;
 }
 .group-game-card .title a{
   font-size: 1.25em;
@@ -141,8 +142,13 @@ user-card .md-button.md-fab{
   text-align: center;
 }
 .group-game-index .description,.group-game-card .description{
-  color: #797979;
+  color: #666;
   font-size: 0.85em;
+}
+.fb-description{
+  color: #666;
+  text-align: center;
+  font-size: 12px
 }
 .group-game-card .description{
   text-align: left;
@@ -289,7 +295,12 @@ h5.status-2{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100px;
+  max-width: 150px;
+}
+@media only screen and (max-width: 456px){
+  .friend-item h4{
+    max-width: 110px;
+  }
 }
 .md-sidenav-right{
   background-color: #efefef;
@@ -518,6 +529,10 @@ a.search-link {
 .search-form md-autocomplete input:not(.md-input){
   padding-left: 35px;
 }
+.search-form md-autocomplete input:not(.md-input)::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  font-weight: bold;
+  font-size: 13px;
+}
 .search-form-icon{
   position: absolute;
   top: 7px;
@@ -529,6 +544,11 @@ a.search-link {
 }
 .nav-toolbar .md-menu button{
   color: #fff;
+}
+nav-toolbar .md-button{
+  text-transform: none;
+  font-weight: 700;
+  font-size: 13px;
 }
 .nav-toolbar md-menu>button:hover, .nav-toolbar md-menu>button:focus, .nav-toolbar md-menu.md-open>button{
   background-color: rgba(255, 255, 255, 0.1);
@@ -764,19 +784,19 @@ md-toast {
 }
 .hex-gap-1>.corner{
   position: absolute;
-  top: 122px;
-  left: 100px;
-  width: 104px;
-  height: 60px;
+  top: 40%;
+  left: 32.68%;
+  width: 34.64%;
+  height: 20%;
   border-right: 1px solid rgba(255,255,255,0.25);
   border-left: 1px solid rgba(255,255,255,0.25);
 }
 .hex-gap-2>.corner{
   position: absolute;
-  top: 92px;
-  left: 47px;
-  width: 208px;
-  height: 120px;
+  top: 30%;
+  left: calc(15.5% - 1px);
+  width: 69%;
+  height: 40%;
   border-right: 2px solid rgba(255,255,255,0.4);
   border-left: 2px solid rgba(255,255,255,0.4);
 }
@@ -785,8 +805,8 @@ md-toast {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  top: 150px;
-  left: 150px;
+  top: calc(50% - 2px);
+  left: calc(50% - 2px);
   background-color: #fff;
 }
 .hex.point-user{
@@ -794,8 +814,8 @@ md-toast {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  top: 148px;
-  left: 148px;
+  top: calc(50% - 4px);
+  left: calc(50% - 4px);
   background-color: #fff;
 }
 .hex-icon{
@@ -826,61 +846,61 @@ md-toast {
   z-index: 2;
 }
 .point-number.point-0{
-  top: 20px;
-  left: 152px;
+  top: calc(5% + 7px);
+  left: 50%;
 }
 .hex-icon.ion-ios-bolt{
-  top: 2px;
-  left: 140px;
+  top: calc(5% - 12px);
+  left: calc(50% - 12px);
 }
 .point-number.point-1{
-  top: 80px;
-  right: 8px;
+  top: calc(27.5% - 12px);
+  right: calc(11% - 7px);
 }
 .hex-icon.ion-ios-infinite{
-  top: 70px;
-  right: 15px;
+  top: calc(27.5% - 12px);
+  right: calc(11% - 12px);
 }
 .point-number.point-2{
-  bottom: 80px;
-  right: 8px;
+  bottom: calc(27.5% - 12px);
+  right: calc(11% - 7px);
 }
 .hex-icon.ion-ios-lightbulb{
-  bottom: 70px;
-  right: 15px;
+  bottom: calc(27.5% - 12px);
+  right: calc(11% - 12px);
 }
 .point-number.point-3{
-  bottom: 20px;
-  left: 152px;
+  bottom: calc(5% + 7px);
+  left: 50%;
 }
 .hex-icon.ion-ios-eye{
-  bottom: 2px;
-  left: 140px;
+  bottom: calc(5% - 12px);
+  left: calc(50% - 12px);
 }
 .point-number.point-4{
-  bottom: 80px;
-  left: 47px;
+  bottom: calc(27.5% - 12px);
+  left: calc(11% + 27px);
 }
 .hex-icon.ion-ios-cog{
-  bottom: 70px;
-  left: 15px;
+  bottom: calc(27.5% - 12px);
+  left: calc(11% - 12px);
 }
 
 .hex-icon.ion-ios-flame{
-  top: 70px;
-  left: 15px;
+  top: calc(27.5% - 12px);
+  left: calc(11% - 12px);
 }
 .point-number.point-5{
-  top: 80px;
-  left: 47px;
+  top: calc(27.5% - 12px);
+  left: calc(11% + 27px);
 }
 .hex.line{
   position: absolute;
   background-color: rgba(255,255,255,0.2);
   width: 1px;
-  height: 240px;
-  top: 32px;
-  left: 152px;
+  height: 80%;
+  top: 10%;
+  left: 50%;
 }
 .hex.line-2{
   transform: rotate(60deg);

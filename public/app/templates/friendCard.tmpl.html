@@ -8,13 +8,15 @@
         <p class="clearfix" ng-if="mode == 'game'">Điểm: <b>{{item.score}}</b></p>
         <p ng-if="item.turn && item.turn!=0" class="clearfix">{{item.turn}} lượt nữa</p>
     </div>
-    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && ((item.connect==0 || item.isDead) && !item.isWin)">Tạch</h5>
-    <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin)">Thắng</h5>
+    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead || item.isWin == false)">Tạch</h5>
+    <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin == true)">Thắng</h5>
     <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && (item.isWin==null && item.turn == 0)">Đánh</h5>
-    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'room' && item.isReady">Sẵn sàng</h5>
     <h5 ng-if="mode=='friend'">Học sĩ</h5>
+    <md-button ng-click="follow({input: item, callback: updateList({bool:true,input:item})})" ng-if="mode == 'room' && item.isReady" style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-primary">R</md-button>
     <md-button ng-click="invite({input: item})" ng-if="mode=='invite'" class="md-raised md-primary"><i class="ion-android-add"></i> Mời</md-button>
-    <md-button ng-if="isHost" ng-click="kick({input: item})" ng-if="mode=='room'" class="md-fab md-mini md-accent"><i class="ion-android-close"></i></md-button>
-    <md-button ng-click="follow({input: item, callback: updateFriendList({bool:true,input:item})})" ng-if="mode=='search' && item.isFriend == false" class="md-raised md-primary"><i class="ion-android-add"></i> Thêm</md-button>
-    <md-button ng-click="unfollow({input: item, callback: updateFriendList({bool:false,input:item})})" ng-if="mode=='search' && item.isFriend == true" class="md-raised md-accent"><i class="ion-android-done"></i> Bạn</md-button>
+    <md-button ng-click="follow({input: item, callback: updateList({bool:true,input:item})})" ng-if="(mode=='room' || mode=='search') && !item.isFriend && item._id != $root.user._id" class="md-fab md-mini md-primary"><i class="ion-person-add"></i></md-button>
+    <md-button ng-click="unfollow({input: item, callback: updateList({bool:false,input:item})})" ng-if="(mode=='room' || mode=='search') && item.isFriend == true && item._id != $root.user._id" class="md-fab md-mini md-primary"><i class="ion-person-stalker"></i></md-button>
+    <md-button ng-click="kick({input: item})" ng-if="mode=='room' && isHost" class="md-icon-button"><i class="ion-close-circled"></i></md-button>
+    <!--<md-button ng-click="follow({input: item, callback: updateFriendList({bool:true,input:item})})" ng-if="" class="md-raised md-primary"><i class="ion-android-add"></i> Thêm</md-button>-->
+    <!--<md-button class="md-raised md-accent"><i class="ion-android-done"></i> Bạn</md-button>-->
 </md-list-item>

@@ -54,7 +54,7 @@ angular.module('funstart').directive('friendCard', function () {
             'unfollow' : '&',
             'isHost': '=',
             'statusClass' : '&',
-            'updateFriendList' : '&'
+            'updateList' : '&'
         },
         controller: function ($scope) {
 

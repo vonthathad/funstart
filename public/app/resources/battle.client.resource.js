@@ -61,7 +61,8 @@ angular.module('funstart').service('FriendsOnlineService',['Users',function(User
     return self;
 
 }]);
-angular.module('funstart').service('BattleService', function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService) {
+angular.module('funstart').service('BattleService',
+    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService) {
     var self = this;
     self.status = {};
     self.friends = {};
@@ -69,6 +70,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
     self.friends = {};
     self.isHost = true;
     self.init = function(game,user,roomId,error){
+        console.log(FriendsService);
         self.isHost = true;
         self.isReady = false;
         self.game = game;
@@ -210,6 +212,7 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         socket.off('again');
         Rooms.get({roomId: roomId},function(res){
             self.room = new Rooms(res.data);
+            self.checkFriend();
             self.status.isWaitRoom = true;
             self.handlingRoom();
         },function(err){
@@ -265,9 +268,26 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
             }
         });
     };
+    self.checkFriend = function(){
+        self.room.members.forEach(function(e){
+            var check = false;
+            $rootScope.user.friends.forEach(function(friend){
+                if(friend == e._id){
+                    check = true;
+                    return true;
+                }
+            })
+            if(check){
+                e.isFriend = true;
+            } else {
+                e.isFriend = false;
+            }
+        });
+    };
     self.handlingRoom = function(){
         socket.on('join',function(data){
             self.room.members = data;
+            self.checkFriend();
             self.room.people = self.room.members.length;
             $rootScope.$apply();
         });
@@ -360,6 +380,34 @@ angular.module('funstart').service('BattleService', function ($rootScope,$timeou
         if(self.room) Invite.save({roomId: self.room._id,player: user._id},function(res){
         },function (err) {
         });
+    };
+    self.follow = function(item,callback){
+        var params = {
+            action: 'follow'
+        };
+        console.log('here');
+        var tmpUser = new Users(item);
+        tmpUser.$update(params,function(res){
+            if(callback) callback();
+        });
+    };
+    self.unfollow = function(item,callback){
+        var params = {
+            action: 'unfollow'
+        };
+        var tmpUser = new Users(item);
+        tmpUser.$update(params,function(res){
+            if(callback) callback();
+        });
+    };
+    self.updateList = function(bool,item){
+        if(bool){
+            item.isFriend = true;
+            $rootScope.user.friends.push(item._id);
+        } else {
+            item.isFriend = false;
+            $rootScope.user.friends.splice($rootScope.user.friends.indexOf(item._id),1);
+        }
     }
     self.onCreateRoom = function(){
         socket.off('ready');

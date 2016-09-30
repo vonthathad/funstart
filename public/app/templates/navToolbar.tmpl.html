@@ -35,7 +35,7 @@
                                  md-menu-class="search-menu"
                                  md-selected-item-change="gotoLink(selectedItem)"
                                  md-items="item in querySearch(searchText)"
-                                 placeholder="Tìm kiếm ..."
+                                 placeholder="tìm kiếm ..."
                                  md-item-text="item.title">
                     <md-item-template>
                         <img class="thumb-search" ng-src="{{::item.thumb}}"/>
@@ -48,7 +48,7 @@
                 <div class="search-form-icon"><i class="ion-android-search"></i></div>
             </form>
         </div>
-        <span flex ng-if="!isSearching"></span>
+        <span flex ng-if="!isSearching" ng-click="isSearching = isSearching?false:true"></span>
         <md-button layout="column" class="md-icon-button nav-icon" aria-label="Search" ng-click="isSearching = isSearching?false:true"
                    ng-hide="isOpenRight()"
                    hide-gt-sm
