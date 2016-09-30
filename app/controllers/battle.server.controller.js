@@ -49,6 +49,17 @@ function disconnect(data){
                         room.people--;
                         tmpTurn = tmp[data._id].turn;
                         delete tmp[data._id];
+                        Object.keys(tmp).forEach(function(e){
+                            if(tmp[e].connect == 1 && tmp[e].turn > tmpTurn){
+                                tmp[e].turn --;
+                                if(tmp[e].turn == 0){
+                                    console.log('doi turn cho '+e);
+                                    room.turn = e;
+                                };
+                            } else {
+                                tmp[e].turn = null;
+                            }
+                        });
                         room.ready = [];
                         room.players = tmp;
                         io.to(room._id).emit('leave',room.members);
@@ -200,12 +211,7 @@ function enterRoom(room,user,success,error) {
         room.people++;
     };
     var obj =  {};
-    if(room.time){
-        obj[user._id] = {score: 0, connect: 1, turn: room.people - 1};
-    } else {
-        obj[user._id] = {score: 0, connect: 1};
-    }
-
+    obj[user._id] = {score: 0, connect: 1, turn: room.people - 1};
     var tmp = mergeObject(room.players,obj);
     room.players = {};
     room.players = tmp;
@@ -241,12 +247,8 @@ exports.createRoom = function (req,res) {
     room.members = [req.user._id];
     room.turn = req.user._id;
     room.players = {};
-    room.players[req.user._id] = {score: 0, connect: 1};
-    if(room.time){
-        room.players[req.user._id] = {score: 0, connect: 1, turn: 0};
-    } else {
-        room.players[req.user._id] = {score: 0, connect: 1};
-    }
+    room.players[req.user._id] = {score: 0, connect: 1, turn: 0};
+
     console.log(room);
     room.save(function(err,data){
         if(err) {
@@ -260,6 +262,7 @@ exports.createRoom = function (req,res) {
     })
 };
 exports.updateRoom = function (req,res){
+    console.log('begin',Date.now());
     if(req.body.ready){
         if(req.room.ready.indexOf(req.user._id)<0){
             req.room.ready.push(req.user._id);
@@ -361,9 +364,10 @@ exports.updateRoom = function (req,res){
             }
             tmp[req.user._id] = mergeObject(tmp[req.user._id],req.body.obj);
             req.room.players = tmp;
-            console.log('update',req.room.players);
-            res.json();
             io.to(req.room._id).emit('players',req.room.players);
+            console.log('update',req.room.players);
+            console.log('end',Date.now());
+            res.json();
             if(isEnd) {
                 io.to(req.room._id).emit('end',stt);
                 req.room.status = 2;
@@ -381,6 +385,45 @@ exports.updateRoom = function (req,res){
         req.room.data = tmp;
         req.room.save();
         return res.json();
+    } else if(req.body.kick && req.room.turn == req.user._id){
+
+        var members = [];
+        req.room.members.forEach(function(e,i){
+            members.push(e._id);
+        });
+        var indMember = members.indexOf(parseInt(req.body.kick));
+        console.log('indMember',indMember);
+        var tmpTurn = null;
+        var tmp = req.room.players;
+        req.room.players = {};
+        if(req.room.status == 0){
+            if(indMember >= 0){
+                members.splice(indMember,1);
+                req.room.members.splice(indMember,1);
+                req.room.people--;
+                tmpTurn = tmp[req.body.kick].turn;
+                delete tmp[req.body.kick];
+                Object.keys(tmp).forEach(function(e){
+                    if(tmp[e].connect == 1 && tmp[e].turn > tmpTurn){
+                        tmp[e].turn --;
+                        if(tmp[e].turn == 0){
+                            req.room.turn = e;
+                        }
+                    } else {
+                        tmp[e].turn = null;
+                    }
+                });
+                req.room.ready = [];
+                req.room.players = tmp;
+                io.to(req.room._id).emit('leave',members);
+                console.log('member',req.room.members);
+                req.room.save();
+                if(connections[req.body.kick]) connections[req.body.kick].leave(req.room._id);
+                res.json();
+            }
+        } else {
+            return res.status(400).send();
+        }
     } else {
         return res.status(400).send();
     }
@@ -446,6 +489,7 @@ exports.gameByID = function(req, res, next) {
         });
 };
 exports.roomByID = function(req, res, next, id) {
+    console.log('start',Date.now());
     Room.findById(id)
         .populate('members','username avatar displayName')
         .populate('game','title min max')

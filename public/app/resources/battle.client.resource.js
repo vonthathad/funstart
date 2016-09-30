@@ -205,6 +205,12 @@ angular.module('funstart').service('BattleService',
         });
         // self.room.players = tmp;
     }
+    self.kickMember = function(user){
+        console.log('vo kick',user);
+        if(self.room) Rooms.update({_id: self.room._id, kick: user._id},function(res){
+        },function(err){
+        });
+    };
     self.joinRoom = function(roomId,error){
         socket.off('ready');
         socket.off('join');
@@ -292,6 +298,7 @@ angular.module('funstart').service('BattleService',
             $rootScope.$apply();
         });
         socket.on('leave',function(data){
+            console.log('leave',data);
             if(self.room){
             self.room.members = self.room.members.filter(function(item){
                 var check = false;
@@ -312,6 +319,7 @@ angular.module('funstart').service('BattleService',
             self.room.ready = data;
             var tmp = [];
             self.room.members.forEach(function(player){
+                player.isReady = false;
                 data.forEach(function(e){
                     if(player._id == e){
                         player.isReady = true;
@@ -344,6 +352,7 @@ angular.module('funstart').service('BattleService',
         Rooms.update({_id: self.room._id,status: true});
 
         socket.on('players',function (players) {
+            console.log('end client',Date.now());
             self.room.players = players;
             self.updatePlayers();
             $rootScope.$apply();
@@ -479,6 +488,7 @@ angular.module('funstart').service('BattleService',
         self.friends.loadFriends();
     };
     self.updateObj = function(obj,prepare,callback){
+        console.log('begin client',Date.now());
         if(self.room) Rooms.update({_id: self.room._id, obj: obj, prepare: prepare},function(res){
             if(callback) callback();
         },function(err){
