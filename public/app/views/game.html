@@ -57,8 +57,7 @@
                 <md-tabs md-dynamic-height>
                     <md-tab label="THÀNH VIÊN [{{battle.room.people}}/{{battle.game.max}}]">
                         <md-list>
-                        <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
-                             infinite-scroll="suggest.loadMore()">
+                        <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
                             <friend-card ng-repeat="item in battle.room.members track by $index"
                                          item="item"
                                          is-host="battle.isHost"
@@ -87,6 +86,7 @@
                                              mode="'invite'">
                                 </friend-card>
                                 <loading-circle flex="100" is-loading="friends.isLoading"></loading-circle>
+                                <div layout-padding ng-if="battle.friends.data.length==0" style="font-size: 15px;color: #666">Không có bạn đang online, hãy add thêm bạn nhé!</div>
                             </div>
                         </md-list>
                     </md-tab>

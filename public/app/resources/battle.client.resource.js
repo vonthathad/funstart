@@ -258,14 +258,6 @@ angular.module('funstart').service('BattleService',
         });
         socket.on('leave',function(data){
             if(self.room && self.room.mode == "find" && self.room.status == 0){
-                $mdDialog.show(
-                    $mdDialog.alert()
-                        .parent(angular.element(document.querySelector('.spinner-bg')))
-                        .clickOutsideToClose(true)
-                        .title('THÔNG BÁO!')
-                        .textContent('Có đối thủ vừa thoát, hệ thống đang tìm kiếm lại!')
-                        .ok('Okie!')
-                );
                 self.room.people = data.length;
                 self.status.isFullRoom = false;
                 self.status.isReady = false;
@@ -300,19 +292,52 @@ angular.module('funstart').service('BattleService',
         socket.on('leave',function(data){
             console.log('leave',data);
             if(self.room){
-            self.room.members = self.room.members.filter(function(item){
-                var check = false;
-                data.forEach(function(e){
-                    if(e == item._id){
-                        check = true;
+                self.room.members = self.room.members.filter(function(item){
+                    var check = false;
+                    data.forEach(function(e){
+                        if(e == item._id){
+                            check = true;
+                            return true;
+                        }
+                    })
+                    return check;
+                });
+                var kick = true;
+                self.room.members.forEach(function(item){
+                    if(item._id == $rootScope.user._id){
+                        kick = false;
                         return true;
                     }
-                })
-                return check;
-            });
-            self.room.people = self.room.members.length;
-            self.isReady = false;
-            $rootScope.$apply();
+                });
+                if (kick == true){
+                    $mdDialog.show({
+                            controller: function($scope, $mdDialog,$location) {
+                                $scope.hide = function() {
+                                    $location.search({});
+                                    $mdDialog.cancel();
+                                };
+                                $scope.cancel = function() {
+                                    $location.search({});
+                                    $mdDialog.cancel();
+                                };
+                                $scope.goHome = function(){
+                                    $location.search({});
+                                    $mdDialog.cancel();
+                                }
+                            },
+                            templateUrl: 'app/templates/kickDialog.tmpl.html',
+                            parent: angular.element(document.body),
+                            clickOutsideToClose:false
+                        })
+                        .then(function(answer) {
+
+                        }, function() {
+
+                        });
+                }
+                self.room.people = self.room.members.length;
+                self.isReady = false;
+                $rootScope.$apply();
             }
         });
         socket.on('ready',function(data){
@@ -484,6 +509,7 @@ angular.module('funstart').service('BattleService',
     }
     self.onListInvite = function(){
         self.friends = FriendsOnlineService;
+        self.friends.init();
         self.friends.userId = self.user._id;
         self.friends.loadFriends();
     };
