@@ -43,6 +43,10 @@ var GameSchema = new Schema({
         default: 0
     },
     time: Number,
+    multi: {
+        type: Number,
+        enum: [0,1,2]
+    },
     max: Number,
     min: Number,
     type: {

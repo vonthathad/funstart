@@ -18,9 +18,9 @@
                 <div class="title">{{games.currentGame.title}}</div>
                 <div class="description">{{games.currentGame.des}}</div>
             </div>
-            <md-button ng-if="!isLoad && !games.currentGame.multi" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
-            <md-button ng-if="!isLoad" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
-            <md-button ng-if="!isLoad" ng-click="onCreateRoom($event)" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
+            <md-button ng-if="!isLoad && (!games.currentGame.multi || games.currentGame.multi <= 1)" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
+            <md-button ng-if="!isLoad && games.currentGame.multi >= 1" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
+            <md-button ng-if="!isLoad && games.currentGame.multi >= 1" ng-click="onCreateRoom($event)" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
         </div>
         <div ng-if="battle.status.isFullscreen" class="full-mode-2" hide-xs hide-sm>
             <md-toolbar class="md-theme-light">
@@ -140,15 +140,14 @@
                             <div ng-if="!isBattle" flex="65" layout="column">
                                 <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
                                     <div flex="35" layout-padding style="text-align: right">
-                                        <img ng-if="$root.user" class="canvas-avatar" ng-src="{{$root.user.avatar}}">
-                                        <img ng-if="!$root.user" class="canvas-avatar" ng-src="/sources/ninja.svg">
+                                        <img ng-if="$root.user" class="canvas-avatar" ng-src="{{resultObj.image}}">
                                     </div>
                                     <div flex="65" layout-padding class="canvas-info">
                                         <p>{{$root.user.displayName}}</p>
-                                        <p>Điểm: {{score}}</p>
+                                        <p>{{resultObj.title}}</p>
                                     </div>
                                 </div>
-                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{resultDes}}</div>
+                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{resultObj.des}}</div>
                             </div>
                             <div ng-if="isBattle" flex="65" layout="column">
                                 <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
@@ -162,7 +161,7 @@
                                         <img class="canvas-avatar" ng-src="{{battle.opponent.avatar}}">
                                     </div>
                                 </div>
-                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{resultDes}}</div>
+                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{resultObj.des}}</div>
                             </div>
                         </div>
                     </div>

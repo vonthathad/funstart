@@ -162,8 +162,8 @@ FunstartGame.prototype.createShare = function (obj, callback) {
 FunstartGame.prototype.setResultHtml = function (html) {
     this.objAngular.result = html;
 };
-FunstartGame.prototype.setResultDes = function (des) {
-    this.objAngular.resultDes = des;
+FunstartGame.prototype.setResultObj = function (obj) {
+    this.objAngular.resultObj = obj;
     this.objAngular.$apply();
 };
 FunstartGame.prototype.pauseGame = function () {
