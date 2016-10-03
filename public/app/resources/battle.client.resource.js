@@ -462,6 +462,7 @@ angular.module('funstart').service('BattleService',
     };
     self.invite = function (user) {
         if(self.room) Invite.save({roomId: self.room._id,player: user._id},function(res){
+            user.isInvited = true;
         },function (err) {
         });
     };
@@ -502,6 +503,7 @@ angular.module('funstart').service('BattleService',
         self.friends = FriendsOnlineService;
         self.friends.userId = self.user._id;
         self.friends.loadFriends();
+        self.filterFriendInRoom();
         if(self.room){
             var players = [];
             self.players.forEach(function(player){
@@ -562,7 +564,26 @@ angular.module('funstart').service('BattleService',
         self.friends.init();
         self.friends.userId = self.user._id;
         self.friends.loadFriends();
+        self.filterFriendInRoom();
     };
+    self.onListInviteMore = function(){
+        self.friends.loadMore();
+        self.filterFriendInRoom();
+    };
+    self.filterFriendInRoom = function(){
+        if(self.room && self.room.members){
+            self.friends.data = self.friends.data.filter(function (item) {
+                var check = false;
+                self.room.members.forEach(function (player) {
+                    if(item._id == e._id){
+                        check = true;
+                        return true;
+                    }
+                })
+                return check;
+            })}
+
+    }
     self.updateObj = function(obj,prepare,callback){
         console.log('begin client',Date.now());
         if(self.room) Rooms.update({_id: self.room._id, obj: obj, prepare: prepare},function(res){

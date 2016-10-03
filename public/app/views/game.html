@@ -79,26 +79,47 @@
 
                     </md-tab>
                     <md-tab label="HƯỚNG DẪN">
-                        <div layout="column" layout-padding ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
-                            <div>
-                                <md-button style="margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">1</md-button>
+                        <md-list>
+                        <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
+                            <md-list-item>
+                                <md-button style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">1</md-button>
                                 Mời bạn bè vào phòng bằng cách gửi link hoặc chuyển qua tab mời bạn
-                            </div>
-                            <div>
-                                <md-button style="margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">2</md-button>
-                                Bạn bè tham gia sẽ được thêm vào list thành viên trong phòng
-                            </div>
-                            <div>
-                                <md-button style="margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">3</md-button>
-                                Nếu là host, chờ tất cả các người chơi hiện trạng thái sẵn sàng: <md-button style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-accent">R</md-button> rồi bấm bắt đầu
-                            </div>
+                            </md-list-item>
+                            <md-list-item>
+                                <md-button style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">2</md-button>
+                                Những người đồng ý tham gia sẽ được thêm vào list thành viên trong phòng
+                            </md-list-item>
+                            <md-list-item>
+                                <md-button style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">3</md-button>
+                                Nếu là host, chờ tất cả các người chơi hiện trạng thái sẵn sàng rồi bấm bắt đầu
+                            </md-list-item>
+                            <md-list-item>
+                                <h4>Trạng thái:</h4>
+                            </md-list-item>
+                            <md-list-item>
+                                <md-button style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-accent">R</md-button>
+                                Đã sẵn sàng
+                            </md-list-item>
+                            <md-list-item>
+                                <md-button style="margin-right: 5px;" class="md-fab md-mini md-primary"><i class="ion-person-add"></i></md-button>
+                                Thêm bạn
+                            </md-list-item>
+                            <md-list-item>
+                                <md-button style="margin-right: 5px;" class="md-fab md-mini md-accent"><i class="ion-person-stalker"></i></md-button>
+                                Đã là bạn bè
+                            </md-list-item>
+                            <md-list-item>
+                                <md-button class="md-icon-button"><i class="ion-close-circled"></i></md-button>
+                                Kick khỏi room
+                            </md-list-item>
                         </div>
+                        </md-list>
                     </md-tab>
                     <md-tab label="MỜI BẠN ({{battle.friends.data.length}})" ng-click="battle.onListInvite()">
                         <md-list>
                             <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
                                  ng-if="mode=='friend'"
-                                 infinite-scroll="battle.friends.loadMore()"
+                                 infinite-scroll="battle.onListInviteMore()"
                                  infinite-scroll-immediate-check="false"
                                  infinite-scroll-distance="1">
                                 <friend-card ng-repeat="item in battle.friends.data"
