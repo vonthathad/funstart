@@ -81,14 +81,14 @@ FunstartGame.prototype.createShare = function (obj, callback) {
     var share = (obj.share) ? obj.share : false;
     if(share){
         create_img();
-        this.objAngular.onShareFacebook = function(){
+        this.objAngular.shareFacebook = function(){
             self.objAngular.share.shareFacebook(function(){
                 if(callback) callback();
                 console.log('done share');
             });
         }
     } else {
-        this.objAngular.onShareFacebook = function(){
+        this.objAngular.shareFacebook = function(){
             create_img(function(){
                 console.log('heeee');
                 self.objAngular.share.shareFacebook(function(){

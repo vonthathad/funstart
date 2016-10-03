@@ -142,8 +142,13 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         //     $scope.isEnd = false;
         //     $scope.start();
         // };
+        $scope.shareFacebook = function(){
+
+        }
         $scope.onShareFacebook = function(){
             // $scope.share();
+            $scope.sharing = true;
+            $scope.shareFacebook();
         };
         $scope.skipAds = function() {
             eventAdsense.skipAds();
@@ -177,6 +182,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                     console.log('obj ne',obj);
                     obj.pic = res.data;
                     $scope.share.setInfo(obj);
+                    $scope.sharing = false;
                     if(callback) callback();
                 })
                 .error(function(res)
