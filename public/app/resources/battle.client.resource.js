@@ -257,6 +257,7 @@ angular.module('funstart').service('BattleService',
         Rooms.get({roomId: roomId},function(res){
             self.room = new Rooms(res.data);
             self.checkFriend();
+            self.isLoading = false;
             self.status.isWaitRoom = true;
             self.handlingRoom();
         },function(err){

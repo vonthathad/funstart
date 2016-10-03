@@ -19,6 +19,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                         $scope.isPlay = true;
                         $scope.isEnd = false;
                         $scope.battle = BattleService;
+                        $scope.battle.isLoading = true;
                         $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,function(){
                             console.log('room err');
                             $scope.isBattle = false;

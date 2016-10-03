@@ -32,6 +32,12 @@ function dataURItoBlob(dataURI) {
     return blob;
 }
 FunstartGame.prototype.gameStart = function (callback){
+   if(!this.objAngular){
+       var controllerElement = document.querySelector('.game-section');
+       var controllerScope = angular.element(controllerElement).scope();
+       this.objAngular = controllerScope;
+   }
+    console.log('start',this.objAngular);
     this.objAngular.start = callback;
 };
 FunstartGame.prototype.updateUserScore = function (data) {
