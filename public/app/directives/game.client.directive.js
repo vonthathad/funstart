@@ -10,6 +10,14 @@ angular.module('funstart').directive('gameCard', function () {
         }
     }
 });
+angular.module('funstart').directive('recommendCard', function () {
+    return {
+        'templateUrl': '/app/templates/recommendCard.tmpl.html',
+        'scope': {
+            item: '='
+        }
+    }
+});
 angular.module('funstart').directive('thumbCard', function () {
     return {
         templateUrl: 'app/templates/thumbCard.tmpl.html',

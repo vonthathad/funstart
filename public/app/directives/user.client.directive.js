@@ -15,18 +15,18 @@ angular.module('funstart').directive('userCard', function () {
             'updateFriendList' : '&'
         },
         controller: function ($scope,$routeParams) {
-            // if($routeParams.gameId){
-            //     $scope.faded = true;
-            // } else {
-            //     $scope.faded = false;
-            // }
-            // $scope.$on("$routeChangeStart", function(event, next, current) {
-            //     if('gameId' in next.params){
-            //        $scope.faded = true;
-            //     } else {
-            //        $scope.faded = false;
-            //     }
-            // });
+            if($routeParams.gameId){
+                $scope.faded = true;
+            } else {
+                $scope.faded = false;
+            }
+            $scope.$on("$routeChangeStart", function(event, next, current) {
+                if('gameId' in next.params){
+                   $scope.faded = true;
+                } else {
+                   $scope.faded = false;
+                }
+            });
             $scope.imagePath = 'img/bgstat.jpg';
             
         }

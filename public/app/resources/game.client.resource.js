@@ -22,6 +22,7 @@ angular.module('funstart').service('IndexService', function (Games) {
         'isLoading': false,
         'isLoadingTopic': false,
         'data': {},
+        'paging': 8,
         'initData': function(field){
             self.topic = null;
             self.data[field]= [];
@@ -30,7 +31,8 @@ angular.module('funstart').service('IndexService', function (Games) {
 
             var params = {
                 'page': self.page,
-                'sort': 'created'
+                'sort': 'created',
+                'paging': self.paging
             };
             if(self.topic!=null) {
                 params.topic = self.topic;
@@ -66,6 +68,7 @@ angular.module('funstart').service('NavGamesService', function (Games) {
         'text': null,
         'isLoading': false,
         'data': [],
+        'paging': 5,
         'searchGames': function(callback){
             var params = {
                 'page': self.page,
@@ -81,7 +84,8 @@ angular.module('funstart').service('NavGamesService', function (Games) {
                 self.isLoading = true;
                 var params = {
                     'page': self.page,
-                    'order': 'random'
+                    'order': 'random',
+                    'paging': self.paging
                 };
                 Games.get(params, function (res) {
                     angular.forEach(res.data, function (game) {
@@ -104,6 +108,7 @@ angular.module('funstart').service('GamesService', function (Games) {
         'currentGame': null,
         'data': [],
         'order': 'created',
+        'paging': 12,
         'reload': function () {
             self.hasMore = true;
             self.page = 1;
@@ -129,7 +134,8 @@ angular.module('funstart').service('GamesService', function (Games) {
                 self.isLoading = true;
                 var params = {
                     'page': self.page,
-                    'sort': self.order
+                    'order': self.order,
+                    'paging': self.paging
                 };
                 if(self.topic!=null) {
                     params.topic = self.topic;

@@ -1,8 +1,8 @@
 /**
  * Created by andh on 8/9/16.
  */
-angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService',
-    function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService){
+angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService','NavGamesService',
+    function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService,NavGamesService){
     $scope.userInfo = UserInfoService;
     $scope.friends = FriendsService;
     $scope.suggest = SuggestService;
@@ -11,6 +11,11 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         $scope.mode = ($scope.mode=='friend')?$scope.mode='search':$scope.mode='friend';
         console.log($scope.mode);
     };
+    if($location.path().indexOf('game')>=0){
+        $scope.isRecommend = true;
+    } else {
+        $scope.isRecommend = false;
+    }
     $scope.checkUser = function(){
         if($rootScope.user && (!$scope.username || $rootScope.user.username == $scope.username)){
             return 1;
@@ -19,7 +24,32 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         } else {
             return 0;
         }
-    }
+    };
+    $scope.recommends = NavGamesService;
+    $scope.showSigninDialog = function(ev) {
+        $mdDialog.show({
+                controller: function($scope, $mdDialog) {
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.answer = function(answer) {
+                        $mdDialog.hide(answer);
+                    };
+                },
+                templateUrl: 'app/templates/authDialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            })
+            .then(function(answer) {
+
+            }, function() {
+
+            });
+    };
     var isExist = function(arr,it){
         console.log(arr);
         var temp = false;
@@ -33,12 +63,8 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         return temp;
     }
     $scope.$on("$routeChangeStart", function(event, next, current) {
-        if($location.path().indexOf('user')){
-            $scope.username = $location.path().split('user/')[1];
-        } else {
-            $scope.username = null;
-        }
         if('username' in next.params){
+            $scope.username = next.params.username;
             if($scope.data && $scope.data.username != next.params.username){
                 $scope.userInfo.loadUser(next.params.username,function(){
                     $scope.data = $scope.userInfo.data;
@@ -51,6 +77,11 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
             $scope.data = $rootScope.user;
             $scope.reloadFriendList();
             drawPoint($scope.data);
+        }
+        if('gameId' in next.params){
+            $scope.isRecommend = true;
+        } else {
+            $scope.isRecommend = false;
         }
 
     });
@@ -78,7 +109,7 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         $scope.friends.loadFriends();
     }
     $scope.loadUser = function(){
-        if($location.path().indexOf('user')){
+        if($location.path().indexOf('user')>=0){
             $scope.username = $location.path().split('user/')[1];
         } else {
             $scope.username = null;

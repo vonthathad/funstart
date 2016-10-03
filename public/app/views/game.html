@@ -13,6 +13,11 @@
         <!--<div ng-if="!games.isLoading" ng-include="'/sources/game/9/'" onload="finishLoading()"></div>-->
         <div ng-if="!isPlay" class="pre-game" layout="column" layout-align="center center">
             <md-progress-circular ng-if="isLoad"  md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+            <div class="game-info">
+                <md-button aria-label="Thumb" class="md-raised"><img ng-src="{{::games.currentGame.thumb}}"></md-button>
+                <div class="title">{{::games.currentGame.title}}</div>
+                <div class="des">{{::games.currentGame.des}}</div>
+            </div>
             <md-button ng-if="!isLoad && !games.currentGame.multi" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
             <md-button ng-if="!isLoad" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
             <md-button ng-if="!isLoad" ng-click="onCreateRoom($event)" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>

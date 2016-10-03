@@ -4,7 +4,7 @@
 var Game = require('mongoose').model('Game'),
     Topic = require('mongoose').model('Topic'),
     Config = require('../config/config'),
-    paging = 12;
+    npp = 6;
 
 var getSortType = function(sortType){
     if(sortType==="top"){
@@ -16,6 +16,8 @@ var getSortType = function(sortType){
     return {created : -1} ;
 };
 exports.loadGames = function(req,res){
+    var paging = parseInt(req.query.paging) || npp;
+    console.log('paging',paging);
     var page = parseInt(req.query.page),
         skip = page > 0 ? ((page - 1) * paging) : 0;
     var conds = [];
@@ -35,7 +37,7 @@ exports.loadGames = function(req,res){
     }
     console.log(match);
     if(req.query.order && req.query.order == 'random'){
-        Game.findRandom(match,{},{limit:6,populate: 'topic'},function(err,data){
+        Game.findRandom(match,{},{limit: paging,populate: 'topic'},function(err,data){
             if(err) return res.status(400).send();
             return res.json({data:data});
         });

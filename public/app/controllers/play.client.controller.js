@@ -58,11 +58,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 $scope.isEnd = false;
                 $scope.share = ShareService;
             }, 200);
-
-            // eventAdsense.load();
         };
-
-
         $scope.finishLoading = function(){
             if($rootScope.user){
                 $scope.user = {
@@ -87,6 +83,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 des: ($scope.games.currentGame)?$scope.games.currentGame.des:'Test Description'
             });
             //load recommend games
+            $scope.games.paging = 6;
             $scope.games.loadGames();
 
         };

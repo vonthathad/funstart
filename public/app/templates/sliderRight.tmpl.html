@@ -1,75 +1,87 @@
-    <div ng-controller="NavbarController">
-        <div layout="row" hide-md hide-lg>
-            <md-button ng-if="!$root.user" aria-label="Signin" ng-click="showSigninDialog($event)">
-                <i class="ion-log-in"></i> <span>Đăng nhập</span>
-            </md-button>
-        </div>
-        <md-card ng-if="!$root.user">
-            <md-card-content>
-                <md-button ng-if="!$root.user" aria-label="Signup" ng-click="showSigninDialog($event)">
-                    <i class="ion-android-create"></i> <span>Đăng ký</span>
-                </md-button>
-            </md-card-content>
-        </md-card>
+ <section ng-if="$root.user" ng-controller="UserController" ng-init="loadUser()">
+     <div>
+         <div layout="row" hide-md hide-lg>
+             <md-button ng-if="!$root.user" aria-label="Signin" ng-click="showSigninDialog($event)">
+                 <i class="ion-log-in"></i> <span>Đăng nhập</span>
+             </md-button>
+         </div>
+         <md-card ng-if="!$root.user" hide-sm hide-xs>
+             <md-card-content>
+                 <md-button ng-if="!$root.user" aria-label="Signup" ng-click="showSigninDialog($event)">
+                     <i class="ion-android-create"></i> <span>Đăng ký</span>
+                 </md-button>
+             </md-card-content>
+         </md-card>
+     </div>
+    <user-card data="data"
+               check-user="checkUser()"
+               follow="userInfo.follow(callback)"
+               unfollow="userInfo.unfollow(callback)"
+               update-friend-list = "updateFriendList(bool,input)">
+    </user-card>
+    <div layout="row" hide-md hide-lg>
+        <md-button ng-if="checkUser() == 1" aria-label="Favorite" ng-click="showSigninDialog($event)">
+            <i class="ion-log-out"></i> <span>Đăng xuất</span>
+        </md-button>
     </div>
-    <section ng-if="$root.user" ng-controller="UserController" ng-init="loadUser()">
-        <user-card data="data"
-                   check-user="checkUser()"
-                   follow="userInfo.follow(callback)"
-                   unfollow="userInfo.unfollow(callback)"
-                   update-friend-list = "updateFriendList(bool,input)">
-        </user-card>
-        <div layout="row" hide-md hide-lg ng-controller="NavbarController">
-            <md-button ng-if="checkUser() == 1" aria-label="Favorite" ng-click="showSigninDialog($event)">
-                <i class="ion-log-out"></i> <span>Đăng xuất</span>
-            </md-button>
-        </div>
+    <md-card ng-if="isRecommend">
+        <md-toolbar class="md-theme-light">
+            <h2 class="md-toolbar-tools">
+                <span>Có thể bạn thích:</span>
+            </h2>
+        </md-toolbar>
+        <md-content>
+            <md-list>
+                <recommend-card ng-repeat="item in recommends.data" item="item" flex="33" flex-sm="50" flex-xs="100"></recommend-card>
+            </md-list>
+        </md-content>
+    </md-card>
 
-        <md-card>
-            <md-toolbar class="md-theme-light">
-                <h2 class="md-toolbar-tools">
-                    <span>Danh sách bạn:</span>
-                </h2>
-            </md-toolbar>
-            <md-content>
-                <md-list>
+    <md-card>
+        <md-toolbar class="md-theme-light">
+            <h2 class="md-toolbar-tools">
+                <span>Danh sách bạn:</span>
+            </h2>
+        </md-toolbar>
+        <md-content>
+            <md-list>
 
-                    <div class="friend-list"
-                         ng-if="mode=='search'"
-                         infinite-scroll="suggest.loadMore()"
-                         infinite-scroll-immediate-check="false"
-                         infinite-scroll-distance="1">
-                        <friend-card ng-repeat="item in suggest.data"
-                                     follow="suggest.follow(input,callback)"
-                                     unfollow="suggest.unfollow(input,callback)"
-                                     update-list = "updateFriendList(bool,input)"
-                                     item="item"
-                                     mode="mode">
+                <div class="friend-list"
+                     ng-if="mode=='search'"
+                     infinite-scroll="suggest.loadMore()"
+                     infinite-scroll-immediate-check="false"
+                     infinite-scroll-distance="1">
+                    <friend-card ng-repeat="item in suggest.data"
+                                 follow="suggest.follow(input,callback)"
+                                 unfollow="suggest.unfollow(input,callback)"
+                                 update-list = "updateFriendList(bool,input)"
+                                 item="item"
+                                 mode="mode">
 
-                        </friend-card>
-                        <loading-circle flex="100" is-loading="suggest.isLoading"></loading-circle>
-                    </div>
-                    <div class="friend-list"
-                         ng-if="mode=='friend'"
-                         infinite-scroll="friends.loadMore()"
-                         infinite-scroll-immediate-check="false"
-                         infinite-scroll-distance="1">
-                        <friend-card ng-repeat="item in friends.data"
-                                     item="item"
-                                     mode="mode">
-                        </friend-card>
-                        <loading-circle flex="100" is-loading="friends.isLoading"></loading-circle>
-                    </div>
-                    <div ng-if="checkUser() == 1 && $root.user.provider == 'facebook'" layout="row" layout-align="center center" layout-margin>
-                        <md-button ng-click="changeMode()" class="md-raised md-facebook find-btn" >
-                            <span ng-if="mode=='friend'"><i class="ion-android-add"></i> Tìm bạn trên facebook</span>
-                            <span ng-if="mode=='search'"><i class="ion-android-arrow-back"></i> Quay lại</span>
-                        </md-button>
-                    </div>
+                    </friend-card>
+                    <loading-circle flex="100" is-loading="suggest.isLoading"></loading-circle>
+                </div>
+                <div class="friend-list"
+                     ng-if="mode=='friend'"
+                     infinite-scroll="friends.loadMore()"
+                     infinite-scroll-immediate-check="false"
+                     infinite-scroll-distance="1">
+                    <friend-card ng-repeat="item in friends.data"
+                                 item="item"
+                                 mode="mode">
+                    </friend-card>
+                    <loading-circle flex="100" is-loading="friends.isLoading"></loading-circle>
+                </div>
+                <div ng-if="checkUser() == 1 && $root.user.provider == 'facebook'" layout="row" layout-align="center center" layout-margin>
+                    <md-button ng-click="changeMode()" class="md-raised md-facebook find-btn" >
+                        <span ng-if="mode=='friend'"><i class="ion-android-add"></i> Tìm bạn trên facebook</span>
+                        <span ng-if="mode=='search'"><i class="ion-android-arrow-back"></i> Quay lại</span>
+                    </md-button>
+                </div>
 
-                </md-list>
-            </md-content>
-        </md-card>
+            </md-list>
+        </md-content>
+    </md-card>
         <!--<md-card ng-if="checkUser() == 1">-->
             <!--<md-toolbar class="md-theme-light">-->
                 <!--<h2 class="md-toolbar-tools">-->
