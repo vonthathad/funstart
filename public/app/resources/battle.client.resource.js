@@ -405,8 +405,9 @@ angular.module('funstart').service('BattleService',
         });
     }
     self.onReady = function(start,error){
+        console.log(self.room.mode);
         //tat san sang
-        if(self.room.mode = "find"){
+        if(self.room.mode == "find"){
             self.status.isFullRoom = false;
             self.status.isReady = true;
             self.listenReadyLong = self.listenReady(error);
