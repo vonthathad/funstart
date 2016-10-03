@@ -91,7 +91,7 @@ angular.module('funstart').service('BattleService',
             self.isHost = false;
             self.joinRoom(roomId,function(message){
                 var alert = $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('.spinner-bg')))
+                    .parent(angular.element(document.body))
                     .clickOutsideToClose(true)
                     .title('THÔNG BÁO!')
                     .ok('Okie!');
@@ -128,6 +128,7 @@ angular.module('funstart').service('BattleService',
         if(self.room.members.length >= self.game.min){
             self.status.isSearching = false;
             if(self.room.status==0) {
+                $timeout.cancel(self.listenSearchLong);
                 self.status.isFullRoom = true;
             }
             if(bool) $rootScope.$apply();
@@ -169,6 +170,42 @@ angular.module('funstart').service('BattleService',
             $rootScope.$apply();
         });
     };
+    self.listenSearch = function(error){
+        return $timeout(function(){
+            if(self.status.isSearching){
+                var alert = $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .textContent('Hiện không có người tìm đối thủ, vui lòng chơi game hoặc tạo phòng rồi mời bạn nhé!')
+                    .clickOutsideToClose(true)
+                    .title('THÔNG BÁO!')
+                    .ok('Okie!');
+                $mdDialog.show(alert).then(function() {
+                    self.status = {};
+                    if(error) error();
+                }, function() {
+                });
+                self.onCloseBattle();
+            }
+        },60000);
+    };
+    self.listenReady = function(error){
+        return $timeout(function(){
+            if(self.status.isReady){
+                var alert = $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .textContent('Có người chơi chưa nhấn sẵn sàng, vui lòng tìm kiếm lại')
+                    .clickOutsideToClose(true)
+                    .title('THÔNG BÁO!')
+                    .ok('Okie!');
+                $mdDialog.show(alert).then(function() {
+                    self.status = {};
+                    if(error) error();
+                }, function() {
+                });
+                self.onCloseBattle();
+            }
+        },10000);
+    };
     self.onFindBattle = function(success,error){
         socket.off('ready');
         socket.off('join');
@@ -176,6 +213,7 @@ angular.module('funstart').service('BattleService',
         socket.off('win');
         socket.off('again');
         self.status.isSearching = true;
+        self.listenSearchLong = self.listenSearch(error);
         Rooms.get({gameId: self.game._id},function(res){
             if(res.data == null){
                 self.createRoom("find");
@@ -258,6 +296,15 @@ angular.module('funstart').service('BattleService',
         });
         socket.on('leave',function(data){
             if(self.room && self.room.mode == "find" && self.room.status == 0){
+                var alert = $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .textContent('Có người chơi vừa rời phòng, hệ thống đang tìm kiếm lại')
+                    .clickOutsideToClose(true)
+                    .title('THÔNG BÁO!')
+                    .ok('Okie!');
+                $mdDialog.show(alert).then(function() {
+                }, function() {
+                });
                 self.room.people = data.length;
                 self.status.isFullRoom = false;
                 self.status.isReady = false;
@@ -357,11 +404,12 @@ angular.module('funstart').service('BattleService',
             $rootScope.$apply();
         });
     }
-    self.onReady = function(start){
+    self.onReady = function(start,error){
         //tat san sang
         if(self.room.mode = "find"){
             self.status.isFullRoom = false;
             self.status.isReady = true;
+            self.listenReadyLong = self.listenReady(error);
         }
         self.isReady = true;
         self.updateReady(start);

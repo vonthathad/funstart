@@ -7,21 +7,21 @@
         <md-button ng-if="!isSearching" aria-label="Logo" ng-href="/">
         <img style="height:20px;margin-top: 10px" src="img/logofunstart.svg">
         </md-button>
-        <md-menu hide-sm hide-xs md-offset="0px 44px">
-            <md-button md-autofocus aria-label="Open menu" ng-click="openMenu($mdOpenMenu, $event)">
+        <md-menu hide-sm hide-xs md-offset="0px 44px" ng-mouseleave="closeMenu($event)">
+            <md-button md-autofocus aria-label="Open menu"  ng-mouseenter="openMenu($mdOpenMenu,$event)">
                 Khám phá <i class="ion-android-arrow-dropdown"></i>
             </md-button>
-            <md-menu-content width="4">
+            <md-menu-content width="4" ng-mouseleave="closeMenu($event)">
                 <md-menu-item ng-repeat="item in games.data | limitTo: 6">
                     <md-button ng-href="/game/{{::item._id}}"><img class="thumb-search" style="padding-right: 5px" ng-src="{{::item.thumb}}"> <span class="title-search"> {{::item.title}}</span></md-button>
                 </md-menu-item>
             </md-menu-content>
         </md-menu>
-        <md-menu hide-sm hide-xs md-offset="15px 50px">
-            <md-button aria-label="Open menu" ng-click="openMenu($mdOpenMenu, $event)">
+        <md-menu hide-sm hide-xs md-offset="15px 50px" ng-mouseleave="closeMenu($event)">
+            <md-button aria-label="Open menu" ng-mouseenter="openMenu($mdOpenMenu,$event)">
                 Thể loại <i class="ion-android-arrow-dropdown"></i>
             </md-button>
-            <md-menu-content width="4">
+            <md-menu-content width="4" ng-mouseleave="closeMenu($event)">
                 <md-menu-item ng-repeat="item in $root.topics">
                     <md-button ng-href="/topic/{{::item._id}}"> <span md-menu-align-target ng-class="item.icon" style="padding-right: 5px" > </span> {{::item.name}} </md-button>
                 </md-menu-item>

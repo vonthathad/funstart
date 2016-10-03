@@ -11,11 +11,6 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         $scope.mode = ($scope.mode=='friend')?$scope.mode='search':$scope.mode='friend';
         console.log($scope.mode);
     };
-    if($location.path().indexOf('game')>=0){
-        $scope.isRecommend = true;
-    } else {
-        $scope.isRecommend = false;
-    }
     $scope.checkUser = function(){
         if($rootScope.user && (!$scope.username || $rootScope.user.username == $scope.username)){
             return 1;
@@ -25,7 +20,6 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
             return 0;
         }
     };
-    $scope.recommends = NavGamesService;
     $scope.showSigninDialog = function(ev) {
         $mdDialog.show({
                 controller: function($scope, $mdDialog) {
@@ -77,11 +71,6 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
             $scope.data = $rootScope.user;
             $scope.reloadFriendList();
             drawPoint($scope.data);
-        }
-        if('gameId' in next.params){
-            $scope.isRecommend = true;
-        } else {
-            $scope.isRecommend = false;
         }
 
     });

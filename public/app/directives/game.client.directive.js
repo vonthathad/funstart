@@ -6,7 +6,8 @@ angular.module('funstart').directive('gameCard', function () {
     return {
         'templateUrl': '/app/templates/gameCard.tmpl.html',
         'scope': {
-            item: '='
+            item: '=',
+            source: '='
         }
     }
 });

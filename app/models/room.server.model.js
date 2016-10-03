@@ -32,6 +32,10 @@ var RoomSchema = new Schema({
         type: Number,
         enum: [0,1,2,3],
         default: 0
+    },
+    created: {
+        type: Date,
+        default: Date.now
     }
 })
 RoomSchema.set('toJSON',{getters: true,virtuals: true});

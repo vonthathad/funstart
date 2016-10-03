@@ -54,9 +54,35 @@ angular.module('funstart').controller('NavbarController', ['$timeout', '$q','$lo
             });
     };
     $scope.openMenu = function(m,e){
-        m(e);
-        $mdMenu.hide();
-    };
+        if(e.relatedTarget && e.relatedTarget.localName != 'md-menu-content'){
+            m(e);
+        }
+
+        // if(i){
+        //     $mdMenu.hide();
+        // } else {
+        //     $mdMenu.hide();
+        //     m(e);
+        // }
+    }
+    $scope.closeMenu = function(e){
+        if(e.currentTarget.localName == 'md-menu-content'){
+            if(e.relatedTarget.className.indexOf('md-button')<0){
+                $mdMenu.hide();
+            };
+        } else {
+            if(e.relatedTarget && (e.relatedTarget.localName != 'md-menu-content' && e.relatedTarget.className !='md-toolbar-tools')){
+                $mdMenu.hide();
+            }
+        }
+        // if(!e){
+        //     $mdMenu.hide();
+        //
+        // } else if(e.relatedTarget && (e.relatedTarget.localName != 'md-menu-content' && e.relatedTarget.className !='md-toolbar-tools')){
+        //     $mdMenu.hide();
+        //
+        // }
+    }
     $scope.showSigninDialog = function(ev) {
         $mdDialog.show({
                 controller: function($scope, $mdDialog) {

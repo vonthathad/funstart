@@ -11,6 +11,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.games = GamesService;
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
+                document.title = $scope.games.currentGame.title;
                 $scope.isInit = false;
                 if($location.search().roomId){
                     if($rootScope.user){
@@ -255,13 +256,16 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 $scope.battle = BattleService;
                 $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
                 $scope.battle.onFindBattle(null,function(){
-                    $scope.isBattle = false;
+                    $scope.onError();
                 });
             } else {
                 $scope.openSigninDialog(ev);
             }
 
         }
+        $scope.onError = function(){
+            $scope.isBattle = false;
+        };
         $scope.onCloseBattle = function(){
             console.log('Vo day');
             var confirm = $mdDialog.confirm()

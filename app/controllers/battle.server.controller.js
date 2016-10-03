@@ -185,24 +185,29 @@ exports.outRoom = function(req,res){
 };
 exports.findRoom = function(req,res){
     //$where:"this.members.length < " + req.game.min
-    Room.findOne({ people: {$lt: req.game.min}, status: 0, game: req.game._id,mode: "find"})
-        .populate('members','username avatar displayName')
-        .exec(function (err,room) {
-        if(err){
-            console.log(err);
-            return res.status(400).send();
-        }
-        if(room){
-            enterRoom(room,req.user,function(result){
-                return res.json({data: result});
-            },function(){
-                return res.status(400).send();
-            })
-        } else {
-            return res.json();
-        }
+    Room.find({created: {$gt: new Date((new Date())+1000*60*60)},status: 0}).remove(function(){
+        Room.findOne({ people: {$lt: req.game.min}, status: 0, game: req.game._id,mode: "find"})
+            .populate('members','username avatar displayName')
+            .exec(function (err,room) {
+                console.log('room',room);
+                if(err){
+                    console.log(err);
+                    return res.status(400).send();
+                }
+                if(room){
+                    enterRoom(room,req.user,function(result){
+                        return res.json({data: result});
+                    },function(){
+                        return res.status(400).send();
+                    })
+                } else {
+                    return res.json();
+                }
 
-    })
+            })
+    });
+
+
 };
 function enterRoom(room,user,success,error) {
     if(!room.players[user._id]){

@@ -14,9 +14,9 @@
         <div ng-if="!isPlay" class="pre-game" layout="column" layout-align="center center">
             <md-progress-circular ng-if="isLoad"  md-mode="indeterminate" md-diameter="100"></md-progress-circular>
             <div class="game-info">
-                <md-button aria-label="Thumb" class="md-raised"><img ng-src="{{::games.currentGame.thumb}}"></md-button>
-                <div class="title">{{::games.currentGame.title}}</div>
-                <div class="des">{{::games.currentGame.des}}</div>
+                <md-button aria-label="Thumb" class="md-raised"><img ng-src="{{games.currentGame.thumb}}"></md-button>
+                <div class="title">{{games.currentGame.title}}</div>
+                <div class="description">{{games.currentGame.des}}</div>
             </div>
             <md-button ng-if="!isLoad && !games.currentGame.multi" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
             <md-button ng-if="!isLoad" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
@@ -125,7 +125,7 @@
         </div>
         <img ng-show="false" ng-src="{{games.currentGame.thumbResult}}"/>
         <div ng-if="isEnd"  ng-class="{'full-mode' : battle.status.isFullscreen}" class="recommend-games animate-if" layout="column" layout-padding layout-align="center center">
-            <div layout="row" layout-wrap >
+            <div layout="row" layout-wrap style="max-width: 750px">
                 <div id="canvan">
                     <div ng-if="result" ng-bind-html="result | trustAsHTML"></div>
                     <div ng-if="!result" style="position: relative">
@@ -184,7 +184,7 @@
                 </md-button>
             </div>
             <div ng-if="!isBattle" layout="row" class="group-game-card" layout-wrap>
-                <game-card ng-repeat="item in games.data track by $index" ng-if="filterMobile($index)" item="item" flex="33" flex-sm="50" flex-xs="100" class="recommend-card"></game-card>
+                <game-card ng-repeat="item in games.data track by $index" ng-if="filterMobile($index)" item="item" source="'suggest'" flex="33" flex-sm="50" flex-xs="100" class="recommend-card"></game-card>
             </div>
         </div>
     </div>
@@ -198,7 +198,7 @@
             <div class="search-spinner"></div>
         </div>
         <div ng-if="battle.status.isFullRoom">
-            <div role="button" ng-click="battle.onReady(onPlay)" class="search-ready">
+            <div role="button" ng-click="battle.onReady(onPlay,onError)" class="search-ready">
                 <span>Chiến!</span>
             </div>
         </div>

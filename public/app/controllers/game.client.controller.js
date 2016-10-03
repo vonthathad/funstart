@@ -3,6 +3,7 @@
  */
 angular.module('funstart').controller('GamesController', ['$scope','$rootScope','$routeParams', '$location','GamesService',
     function($scope,$rootScope, $routeParams, $location, GamesService){
+        document.title = 'Fun Start';
         $scope.loadGames = function() {
             $scope.games = GamesService;
             if($routeParams.topicId!=null){
@@ -21,6 +22,7 @@ angular.module('funstart').controller('GamesController', ['$scope','$rootScope',
     }]);
 angular.module('funstart').controller('IndexController', ['$scope','$rootScope','IndexService',
     function($scope,$rootScope, IndexService){
+        document.title = 'Fun Start';
         $scope.games = IndexService;
         $scope.loadGames = function() {
             $scope.games.initData('new');

@@ -134,7 +134,7 @@ user-card .md-button.md-fab{
   color: #252525;
 }
 .group-game-card .title a{
-  font-size: 1.25em;
+  font-size: 1.15em;
   color: #f1702f;
 }
 .group-game-index .description{
@@ -156,7 +156,8 @@ user-card .md-button.md-fab{
 }
 .group-game-card .topic{
   padding-top: 5px;
-  color: #2e2d7c;
+  color: #999;
+  font-size: 0.85em;
 }
 .group-game-card .topic>i{
   margin-right: 5px;
@@ -507,7 +508,7 @@ Use of this source code is governed by an MIT-style license that can be in found
   font-size: 20px;
   font-weight: bold;
 }
-.game-info .des{
+.game-info .description{
   color: #666;
   padding-bottom: 10px;
 }
