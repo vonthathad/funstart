@@ -12,7 +12,7 @@
     <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin == true)">Thắng</h5>
     <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && (item.isWin==null && item.turn == 0)">Đánh</h5>
     <h5 ng-if="mode=='friend'">Học sĩ</h5>
-    <md-button ng-click="follow({input: item, callback: updateList({bool:true,input:item})})" ng-if="mode == 'room' && item.isReady" style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-primary">R</md-button>
+    <md-button ng-if="mode == 'room' && item.isReady" style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-primary">R</md-button>
     <md-button ng-click="invite({input: item})" ng-if="mode=='invite'" class="md-raised md-primary"><i class="ion-android-add"></i> Mời</md-button>
     <md-button ng-click="follow({input: item, callback: updateList({bool:true,input:item})})" ng-if="(mode=='room' || mode=='search') && !item.isFriend && item._id != $root.user._id" class="md-fab md-mini md-primary"><i class="ion-person-add"></i></md-button>
     <md-button ng-click="unfollow({input: item, callback: updateList({bool:false,input:item})})" ng-if="(mode=='room' || mode=='search') && item.isFriend == true && item._id != $root.user._id" class="md-fab md-mini md-primary"><i class="ion-person-stalker"></i></md-button>

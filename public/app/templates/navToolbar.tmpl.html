@@ -31,7 +31,9 @@
             <form ng-submit="$event.preventDefault()" class="search-form">
                 <md-autocomplete md-selected-item="selectedItem"
                                  md-search-text="searchText"
+                                 md-autofocus="isSearching"
                                  md-delay="300"
+                                 id="md-nav-search"
                                  md-menu-class="search-menu"
                                  md-selected-item-change="gotoLink(selectedItem)"
                                  md-items="item in querySearch(searchText)"
@@ -48,8 +50,8 @@
                 <div class="search-form-icon"><i class="ion-android-search"></i></div>
             </form>
         </div>
-        <span flex ng-if="!isSearching" ng-click="isSearching = isSearching?false:true"></span>
-        <md-button layout="column" class="md-icon-button nav-icon" aria-label="Search" ng-click="isSearching = isSearching?false:true"
+        <span flex ng-if="!isSearching"></span>
+        <md-button layout="column" class="md-icon-button nav-icon" aria-label="Search" ng-click="isSearching = isSearching?false:true;"
                    ng-hide="isOpenRight()"
                    hide-gt-sm
                    class="md-primary">

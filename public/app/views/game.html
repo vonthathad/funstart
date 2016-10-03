@@ -78,7 +78,23 @@
                         </md-list>
 
                     </md-tab>
-                    <md-tab label="MỜI BẠN" ng-click="battle.onListInvite()">
+                    <md-tab label="HƯỚNG DẪN">
+                        <div layout="column" layout-padding ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
+                            <div>
+                                <md-button style="margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">1</md-button>
+                                Mời bạn bè vào phòng bằng cách gửi link hoặc chuyển qua tab mời bạn
+                            </div>
+                            <div>
+                                <md-button style="margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">2</md-button>
+                                Bạn bè tham gia sẽ được thêm vào list thành viên trong phòng
+                            </div>
+                            <div>
+                                <md-button style="margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">3</md-button>
+                                Nếu là host, chờ tất cả các người chơi hiện trạng thái sẵn sàng: <md-button style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-accent">R</md-button> rồi bấm bắt đầu
+                            </div>
+                        </div>
+                    </md-tab>
+                    <md-tab label="MỜI BẠN ({{battle.friends.data.length}})" ng-click="battle.onListInvite()">
                         <md-list>
                             <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
                                  ng-if="mode=='friend'"
@@ -102,7 +118,7 @@
                 </md-button>
             </md-content>
         </div>
-        <div ng-if="battle.status.isFullscreen" class="full-mode-3" hide-md hide-lg hide-lt-lg>
+        <div ng-if="battle.status.isFullscreen" class="full-mode-3" hide-md hide-lg hide-gt-lg>
             <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal>
                 <div md-virtual-repeat="item in battle.players  | orderBy: battle.orderPlayer"
                      class="repeated-item" flex>

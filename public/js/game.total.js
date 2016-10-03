@@ -125,6 +125,7 @@ FunstartGame.prototype.createShare = function (obj, callback) {
                     'image' : myImage,
                     'width': 500
                 }, function (data) {
+                    console.log(data);
                     obj.file = dataURItoBlob(data);
                     console.log(obj.file);
                     self.objAngular.uploadResult(obj, function(){
