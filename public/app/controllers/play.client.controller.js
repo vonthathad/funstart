@@ -79,7 +79,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             //init info share
             $scope.share.setInfo({
                 game: ($scope.games.currentGame)?$scope.games.currentGame.title:'Test Title',
-                url: location.href,
+                url: location.href.split('?')[0],
                 pic: ($scope.games.currentGame)?$scope.games.currentGame.thumbAds:'http://www.funstart.net/sources/ads.jpg',
                 des: ($scope.games.currentGame)?$scope.games.currentGame.des:'Test Description'
             });
