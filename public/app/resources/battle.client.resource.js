@@ -503,7 +503,6 @@ angular.module('funstart').service('BattleService',
         self.friends = FriendsOnlineService;
         self.friends.userId = self.user._id;
         self.friends.loadFriends();
-        self.filterFriendInRoom();
         if(self.room){
             var players = [];
             self.players.forEach(function(player){

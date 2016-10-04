@@ -171,7 +171,6 @@ FunstartGame.prototype.setResultHtml = function (html) {
 };
 FunstartGame.prototype.setResultObj = function (obj) {
     this.objAngular.resultObj = obj;
-    this.objAngular.$apply();
 };
 FunstartGame.prototype.pauseGame = function () {
 
