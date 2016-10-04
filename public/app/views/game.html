@@ -153,9 +153,9 @@
                             <p ng-if="battle.game.type == 1 && item.turn ==0">Đang đánh</p>
                         </div>
                         <div ng-if = "item.connect==0 || item.isDead || item.token" class="status-mobile" layout="row" layout-align="center center">
-                            <h5 class="bb" ng-class="statusClass(0)" ng-if="(item.connect==0 || item.isDead && !item.isWin)">Tạch</h5>
-                            <h5 class="bb" ng-class="statusClass(1)" ng-if="item.isWin">Thắng</h5>
-                            <h5 class="bb" ng-class="statusClass(2)" ng-if="item.token">Đánh</h5>
+                            <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead) && item.isWin == false">Tạch</h5>
+                            <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin == true)">Thắng</h5>
+                            <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && battle.game.type == 1 && (item.isWin==null && item.turn == 0)">Đánh</h5>
                         </div>
                     </div>
                 </div>

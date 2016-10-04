@@ -961,19 +961,19 @@ md-toast {
 }
 .friend-list{
   max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .player-list{
   height: calc(100vh - 64px);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .room-list{
   height: calc(100vh - 200px);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .room-list-host{
   height: calc(100vh - 270px);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .find-btn{
   width: 100%;

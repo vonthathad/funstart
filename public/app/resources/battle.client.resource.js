@@ -186,7 +186,7 @@ angular.module('funstart').service('BattleService',
                 });
                 self.onCloseBattle();
             }
-        },60000);
+        },10000);
     };
     self.listenReady = function(error){
         return $timeout(function(){
