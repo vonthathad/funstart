@@ -6,9 +6,9 @@
         <p ng-if="mode=='friend' || mode=='search' || mode=='invite'" class="clearfix">Level {{::item.level}}</p>
         <p ng-if="mode=='room'" class="clearfix">@{{::item.username}}</p>
         <p class="clearfix" ng-if="mode == 'game'">Điểm: <b>{{item.score}}</b></p>
-        <p ng-if="item.turn && item.turn!=0" class="clearfix">{{item.turn}} lượt nữa</p>
+        <p ng-if="item.turn && item.turn!=0 && gameType == 1" class="clearfix">{{item.turn}} lượt nữa</p>
     </div>
-    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead) && item.isWin == false">Tạch</h5>
+    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead) && (!item.isWin || item.isWin)">Tạch</h5>
     <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin == true)">Thắng</h5>
     <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && gameType == 1 && (item.isWin==null && item.turn == 0)">Đánh</h5>
     <h5 ng-if="mode=='friend'">Học sĩ</h5>

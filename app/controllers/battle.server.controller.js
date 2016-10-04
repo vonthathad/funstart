@@ -460,13 +460,10 @@ exports.inviteToRoom = function(req,res){
     };
     if(req.body.room){
         console.log('room again',req.body.room);
-        io.to(req.body.room).emit('again',true);
+        io.to(req.body.room).emit('again',req.room._id);
     }
     if(req.body.players){
-        req.body.players.data.forEach(function (player) {
-            console.log(player, 'moi');
-            if(connections[player]) connections[player].emit('invite',data);
-        });
+        
     } else if(req.body.player){
         if(connections[req.body.player]) connections[req.body.player].emit('invite',data);
     };

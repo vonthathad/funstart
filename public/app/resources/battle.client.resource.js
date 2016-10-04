@@ -104,6 +104,7 @@ angular.module('funstart').service('BattleService',
                 } else {
                     alert.textContent('Có lỗi. Vui lòng thử lại sau');
                 }
+                self.isLoading = false;
                 $mdDialog.show(alert).then(function() {
                     self.status = {};
                     if(error) error();
@@ -186,7 +187,7 @@ angular.module('funstart').service('BattleService',
                 });
                 self.onCloseBattle();
             }
-        },10000);
+        },20000);
     };
     self.listenReady = function(error){
         return $timeout(function(){
@@ -207,11 +208,7 @@ angular.module('funstart').service('BattleService',
         },10000);
     };
     self.onFindBattle = function(success,error){
-        socket.off('ready');
-        socket.off('join');
-        socket.off('leave');
-        socket.off('win');
-        socket.off('again');
+        self.offSocket();
         self.status.isSearching = true;
         self.listenSearchLong = self.listenSearch(error);
         Rooms.get({gameId: self.game._id},function(res){
@@ -250,10 +247,7 @@ angular.module('funstart').service('BattleService',
         });
     };
     self.joinRoom = function(roomId,error){
-        socket.off('ready');
-        socket.off('join');
-        socket.off('leave');
-        socket.off('again');
+        self.offSocket();
         Rooms.get({roomId: roomId},function(res){
             self.room = new Rooms(res.data);
             self.checkFriend();
@@ -494,23 +488,15 @@ angular.module('funstart').service('BattleService',
             $rootScope.user.friends.splice($rootScope.user.friends.indexOf(item._id),1);
         }
     }
-    self.onCreateRoom = function(){
-        socket.off('ready');
-        socket.off('join');
-        socket.off('leave');
-        socket.off('again');
-        self.isHost = true;
-        self.friends = FriendsOnlineService;
-        self.friends.userId = self.user._id;
-        self.friends.loadFriends();
+    self.onWaitRoom = function(error){
+        self.offSocket();
         if(self.room){
-            var players = [];
-            self.players.forEach(function(player){
-                if(player._id != self.user._id) players.push(player._id);
-            });
+            // var players = [];
+            // self.players.forEach(function(player){
+            //     if(player._id != self.user._id) players.push(player._id);
+            // });
             var tmpRoom = self.room;
             self.room.$remove(function(){
-                self.isHost = true;
                 self.isReady = false;
                 self.room = null;
                 self.opponent = {};
@@ -523,30 +509,62 @@ angular.module('funstart').service('BattleService',
                     isEndGame: false,
                     isWaitRoom: true
                 };
-                self.createRoom("room",function(key){
-                    if(players) Invite.save({roomId: key,players: {data: players},room: tmpRoom._id},function(res){
-                        $mdDialog.show(
-                            $mdDialog.alert()
-                                .parent(angular.element(document.querySelector('.battle-room')))
-                                .clickOutsideToClose(true)
-                                .title('THÔNG BÁO!')
-                                .textContent('Lời mời đã được gửi đi')
-                                .ok('Okie!')
-                        );
-                    },function (err) {
-
+            });
+            if(self.waitRoom){
+                self.isHost = false;
+                self.joinRoom(self.waitRoom,function(message){
+                    var alert = $mdDialog.alert()
+                        .parent(angular.element(document.body))
+                        .clickOutsideToClose(true)
+                        .title('THÔNG BÁO!')
+                        .ok('Okie!');
+                    if(message == 'FULL'){
+                        alert.textContent('Rất tiếc, phòng đã đầy')
+                    } else if(message == 'NULL'){
+                        alert.textContent('Phòng không tồn tại');
+                    } else if(message == 'PLAYED'){
+                        alert.textContent('Phòng đã bắt đầu');
+                    } else {
+                        alert.textContent('Có lỗi. Vui lòng thử lại sau');
+                    }
+                    self.isLoading = false;
+                    $mdDialog.show(alert).then(function() {
+                        self.status = {};
+                        if(error) error();
+                    }, function() {
                     });
-                    self.isReady = false;
+                    self.onCloseBattle();
+                });
+            } else {
+                self.isHost = true;
+                self.createRoom("room",function(key){
+                    Invite.save({roomId: key, room: tmpRoom._id});
                     self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
                 });
-            });
-        } else {
-            self.status.isWaitRoom = true;
-            self.createRoom("room",function(key){
-                self.isReady = false;
-                self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
-            });
+            }
         }
+
+
+    }
+    self.offSocket = function(){
+        socket.off('ready');
+        socket.off('join');
+        socket.off('leave');
+        socket.off('again');
+        socket.off('win');
+
+    }
+    self.onCreateRoom = function(){
+        self.offSocket();
+        self.isHost = true;
+        self.friends = FriendsOnlineService;
+        self.friends.userId = self.user._id;
+        self.friends.loadFriends();
+        self.status.isWaitRoom = true;
+        self.createRoom("room",function(key){
+            self.isReady = false;
+            self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
+        });
         // var toastBattleAgain = $mdToast.simple()
         //     .textContent('Lời mời đã được gửi đi')
         //     .position('center center');
@@ -626,8 +644,8 @@ angular.module('funstart').service('BattleService',
                 );
             }
         })
-        socket.on('again',function(){
-            self.isInvite = true;
+        socket.on('again',function(data){
+            self.waitRoom = data;
         });
     };
     self.onDead = function(bool){
