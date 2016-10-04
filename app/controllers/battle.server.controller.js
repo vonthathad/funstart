@@ -374,7 +374,7 @@ exports.updateRoom = function (req,res){
             console.log('end',Date.now());
             res.json();
             if(isEnd) {
-                io.to(req.room._id).emit('end',stt);
+                // io.to(req.room._id).emit('end',stt);
                 req.room.status = 2;
             };
             req.room.save();
@@ -463,7 +463,7 @@ exports.inviteToRoom = function(req,res){
         io.to(req.body.room).emit('again',req.room._id);
     }
     if(req.body.players){
-        
+
     } else if(req.body.player){
         if(connections[req.body.player]) connections[req.body.player].emit('invite',data);
     };

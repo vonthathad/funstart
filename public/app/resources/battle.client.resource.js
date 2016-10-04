@@ -535,6 +535,7 @@ angular.module('funstart').service('BattleService',
                     });
                     self.onCloseBattle();
                 });
+                self.waitRoom = null;
             } else {
                 self.isHost = true;
                 self.createRoom("room",function(key){
@@ -617,33 +618,33 @@ angular.module('funstart').service('BattleService',
         });
     };
     self.handleResultDialog = function(){
-        socket.on("end",function(stt){
-            var win = null;
-            Object.keys(stt).forEach(function(e){
-                if(e == self.user._id){
-                   win = stt[e];
-                }
-            });
-            if(win){
-                $mdDialog.show(
-                    $mdDialog.alert()
-                        .parent(angular.element(document.querySelector('.recommend-games')))
-                        .clickOutsideToClose(true)
-                        .title('CHÚC MỪNG!')
-                        .textContent('Bạn đã chiến thắng!')
-                        .ok('Okie!')
-                );
-            } else {
-                $mdDialog.show(
-                    $mdDialog.alert()
-                        .parent(angular.element(document.querySelector('.recommend-games')))
-                        .clickOutsideToClose(true)
-                        .title('CHIA BUỒN!')
-                        .textContent('Bạn thua cmnr!')
-                        .ok('Okie!')
-                );
-            }
-        })
+        // socket.on("end",function(stt){
+        //     var win = null;
+        //     Object.keys(stt).forEach(function(e){
+        //         if(e == self.user._id){
+        //            win = stt[e];
+        //         }
+        //     });
+        //     if(win){
+        //         $mdDialog.show(
+        //             $mdDialog.alert()
+        //                 .parent(angular.element(document.querySelector('.recommend-games')))
+        //                 .clickOutsideToClose(true)
+        //                 .title('CHÚC MỪNG!')
+        //                 .textContent('Bạn đã chiến thắng!')
+        //                 .ok('Okie!')
+        //         );
+        //     } else {
+        //         $mdDialog.show(
+        //             $mdDialog.alert()
+        //                 .parent(angular.element(document.querySelector('.recommend-games')))
+        //                 .clickOutsideToClose(true)
+        //                 .title('CHIA BUỒN!')
+        //                 .textContent('Bạn thua cmnr!')
+        //                 .ok('Okie!')
+        //         );
+        //     }
+        // })
         socket.on('again',function(data){
             self.waitRoom = data;
         });

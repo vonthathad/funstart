@@ -8,8 +8,8 @@
         <p class="clearfix" ng-if="mode == 'game'">Điểm: <b>{{item.score}}</b></p>
         <p ng-if="item.turn && item.turn!=0 && gameType == 1" class="clearfix">{{item.turn}} lượt nữa</p>
     </div>
-    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead) && (!item.isWin || item.isWin)">Tạch</h5>
-    <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && (item.isWin == true)">Thắng</h5>
+    <h5 class="bb" ng-class="statusClass({input:0})" ng-if="mode == 'game' && (item.connect==0 || item.isDead) && (!item.isWin || item.isWin == false)">Tạch</h5>
+    <h5 class="bb" ng-class="statusClass({input:1})" ng-if="mode == 'game' && item.isWin == true">Thắng</h5>
     <h5 class="bb" ng-class="statusClass({input:2})" ng-if="mode == 'game' && gameType == 1 && (item.isWin==null && item.turn == 0)">Đánh</h5>
     <h5 ng-if="mode=='friend'">Học sĩ</h5>
     <md-button ng-if="mode == 'room' && item.isReady" style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-primary">R</md-button>
