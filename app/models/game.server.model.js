@@ -59,6 +59,10 @@ var GameSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    public: {
+        type: Boolean,
+        default: false
     }
 });
 GameSchema.plugin(autoIncrement.plugin, {

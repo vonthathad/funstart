@@ -4,7 +4,10 @@
 formidable = require('formidable');
 var dir = 'uploaded/results/';
 var fs = require('fs');
+var Game = Game = require('mongoose').model('Game');
 exports.uploadResult = function(req,res){
+    Game.findByIdAndUpdate(parseInt(req.params.game),{$inc: {shares: 1}},function(){
+    });
     var form = new formidable.IncomingForm();
     form.uploadDir = __dirname + '/../../public/' + dir;
     console.log(form.uploadDir);

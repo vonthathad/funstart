@@ -21,7 +21,7 @@ exports.loadGames = function(req,res){
     var page = parseInt(req.query.page),
         skip = page > 0 ? ((page - 1) * paging) : 0;
     var conds = [];
-    var match = {};
+    var match = {public: true};
     if(req.query.topic) conds.push({topic : parseInt(req.query.topic)});
     if(req.query.text) conds.push({$or:[
         {title: { $regex: req.query.text, $options: 'i' }},

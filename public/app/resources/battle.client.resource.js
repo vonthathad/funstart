@@ -574,7 +574,7 @@ angular.module('funstart').service('BattleService',
             self.friends.data = self.friends.data.filter(function (item) {
                 var check = false;
                 self.room.members.forEach(function (player) {
-                    if(item._id == e._id){
+                    if(item._id == player._id){
                         check = true;
                         return true;
                     }

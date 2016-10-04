@@ -52,6 +52,9 @@ FunstartGame.prototype.gameOver = function (data,callback){
     } else {
         self.objAngular.endGame();
     }
+    if(!data.isWin){
+        data.isDead = true;
+    };
     if(self.objAngular.battle && data){
         self.objAngular.battle.updateObj(data,false,callback);
     } else {

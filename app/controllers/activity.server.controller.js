@@ -17,6 +17,7 @@ exports.loadActivities = function(req,res){
     var conds = [];
     var match = {};
     if(req.query.user) conds.push({user: req.query.user});
+    if(req.query.user) conds.push({user: req.query.user});
     if(req.query.game) conds.push({game: parseInt(req.query.game)});
     if(!conds.length){
         match = {};
