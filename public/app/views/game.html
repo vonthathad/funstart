@@ -65,6 +65,7 @@
                         <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
                             <friend-card ng-repeat="item in battle.room.members track by $index"
                                          item="item"
+                                         game-type="battle.game.type"
                                          is-host="battle.isHost"
                                          status-class="statusClass(input)"
                                          kick="battle.kickMember(input)"
@@ -148,8 +149,8 @@
                         <div layout="column" layout-align="center start">
                             <h5>{{item.displayName}}</h5>
                             <p ng-if="item.score">Điểm: {{item.score}}</p>
-                            <p ng-if="item.turn && item.turn !=0">{{item.turn}} lượt nữa</p>
-                            <p ng-if="item.turn ==0">Đang đánh</p>
+                            <p ng-if="battle.game.type == 1 && item.turn && item.turn !=0">{{item.turn}} lượt nữa</p>
+                            <p ng-if="battle.game.type == 1 && item.turn ==0">Đang đánh</p>
                         </div>
                         <div ng-if = "item.connect==0 || item.isDead || item.token" class="status-mobile" layout="row" layout-align="center center">
                             <h5 class="bb" ng-class="statusClass(0)" ng-if="(item.connect==0 || item.isDead && !item.isWin)">Tạch</h5>

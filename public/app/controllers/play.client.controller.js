@@ -119,7 +119,6 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             if($scope.battle && $scope.battle.room && $scope.battle.room.time){
                 socket.on('turn',function(data){
                     if($scope.battle.players){
-                        console.log(data);
                         Object.keys(data).forEach(function(e){
                             $scope.battle.players.forEach(function (player) {
                                 if(player._id == e){

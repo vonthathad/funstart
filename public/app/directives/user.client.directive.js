@@ -48,7 +48,7 @@ angular.module('funstart').directive('friendCard', function () {
         scope: {
             'mode' : '=',
             'item' : '=',
-            'type' : '=',
+            'gameType' : '=',
             'follow' : '&',
             'invite': '&',
             'unfollow' : '&',
