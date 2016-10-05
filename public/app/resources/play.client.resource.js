@@ -18,6 +18,7 @@ angular.module('funstart').service('ShareService',function(){
         'shareFacebook': function(obj,callback){
             FB.ui({
                 method: 'share',
+                mobile_iframe: true,
                 href: self.url + "?ref=share&rs_image="+self.pic+"&rs_title="+self.name+"&rs_des="+self.des
             }, function(res){
                 if (callback) callback;
