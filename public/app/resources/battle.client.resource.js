@@ -89,7 +89,9 @@ angular.module('funstart').service('BattleService',
         };
         if(roomId) {
             self.isHost = false;
-            self.joinRoom(roomId,function(message){
+            self.joinRoom(roomId,function(){
+
+            }, function(message){
                 var alert = $mdDialog.alert()
                     .parent(angular.element(document.body))
                     .clickOutsideToClose(true)
@@ -246,7 +248,7 @@ angular.module('funstart').service('BattleService',
         },function(err){
         });
     };
-    self.joinRoom = function(roomId,error){
+    self.joinRoom = function(roomId,success,error){
         self.offSocket();
         Rooms.get({roomId: roomId},function(res){
             self.room = new Rooms(res.data);
@@ -254,6 +256,7 @@ angular.module('funstart').service('BattleService',
             self.isLoading = false;
             self.status.isWaitRoom = true;
             self.handlingRoom();
+            if(success) success();
         },function(err){
             if(error) error(err.data.message);
         })
@@ -491,6 +494,7 @@ angular.module('funstart').service('BattleService',
     self.onWaitRoom = function(error){
         self.offSocket();
         if(self.room){
+            console.log(self.room);
             // var players = [];
             // self.players.forEach(function(player){
             //     if(player._id != self.user._id) players.push(player._id);
@@ -509,40 +513,48 @@ angular.module('funstart').service('BattleService',
                     isEndGame: false,
                     isWaitRoom: true
                 };
-            });
-            if(self.waitRoom){
-                self.isHost = false;
-                self.joinRoom(self.waitRoom,function(message){
-                    var alert = $mdDialog.alert()
-                        .parent(angular.element(document.body))
-                        .clickOutsideToClose(true)
-                        .title('THÔNG BÁO!')
-                        .ok('Okie!');
-                    if(message == 'FULL'){
-                        alert.textContent('Rất tiếc, phòng đã đầy')
-                    } else if(message == 'NULL'){
-                        alert.textContent('Phòng không tồn tại');
-                    } else if(message == 'PLAYED'){
-                        alert.textContent('Phòng đã bắt đầu');
-                    } else {
-                        alert.textContent('Có lỗi. Vui lòng thử lại sau');
-                    }
-                    self.isLoading = false;
-                    $mdDialog.show(alert).then(function() {
-                        self.status = {};
-                        if(error) error();
-                    }, function() {
+                if(self.waitRoom){
+                    self.friends = FriendsOnlineService;
+                    self.friends.userId = self.user._id;
+                    self.friends.loadFriends();
+                    console.log('wait room',self.waitRoom);
+                    self.isHost = false;
+                    self.joinRoom(self.waitRoom,function(){
+                    },function(message){
+                        var alert = $mdDialog.alert()
+                            .parent(angular.element(document.body))
+                            .clickOutsideToClose(true)
+                            .title('THÔNG BÁO!')
+                            .ok('Okie!');
+                        if(message == 'FULL'){
+                            alert.textContent('Rất tiếc, phòng đã đầy')
+                        } else if(message == 'NULL'){
+                            alert.textContent('Phòng không tồn tại');
+                        } else if(message == 'PLAYED'){
+                            alert.textContent('Phòng đã bắt đầu');
+                        } else {
+                            alert.textContent('Có lỗi. Vui lòng thử lại sau');
+                        }
+                        self.isLoading = false;
+                        $mdDialog.show(alert).then(function() {
+                            self.status = {};
+                            if(error) error();
+                        }, function() {
+                        });
+                        self.onCloseBattle();
                     });
-                    self.onCloseBattle();
-                });
-                self.waitRoom = null;
-            } else {
-                self.isHost = true;
-                self.createRoom("room",function(key){
-                    Invite.save({roomId: key, room: tmpRoom._id});
-                    self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
-                });
-            }
+                    self.waitRoom = null;
+                } else {
+                    console.log('create room cho');
+                    self.isHost = true;
+                    self.createRoom("room",function(key){
+                        console.log(self.room);
+                        Invite.save({roomId: key, room: tmpRoom._id});
+                        self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
+                    });
+                }
+            });
+
         }
 
 

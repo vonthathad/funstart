@@ -18,9 +18,9 @@
                 <div class="description">{{games.currentGame.des}}</div>
             </div>
             <md-progress-circular ng-if="isLoad"  md-mode="indeterminate" md-diameter="100"></md-progress-circular>
-            <md-button ng-if="!isLoad && (!games.currentGame.multi || games.currentGame.multi <= 1)" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
-            <md-button ng-if="!isLoad && games.currentGame.multi >= 1" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
-            <md-button ng-if="!isLoad && games.currentGame.multi >= 1" ng-click="onCreateRoom($event)" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
+            <md-button aria-label="play" ng-if="!isLoad && (!games.currentGame.multi || games.currentGame.multi <= 1)" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
+            <md-button aria-label="find" ng-if="!isLoad && games.currentGame.multi >= 1" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
+            <md-button aria-label="createroom" ng-if="!isLoad && games.currentGame.multi >= 1" ng-click="onCreateRoom($event)" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
         </div>
         <div ng-if="battle.status.isFullscreen" class="full-mode-2" hide-xs hide-sm>
             <md-toolbar class="md-theme-light">
@@ -82,34 +82,34 @@
                         <md-list>
                         <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
                             <md-list-item>
-                                <md-button style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">1</md-button>
+                                <md-button aria-label="step1" style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">1</md-button>
                                 Mời bạn bè vào phòng bằng cách gửi link hoặc chuyển qua tab mời bạn
                             </md-list-item>
                             <md-list-item>
-                                <md-button style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">2</md-button>
+                                <md-button aria-label="step2" style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">2</md-button>
                                 Những người đồng ý tham gia sẽ được thêm vào list thành viên trong phòng
                             </md-list-item>
                             <md-list-item>
-                                <md-button style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">3</md-button>
+                                <md-button aria-label="step3" style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">3</md-button>
                                 Nếu là host, chờ tất cả các người chơi hiện trạng thái sẵn sàng rồi bấm bắt đầu
                             </md-list-item>
                             <md-list-item>
                                 <h4>Trạng thái:</h4>
                             </md-list-item>
                             <md-list-item>
-                                <md-button style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-accent">R</md-button>
+                                <md-button aria-label="isready" style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-accent">R</md-button>
                                 Đã sẵn sàng
                             </md-list-item>
                             <md-list-item>
-                                <md-button style="margin-right: 5px;" class="md-fab md-mini md-primary"><i class="ion-person-add"></i></md-button>
+                                <md-button aria-label="addfriend" style="margin-right: 5px;" class="md-fab md-mini md-primary"><i class="ion-person-add"></i></md-button>
                                 Thêm bạn
                             </md-list-item>
                             <md-list-item>
-                                <md-button style="margin-right: 5px;" class="md-fab md-mini md-accent"><i class="ion-person-stalker"></i></md-button>
+                                <md-button aria-label="isfriend" style="margin-right: 5px;" class="md-fab md-mini md-accent"><i class="ion-person-stalker"></i></md-button>
                                 Đã là bạn bè
                             </md-list-item>
                             <md-list-item>
-                                <md-button class="md-icon-button"><i class="ion-close-circled"></i></md-button>
+                                <md-button aria-label="kick" class="md-icon-button"><i class="ion-close-circled"></i></md-button>
                                 Kick khỏi room
                             </md-list-item>
                         </div>
@@ -133,7 +133,7 @@
                         </md-list>
                     </md-tab>
                 </md-tabs>
-                <md-button ng-click="battle.onReady(onPlay)" ng-disabled="battle.isReady" class="md-raised md-primary room-btn">
+                <md-button aria-label="ready" ng-click="battle.onReady(onPlay)" ng-disabled="battle.isReady" class="md-raised md-primary room-btn">
                     <span ng-if="battle.isHost"><i class="ion-play"></i> Bắt đầu</span>
                     <span ng-if="!battle.isHost"><i class="ion-play"></i> Sẵn sàng</span>
                 </md-button>
@@ -205,16 +205,16 @@
                 </div>
             </div>
             <div layout="row" layout-wrap layout-align="center center">
-                <md-button flex-xs="100" ng-disabled="sharing" class="md-raised md-facebook recommend-btn" ng-click="onShareFacebook()">
+                <md-button aria-label="share" flex-xs="100" ng-disabled="sharing" class="md-raised md-facebook recommend-btn" ng-click="onShareFacebook()">
                     <i class="ion-social-facebook" style="font-size: 1.25em"></i>
                     <span ng-if="!sharing">Chia sẻ điểm</span>
                     <span ng-if="sharing">Đang chia sẻ</span>
                 </md-button>
-                <md-button ng-if="!isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onPlay()">
+                <md-button aria-label="playagain" ng-if="!isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onPlay()">
                     <i class="ion-refresh" style="font-size: 1.25em"></i>
                     Chơi lại
                 </md-button>
-                <md-button ng-if="isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="battle.onWaitRoom(onError)">
+                <md-button aria-label="waitroom" ng-if="isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="battle.onWaitRoom(onError)">
                     <i class="ion-refresh" style="font-size: 1.25em"></i>
                     Vào phòng chờ
                 </md-button>
@@ -265,6 +265,6 @@
         </div>
 
     </div>
-    <md-button ng-if="isBattle" ng-click="onCloseBattle()" class="search-close-btn md-icon-button"><i class="ion-close-circled"></i></md-button>
+    <md-button aria-label="close" ng-if="isBattle" ng-click="onCloseBattle()" class="search-close-btn md-icon-button"><i class="ion-close-circled"></i></md-button>
     <div layout="row" layout-align="center center" class="loading-battle" ng-if="battle.isLoading"><md-progress-circular class="md-accent" md-mode="indeterminate" md-diameter="100"></md-progress-circular></div>
 </div>
