@@ -1,8 +1,31 @@
 /**
  * Created by andh on 8/9/16.
  */
-angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService','NavGamesService',
-    function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService,NavGamesService){
+angular.module('funstart').controller('PopupProfileController',['$scope','$rootScope','UserInfoService','$timeout',
+    function($scope,$rootScope,UserInfoService,$timeout){
+
+        $scope.close = function(){
+            $rootScope.popupProfile = null;
+        };
+        $scope.loadProfile = function(){
+            $timeout(function(){
+                var checkY = $rootScope.popupProfile.top + 200;
+                if(checkY < $(window).height()){
+                    $('.profile-panel').css({'top' : ($rootScope.popupProfile.top + 20) + 'px','left' : $rootScope.popupProfile.left + 'px'});
+                } else {
+                    $('.profile-panel').css({'top' : ($rootScope.popupProfile.top - 180) + 'px','left' : $rootScope.popupProfile.left + 'px'});
+                }
+                $('.profile-panel').css({'display':'block'});
+            });
+            $scope.info = UserInfoService;
+            $scope.info.loadUser($rootScope.popupProfile.name,function(){
+                console.log($scope.info.data);
+            });
+        }
+    }])
+
+angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService',
+    function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService){
     $scope.userInfo = UserInfoService;
     $scope.friends = FriendsService;
     $scope.suggest = SuggestService;

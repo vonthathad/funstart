@@ -1328,3 +1328,59 @@ md-toast {
 .md-dialog-container{
   z-index: 200;
 }
+.profile-frame{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+}
+.profile-shadow{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 199;
+  background: rgba(0,0,0,0.5);
+}
+.profile-panel{
+  position: absolute;
+  z-index: 200;
+  width: 300px;
+  top: 0;
+  left: 0;
+  display: none;
+}
+.profile-panel .title{
+  font-size: 16px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+.profile-panel .description{
+  margin-top: 5px;
+  color: #666;
+}
+.profile-panel .info-title{
+  font-weight: bold;
+}
+.profile-panel p{
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+}
+.profile-panel .md-card-title {
+  padding: 16px;
+}
+.profile-panel .md-card-media{
+  margin-top: 0;
+}
+.profile-panel .md-card-action{
+  padding: 16px;
+  padding-top: 0;
+  margin: 0;
+}
+.profile-panel .md-card-action .md-button{
+  width: 110px;
+}

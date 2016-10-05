@@ -24,8 +24,9 @@ angular.module('funstart').service('UserInfoService',['Users',function(Users){
                 Users.get(params,function (res) {
                     self.data = new Users(res.data);
                     if(callback) callback();
+                    self.isLoading = false;
                 });
-                self.isLoading = false;
+
             }
         },
         'follow': function(callback){

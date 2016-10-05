@@ -41,6 +41,14 @@ angular.module('funstart').directive('missionCard', function () {
         }
     }
 });
+angular.module('funstart').directive('profilePanel', function () {
+    return {
+        templateUrl: 'app/templates/profilePanel.tmpl.html',
+        scope: {
+            info: "="
+        }
+    }
+});
 angular.module('funstart').directive('friendCard', function () {
     return {
         restrict: 'E',
@@ -57,20 +65,17 @@ angular.module('funstart').directive('friendCard', function () {
             'statusClass' : '&',
             'updateList' : '&'
         },
-        controller: function ($scope) {
-            // $scope.onFollow = function(){
-            //     $scope.follow({input: $scope.item,callback: function(){
-            //         console.log('vo callback',$scope.updateList);
-            //         $scope.updateList(true,$scope.item);
-            //     }})
-            // }
-            // $scope.onUnfollow = function(){
-            //     console.log('vo day');
-            //     $scope.unfollow({input: $scope.item,callback: function(){
-            //         console.log('vo callback');
-            //         $scope.updateList(false,$scope.item);
-            //     }})
-            // }
+        controller: function ($scope,$rootScope,$timeout) {
+            $scope.onViewProfile = function(ev){
+                var position = $($(ev.currentTarget).parent().parent()).offset();
+                var top = position.top - $(window).scrollTop();
+                var left = position.left;
+                $rootScope.popupProfile = {
+                    name: $scope.item.username,
+                    top: top,
+                    left: left
+                };
+            };
             $scope.updateFollow = function(){
                 $scope.updateList({bool: true,input: $scope.item});
                 $scope.isLoading = false;
