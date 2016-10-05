@@ -1,9 +1,11 @@
 var passport = require('passport');
 var users =  require('../controllers/user.server.controller.js');
 var games =  require('../controllers/game.server.controller.js');
+var bots = require('../controllers/bot.server.controller.js');
 var Game = require('mongoose').model('Game');
 var Config = require('../config/config');
 module.exports = function(app) {
+  app.get('/webhook', bots.initWebHook);
   app.route('/auth/signin')
       .post(passport.authenticate('local'),users.authSignin);
   app.get('/auth/action',users.renderAction);
