@@ -313,6 +313,7 @@ exports.loadUsers = function(req,res){
         var match = {};
         if(req.query.friend) {
             User.findById(req.query.friend,function(err,user){
+                console.log('tim friend cua',user);
                 if(user){
                     conds.push({_id: { $in: user.friends}});
                     if(req.query.online){
@@ -341,6 +342,7 @@ exports.loadUsers = function(req,res){
                         if(err) {
                             res.status(400).send();
                         } else {
+                            console.log('list fr online',data);
                             var isNext = false;
                             if(data.length==(paging+1)){
                                 isNext = true;
@@ -394,12 +396,20 @@ exports.loadUser = function(req,res,next){
 exports.followUser = function (req,res) {
     if(req.query.action =='follow'){
         User.findByIdAndUpdate(req.user._id,{$addToSet: { "friends": req.selectedUser._id }},function(){
-            res.status(200).send();
+            User.findByIdAndUpdate(req.selectedUser._id,{$addToSet: { "friends":  req.user._id}},function(){
+                console.log('them xong');
+                res.status(200).send();
+            });
         });
+
     } else if(req.query.action =='unfollow') {
         User.findByIdAndUpdate(req.user._id,{$pull: { "friends": req.selectedUser._id }},function(){
-            res.status(200).send();
+            User.findByIdAndUpdate(req.selectedUser._id,{$pull: { "friends":  req.user._id}},function(){
+                console.log('bo them xong');
+                res.status(200).send();
+            });
         });
+
     }
 }
 exports.updateUser = function(req,res,next){

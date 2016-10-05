@@ -4,8 +4,8 @@
 /**
  * Created by andh on 7/28/16.
  */
-angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','FriendsService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
-    function($scope,$rootScope,GamesService,ActivityService,FriendsService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
+angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','SuggestService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
+    function($scope,$rootScope,GamesService,ActivityService,SuggestService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
         $scope.loadGame = function(){
             $scope.isInit = true;
             $scope.games = GamesService;
@@ -75,6 +75,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                     displayName: 'Người chơi'
                 }
             }
+            $scope.suggestFriends = SuggestService;
             $scope.isLoad = false;
             console.log('done load!');
             //init info share

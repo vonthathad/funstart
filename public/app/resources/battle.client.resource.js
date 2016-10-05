@@ -470,6 +470,7 @@ angular.module('funstart').service('BattleService',
         console.log('here');
         var tmpUser = new Users(item);
         tmpUser.$update(params,function(res){
+            console.log('done update',callback);
             if(callback) callback();
         });
     };
@@ -479,10 +480,12 @@ angular.module('funstart').service('BattleService',
         };
         var tmpUser = new Users(item);
         tmpUser.$update(params,function(res){
+            console.log('done update');
             if(callback) callback();
         });
     };
     self.updateList = function(bool,item){
+        console.log('vo update',item);
         if(bool){
             item.isFriend = true;
             $rootScope.user.friends.push(item._id);
@@ -490,6 +493,16 @@ angular.module('funstart').service('BattleService',
             item.isFriend = false;
             $rootScope.user.friends.splice($rootScope.user.friends.indexOf(item._id),1);
         }
+    }
+    self.refreshList = function(bool,item){
+        if(bool){
+            item.isFriend = true;
+            $rootScope.user.friends.push(item._id);
+        } else {
+            item.isFriend = false;
+            $rootScope.user.friends.splice($rootScope.user.friends.indexOf(item._id),1);
+        }
+        self.refreshListInvite();
     }
     self.onWaitRoom = function(error){
         self.offSocket();
@@ -589,30 +602,33 @@ angular.module('funstart').service('BattleService',
         // 3. Khi co nguoi thay doi status la 1, gui thong bao ve tat ca cac nguoi choi thong qua child change
         // 4. Chi host moi co quyen thay doi status game sang 1. Khi do server se lang nghe va xoa het tat ca nguoi choi co status 0
     }
-    self.onListInvite = function(){
+    self.refreshListInvite = function(){
         self.friends = FriendsOnlineService;
         self.friends.init();
         self.friends.userId = self.user._id;
-        self.friends.loadFriends();
-        self.filterFriendInRoom();
+        self.friends.loadFriends(function(){
+            self.filterFriendInRoom();
+        });
     };
-    self.onListInviteMore = function(){
-        self.friends.loadMore();
-        self.filterFriendInRoom();
+    self.refreshListInviteMore = function(){
+        self.friends.loadMore(function () {
+            self.filterFriendInRoom();
+        });
     };
     self.filterFriendInRoom = function(){
         if(self.room && self.room.members){
             self.friends.data = self.friends.data.filter(function (item) {
                 var check = false;
                 self.room.members.forEach(function (player) {
-                    if(item._id == player._id){
+                    if(item._id != player._id){
                         check = true;
                         return true;
                     }
                 })
                 return check;
-            })}
-
+            });
+            console.log(self.friends.data);
+        }
     }
     self.updateObj = function(obj,prepare,callback){
         console.log('begin client',Date.now());

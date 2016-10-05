@@ -121,6 +121,8 @@ angular.module('funstart').service('SuggestService',['Users',function(Users){
             };
             obj.$update(params,function(res){
                 obj.isFriend = true;
+                console.log('chay callback follow');
+                console.log(callback);
                 if(callback) callback(true,obj);
             });
         },

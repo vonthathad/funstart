@@ -46,9 +46,8 @@
                          infinite-scroll-immediate-check="false"
                          infinite-scroll-distance="1">
                         <friend-card ng-repeat="item in suggest.data"
-                                     follow="suggest.follow(input,callback)"
-                                     unfollow="suggest.unfollow(input,callback)"
-                                     update-list = "updateFriendList(bool,input)"
+                                     follow="suggest.follow(input,updateFriendList)"
+                                     unfollow="suggest.unfollow(input,updateFriendList)"
                                      item="item"
                                      mode="mode">
 

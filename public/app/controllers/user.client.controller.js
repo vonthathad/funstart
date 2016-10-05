@@ -83,6 +83,7 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
     //     }
     // });
     $scope.updateFriendList = function(bool,obj){
+        console.log('vo update friend');
         if(bool){
             $scope.friends.data.push(obj);
             $rootScope.user.friends.push(obj._id);

@@ -68,8 +68,8 @@
                                          is-host="battle.isHost"
                                          status-class="statusClass(input)"
                                          kick="battle.kickMember(input)"
-                                         follow="battle.follow(input)"
-                                         unfollow="battle.unfollow(input)"
+                                         follow="battle.follow(item,callback)"
+                                         unfollow="battle.unfollow(item,callback)"
                                          update-list="battle.updateList(bool,input)"
                                          mode="'room'">
                             </friend-card>
@@ -127,8 +127,27 @@
                                              invite="battle.invite(input)"
                                              mode="'invite'">
                                 </friend-card>
-                                <loading-circle flex="100" is-loading="friends.isLoading"></loading-circle>
+                                <loading-circle flex="100" is-loading="battle.friends.isLoading"></loading-circle>
                                 <div layout-padding ng-if="battle.friends.data.length==0" style="font-size: 15px;color: #666">Không có bạn đang online, hãy add thêm bạn nhé!</div>
+                            </div>
+                        </md-list>
+                    </md-tab>
+                    <md-tab label="THÊM BẠN ({{suggestFriends.data.length}})">
+                        <md-list>
+                            <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
+                                 ng-if="mode=='friend'"
+                                 infinite-scroll="suggestFriends.loadMore()"
+                                 infinite-scroll-immediate-check="false"
+                                 infinite-scroll-distance="1">
+                                <friend-card ng-repeat="item in suggestFriends.data"
+                                             follow="suggestFriends.follow(input,callback)"
+                                             unfollow="suggestFriends.unfollow(input,callback)"
+                                             update-list="battle.refreshList(bool,input)"
+                                             item="item"
+                                             mode="'search'">
+
+                                </friend-card>
+                                <loading-circle flex="100" is-loading="suggestFriends.isLoading"></loading-circle>
                             </div>
                         </md-list>
                     </md-tab>

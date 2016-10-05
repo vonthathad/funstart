@@ -58,7 +58,27 @@ angular.module('funstart').directive('friendCard', function () {
             'updateList' : '&'
         },
         controller: function ($scope) {
-
+            // $scope.onFollow = function(){
+            //     $scope.follow({input: $scope.item,callback: function(){
+            //         console.log('vo callback',$scope.updateList);
+            //         $scope.updateList(true,$scope.item);
+            //     }})
+            // }
+            // $scope.onUnfollow = function(){
+            //     console.log('vo day');
+            //     $scope.unfollow({input: $scope.item,callback: function(){
+            //         console.log('vo callback');
+            //         $scope.updateList(false,$scope.item);
+            //     }})
+            // }
+            $scope.updateFollow = function(){
+                $scope.updateList({bool: true,input: $scope.item});
+                $scope.isLoading = false;
+            };
+            $scope.updateUnfollow = function(){
+                $scope.updateList({bool: false,input: $scope.item});
+                $scope.isLoading = false;
+            }
         }
     }
 });
