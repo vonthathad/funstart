@@ -1074,7 +1074,7 @@ md-toast {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 101;
   background: rgba(26,26,26,.9);
   animation-name: fade-in;
   animation-duration: 300ms;

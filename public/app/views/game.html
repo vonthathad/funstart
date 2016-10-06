@@ -166,7 +166,7 @@
                         <img class="mini-avatar" ng-src="{{item.avatar}}"/>
                         <div layout="column" layout-align="center start">
                             <h5>{{item.displayName}}</h5>
-                            <p ng-if="item.score">Điểm: {{item.score}}</p>
+                            <p ng-if="item.score > 0">Điểm: {{item.score}}</p>
                             <p ng-if="battle.game.type == 1 && item.turn && item.turn !=0">{{item.turn}} lượt nữa</p>
                             <p ng-if="battle.game.type == 1 && item.turn ==0">Đang đánh</p>
                         </div>

@@ -15,8 +15,8 @@ angular.module('funstart').controller('PopupProfileController',['$scope','$rootS
                 } else {
                     $('.profile-panel').css({'top' : ($rootScope.popupProfile.top - 180) + 'px','left' : $rootScope.popupProfile.left + 'px'});
                 }
-                $('.profile-panel').css({'display':'block'});
-            });
+                $('.profile-panel').css('display','block');
+            },100);
             $scope.info = UserInfoService;
             $scope.info.loadUser($rootScope.popupProfile.name,function(){
                 console.log($scope.info.data);

@@ -62,7 +62,7 @@ angular.module('funstart').service('FriendsOnlineService',['Users',function(User
 
 }]);
 angular.module('funstart').service('BattleService',
-    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService) {
+    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,$mdToast) {
     var self = this;
     self.status = {};
     self.friends = {};
@@ -332,11 +332,25 @@ angular.module('funstart').service('BattleService',
             self.room.members = data;
             self.checkFriend();
             self.room.people = self.room.members.length;
+            var toastJoin = $mdToast.simple()
+                .theme('md-accent')
+                .textContent('Có người chơi vừa tham gia phòng')
+                .position('center center');
+            $mdToast.show(toastJoin).then(function(response) {
+                //callback
+            });
             $rootScope.$apply();
         });
         socket.on('leave',function(data){
             console.log('leave',data);
             if(self.room){
+                var toastJoin = $mdToast.simple()
+                    .theme('md-accent')
+                    .textContent('Có người chơi vừa thoát phòng')
+                    .position('center center');
+                $mdToast.show(toastJoin).then(function(response) {
+                    //callback
+                });
                 self.room.members = self.room.members.filter(function(item){
                     var check = false;
                     data.forEach(function(e){
