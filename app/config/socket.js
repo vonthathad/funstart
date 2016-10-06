@@ -9,10 +9,12 @@
 //
 // var io = socket.listen(server);
 
-// var fs = require( 'fs' );
+var fs = require( 'fs' );
 var appIO = require('express')();
 var https        = require('https');
 var server = https.createServer({
+    key: fs.readFileSync(__dirname + '../../../../../etc/letsencrypt/live/www.funstart.net/privkey.pem'),
+    cert: fs.readFileSync(__dirname + '../../../../../etc/letsencrypt/live/www.funstart.net/fullchain.pem'),
     requestCert: false,
     rejectUnauthorized: false
 },appIO);
