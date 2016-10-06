@@ -1,7 +1,7 @@
 var express = require('express');
 var ioApp = express();
 var socket = require('socket.io');
-var LEX = require('letsencrypt-express').testing();
+var LEX = require('letsencrypt-express');
 var https = require('http2');
 var lex = LEX.create({
     configDir: '/etc/letsencrypt'
