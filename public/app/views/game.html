@@ -115,11 +115,11 @@
                         </div>
                         </md-list>
                     </md-tab>
-                    <md-tab label="MỜI BẠN ({{battle.friends.data.length}})" ng-click="battle.onListInvite()">
+                    <md-tab label="MỜI BẠN ({{battle.friends.data.length}})" ng-click="battle.refreshListInvite()">
                         <md-list>
                             <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
                                  ng-if="mode=='friend'"
-                                 infinite-scroll="battle.onListInviteMore()"
+                                 infinite-scroll="battle.refreshListInviteMore()"
                                  infinite-scroll-immediate-check="false"
                                  infinite-scroll-distance="1">
                                 <friend-card ng-repeat="item in battle.friends.data"
