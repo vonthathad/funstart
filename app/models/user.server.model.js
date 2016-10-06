@@ -45,6 +45,7 @@ var UserSchema = new Schema({
         type: Boolean,
         default: false
     },
+    mid: String,
     provider: {
         type: String,
         required: 'Provider is required'

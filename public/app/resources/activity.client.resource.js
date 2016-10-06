@@ -9,9 +9,8 @@ angular.module('funstart').factory('Activities', ['$resource',
 ]);
 angular.module('funstart').service('ActivityService',function(Activities){
     var self = {
-        "updateScore": function (data,callback) {
-            console.log(data);
-            var activity = new Activities(data);
+        "updateScore": function (obj,callback) {
+            var activity = new Activities(obj);
             activity.$save(function(res){
                 if(callback) callback(res);
             },function(err){

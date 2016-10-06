@@ -33,6 +33,9 @@ angular.module('funstart').config([
         }).
         when('/action/:token', {
             templateUrl: '/app/views/action.html'
+        }).
+        when('/close', {
+            templateUrl: '/app/views/close.html'
         })
         .otherwise({
             redirectTo: '/'

@@ -12,11 +12,17 @@ module.exports = function(app) {
   app.post('/auth/signup',users.authSignup);
   app.get('/oauth/facebook',function (req,res,next) {
     req.session.redirect = req.query.redirect || '/';
+    if(req.query.mid) req.session.mid = req.query.mid;
     next();
   }, passport.authenticate('facebook', {scope: ['user_friends','email','public_profile']}));
   app.get('/oauth/facebook/callback',  passport.authenticate('facebook',{ failureRedirect: '/login' }),function(req,res){
-    console.log(req.session.redirect);
-    res.redirect(req.session.redirect || '/');
+    if(req.session.mid){
+        req.user.mid = req.session.mid;
+        res.redirect('/close');
+    } else {
+        res.redirect(req.session.redirect || '/');
+    }
+
   });
   app.get('/logout',users.authLogout);
   app.route('/action/verify/:token')

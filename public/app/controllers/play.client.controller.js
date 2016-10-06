@@ -155,8 +155,8 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             eventAdsense.skipAds();
         }
         $scope.user = {};
-        $scope.endGame = function(data){
-            $scope.score = data;
+        $scope.endGame = function(obj){
+            // if()
             console.log('end!');
             $timeout(function() {
                 $scope.isEnd = true;
@@ -164,7 +164,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             // if(Date.now() - $scope.time >= 2*60*1000){
                 // eventAdsense.load();
             // }
-            if(data) $scope.setActivity(data);
+            if(obj) $scope.setActivity(obj);
         };
         $scope.uploadResult = function(obj,callback){
             var fd = new FormData();
@@ -196,10 +196,11 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         $scope.onReady = function(){
             $scope.battle.onReady();
         };
-        $scope.setActivity = function(data){
+        $scope.setActivity = function(obj){
             if($rootScope.user && $routeParams.gameId){
                 $scope.activity = ActivityService;
-                $scope.activity.updateScore({game: $routeParams.gameId,score: data},function (res) {
+                obj.game = $routeParams.gameId;
+                $scope.activity.updateScore(obj,function (res) {
                     if(res.data.level > $rootScope.user.level){
                         var toast3 = $mdToast.simple()
                             .textContent('Chúc mừng! Bạn đã được thăng cấp')
