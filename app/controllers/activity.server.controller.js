@@ -60,6 +60,12 @@ exports.createActivity = function (req,res,next) {
             score: req.body.score,
             exp: req.body.score
         });
+        if(req.body.isWin != null){
+            newActivity.isWin = req.body.isWin
+        };
+        if(req.body.opponent){
+            newActivity.opponent = req.body.opponent;
+        };
         Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: { plays: 1}},function(err,game){
 
             newActivity.save(function (err,data) {
