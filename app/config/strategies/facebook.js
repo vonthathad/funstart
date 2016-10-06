@@ -72,7 +72,7 @@ module.exports = function() {
                 username: username,
                 displayName: username,
                 token: token,
-                avatar: "http://graph.facebook.com/" + profile.id + "/picture?width=150&height=150",
+                avatar: "https://graph.facebook.com/" + profile.id + "/picture?width=150&height=150",
                 isVerified: true,
                 provider: 'facebook',
                 providerId: profile.id,
