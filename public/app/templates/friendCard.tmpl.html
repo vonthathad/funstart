@@ -1,8 +1,7 @@
 <md-list-item class="md-3-line friend-item">
     <a class="a-item"><img ng-src="{{::item.avatar}}" class="md-avatar"></a>
     <div class="md-list-item-text">
-        <a ng-if="mode=='room'" ng-href="/user/{{::item.username}}" target="_blank" class="a-item"><h4>{{::item.displayName}}</h4></a>
-        <a ng-if="mode!='room'" ng-click="onViewProfile($event)" ng-mouseleave="closeViewProfile()" class="a-item" id="menu-profile-{{item.$$hashKey.split(':')[1]}}"><h4>{{::item.displayName}}</h4></a>
+        <a ng-click="onViewProfile($event)" ng-mouseleave="closeViewProfile()" class="a-item" style="cursor: pointer"><h4>{{::item.displayName}}</h4></a>
         <p ng-if="mode=='friend' || mode=='search' || mode=='invite'" class="clearfix">Level {{::item.level}}</p>
         <p ng-if="mode=='room'" class="clearfix">@{{::item.username}}</p>
         <p class="clearfix" ng-if="mode == 'game'">Điểm: <b>{{item.score}}</b></p>
