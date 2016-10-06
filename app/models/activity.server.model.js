@@ -22,6 +22,11 @@ var ActivitySchema = new Schema({
         type: Number,
         required: 'Must have score'
     },
+    isWin: Boolean,
+    opponent: [{
+        type: Number,
+        ref: 'User'
+    }],
     exp: {
         type: Number,
         required: 'Must have experience'

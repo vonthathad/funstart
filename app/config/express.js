@@ -8,10 +8,16 @@ var config = require('./config'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     session = require('express-session'),
-    passport = require('passport');
+    passport = require('passport'),
+    https = require('https'),
+    http = require('http'),
+    fs = require('fs');
 module.exports = function() {
     var app = express();
-
+    var options = {
+        key: fs.readFileSync('./config/keyhttps.pem'),
+        cert: fs.readFileSync('./config/certhttps.pem')
+    };
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
 
@@ -52,6 +58,8 @@ module.exports = function() {
     app.use('/', secure);
 
     app.set('port', (process.env.PORT || 8236));
+
+    https.createServer(options, app).listen(443);
 
     app.listen(app.get('port'), function() {
         console.log('Node app is running on port', app.get('port'));
