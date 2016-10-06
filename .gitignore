@@ -4,3 +4,4 @@ public/libs
 .idea/
 public/uploaded/
 public/sources/
+app/controllers/bot.server.controller.js
