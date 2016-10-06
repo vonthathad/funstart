@@ -45,7 +45,7 @@ exports.authSignup = function(req,res){
         user.password = req.body.password;
         user.provider = 'local';
         user.isVerified = false;
-        user.avatar = "http://www.funstart.net/sources/ninja.svg";
+        user.avatar = "https://www.funstart.net/sources/ninja.png";
         var tokenDt = {
             email: req.body.email
         };
@@ -440,8 +440,8 @@ exports.renderAction = function (req,res) {
         id: '244448985929177',
         name: 'Fun Start',
         description: 'Game hay thử tài!',
-        url: 'http://www.funstart.net',
-        image: 'http://www.funstart.net/sources/ads.jpg'
+        url: 'https://www.funstart.net',
+        image: 'https://www.funstart.net/sources/ads.jpg'
     };
     res.render('index', {app: app});
 };

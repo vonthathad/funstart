@@ -14,10 +14,6 @@ var config = require('./config'),
     // fs = require('fs');
 module.exports = function() {
     var app = express();
-    // var options = {
-    //     key: fs.readFileSync(__dirname + '/keyhttps.pem'),
-    //     cert: fs.readFileSync(__dirname + '/certhttps.pem')
-    // };
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
 
@@ -58,8 +54,6 @@ module.exports = function() {
     app.use('/', secure);
 
     app.set('port', (process.env.PORT || 8236));
-
-    // https.createServer(options, app).listen(443);
 
     app.listen(app.get('port'), function() {
         console.log('Node app is running on port', app.get('port'));

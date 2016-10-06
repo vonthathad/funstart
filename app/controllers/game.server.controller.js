@@ -129,8 +129,8 @@ exports.loadGame = function(req,res,next){
 exports.renderGame = function(req,res){
     var title = req.game.title;
     var des = req.game.des;
-    var url = 'http://www.funstart.net/game/' + req.game._id;
-    var thumb = 'http://www.funstart.net/' + req.game.thumbAds;
+    var url = 'https://www.funstart.net/game/' + req.game._id;
+    var thumb = 'https://www.funstart.net/' + req.game.thumbAds;
     if(req.query.ref == 'share'){
         url = url + '?ref=share';
         if(req.query.rs_image) {
@@ -168,8 +168,8 @@ exports.renderTest = function(req,res){
     if(req.params.key == 'ylinkee'){
         var title = 'Funstart';
         var des = 'Phá đảo thế giới ảo!';
-        var thumb = 'http://www.funstart.net/sources/ads.jpg';
-        var url = 'http://www.funstart.net/test/' + req.params.key + '/' + req.params.game;
+        var thumb = 'https://www.funstart.net/sources/ads.jpg';
+        var url = 'https://www.funstart.net/test/' + req.params.key + '/' + req.params.game;
         if(req.query.ref == 'share'){
             url = url + '?ref=share';
             if(req.query.rs_image) {
