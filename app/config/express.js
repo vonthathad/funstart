@@ -15,8 +15,8 @@ var config = require('./config'),
 module.exports = function() {
     var app = express();
     var options = {
-        key: fs.readFileSync('./keyhttps.pem'),
-        cert: fs.readFileSync('./certhttps.pem')
+        key: fs.readFileSync('../config/keyhttps.pem'),
+        cert: fs.readFileSync('../config/certhttps.pem')
     };
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
