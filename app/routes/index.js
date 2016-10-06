@@ -18,6 +18,12 @@ module.exports = function(app) {
   app.get('/oauth/facebook/callback',  passport.authenticate('facebook',{ failureRedirect: '/login' }),function(req,res){
     if(req.session.mid){
         req.user.mid = req.session.mid;
+        req.user.save();
+        res.writeHead(301,
+            {Location: 'https://www.messenger.com/closeWindow/?image_url=IMAGE_URL&display_text=DISPLAY_TEXT'}
+        );
+        res.end();
+        req.user.mid = req.session.mid;
         res.redirect('/close');
     } else {
         res.redirect(req.session.redirect || '/');
