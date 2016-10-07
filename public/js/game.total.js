@@ -48,9 +48,11 @@ FunstartGame.prototype.updateUserScore = function (data) {
 FunstartGame.prototype.gameOver = function (data,callback){
     var self = this;
     if(data && data.score != null) {
+        console.log(data);
         self.objAngular.endGame(data);
     } else {
-        self.objAngular.endGame();
+        data.score = 0;
+        self.objAngular.endGame(data);
     }
     if(!data.isWin){
         data.isDead = true;

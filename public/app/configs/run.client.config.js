@@ -36,7 +36,7 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
                     $(e).remove();
                 }
             });
-        }
+        };
     });
     $FB.init('170584416691811');
     if(sessionStorage.getItem('topics')){

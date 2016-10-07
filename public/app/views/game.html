@@ -62,7 +62,7 @@
                     <md-tab label="THÀNH VIÊN [{{battle.room.people}}/{{battle.game.max}}]">
                         <md-list>
                         <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
-                            <friend-card ng-repeat="item in battle.room.members track by $index"
+                            <friend-card ng-repeat="item in battle.room.members"
                                          item="item"
                                          game-type="battle.game.type"
                                          is-host="battle.isHost"

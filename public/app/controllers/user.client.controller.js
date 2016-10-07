@@ -26,7 +26,7 @@ angular.module('funstart').controller('PopupProfileController',['$scope','$rootS
 
 angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService',
     function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService){
-    $scope.userInfo = UserInfoService;
+    $rootScope.profile = UserInfoService;
     $scope.friends = FriendsService;
     $scope.suggest = SuggestService;
     $scope.mode = 'friend';
@@ -68,10 +68,8 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
             });
     };
     var isExist = function(arr,it){
-        console.log(arr);
         var temp = false;
         angular.forEach(arr,function(e){
-            console.log(e);
             if(e == it) {
                 temp = true;
                 return true;
@@ -80,22 +78,23 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         return temp;
     }
     $scope.$on("$routeChangeStart", function(event, next, current) {
+
         if('username' in next.params){
-            $scope.username = next.params.username;
-            if($scope.data && $scope.data.username != next.params.username){
-                $scope.userInfo.loadUser(next.params.username,function(){
-                    $scope.data = $scope.userInfo.data;
-                    $scope.reloadFriendList();
+            if(current.params.username != next.params.username){
+                $rootScope.profile.data = {};
+                $scope.username = next.params.username;
+                $rootScope.profile.loadUser(next.params.username,function(){
+                    $scope.data = $rootScope.profile.data;
+                    $scope.loadInformations();
                     $scope.data.isFriend = isExist($rootScope.user.friends,$scope.data._id);
-                    drawPoint($scope.data);
                 });
             }
         } else {
+            $rootScope.profile.data = {};
             $scope.data = $rootScope.user;
-            $scope.reloadFriendList();
-            drawPoint($scope.data);
+            $rootScope.profile.data = $scope.data;
+            $scope.loadInformations();
         }
-
     });
     // $rootScope.$watch('$root.user', function () {
     //     if($location.path().indexOf('user')<0){
@@ -116,38 +115,35 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
         }
 
     };
-    $scope.reloadFriendList = function(){
-        $scope.friends.init();
-        $scope.friends.userId = $scope.data._id;
-        $scope.friends.loadFriends();
-    }
     $scope.loadUser = function(){
         if($location.path().indexOf('user')>=0){
             $scope.username = $location.path().split('user/')[1];
         } else {
             $scope.username = null;
         }
-        $scope.suggest.init();
-        if($scope.username){
-            $scope.userInfo.loadUser($scope.username,function(){
-                $scope.data = $scope.userInfo.data;
+        if($scope.username && $scope.username != $rootScope.user.username){
+            $rootScope.profile.loadUser($scope.username,function(){
+                console.log($rootScope.profile.data);
+                $scope.data = $rootScope.profile.data;
+                $rootScope.profileId = $scope.data._id;
                 $scope.data.isFriend = isExist($rootScope.user.friends,$scope.data._id);
-                $scope.friends.init();
-                $scope.friends.userId = $scope.data._id;
-                $scope.friends.loadFriends();
-                drawPoint($scope.data);
+                $scope.loadInformations();
             });
         } else {
-            $scope.friends.init();
-            $scope.friends.userId = $rootScope.user._id;
-            $scope.friends.loadFriends();
+            $scope.suggest.init();
+            $scope.suggest.loadSuggest();
             $scope.data = $rootScope.user;
-            setTimeout(function () {
-                drawPoint($scope.data)
-            },500)
+            $rootScope.profile.data = $scope.data;
+            $scope.loadInformations();
         }
-        $scope.suggest.loadSuggest();
-        console.log($scope.suggest);
+    };
+    $scope.loadInformations = function(){
+        $scope.friends.init();
+        $scope.friends.userId = $scope.data._id;
+        $scope.friends.loadFriends();
+        setTimeout(function () {
+            drawPoint($scope.data)
+        },500)
     }
 }]);
 
@@ -157,7 +153,6 @@ angular.module('funstart').controller('AvatarController', ['$scope',
         $scope.myImage='';
         $scope.myCroppedImage='';
         $('#fileInput').change(function () {
-
             var file=this.files[0];
             var reader = new FileReader();
             reader.onload = function (evt) {

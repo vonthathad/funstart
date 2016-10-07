@@ -7,15 +7,50 @@ angular.module('funstart').factory('Activities', ['$resource',
         return $resource('api/activities');
     }
 ]);
-angular.module('funstart').service('ActivityService',function(Activities){
+angular.module('funstart').service('ActivitiesService',function(Activities){
     var self = {
-        "updateScore": function (obj,callback) {
+        'user': null,
+        'game': null,
+        'isLoading': false,
+        'hasMore': true,
+        'page': 1,
+        'data': [],
+        "createActivity": function (obj,callback) {
             var activity = new Activities(obj);
             activity.$save(function(res){
                 if(callback) callback(res);
             },function(err){
                 
             });
+        },
+        "init": function(user,game){
+            self.data = [];
+            self.user = user || null;
+            self.game = game || null;
+            self.page = 1;
+            self.hasMore = true;
+            self.isLoading = false;
+        },
+        "loadMore": function(){
+            self.page++;
+            self.loadActivities();
+        },
+        "loadActivities": function(){
+            if(!self.isLoading && self.hasMore){
+                self.isLoading = true;
+                var params = {
+                    page: self.page
+                };
+                if(self.game) params.game = self.game;
+                if(self.user) params.user = self.user;
+                Activities.get(params,function(res){
+                    console.log(res);
+                    self.data = res.data;
+                    self.hasMore = res.isNext;
+                    self.isLoading = false;
+                });
+            }
+
         }
     };
     return self;

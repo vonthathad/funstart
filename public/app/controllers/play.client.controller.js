@@ -4,8 +4,8 @@
 /**
  * Created by andh on 7/28/16.
  */
-angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivityService','SuggestService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
-    function($scope,$rootScope,GamesService,ActivityService,SuggestService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
+angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivitiesService','SuggestService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
+    function($scope,$rootScope,GamesService,ActivitiesService,SuggestService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
         $scope.loadGame = function(){
             $scope.isInit = true;
             $scope.games = GamesService;
@@ -198,9 +198,17 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         };
         $scope.setActivity = function(obj){
             if($rootScope.user && $routeParams.gameId){
-                $scope.activity = ActivityService;
+                $scope.activity = ActivitiesService;
                 obj.game = $routeParams.gameId;
-                $scope.activity.updateScore(obj,function (res) {
+                if($scope.battle && $scope.battle.players){
+                    obj.opponents = [];
+                    $scope.battle.players.forEach(function(player){
+                        if(player._id != $rootScope.user._id){
+                            obj.opponents.push(player._id);
+                        }
+                    });
+                }
+                $scope.activity.createActivity(obj,function (res) {
                     if(res.data.level > $rootScope.user.level){
                         var toast3 = $mdToast.simple()
                             .textContent('Chúc mừng! Bạn đã được thăng cấp')
@@ -211,7 +219,6 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                         });
                     }
                     $rootScope.user = res.data;
-                    sessionStorage.setItem('user',JSON.stringify($rootScope.user));
                 });
             }
         };

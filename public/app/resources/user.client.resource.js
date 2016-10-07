@@ -17,6 +17,7 @@ angular.module('funstart').service('UserInfoService',['Users',function(Users){
         'data': {},
         'loadUser': function (username,callback) {
             if (!self.isLoading) {
+                console.log('vo load user');
                 self.isLoading = true;
                 var params = {
                     username: username

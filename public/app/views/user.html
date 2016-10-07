@@ -1,5 +1,15 @@
-<md-card>
-    <md-tabs md-dynamic-height md-border-bottom>
+<section ng-if="$root.user && $root.profile.data._id" ng-controller="FeedController" ng-init="loadInfomations($root.profile.data._id)">
+    <md-tabs md-dynamic-height md-border-bottom >
+        <md-tab label="Lịch sử chơi">
+            <div layout="row" layout-wrap
+                 class="group-game-card"
+                 infinite-scroll="activities.loadMore()"
+                 infinite-scroll-immediate-check="false"
+                 infinite-scroll-distance="1">
+                <activity-card ng-repeat="item in activities.data" item="item" flex="33" flex-md="50" flex-sm="50" flex-xs="100"></activity-card>
+                <loading-circle flex="100"></loading-circle>
+            </div>
+        </md-tab>
         <md-tab label="Cây kỹ năng">
             <div layout="row" layout-wrap
                  infinite-scroll="loadMore()"
@@ -9,14 +19,5 @@
 
             </div>
         </md-tab>
-        <md-tab label="Lịch sử chơi">
-            <div layout="row" layout-wrap
-                 infinite-scroll="loadMore()"
-                 infinite-scroll-immediate-check="false"
-                 infinite-scroll-distance="1">
-                <loading-circle flex="100"></loading-circle>
-            </div>
-        </md-tab>
     </md-tabs>
-
-</md-card>
+</section>

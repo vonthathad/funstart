@@ -17,7 +17,6 @@ exports.loadActivities = function(req,res){
     var conds = [];
     var match = {};
     if(req.query.user) conds.push({user: req.query.user});
-    if(req.query.user) conds.push({user: req.query.user});
     if(req.query.game) conds.push({game: parseInt(req.query.game)});
     if(!conds.length){
         match = {};
@@ -34,6 +33,7 @@ exports.loadActivities = function(req,res){
         .sort(sortType)
         .populate('user','displayName username avatar')
         .populate('game','title thumb')
+        .populate('opponents','displayName username avatar')
         .exec(function(err,data){
             if(err) {
                 res.status(400).send();
@@ -54,22 +54,23 @@ exports.loadActivities = function(req,res){
 };
 exports.createActivity = function (req,res,next) {
     if(req.user){
+        console.log(req.body);
         var newActivity = new Activity({
-            game: req.body.game,
+            game: parseInt(req.body.game),
             user: req.user._id,
-            score: req.body.score,
-            exp: req.body.score
+            score: req.body.score
         });
         if(req.body.isWin != null){
             newActivity.isWin = req.body.isWin
         };
-        if(req.body.opponent){
-            newActivity.opponent = req.body.opponent;
+        if(req.body.opponents){
+            newActivity.opponents = req.body.opponents;
         };
         Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: { plays: 1}},function(err,game){
 
             newActivity.save(function (err,data) {
                 if(err){
+                    console.log(err);
                     return res.status(400).send();
                 } else {
                     var el = 0;

@@ -35,7 +35,7 @@ function disconnect(data){
     Room.findById(data.room,function(err,room){
         console.log(room);
         if(room){
-            if(room.people <=1){
+            if(room.people <=1 || room.ready.length > 0 && room.mode == 'find'){
                 console.log('co 1 dua thoi');
                 room.remove();
             } else {
@@ -46,6 +46,7 @@ function disconnect(data){
                 if(room.status == 0){
                     if(indMember >= 0){
                         room.members.splice(indMember,1);
+                        console.log('room con lai',room.members);
                         room.people--;
                         tmpTurn = tmp[data._id].turn;
                         delete tmp[data._id];
@@ -62,7 +63,7 @@ function disconnect(data){
                         });
                         room.ready = [];
                         room.players = tmp;
-                        io.to(room._id).emit('leave',room.members);
+                        io.to(room._id).emit('leave',{members: room.members,turn: room.turn});
                         console.log('member',room.members);
                     }
                     // var tmp = room.players;
@@ -134,7 +135,7 @@ function setRoomInterval(room){
         var player0 = null;
         Room.findById(room._id,function(err,result){
             if(result){
-                if(result.status == 3){
+                if(result.status == 2){
                     clearInterval(roomsInterval[room._id]);
                 } else {
                     var tmp = result.players;
@@ -267,7 +268,6 @@ exports.createRoom = function (req,res) {
     })
 };
 exports.updateRoom = function (req,res){
-    console.log('begin',Date.now());
     if(req.body.ready){
         if(req.room.ready.indexOf(req.user._id)<0){
             req.room.ready.push(req.user._id);
@@ -287,8 +287,23 @@ exports.updateRoom = function (req,res){
         if(req.room.status == 0) {
             req.room.status = 1;
             if(req.room.time) setRoomInterval(req.room);
-        };
-        req.room.save();
+            req.room.save();
+        } else if(req.room.status == 3){
+            console.log('choi lai ne');
+            req.room.players = {};
+            req.room.status = 1;
+            req.room.save(function(){
+                var tmp = {};
+                console.log(req.room.members);
+                req.room.members.forEach(function(member){
+                    tmp[member._id] = {score: 0, connect: 1, turn: 0};
+                });
+                req.room.players = tmp;
+                console.log(req.room.players);
+                if(req.room.time) setRoomInterval(req.room);
+                req.room.save();
+            });
+        }
         return res.json();
     } else if (req.body.obj) {
         console.log('time',req.room.time);
@@ -375,14 +390,17 @@ exports.updateRoom = function (req,res){
             res.json();
             if(isEnd) {
                 // io.to(req.room._id).emit('end',stt);
-                req.room.status = 2;
+                if(req.room.status == 1) req.room.status = 2;
+                if(roomsInterval[req.room._id]){
+                    clearInterval(roomsInterval[req.room._id]);
+                    roomsInterval[req.room._id] = null;
+                }
             };
             req.room.save();
             return;
         } else {
             res.status(400).send();
         }
-
     } else if(req.body.data){
         var tmp = req.room.data;
         req.room.data = {};
@@ -390,8 +408,39 @@ exports.updateRoom = function (req,res){
         req.room.data = tmp;
         req.room.save();
         return res.json();
-    } else if(req.body.kick && req.room.turn == req.user._id){
+    } else if(req.body.again){
+        if(req.room.status != 3){
+            req.room.status = 3;
+            req.room.ready = [];
+            req.room.members = [req.user._id];
+            req.room.save();
+            res.json({data: req.room.members});
+        } else {
+            var check = false;
+            if(req.room.members.indexOf(req.user._id)<0){
+                check = true;
+            };
+            Room.findById(req.room._id).populate('members','username displayName avatar').exec(function(err,room){
+                if(check){
+                    room.members.push(req.user._id);
+                    room.people++;
+                    room.save();
+                }
+                var player = {
+                    _id: req.user._id,
+                    username: req.user.username,
+                    displayName: req.user.displayName,
+                    avatar: req.user.avatar
+                };
+                room.members[room.members.length - 1] = player;
+                if(connections[req.user._id]) connections[req.user._id].join(room._id);
+                io.to(room._id).emit('join',room.members);
+                res.json({data: room.members});
+            });
 
+
+        }
+    } else if(req.body.kick && req.room.turn == req.user._id && req.room.status == 0){
         var members = [];
         req.room.members.forEach(function(e,i){
             members.push(e._id);
@@ -420,7 +469,10 @@ exports.updateRoom = function (req,res){
                 });
                 req.room.ready = [];
                 req.room.players = tmp;
-                io.to(req.room._id).emit('leave',members);
+                User.findByIdAndUpdate(parseInt(req.body.kick),{status: 1},function(){
+
+                });
+                io.to(req.room._id).emit('leave',{members:members});
                 console.log('member',req.room.members);
                 req.room.save();
                 if(connections[req.body.kick]) connections[req.body.kick].leave(req.room._id);

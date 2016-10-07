@@ -14,7 +14,7 @@ var ActivitySchema = new Schema({
         ref: 'User',
         required: 'Must have user'
     },
-    time: {
+    created: {
         type: Date,
         default: Date.now
     },
@@ -23,13 +23,12 @@ var ActivitySchema = new Schema({
         required: 'Must have score'
     },
     isWin: Boolean,
-    opponent: [{
+    opponents: [{
         type: Number,
         ref: 'User'
     }],
     exp: {
-        type: Number,
-        required: 'Must have experience'
+        type: Number
     }
 })
 ActivitySchema.set('toJSON',{getters: true,virtuals: true});

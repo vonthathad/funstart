@@ -70,7 +70,6 @@ angular.module('funstart').service('BattleService',
     self.friends = {};
     self.isHost = true;
     self.init = function(game,user,roomId,error){
-        console.log(FriendsService);
         self.isHost = true;
         self.isReady = false;
         self.game = game;
@@ -90,7 +89,9 @@ angular.module('funstart').service('BattleService',
         if(roomId) {
             self.isHost = false;
             self.joinRoom(roomId,function(){
-
+                self.friends = FriendsOnlineService;
+                self.friends.userId = self.user._id;
+                self.friends.loadFriends();
             }, function(message){
                 var alert = $mdDialog.alert()
                     .parent(angular.element(document.body))
@@ -139,8 +140,9 @@ angular.module('funstart').service('BattleService',
     }
     self.checkRoomReady = function(start){
         if(self.room && self.room.ready.length >= self.room.members.length){
+            console.log('ready roi ne');
             self.status.isReady = false;
-            if(self.room.status==0) {
+            if(self.room.status == 0  || self.room.status == 3) {
                 self.room.members.forEach(function(e){
                     if(e._id != self.user._id){
                         self.opponent = e;
@@ -303,7 +305,7 @@ angular.module('funstart').service('BattleService',
                 $mdDialog.show(alert).then(function() {
                 }, function() {
                 });
-                self.room.people = data.length;
+                self.room.people = data.members.length;
                 self.status.isFullRoom = false;
                 self.status.isReady = false;
                 self.status.isSearching = true;
@@ -353,7 +355,7 @@ angular.module('funstart').service('BattleService',
                 });
                 self.room.members = self.room.members.filter(function(item){
                     var check = false;
-                    data.forEach(function(e){
+                    data.members.forEach(function(e){
                         if(e == item._id){
                             check = true;
                             return true;
@@ -368,6 +370,11 @@ angular.module('funstart').service('BattleService',
                         return true;
                     }
                 });
+                if(data.turn == self.user._id) {
+                    self.isHost = true;
+                    self.room.link = window.location.href.split("?")[0] + '?roomId=' + self.room._id;
+                }
+                console.log(self.room.members);
                 if (kick == true){
                     $mdDialog.show({
                             controller: function($scope, $mdDialog,$location) {
@@ -435,6 +442,7 @@ angular.module('funstart').service('BattleService',
         //bat bat dau choi
         self.status.isIntro = true;
         self.room.status = 1;
+        console.log('chui vo start');
         Rooms.update({_id: self.room._id,status: true});
 
         socket.on('players',function (players) {
@@ -519,70 +527,95 @@ angular.module('funstart').service('BattleService',
         self.refreshListInvite();
     }
     self.onWaitRoom = function(error){
-        self.offSocket();
-        if(self.room){
-            console.log(self.room);
-            // var players = [];
-            // self.players.forEach(function(player){
-            //     if(player._id != self.user._id) players.push(player._id);
-            // });
-            var tmpRoom = self.room;
-            self.room.$remove(function(){
-                self.isReady = false;
-                self.room = null;
-                self.opponent = {};
-                self.status = {
-                    isSearching: false,
-                    isFullRoom: false,
-                    isReady: false,
-                    isIntro: false,
-                    isFullscreen: false,
-                    isEndGame: false,
-                    isWaitRoom: true
-                };
-                if(self.waitRoom){
-                    self.friends = FriendsOnlineService;
-                    self.friends.userId = self.user._id;
-                    self.friends.loadFriends();
-                    console.log('wait room',self.waitRoom);
-                    self.isHost = false;
-                    self.joinRoom(self.waitRoom,function(){
-                    },function(message){
-                        var alert = $mdDialog.alert()
-                            .parent(angular.element(document.body))
-                            .clickOutsideToClose(true)
-                            .title('THÔNG BÁO!')
-                            .ok('Okie!');
-                        if(message == 'FULL'){
-                            alert.textContent('Rất tiếc, phòng đã đầy')
-                        } else if(message == 'NULL'){
-                            alert.textContent('Phòng không tồn tại');
-                        } else if(message == 'PLAYED'){
-                            alert.textContent('Phòng đã bắt đầu');
-                        } else {
-                            alert.textContent('Có lỗi. Vui lòng thử lại sau');
-                        }
-                        self.isLoading = false;
-                        $mdDialog.show(alert).then(function() {
-                            self.status = {};
-                            if(error) error();
-                        }, function() {
-                        });
-                        self.onCloseBattle();
-                    });
-                    self.waitRoom = null;
-                } else {
-                    console.log('create room cho');
-                    self.isHost = true;
-                    self.createRoom("room",function(key){
-                        console.log(self.room);
-                        Invite.save({roomId: key, room: tmpRoom._id});
-                        self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
-                    });
-                }
-            });
+        self.status = {
+            isSearching: false,
+            isFullRoom: false,
+            isReady: false,
+            isIntro: false,
+            isFullscreen: false,
+            isEndGame: false,
+            isWaitRoom: true
+        };
 
-        }
+        if(self.room) Rooms.update({_id: self.room._id, again: true},function(res){
+            self.isReady = false;
+            self.room.status = 3;
+            if(res.data.length == 1){
+                self.room.members = [{
+                    _id: self.user._id,
+                    username: self.user.username,
+                    displayName: self.user.displayName,
+                    avatar: self.user.avatar
+                }];
+            } else {
+                self.room.members = res.data;
+            }
+        },function(err){
+
+        });
+        // if(self.room){
+        //     console.log(self.room);
+        //     // var players = [];
+        //     // self.players.forEach(function(player){
+        //     //     if(player._id != self.user._id) players.push(player._id);
+        //     // });
+        //     var tmpRoom = self.room;
+        //     self.room.$remove(function(){
+        //         self.isReady = false;
+        //         self.room = null;
+        //         self.opponent = {};
+        //         self.status = {
+        //             isSearching: false,
+        //             isFullRoom: false,
+        //             isReady: false,
+        //             isIntro: false,
+        //             isFullscreen: false,
+        //             isEndGame: false,
+        //             isWaitRoom: true
+        //         };
+        //         if(self.waitRoom){
+        //             self.friends = FriendsOnlineService;
+        //             self.friends.userId = self.user._id;
+        //             self.friends.loadFriends();
+        //             console.log('wait room',self.waitRoom);
+        //             self.isHost = false;
+        //             self.joinRoom(self.waitRoom,function(){
+        //             },function(message){
+        //                 var alert = $mdDialog.alert()
+        //                     .parent(angular.element(document.body))
+        //                     .clickOutsideToClose(true)
+        //                     .title('THÔNG BÁO!')
+        //                     .ok('Okie!');
+        //                 if(message == 'FULL'){
+        //                     alert.textContent('Rất tiếc, phòng đã đầy')
+        //                 } else if(message == 'NULL'){
+        //                     alert.textContent('Phòng không tồn tại');
+        //                 } else if(message == 'PLAYED'){
+        //                     alert.textContent('Phòng đã bắt đầu');
+        //                 } else {
+        //                     alert.textContent('Có lỗi. Vui lòng thử lại sau');
+        //                 }
+        //                 self.isLoading = false;
+        //                 $mdDialog.show(alert).then(function() {
+        //                     self.status = {};
+        //                     if(error) error();
+        //                 }, function() {
+        //                 });
+        //                 self.onCloseBattle();
+        //             });
+        //             self.waitRoom = null;
+        //         } else {
+        //             console.log('create room cho');
+        //             self.isHost = true;
+        //             self.createRoom("room",function(key){
+        //                 console.log(self.room);
+        //                 Invite.save({roomId: key, room: tmpRoom._id});
+        //                 self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
+        //             });
+        //         }
+        //     });
+
+        // }
 
 
     }

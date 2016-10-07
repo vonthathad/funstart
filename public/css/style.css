@@ -33,9 +33,17 @@ user-card .md-button.md-fab{
 .game-card>div:first-child{
   padding: 16px 0 16px 16px;
 }
+.game-card.activity-info>div:first-child{
+  padding: 8px 0 8px 8px;
+}
+
 .game-card>div:last-child{
   padding: 16px;
 }
+.game-card.activity-info>div:last-child{
+  padding: 8px;
+}
+
 @media only screen and (max-width: 767px) and (min-width: 600px){
   .game-card>div:first-child{
     padding: 5px 0 5px 5px;
@@ -57,6 +65,18 @@ user-card .md-button.md-fab{
 .game-card .img-area>img{
   border-radius: 5px;
 
+}
+.activity-status .status-img{
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.activity-status .status-name{
+  font-weight: bold;
+  line-height: 24px;
+  margin-left: 5px;
+  cursor: pointer;
 }
 /*Style Cu
 .game-info{
@@ -128,6 +148,14 @@ user-card .md-button.md-fab{
 }
 .group-game-card .title{
   text-align: left;
+}
+.group-game-card .content>a{
+  color: #f1702f;
+  font-weight: bold;
+  text-decoration: none;
+}
+.group-game-card .content a:hover{
+  text-decoration: underline;
 }
 .group-game-index .title a,.group-game-card .title a{
   text-decoration: none;
@@ -413,6 +441,15 @@ Use of this source code is governed by an MIT-style license that can be in found
   font-size: 0.75em;
   overflow: hidden;
 }
+.group-game-card .md-chips .md-chip {
+  border-radius: 12px;
+  margin: 0;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 6px;
+  font-size: 0.75em;
+  overflow: hidden;
+}
 .chip-text{
   position: relative;
   z-index: 2;
@@ -442,7 +479,7 @@ Use of this source code is governed by an MIT-style license that can be in found
   background-color: rgba(241, 112, 47, 0.09);
 }
 
-.quest-item .md-chips{
+.quest-item .md-chips,.group-game-card .md-chips{
   padding-left: 0px;
 }
 .quest-item .md-chips .md-chip:first-child{
@@ -472,7 +509,7 @@ Use of this source code is governed by an MIT-style license that can be in found
   /*background-color: rgb(224,224,224);*/
 /*}*/
 
-.quest-item .md-chips{
+.quest-item .md-chips, .group-game-card .md-chips{
   box-shadow: 0 0 #fff;
   padding-bottom: 0px;
 }

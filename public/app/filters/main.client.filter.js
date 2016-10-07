@@ -8,6 +8,7 @@ angular.module('funstart').filter('trustAsHTML', ['$sce', function($sce){
 }]);
 angular.module('funstart').filter('timeAgo', function(){
     return function(date) {
+        console.log(date);
         var seconds = Math.floor((Date.now() - new Date(date)) / 1000);
         var interval = Math.floor(seconds / 31536000);
         if (interval >= 1) {
@@ -29,7 +30,7 @@ angular.module('funstart').filter('timeAgo', function(){
         if (interval >= 1) {
             return interval + " phút trước";
         }
-        if(seconds< 10) return "Tức thì";
+        if(seconds< 10) return "tức thì";
         return Math.floor(seconds) + " giây trước";
     };
 });
