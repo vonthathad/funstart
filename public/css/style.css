@@ -1001,7 +1001,17 @@ md-toast {
   overflow-y: auto;
 }
 .player-list{
-  height: calc(100vh - 64px);
+  height: calc(50vh - 64px);
+  overflow-y: auto;
+}
+.chat-list{
+  border-top: 1px solid #666;
+  min-height: calc(50vh - 64px);
+  overflow-y: auto;
+}
+.chat-list-full{
+  border-top: 1px solid #eae6e6;
+  min-height: calc(100vh - 64px);
   overflow-y: auto;
 }
 .room-list{
@@ -1420,4 +1430,31 @@ md-toast {
 }
 .profile-panel .md-card-action .md-button{
   width: 110px;
+}
+.side-game-panel{
+  width: 100%;
+}
+.side-game-panel>md-content{
+  height: calc(100% - 64px);
+}
+.message-panel{
+  margin: 4px 8px;
+}
+.message-avatar{
+  width: 100%;
+  border-radius: 50%;
+}
+.message-bubble{
+  margin-left: 8px;
+  padding: 8px;
+  background: #2b2e7b;
+  color: #fff;
+  border-radius: 8px;
+}
+.message-bubble-me{
+  margin-right: 8px;
+  padding: 8px;
+  background: #f1702f;
+  color: #fff;
+  border-radius: 8px;
 }

@@ -2,15 +2,25 @@
 <script async defer type="text/javascript" src="/js/html2canvas.js"></script>
 
 <div ng-controller="PlayController" ng-init="loadGame()" >
+    <!--GAME SCREEN-->
     <div class="game-section" id="contentElement" flex>
         <!--them game vao day-->
+        <!--GAME PANEL-->
         <div class="game-area" ng-class="{'full-mode' : battle.status.isFullscreen}">
-            <div class="game-frame" ng-if="!isInit" ng-show="isPlay && !isEnd" ng-include="games.currentGame.link" onload="finishLoading()"></div>
-            <md-progress-linear ng-if="battle.game.time && battle.status.isFullscreen && !isEnd" class="top-progress" md-mode="determinate" value="{{battle.timedown}}"></md-progress-linear>
+            <div class="game-frame"
+                 ng-if="!isInit" ng-show="isPlay && !isEnd"
+                 ng-include="games.currentGame.link"
+                 onload="finishLoading()">
+            </div>
+            <md-progress-linear ng-if="battle.game.time && battle.status.isFullscreen && !isEnd"
+                                class="top-progress"
+                                md-mode="determinate"
+                                value="{{battle.timedown}}">
+            </md-progress-linear>
         </div>
-
-
+        <!--GAME PANEL-->
         <!--<div ng-if="!games.isLoading" ng-include="'/sources/game/9/'" onload="finishLoading()"></div>-->
+        <!--GAME INFO PANEL-->
         <div ng-if="!isPlay" class="pre-game" layout="column" layout-align="center center">
             <div class="game-info">
                 <md-button aria-label="Thumb" class="md-raised"><img ng-src="{{games.currentGame.thumb}}"></md-button>
@@ -18,29 +28,101 @@
                 <div class="description">{{games.currentGame.des}}</div>
             </div>
             <md-progress-circular ng-if="isLoad"  md-mode="indeterminate" md-diameter="100"></md-progress-circular>
-            <md-button aria-label="play" ng-if="!isLoad && (!games.currentGame.multi || games.currentGame.multi <= 1)" ng-click="onPlay()" class="md-raised md-primary btn-play"><i class="ion-play"></i><span> Chơi Game</span></md-button>
-            <md-button aria-label="find" ng-if="!isLoad && games.currentGame.multi >= 1" ng-click="onBattleCall($event)" class="md-raised md-accent btn-play"><i class="ion-android-search"></i><span> Tìm đối thủ</span></md-button>
-            <md-button aria-label="createroom" ng-if="!isLoad && games.currentGame.multi >= 1" ng-click="onCreateRoom($event)" class="md-raised md-pink btn-play"><i class="ion-android-home"></i><span> Tạo phòng</span></md-button>
+            <md-button aria-label="play"
+                       ng-if="!isLoad && (!games.currentGame.multi || games.currentGame.multi <= 1)"
+                       ng-click="onPlay()"
+                       class="md-raised md-primary btn-play">
+                <i class="ion-play"></i>
+                <span> Chơi Game</span>
+            </md-button>
+            <md-button aria-label="find"
+                       ng-if="!isLoad && games.currentGame.multi >= 1"
+                       ng-click="onBattleCall($event)"
+                       class="md-raised md-accent btn-play">
+                <i class="ion-android-search"></i>
+                <span> Tìm đối thủ</span>
+            </md-button>
+            <md-button aria-label="createroom"
+                       ng-if="!isLoad && games.currentGame.multi >= 1"
+                       ng-click="onCreateRoom($event)"
+                       class="md-raised md-pink btn-play">
+                <i class="ion-android-home"></i>
+                <span> Tạo phòng</span>
+            </md-button>
         </div>
-        <div ng-if="battle.status.isFullscreen" class="full-mode-2" hide-xs hide-sm>
-            <md-toolbar class="md-theme-light">
-                <h2 class="md-toolbar-tools">
-                    <span>Xếp hạng:</span>
-                </h2>
-            </md-toolbar>
-            <md-content>
-                <md-list>
-                    <div class="player-list">
-                        <friend-card ng-repeat="item in battle.players | orderBy: battle.orderPlayer"
-                                     status-class="statusClass(input)"
-                                     type="games.currentGame.type"
-                                     mode="'game'"
-                                     item="item">
-                        </friend-card>
+        <!--GAME INFO PANEL-->
+        <!--PLAYERS LIST DESKTOP-->
+        <div ng-if="isBattle" layout="column" class="full-mode-2" hide-xs hide-sm>
+            <div layout="column" flex  ng-if="battle.status.isFullscreen">
+                <md-toolbar class="md-theme-light">
+                    <h2 class="md-toolbar-tools">
+                        <span>Xếp hạng:</span>
+                    </h2>
+                </md-toolbar>
+                <md-content>
+                    <md-list>
+                        <div class="player-list">
+                            <friend-card ng-repeat="item in battle.players | orderBy: battle.orderPlayer"
+                                         status-class="statusClass(input)"
+                                         type="games.currentGame.type"
+                                         mode="'game'"
+                                         item="item">
+                            </friend-card>
+                        </div>
+                    </md-list>
+                </md-content>
+            </div>
+            <div layout="column" flex>
+                <md-content layout="column" layout-align="end start" ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}">
+                    <div class="message-panel" layout="row" layout-align="start center">
+                        <div flex="10" style="height: 100%">
+                            <img class="message-avatar" ng-src="{{battle.room.members[1].avatar}}">
+                            <md-tooltip  md-direction="bottom">{{battle.room.members[1].displayName}}</md-tooltip>
+                        </div>
+                        <div flex class="message-bubble">Tao đang chơi game này cũng hay lắm</div>
+                        <div flex="10"></div>
                     </div>
-                </md-list>
-            </md-content>
+                    <div class="message-panel" layout="row" layout-align="start center">
+                        <div flex="10">
+                            <img class="message-avatar" ng-src="{{battle.room.members[1].avatar}}">
+                            <md-tooltip>{{battle.room.members[1].displayName}}</md-tooltip>
+                        </div>
+                        <div flex class="message-bubble">Bữa nào tao send cho mày chơi :v</div>
+                        <div flex="10"></div>
+                    </div>
+                    <div class="message-panel" layout="row" layout-align="start center">
+                        <div flex="10"></div>
+                        <div flex class="message-bubble-me">Cái game vòng số đó hả</div>
+                        <div flex="10" style="height: 100%">
+                            <img class="message-avatar" ng-src="{{battle.room.members[0].avatar}}">
+                            <md-tooltip  md-direction="bottom">{{battle.room.members[0].displayName}}</md-tooltip>
+                        </div>
+                    </div>
+                    <div class="message-panel" layout="row" layout-align="start center">
+                        <div flex="10"></div>
+                        <div flex class="message-bubble-me">Tao rủ mấy đứa bạn chơi suốt, toàn thắng :v</div>
+                        <div flex="10">
+                            <img class="message-avatar" ng-src="{{battle.room.members[0].avatar}}">
+                            <md-tooltip>{{battle.room.members[0].displayName}}</md-tooltip>
+                        </div>
+                    </div>
+                </md-content>
+                <div style="height: 64px">
+                    <form name="messageForm" style="height: 100%">
+                        <md-content layout="row" style="height: 100%">
+                            <md-input-container flex style="margin: 0;padding: 8px" md-no-float layout="row">
+                                <input ng-model="user.address" type="text" placeholder="Chat ở đây ..." >
+                            </md-input-container>
+                            <md-button class="md-fab md-mini md-accent" aria-label="More">
+                                <i class="ion-android-send"></i>
+                            </md-button>
+                        </md-content>
+                    </form>
+                </div>
+            </div>
         </div>
+        <!--PLAYERS LIST DESKTOP-->
+        <!--ROOM PANEL-->
         <div class="full-mode divider-right battle-room" ng-if="battle.status.isWaitRoom && isBattle">
             <md-toolbar class="md-theme-light" hide-sm hide-xs>
                 <h2 class="md-toolbar-tools">
@@ -80,38 +162,8 @@
                     </md-tab>
                     <md-tab label="HƯỚNG DẪN">
                         <md-list>
-                        <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
-                            <md-list-item>
-                                <md-button aria-label="step1" style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">1</md-button>
-                                Mời bạn bè vào phòng bằng cách gửi link hoặc chuyển qua tab mời bạn
-                            </md-list-item>
-                            <md-list-item>
-                                <md-button aria-label="step2" style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">2</md-button>
-                                Những người đồng ý tham gia sẽ được thêm vào list thành viên trong phòng
-                            </md-list-item>
-                            <md-list-item>
-                                <md-button aria-label="step3" style="min-width: 40px; margin-right: 5px;background-color: rgb(43, 46, 123);color: rgba(255,255,255,1)!important;" ng-disabled="true" class="md-fab md-mini md-primary">3</md-button>
-                                Nếu là host, chờ tất cả các người chơi hiện trạng thái sẵn sàng rồi bấm bắt đầu
-                            </md-list-item>
-                            <md-list-item>
-                                <h4>Trạng thái:</h4>
-                            </md-list-item>
-                            <md-list-item>
-                                <md-button aria-label="isready" style="margin-right: 5px;background-color: rgb(241,112,47)" ng-disabled="true" class="md-fab md-mini md-accent">R</md-button>
-                                Đã sẵn sàng
-                            </md-list-item>
-                            <md-list-item>
-                                <md-button aria-label="addfriend" style="margin-right: 5px;" class="md-fab md-mini md-primary"><i class="ion-person-add"></i></md-button>
-                                Thêm bạn
-                            </md-list-item>
-                            <md-list-item>
-                                <md-button aria-label="isfriend" style="margin-right: 5px;" class="md-fab md-mini md-accent"><i class="ion-person-stalker"></i></md-button>
-                                Đã là bạn bè
-                            </md-list-item>
-                            <md-list-item>
-                                <md-button aria-label="kick" class="md-icon-button"><i class="ion-close-circled"></i></md-button>
-                                Kick khỏi room
-                            </md-list-item>
+                        <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
+                             ng-include="'/app/templates/roomGuide.tmpl.html'">
                         </div>
                         </md-list>
                     </md-tab>
@@ -128,7 +180,11 @@
                                              mode="'invite'">
                                 </friend-card>
                                 <loading-circle flex="100" is-loading="battle.friends.isLoading"></loading-circle>
-                                <div layout-padding ng-if="battle.friends.data.length==0" style="font-size: 15px;color: #666">Không có bạn đang online, hãy add thêm bạn nhé!</div>
+                                <div layout-padding
+                                     ng-if="battle.friends.data.length==0"
+                                     style="font-size: 15px;color: #666">
+                                    Không có bạn đang online, hãy add thêm bạn nhé!
+                                </div>
                             </div>
                         </md-list>
                     </md-tab>
@@ -145,19 +201,23 @@
                                              update-list="battle.refreshList(bool,input)"
                                              item="item"
                                              mode="'search'">
-
                                 </friend-card>
                                 <loading-circle flex="100" is-loading="suggestFriends.isLoading"></loading-circle>
                             </div>
                         </md-list>
                     </md-tab>
                 </md-tabs>
-                <md-button aria-label="ready" ng-click="battle.onReady(onPlay)" ng-disabled="battle.isReady" class="md-raised md-primary room-btn">
+                <md-button aria-label="ready"
+                           ng-click="battle.onReady(onPlay)"
+                           ng-disabled="battle.isReady"
+                           class="md-raised md-primary room-btn">
                     <span ng-if="battle.isHost"><i class="ion-play"></i> Bắt đầu</span>
                     <span ng-if="!battle.isHost"><i class="ion-play"></i> Sẵn sàng</span>
                 </md-button>
             </md-content>
         </div>
+        <!--ROOM PANEL-->
+        <!--PLAYER LIST MOBILE-->
         <div ng-if="battle.status.isFullscreen" class="full-mode-3" hide-md hide-lg hide-gt-lg>
             <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal>
                 <div md-virtual-repeat="item in battle.players  | orderBy: battle.orderPlayer"
@@ -170,17 +230,37 @@
                             <p ng-if="battle.game.type == 1 && item.turn && item.turn !=0">{{item.turn}} lượt nữa</p>
                             <p ng-if="battle.game.type == 1 && item.turn ==0">Đang đánh</p>
                         </div>
-                        <div ng-if = "item.connect==0 || item.isDead || item.token" class="status-mobile" layout="row" layout-align="center center">
-                            <h5 class="bb" ng-class="statusClass({input:0})" ng-if="(item.connect==0 || item.isDead) && (!item.isWin || item.isWin == false)">Tạch</h5>
-                            <h5 class="bb" ng-class="statusClass({input:1})" ng-if="item.isWin == true">Thắng</h5>
-                            <h5 class="bb" ng-class="statusClass({input:2})" ng-if="battle.game.type == 1 && (item.isWin==null && item.turn == 0)">Đánh</h5>
+                        <div ng-if = "item.connect==0 || item.isDead || item.token"
+                             class="status-mobile"
+                             layout="row"
+                             layout-align="center center">
+                            <h5 class="bb" ng-class="statusClass({input:0})"
+                                ng-if="(item.connect==0 || item.isDead) && (!item.isWin || item.isWin == false)">
+                                Tạch
+                            </h5>
+                            <h5 class="bb" ng-class="statusClass({input:1})"
+                                ng-if="item.isWin == true">
+                                Thắng
+                            </h5>
+                            <h5 class="bb" ng-class="statusClass({input:2})"
+                                ng-if="battle.game.type == 1 && (item.isWin==null && item.turn == 0)">
+                                Đánh
+                            </h5>
                         </div>
                     </div>
                 </div>
             </md-virtual-repeat-container>
         </div>
+        <!--PLAYER LIST MOBILE-->
         <img ng-show="false" ng-src="{{games.currentGame.thumbResult}}"/>
-        <div ng-if="isEnd"  ng-class="{'full-mode' : battle.status.isFullscreen}" class="recommend-games animate-if" layout="column" layout-padding layout-align="center center">
+        <!--RESULT & RECOMMEND-->
+        <div ng-if="isEnd"
+             ng-class="{'full-mode' : battle.status.isFullscreen}"
+             class="recommend-games animate-if"
+             layout="column"
+             layout-padding
+             layout-align="center center">
+            <!--RESULT-->
             <div layout="row" layout-wrap style="max-width: 750px">
                 <div id="canvan">
                     <div ng-if="result" ng-bind-html="result | trustAsHTML"></div>
@@ -189,7 +269,11 @@
                         <div layout="row" class="canvas-content">
                             <div flex="35" layout="column">
                                 <div flex="60" layout="row"></div>
-                                <div layout-align="center center" flex="40" layout="row" layout-padding class="canvas-info">
+                                <div layout-align="center center"
+                                     flex="40"
+                                     layout="row"
+                                     layout-padding
+                                     class="canvas-info">
                                     <p>{{games.currentGame.title}}</p>
                                 </div>
                             </div>
@@ -203,7 +287,13 @@
                                         <p>{{resultObj.title}}</p>
                                     </div>
                                 </div>
-                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{resultObj.des}}</div>
+                                <div class="canvas-des"
+                                     layout-padding
+                                     flex="40"
+                                     layout="row"
+                                     layout-align="center center">
+                                    {{resultObj.des}}
+                                </div>
                             </div>
                             <div ng-if="isBattle" flex="65" layout="column">
                                 <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
@@ -217,35 +307,68 @@
                                         <img class="canvas-avatar" ng-src="{{battle.opponent.avatar}}">
                                     </div>
                                 </div>
-                                <div class="canvas-des" layout-padding flex="40" layout="row" layout-align="center center">{{resultObj.des}}</div>
+                                <div class="canvas-des"
+                                     layout-padding
+                                     flex="40"
+                                     layout="row"
+                                     layout-align="center center">
+                                    {{resultObj.des}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--RESULT-->
+            <!--SHARE-->
             <div layout="row" layout-wrap layout-align="center center">
-                <md-button aria-label="share" flex-xs="100" ng-disabled="sharing" class="md-raised md-facebook recommend-btn" ng-click="onShareFacebook()">
+                <md-button aria-label="share"
+                           flex-xs="100"
+                           ng-disabled="sharing"
+                           class="md-raised md-facebook recommend-btn"
+                           ng-click="onShareFacebook()">
                     <i class="ion-social-facebook" style="font-size: 1.25em"></i>
                     <span ng-if="!sharing">Chia sẻ điểm</span>
                     <span ng-if="sharing">Đang chia sẻ</span>
                 </md-button>
-                <md-button aria-label="playagain" ng-if="!isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="onPlay()">
+                <md-button aria-label="playagain"
+                           ng-if="!isBattle"
+                           flex-xs="100"
+                           class="md-raised md-accent recommend-btn"
+                           ng-click="onPlay()">
                     <i class="ion-refresh" style="font-size: 1.25em"></i>
                     Chơi lại
                 </md-button>
-                <md-button aria-label="waitroom" ng-if="isBattle" flex-xs="100" class="md-raised md-accent recommend-btn" ng-click="battle.onWaitRoom(onError)">
+                <md-button aria-label="waitroom"
+                           ng-if="isBattle"
+                           flex-xs="100"
+                           class="md-raised md-accent recommend-btn"
+                           ng-click="battle.onWaitRoom(onError)">
                     <i class="ion-refresh" style="font-size: 1.25em"></i>
                     Vào phòng chờ
                 </md-button>
             </div>
+            <!--SHARE-->
+            <!--RECOMMEND-->
             <div ng-if="!isBattle" layout="row" class="group-game-card" layout-wrap>
-                <game-card ng-repeat="item in games.data track by $index" ng-if="filterMobile($index)" item="item" source="'suggest'" flex="33" flex-sm="50" flex-xs="100" class="recommend-card"></game-card>
+                <game-card ng-repeat="item in games.data track by $index"
+                           ng-if="filterMobile($index)"
+                           item="item"
+                           source="'suggest'"
+                           flex="33" flex-sm="50" flex-xs="100"
+                           class="recommend-card"></game-card>
             </div>
+            <!--RECOMMEND-->
         </div>
+        <!--RESULT & RECOMMEND-->
     </div>
+    <!--GAME SCREEN-->
+    <!--ADS-->
     <div class="mainAds" id="mainAds" style="position: absolute;width: 100%;top: 0;margin: 0 auto 0;z-index: 9999;left: 0;right: 0;">
         <div id="adContainer" ng-click="skipAds()" style="position: relative;margin: 0px auto;"></div>
     </div>
+    <!--ADS-->
+    <!--BATTLE INTRO-->
     <div ng-if="isBattle" class="spinner-bg animate-if" layout="column" layout-align="center center">
         <div class="search-text" ng-if="battle.status.isSearching">đang tìm kiếm</div>
         <div class="search-text" ng-if="battle.status.isFullRoom">đã tìm thấy</div>
@@ -266,7 +389,10 @@
             <div id="rect-orange" class="rect-orange" layout="row" layout-align="end center">
                 <div class="fight-info" layout="column" layout-align="center end">
                     <h1 style="text-align: right" id="name-opponent">{{battle.opponent.displayName}}</h1>
-                    <h3 ng-if="(battle.room.people - 2)>0" style="text-align: right" id="des-opponent">và {{battle.room.people - 2}} người chơi khác</h3>
+                    <h3 ng-if="(battle.room.people - 2)>0"
+                        style="text-align: right" id="des-opponent">
+                        và {{battle.room.people - 2}} người chơi khác
+                    </h3>
                 </div>
                 <img class="fight-avatar" ng-src="{{battle.opponent.avatar}}"/>
             </div>
@@ -284,6 +410,24 @@
         </div>
 
     </div>
-    <md-button aria-label="close" ng-if="isBattle" ng-click="onCloseBattle()" class="search-close-btn md-icon-button"><i class="ion-close-circled"></i></md-button>
-    <div layout="row" layout-align="center center" class="loading-battle" ng-if="battle.isLoading"><md-progress-circular class="md-accent" md-mode="indeterminate" md-diameter="100"></md-progress-circular></div>
+    <!--BATTLE INTRO-->
+
+    <!--CLOSE BATTLE-->
+    <md-button aria-label="close"
+               ng-if="isBattle"
+               ng-click="onCloseBattle()"
+               class="search-close-btn md-icon-button">
+        <i class="ion-close-circled"></i>
+    </md-button>
+    <!--CLOSE BATTLE-->
+
+    <!--ROOM LOADING-->
+    <div layout="row"
+         layout-align="center center"
+         class="loading-battle"
+         ng-if="battle.isLoading">
+        <md-progress-circular class="md-accent" md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+    </div>
+    <!--ROOM LOADING-->
+
 </div>
