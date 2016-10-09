@@ -16,6 +16,13 @@ angular.module('funstart').factory('Invite', ['$resource',
         });
     }
 ]);
+angular.module('funstart').factory('Message', ['$resource',
+    function($resource) {
+        return $resource('api/message/room/:id', {
+            id: '@_id'
+        });
+    }
+]);
 angular.module('funstart').service('FriendsOnlineService',['Users',function(Users){
     var self = {
         'isLoading': false,
@@ -62,12 +69,13 @@ angular.module('funstart').service('FriendsOnlineService',['Users',function(User
 
 }]);
 angular.module('funstart').service('BattleService',
-    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,$mdToast) {
+    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,Message,$mdToast) {
     var self = this;
     self.status = {};
     self.friends = {};
     self.opponent = {};
     self.friends = {};
+    self.messages = [];
     self.isHost = true;
     self.init = function(game,user,roomId,error){
         self.isHost = true;
@@ -221,6 +229,8 @@ angular.module('funstart').service('BattleService',
             } else {
                 self.isHost = false;
                 self.room = new Rooms(res.data);
+                self.messages = [];
+                self.listenMessage();
                 self.checkRoomFull(false);
                 self.listenRoom();
             };
@@ -254,6 +264,8 @@ angular.module('funstart').service('BattleService',
         self.offSocket();
         Rooms.get({roomId: roomId},function(res){
             self.room = new Rooms(res.data);
+            self.messages = [];
+            self.listenMessage();
             self.checkFriend();
             self.isLoading = false;
             self.status.isWaitRoom = true;
@@ -268,6 +280,8 @@ angular.module('funstart').service('BattleService',
 
         Rooms.save({gameId: self.game._id, mode: mode},function (res) {
             self.room = new Rooms(res.data);
+            self.messages = [];
+            self.listenMessage();
             self.room.members = [{
                 _id: self.user._id,
                 username: self.user.username,
@@ -459,7 +473,7 @@ angular.module('funstart').service('BattleService',
             })
         });
 
-        self.handleResultDialog();
+        // self.handleResultDialog();
         setTimeout(function () {
             //mo man choi
             //mo class battle
@@ -624,8 +638,7 @@ angular.module('funstart').service('BattleService',
         socket.off('join');
         socket.off('leave');
         socket.off('again');
-        socket.off('win');
-
+        socket.off('chat');
     }
     self.onCreateRoom = function(){
         self.offSocket();
@@ -692,37 +705,64 @@ angular.module('funstart').service('BattleService',
 
         });
     };
-    self.handleResultDialog = function(){
-        // socket.on("end",function(stt){
-        //     var win = null;
-        //     Object.keys(stt).forEach(function(e){
-        //         if(e == self.user._id){
-        //            win = stt[e];
-        //         }
-        //     });
-        //     if(win){
-        //         $mdDialog.show(
-        //             $mdDialog.alert()
-        //                 .parent(angular.element(document.querySelector('.recommend-games')))
-        //                 .clickOutsideToClose(true)
-        //                 .title('CHÚC MỪNG!')
-        //                 .textContent('Bạn đã chiến thắng!')
-        //                 .ok('Okie!')
-        //         );
-        //     } else {
-        //         $mdDialog.show(
-        //             $mdDialog.alert()
-        //                 .parent(angular.element(document.querySelector('.recommend-games')))
-        //                 .clickOutsideToClose(true)
-        //                 .title('CHIA BUỒN!')
-        //                 .textContent('Bạn thua cmnr!')
-        //                 .ok('Okie!')
-        //         );
-        //     }
-        // })
-        socket.on('again',function(data){
-            self.waitRoom = data;
+    self.onSendMessage = function(){
+        Message.save({_id: self.room._id,message: self.message},function(){
+            self.message = '';
         });
+    };
+    self.listenMessage = function(){
+        socket.on('chat',function (data) {
+           if(data.id == self.user._id){
+               self.messages.push({
+                   displayName: self.user.displayName,
+                   avatar: self.user.avatar,
+                   message: data.message,
+                   type: 0
+               });
+           } else {
+               self.room.members.forEach(function(member){
+                   if(data.id == member._id){
+                       self.messages.push({
+                           displayName: member.displayName,
+                           avatar: member.avatar,
+                           message: data.message,
+                           type: 1
+                       });
+                       return true;
+                   }
+               });
+           }
+        });
+    }
+    self.handleResultDialog = function(){
+        socket.on("end",function(stt){
+            var win = null;
+            Object.keys(stt).forEach(function(e){
+                if(e == self.user._id){
+                   win = stt[e];
+                }
+            });
+            if(win){
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('.recommend-games')))
+                        .clickOutsideToClose(true)
+                        .title('CHÚC MỪNG!')
+                        .textContent('Bạn đã chiến thắng!')
+                        .ok('Okie!')
+                );
+            } else {
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('.recommend-games')))
+                        .clickOutsideToClose(true)
+                        .title('CHIA BUỒN!')
+                        .textContent('Bạn thua cmnr!')
+                        .ok('Okie!')
+                );
+            }
+        })
+
     };
     self.onDead = function(bool){
         self.status.isEndGame = true;

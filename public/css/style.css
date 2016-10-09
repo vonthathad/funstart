@@ -1445,6 +1445,7 @@ md-toast {
   border-radius: 50%;
 }
 .message-bubble{
+  text-align: left;
   margin-left: 8px;
   padding: 8px;
   background: #2b2e7b;
@@ -1452,6 +1453,7 @@ md-toast {
   border-radius: 8px;
 }
 .message-bubble-me{
+  text-align: right;
   margin-right: 8px;
   padding: 8px;
   background: #f1702f;

@@ -6,7 +6,6 @@ angular.module('funstart').directive('activityCard', function () {
         },
         'controller': function($scope,$rootScope){
             $scope.onViewProfile = function(item,ev){
-                console.log('vo day');
                 var position = $($(ev.currentTarget).parent()).offset();
                 var top = position.top - $(window).scrollTop();
                 var left = position.left;

@@ -73,47 +73,16 @@
                 </md-content>
             </div>
             <div layout="column" flex>
-                <md-content layout="column" layout-align="end start" ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}">
-                    <div class="message-panel" layout="row" layout-align="start center">
-                        <div flex="10" style="height: 100%">
-                            <img class="message-avatar" ng-src="{{battle.room.members[1].avatar}}">
-                            <md-tooltip  md-direction="bottom">{{battle.room.members[1].displayName}}</md-tooltip>
-                        </div>
-                        <div flex class="message-bubble">Tao đang chơi game này cũng hay lắm</div>
-                        <div flex="10"></div>
-                    </div>
-                    <div class="message-panel" layout="row" layout-align="start center">
-                        <div flex="10">
-                            <img class="message-avatar" ng-src="{{battle.room.members[1].avatar}}">
-                            <md-tooltip>{{battle.room.members[1].displayName}}</md-tooltip>
-                        </div>
-                        <div flex class="message-bubble">Bữa nào tao send cho mày chơi :v</div>
-                        <div flex="10"></div>
-                    </div>
-                    <div class="message-panel" layout="row" layout-align="start center">
-                        <div flex="10"></div>
-                        <div flex class="message-bubble-me">Cái game vòng số đó hả</div>
-                        <div flex="10" style="height: 100%">
-                            <img class="message-avatar" ng-src="{{battle.room.members[0].avatar}}">
-                            <md-tooltip  md-direction="bottom">{{battle.room.members[0].displayName}}</md-tooltip>
-                        </div>
-                    </div>
-                    <div class="message-panel" layout="row" layout-align="start center">
-                        <div flex="10"></div>
-                        <div flex class="message-bubble-me">Tao rủ mấy đứa bạn chơi suốt, toàn thắng :v</div>
-                        <div flex="10">
-                            <img class="message-avatar" ng-src="{{battle.room.members[0].avatar}}">
-                            <md-tooltip>{{battle.room.members[0].displayName}}</md-tooltip>
-                        </div>
-                    </div>
+                <md-content ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}">
+                    <message-panel ng-repeat="item in battle.messages" item="item"></message-panel>
                 </md-content>
                 <div style="height: 64px">
-                    <form name="messageForm" style="height: 100%">
+                    <form name="messageForm" style="height: 100%" ng-submit="battle.onSendMessage()">
                         <md-content layout="row" style="height: 100%">
                             <md-input-container flex style="margin: 0;padding: 8px" md-no-float layout="row">
-                                <input ng-model="user.address" type="text" placeholder="Chat ở đây ..." >
+                                <input ng-model="battle.message" type="text" placeholder="Chat ở đây ..." >
                             </md-input-container>
-                            <md-button class="md-fab md-mini md-accent" aria-label="More">
+                            <md-button type="submit" class="md-fab md-mini md-accent" aria-label="More">
                                 <i class="ion-android-send"></i>
                             </md-button>
                         </md-content>

@@ -521,6 +521,10 @@ exports.inviteToRoom = function(req,res){
     };
     res.json();
 };
+exports.messageToRoom = function(req,res){
+    io.to(req.params.id).emit('chat',{message: req.body.message,id: req.user._id});
+    res.json();
+}
 exports.gameByID = function(req, res, next) {
     var gameId = null;
     if(req.body.gameId) {
