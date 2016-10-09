@@ -16,6 +16,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 if($location.search().roomId){
                     if($rootScope.user){
                         $scope.isBattle = true;
+                        $('body').css('overflow','hidden');
                         $scope.isPlay = true;
                         $scope.isEnd = false;
                         $scope.battle = BattleService;
@@ -252,6 +253,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 $scope.isPlay = false;
                 if(!$scope.isBattle){
                     $scope.isBattle = true;
+                    $('body').css('overflow','hidden');
                     $scope.battle = BattleService;
                     $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
                 };
@@ -268,6 +270,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         $scope.onBattleCall = function (ev) {
             if($rootScope.user){
                 $scope.isBattle = true;
+                $('body').css('overflow','hidden');
                 $scope.battle = BattleService;
                 $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
                 $scope.battle.onFindBattle(null,function(){
@@ -280,6 +283,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         }
         $scope.onError = function(){
             $scope.isBattle = false;
+            $('body').css('overflow','auto');
         };
         $scope.onCloseBattle = function(){
             console.log('Vo day');
@@ -300,6 +304,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             // }
             $mdDialog.show(confirm).then(function() {
                 $scope.isBattle = false;
+                $('body').css('overflow','auto');
                 $location.search().roomId = null;
                 //chuyen phase game ve chon choi
                 $scope.isPlay = false;

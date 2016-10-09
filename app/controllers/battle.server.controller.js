@@ -30,6 +30,12 @@ io.on('connection', function (socket) {
           })
        }
     });
+    socket.on('chat',function(data){
+        console.log('chat',data);
+        if(data.roomId){
+            io.to(data.roomId).emit('chat',{message: data.message,id: data.userId});
+        }
+    });
 });
 function disconnect(data){
     Room.findById(data.room,function(err,room){

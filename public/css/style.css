@@ -1005,12 +1005,11 @@ md-toast {
   overflow-y: auto;
 }
 .chat-list{
-  border-top: 1px solid #666;
+  border-top: 1px solid #bababa;
   min-height: calc(50vh - 64px);
   overflow-y: auto;
 }
 .chat-list-full{
-  border-top: 1px solid #eae6e6;
   min-height: calc(100vh - 64px);
   overflow-y: auto;
 }

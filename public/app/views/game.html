@@ -64,7 +64,7 @@
                         <div class="player-list">
                             <friend-card ng-repeat="item in battle.players | orderBy: battle.orderPlayer"
                                          status-class="statusClass(input)"
-                                         type="games.currentGame.type"
+                                         game-type="games.currentGame.type"
                                          mode="'game'"
                                          item="item">
                             </friend-card>
@@ -72,7 +72,7 @@
                     </md-list>
                 </md-content>
             </div>
-            <div layout="column" flex>
+            <div ng-if="battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame" layout="column" flex>
                 <md-content ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}">
                     <message-panel ng-repeat="item in battle.messages" item="item"></message-panel>
                 </md-content>

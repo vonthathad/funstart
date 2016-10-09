@@ -706,9 +706,11 @@ angular.module('funstart').service('BattleService',
         });
     };
     self.onSendMessage = function(){
-        Message.save({_id: self.room._id,message: self.message},function(){
-            self.message = '';
-        });
+        socket.emit('chat',{roomId: self.room._id, message: self.message, userId:self.user._id});
+        self.message = '';
+        // Message.save({_id: self.room._id,message: self.message},function(){
+        //     self.message = '';
+        // });
     };
     self.listenMessage = function(){
         socket.on('chat',function (data) {
@@ -732,6 +734,7 @@ angular.module('funstart').service('BattleService',
                    }
                });
            }
+            $rootScope.$apply();
         });
     }
     self.handleResultDialog = function(){
