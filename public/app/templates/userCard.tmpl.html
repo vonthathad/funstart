@@ -4,13 +4,23 @@
             <a class="a-item" ng-href="/user/{{data.username}}"><img class="md-user-avatar" ng-src="{{data.avatar}}"/></a>
         </md-card-avatar>
         <md-card-header-text>
-            <a class="a-item" ng-href="/user/{{data.username}}"><span class="md-title" ng-bind="data.displayName"></span></a>
-            <span class="md-subhead" ng-bind="data.username"></span>
+            <a class="a-item" ng-href="/user/{{data.username}}"><span class="md-title user-title" ng-bind="data.displayName"></span></a>
+            <div class="user-subhead">
+                <img class="title-class" src="/img/class0.svg">
+            </div>
         </md-card-header-text>
-        <md-button class="md-fab md-mini" aria-label="Explorer" ng-click="faded = faded?false:true">
-            <i ng-class="{'ion-android-add':faded,'ion-android-remove':!faded}"></i>
+        <md-button class="md-fab md-mini" style="font-size: 0.85em;font-weight: bold;text-transform: none" aria-label="Explorer" ng-click="faded=!faded">
+           Lv.{{data.level}}
         </md-button>
+
     </md-card-header>
+    <div style="position: relative">
+        <div class="exp-text">EXP</div>
+        <md-progress-linear class="exp-progress" md-mode="determinate" value="{{data | expPercent}}"></md-progress-linear>
+        <md-tooltip>
+            {{data.exp}}/{{data.next}}
+        </md-tooltip>
+    </div>
     <div style="position: relative" id="hex-container" ng-class="{'faded': faded}" >
         <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
         <div class="hex hex-gap hex-gap-1">
@@ -77,55 +87,24 @@
                 Nhiệt huyết
             </md-tooltip>
         </div>
+        <div class="bottom-stat stat-left">
+            <i class="ion-play"> <md-tooltip>Đã chơi</md-tooltip></i> <b>{{data.games}}</b> games
+        </div>
+        <div class="bottom-stat stat-right">
+            <i class="ion-android-time"><md-tooltip>Online</md-tooltip></i> <span ng-bind="data.active | timeAgo"></span>
+        </div>
+        <div flex class="top-stat" style="left: 0;  border-radius: 0 0 5px 0;" ng-if="data.rank"><span><i class="ion-trophy"><md-tooltip>Xếp hạng</md-tooltip></i>{{data.rank}}</span></div>
+        <div flex class="top-stat" style="right: 0;  border-radius: 0 0 0 5px ;"><span><i class="ion-ribbon-a"><md-tooltip>Tỉ lệ thắng</md-tooltip></i>20%</span></div>
     </div>
-
     <!--<md-card-actions layout="row" layout-align="center center">-->
         <!--<md-button class="md-raised md-primary">Thách đấu</md-button>-->
         <!--<md-button  class="md-raised md-primary">+ Kết bạn</md-button>-->
     <!--</md-card-actions>-->
     <md-card-content ng-class="{'faded': faded}">
+        </div>
         <div layout="row" ng-if="checkUser() == 2">
             <md-button ng-show="data.isFriend" ng-click="unfollow({callback: updateFriendList({bool:false, input:data})})" style="width: 100%" class="md-raised md-accent"><i class="ion-android-done"></i> Bạn bè</md-button>
             <md-button ng-show="!data.isFriend" ng-click="follow({callback: updateFriendList({bool:true, input:data})})" style="width: 100%" class="md-raised md-primary"><i class="ion-android-add"></i> Thêm bạn</md-button>
-        </div>
-        <div layout="row" class="stat-user">
-            <div flex="40" flex-sm="50">
-                <b>Level:</b>
-            </div>
-            <div flex="60" flex-sm="50" ng-bind="data.level">
-            </div>
-        </div>
-        <div layout="row" class="stat-user">
-            <div flex="40" flex-sm="50">
-                <b>Kinh nghiệm:</b>
-            </div>
-            <div flex="60" flex-sm="50">
-                <md-progress-linear class="exp-progress" md-mode="determinate" value="{{data | expPercent}}"></md-progress-linear>
-                <md-tooltip>
-                    {{data.exp}}/{{data.next}}
-                </md-tooltip>
-            </div>
-        </div>
-        <div layout="row" class="stat-user">
-            <div flex="40" flex-sm="50">
-                <b>Lượt chơi:</b>
-            </div>
-            <div flex="60" flex-sm="50" ng-bind="data.games">
-            </div>
-        </div>
-        <div layout="row" class="stat-user">
-            <div flex="40" flex-sm="50">
-                <b>Online:</b>
-            </div>
-            <div flex="60" flex-sm="50" ng-bind="data.active | timeAgo">
-            </div>
-        </div>
-        <div layout="row" class="stat-user">
-            <div flex="40" flex-sm="50">
-                <b>Thứ hạng:</b>
-            </div>
-            <div flex="60" flex-sm="50" ng-bind="data.rank">
-            </div>
         </div>
     </md-card-content>
 

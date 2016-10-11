@@ -61,7 +61,7 @@ exports.createActivity = function (req,res,next) {
             score: req.body.score
         });
         if(req.body.isWin != null){
-            newActivity.isWin = req.body.isWin
+            newActivity.isWin = req.body.isWin;
         };
         if(req.body.opponents){
             newActivity.opponents = req.body.opponents;
@@ -97,6 +97,13 @@ exports.createActivity = function (req,res,next) {
                     req.user.exp += parseInt(req.body.score/100);
                     req.user.games++;
                     req.user.active = Date.now();
+                    if(req.body.isWin != null){
+                        if(req.body.isWin == true){
+                            req.user.win++;
+                        } else {
+                            req.user.lose++;
+                        }
+                    }
                     req.user.save(function(err,user){
                         User.find({exp : {$gt : user.exp}}).count(function (err,count){
                             var rank = 0;

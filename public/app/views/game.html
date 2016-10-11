@@ -52,8 +52,8 @@
         </div>
         <!--GAME INFO PANEL-->
         <!--PLAYERS LIST DESKTOP-->
-        <div ng-if="isBattle" layout="column" class="full-mode-2" hide-xs hide-sm>
-            <div layout="column" flex  ng-if="battle.status.isFullscreen">
+        <div ng-if="isBattle" layout="column" class="full-mode-2">
+            <div layout="column" flex  ng-if="battle.status.isFullscreen" hide-xs hide-sm>
                 <md-toolbar class="md-theme-light">
                     <h2 class="md-toolbar-tools">
                         <span>Xếp hạng:</span>
@@ -72,7 +72,7 @@
                     </md-list>
                 </md-content>
             </div>
-            <div ng-if="battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame" layout="column" flex>
+            <div ng-show="true" ng-if="battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame" layout="column" flex>
                 <md-content ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}">
                     <message-panel ng-repeat="item in battle.messages" item="item"></message-panel>
                 </md-content>
@@ -82,7 +82,7 @@
                             <md-input-container flex style="margin: 0;padding: 8px" md-no-float layout="row">
                                 <input ng-model="battle.message" type="text" placeholder="Chat ở đây ..." >
                             </md-input-container>
-                            <md-button type="submit" class="md-fab md-mini md-accent" aria-label="More">
+                            <md-button ng-disabled="!battle.message" type="submit" class="md-fab md-mini md-accent" aria-label="More">
                                 <i class="ion-android-send"></i>
                             </md-button>
                         </md-content>

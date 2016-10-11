@@ -62,7 +62,8 @@
                    ng-hide="isOpenRight()"
                    hide-gt-sm
                    class="md-primary">
-            <i ng-class="{'ion-android-person':!isOpenLeft(),'ion-android-close':isOpenLeft()}" ></i>
+            <i ng-if="isOpenLeft()" lass="ion-android-close"></i>
+            <img ng-src="{{$root.profile.data.avatar}}">
         </md-button>
 
         <div hide-sm hide-xs>

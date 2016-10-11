@@ -14,8 +14,14 @@ angular.module('funstart').config([
     }
 ]);
 angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdDialog){
-
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+        $( 'body' ).on( 'mousewheel DOMMouseScroll','.scrollable', function ( e ) {
+            var e0 = e.originalEvent,
+                delta = e0.wheelDelta || -e0.detail;
+
+            this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+            e.preventDefault();
+        });
         $(window).scrollTop(0);
         $mdSidenav('left').close();
         $mdSidenav('right').close();

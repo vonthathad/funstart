@@ -23,6 +23,67 @@ user-card .md-button.md-fab{
 .exp-progress{
   margin-top: 7px;
 }
+.user-title{
+  font-weight: bold;
+}
+.user-subhead{
+  margin-top: 5px;
+  text-align: left;
+}
+.exp-text{
+  position: absolute;
+  top: -8px;
+  line-height: 11px;
+  left: 0;
+  padding: 2px 5px;
+  /* width: 20px; */
+  background-color: #2e2d7c;
+  color: #fff;
+  border-radius: 0 5px 0 0;
+}
+.title-class{
+  width: 70px;
+  height: 20px;
+  float: left;
+}
+.top-stat{
+  color: #fff;
+  position: absolute;
+  top: 0;
+  padding: 10px;
+  background: rgb(255, 196, 36);
+  text-shadow: 0px -1px 1px #ffa21a, 1px 1px 1px #ffdd8e;
+  color: rgb(194, 134, 14);
+  font-weight: 900;
+  font-size: 1.25em;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 4px 1px 1px #ffdd8e, inset 0px -3px 1px 1px rgba(225, 144, 16, 0.5);
+}
+.top-stat>span{
+  display: inline-block;
+
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  font-family: 'Pacifico', Arial, sans-serif;
+  line-height: 1;
+
+  -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+  -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+  -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+  transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+}
+.bottom-stat{
+  position: absolute;
+  font-size: 0.9em;
+  bottom: 5px;
+  color: #fff;
+}
+.stat-left{
+  left:5px;
+}
+.stat-right{
+  right:5px;
+}
 /*.game-card-a{*/
   /*position: relative;*/
 /*}*/
@@ -317,6 +378,7 @@ h5.status-2{
 }
 .a-item{
   display: block;
+  color: #2e2d7c;
   text-decoration: none;
 }
 .a-item>h4:hover , .a-item>span:hover{
@@ -614,6 +676,14 @@ a.search-link {
 .md-icon-button.nav-icon{
   font-size: 1em;
 }
+.md-icon-button.nav-icon img{
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: solid 1px #fff;
+  box-shadow: 0 5px 20px rgba(0,0,0,.3);
+}
+
 .nav-toolbar .md-menu button{
   color: #fff;
 }
@@ -997,9 +1067,12 @@ md-toast {
   border: 1px solid #2b2e7b;
 }
 .friend-list{
-  max-height: 300px;
+  max-height: 200px;
   overflow-y: auto;
 }
+/*.friend-list::-webkit-scrollbar {*/
+  /*display: none;*/
+/*}*/
 .player-list{
   height: calc(50vh - 64px);
   overflow-y: auto;
@@ -1282,14 +1355,14 @@ md-toast {
   z-index: 102;
 }
 .full-mode-2{
-
+  box-shadow: 0 2px 20px rgba(0,0,0,.3);
   position: fixed;
   top: 0;
   right: 0;
   width: 320px;
   height: 100%;
   overflow: hidden;
-  z-index: 102;
+  z-index: 103;
 }
 .full-mode-3{
   position: fixed;
@@ -1450,6 +1523,8 @@ md-toast {
   background: #2b2e7b;
   color: #fff;
   border-radius: 8px;
+  display: inline-block;
+  float: left;
 }
 .message-bubble-me{
   text-align: right;
@@ -1458,4 +1533,6 @@ md-toast {
   background: #f1702f;
   color: #fff;
   border-radius: 8px;
+  display: inline-block;
+  float: right;
 }

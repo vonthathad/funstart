@@ -301,8 +301,9 @@ exports.updateRoom = function (req,res){
             req.room.save(function(){
                 var tmp = {};
                 console.log(req.room.members);
+                var turn = 0;
                 req.room.members.forEach(function(member){
-                    tmp[member._id] = {score: 0, connect: 1, turn: 0};
+                    tmp[member._id] = {score: 0, connect: 1, turn: turn++};
                 });
                 req.room.players = tmp;
                 console.log(req.room.players);
