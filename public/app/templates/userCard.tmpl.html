@@ -93,8 +93,8 @@
         <div class="bottom-stat stat-right">
             <i class="ion-android-time"><md-tooltip>Online</md-tooltip></i> <span ng-bind="data.active | timeAgo"></span>
         </div>
-        <div flex class="top-stat" style="left: 0;  border-radius: 0 0 5px 0;" ng-if="data.rank"><span><i class="ion-trophy"><md-tooltip>Xếp hạng</md-tooltip></i>{{data.rank}}</span></div>
-        <div flex class="top-stat" style="right: 0;  border-radius: 0 0 0 5px ;"><span><i class="ion-ribbon-a"><md-tooltip>Tỉ lệ thắng</md-tooltip></i>20%</span></div>
+        <div class="top-stat" ng-if="data.rank"><span><i class="ion-trophy"><md-tooltip>Xếp hạng</md-tooltip></i>{{data.rank}}</span></div>
+        <div class="rate-stat stat-right" ng-if="data.win || data.lose"><span><i class="ion-ribbon-a"><md-tooltip>Tỉ lệ thắng</md-tooltip></i> {{data.win/(data.win+data.lose)*100}}%</span></div>
     </div>
     <!--<md-card-actions layout="row" layout-align="center center">-->
         <!--<md-button class="md-raised md-primary">Thách đấu</md-button>-->
