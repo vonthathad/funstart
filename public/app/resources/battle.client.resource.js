@@ -573,7 +573,7 @@ angular.module('funstart').service('BattleService',
             isEndGame: false,
             isWaitRoom: true
         };
-
+        self.room.mode = 'room';
         if(self.room) Rooms.update({_id: self.room._id, again: true},function(res){
             self.isReady = false;
             self.room.status = 3;

@@ -196,7 +196,6 @@ exports.findRoom = function(req,res){
         Room.findOne({ people: {$lt: req.game.min}, status: 0, game: req.game._id,mode: "find"})
             .populate('members','username avatar displayName')
             .exec(function (err,room) {
-                console.log('room',room);
                 if(err){
                     console.log(err);
                     return res.status(400).send();
@@ -218,7 +217,6 @@ exports.findRoom = function(req,res){
 };
 function enterRoom(room,user,success,error) {
     if(!room.players[user._id]){
-        console.log(user._id);
         room.members.push(user._id);
         room.people++;
     };
@@ -229,7 +227,6 @@ function enterRoom(room,user,success,error) {
     room.players = tmp;
     room.save(function(err,result){
         if(result){
-            console.log('room moi ne', result);
             var player = {
                 _id: user._id,
                 username: user.username,
@@ -251,7 +248,6 @@ function enterRoom(room,user,success,error) {
 exports.createRoom = function (req,res) {
     var room = new Room();
     room.game = req.game._id;
-    console.log('time',req.game.time);
     if(req.game.time) {
         room.time = req.game.time;
     }
@@ -261,7 +257,6 @@ exports.createRoom = function (req,res) {
     room.players = {};
     room.players[req.user._id] = {score: 0, connect: 1, turn: 0};
 
-    console.log(room);
     room.save(function(err,data){
         if(err) {
             return res.status(400).send();
@@ -285,7 +280,6 @@ exports.updateRoom = function (req,res){
             // req.room.players = tmp;
             req.room.save();
             res.json();
-            console.log('ready room',req.room._id);
             io.to(req.room._id).emit('ready',req.room.ready);
             return;
         }
@@ -307,7 +301,6 @@ exports.updateRoom = function (req,res){
             req.room.save(function(){
                 var dataTurn = {};
                 var tmp = {};
-                console.log(req.room.members);
                 var turn = 0;
                 req.room.members.forEach(function(member){
                     dataTurn[member._id] = turn;
@@ -318,14 +311,12 @@ exports.updateRoom = function (req,res){
                 });
                 io.to(req.room._id).emit('turn',dataTurn);
                 req.room.players = tmp;
-                console.log(req.room.players);
                 if(req.room.time) setRoomInterval(req.room);
                 req.room.save();
             });
         }
         return res.json();
     } else if (req.body.obj) {
-        // console.log('room update',req.room);
         if(req.room.status !=2 && (req.body.prepare || req.room.status == 0 || req.room.status == 3 || req.room.time == undefined || req.room.turn == req.user._id) && req.room.players[req.user._id]){
             var isEnd = false;
             var stt = {};
@@ -377,16 +368,13 @@ exports.updateRoom = function (req,res){
                 var maxScore = 0;
                 Object.keys(tmp).forEach(function(e){
                     if(tmp[e].isDead == true || tmp[e].connect == 0) {
-                        console.log('tang amount');
                         amount++;
                     }
                     if(maxScore < tmp[e].score) {
                         maxScore = tmp[e].score;
-                        console.log('max',maxScore);
                     }
                     length++;
                 });
-                console.log('So luong nguoi da choi xong',amount);
                 if(amount >= length - 1){
                     isEnd = true;
                     Object.keys(tmp).forEach(function(e){
@@ -398,14 +386,11 @@ exports.updateRoom = function (req,res){
                             stt[e] = false;
                         }
                     });
-                    console.log('temp',tmp);
                 }
             }
             tmp[req.user._id] = mergeObject(tmp[req.user._id],req.body.obj);
             req.room.players = tmp;
             io.to(req.room._id).emit('players',req.room.players);
-            console.log('update',req.room.players);
-            console.log('end',Date.now());
             res.json();
             if(isEnd) {
                 // io.to(req.room._id).emit('end',stt);
@@ -465,7 +450,6 @@ exports.updateRoom = function (req,res){
             members.push(e._id);
         });
         var indMember = members.indexOf(parseInt(req.body.kick));
-        console.log('indMember',indMember);
         var tmpTurn = null;
         var tmp = req.room.players;
         req.room.players = {};
@@ -492,7 +476,6 @@ exports.updateRoom = function (req,res){
 
                 });
                 io.to(req.room._id).emit('leave',{members:members});
-                console.log('member',req.room.members);
                 req.room.save();
                 if(connections[req.body.kick]) connections[req.body.kick].leave(req.room._id);
                 res.json();
@@ -530,7 +513,6 @@ exports.inviteToRoom = function(req,res){
         }
     };
     if(req.body.room){
-        console.log('room again',req.body.room);
         io.to(req.body.room).emit('again',req.room._id);
     }
     if(req.body.players){
@@ -566,7 +548,6 @@ exports.gameByID = function(req, res, next) {
         });
 };
 exports.roomByID = function(req, res, next, id) {
-    console.log('start',Date.now());
     Room.findById(id)
         .populate('members','username avatar displayName')
         .populate('game','title min max')
