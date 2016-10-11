@@ -741,7 +741,6 @@ angular.module('funstart').service('BattleService',
     }
     self.listenMessage = function(){
         socket.on('chat',function (data) {
-           self.chat.isNew = true;
            if(data.id == self.user._id){
                self.messages.push({
                    displayName: self.user.displayName,
@@ -751,6 +750,7 @@ angular.module('funstart').service('BattleService',
                });
                self.chat.avatar = self.user.avatar;
            } else {
+               self.chat.isNew = true;
                self.room.members.forEach(function(member){
                    if(data.id == member._id){
                        self.messages.push({

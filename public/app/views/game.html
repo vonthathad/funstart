@@ -52,7 +52,7 @@
         </div>
         <!--GAME INFO PANEL-->
         <!--PLAYERS LIST DESKTOP-->
-        <div ng-if="isBattle" layout="column" class="full-mode-2" ng-class="{'active':battle.chat.isChat}" >
+        <div ng-if="isBattle && (battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame)" layout="column" class="full-mode-2" ng-class="{'active':battle.chat.isChat}" >
             <div layout="column" flex  ng-if="battle.status.isFullscreen" hide-xs hide-sm>
                 <md-toolbar class="md-theme-light">
                     <h2 class="md-toolbar-tools">
@@ -72,7 +72,13 @@
                     </md-list>
                 </md-content>
             </div>
-            <div ng-if="battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame" layout="column" flex>
+            <div layout="column" flex>
+                <md-toolbar ng-if="battle.status.isWaitRoom || battle.chat.isChat && (battle.status.isFullscreen || battle.status.isEndGame)" class="md-theme-light">
+                    <h2 class="md-toolbar-tools">
+                        <md-button aria-label="closechat" class="md-icon-button" style="font-size: 1em" hide-gt-sm ng-click="battle.chat.isChat = false" ><i class="ion-android-arrow-back"></i> </md-button>
+                        <span flex>Chat:</span>
+                    </h2>
+                </md-toolbar>
                 <md-content ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}">
                     <message-panel ng-repeat="item in battle.messages" item="item"></message-panel>
                 </md-content>
@@ -88,7 +94,7 @@
                         </md-content>
                     </form>
                 </div>
-                <div hide-gt-sm class="close-chat-btn" role="button" ng-click="battle.chat.isChat = false" ><i class="ion-close-round"></i></div>
+
             </div>
         </div>
         <!--PLAYERS LIST DESKTOP-->
@@ -400,9 +406,10 @@
         <md-progress-circular class="md-accent" md-mode="indeterminate" md-diameter="100"></md-progress-circular>
     </div>
     <!--ROOM LOADING-->
-    <div ng-if="isBattle" ng-show="!battle.chat.isChat" hide-gt-sm id="chat-btn" role="button" ng-click="battle.onViewChat()" class="chat-btn" ng-class="{'active':battle.chat.isNew}">
+    <div ng-if="isBattle && (battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame)" ng-show="!battle.chat.isChat" hide-gt-sm id="chat-btn" role="button" ng-click="battle.onViewChat()" class="chat-btn" ng-class="{'active':battle.chat.isNew}">
         <img style="width: 100%" ng-src="{{battle.chat.avatar}}">
         <span>CHAT</span>
         <div ng-show="battle.chat.isNew"><i class="ion-alert"></i></div>
     </div>
+    <div ng-click="battle.chat.isChat = false" ng-if="isBattle && battle.chat.isChat" class="shadow-chat"></div>
 </div>

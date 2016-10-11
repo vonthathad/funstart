@@ -24,8 +24,8 @@ angular.module('funstart').controller('PopupProfileController',['$scope','$rootS
         }
     }])
 
-angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService',
-    function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService){
+angular.module('funstart').controller('UserController',['$scope','$rootScope','$location','UserInfoService','SuggestService','FriendsService','$mdDialog',
+    function($scope,$rootScope,$location,UserInfoService,SuggestService,FriendsService,$mdDialog){
     $rootScope.profile = UserInfoService;
     $scope.friends = FriendsService;
     $scope.suggest = SuggestService;

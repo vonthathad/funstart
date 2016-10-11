@@ -44,7 +44,7 @@
                     </friend-card>
                     <loading-circle flex="100" is-loading="friends.isLoading"></loading-circle>
                 </div>
-                <div ng-if="$root.user.provider == 'facebook'" layout="row" layout-align="center center" layout-margin>
+                <div ng-if="checkUser() == 1" ng-if="$root.user.provider == 'facebook'" layout="row" layout-align="center center" layout-margin>
                     <md-button ng-click="changeMode()" class="md-raised md-facebook find-btn" >
                         <span ng-if="mode=='friend'"><i class="ion-android-add"></i> Tìm bạn trên facebook</span>
                         <span ng-if="mode=='search'"><i class="ion-android-arrow-back"></i> Quay lại</span>
