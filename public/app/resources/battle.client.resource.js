@@ -71,6 +71,7 @@ angular.module('funstart').service('FriendsOnlineService',['Users',function(User
 angular.module('funstart').service('BattleService',
     function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,Message,$mdToast) {
     var self = this;
+    self.chat  = {};
     self.status = {};
     self.friends = {};
     self.opponent = {};
@@ -83,6 +84,12 @@ angular.module('funstart').service('BattleService',
         self.game = game;
         self.room = null;
         self.user = user;
+        self.chat = {
+            avatar: self.user.avatar,
+            isChat: false,
+            message: "",
+            isNew: false
+        };
         self.players = [];
         self.opponent = {};
         self.status = {
@@ -124,6 +131,22 @@ angular.module('funstart').service('BattleService',
                 self.onCloseBattle();
             });
         }
+        $(document).bind('touchmove','#chat-btn', function() {
+            //Assume only one touch/only process one touch even if there's more
+            var touch = event.targetTouches[0];
+            if(touch.pageY>0 && touch.pageX>0 && touch.pageY<$(window).height() && touch.pageX < $(window).width()){
+                $('#chat-btn').offset({top: touch.pageY - 25,left : touch.pageX - 25});
+            }
+            // Is touch close enough to our object?
+            // if(detectHit(obj.x, obj.y, touch.pageX, touch.pageY, obj.w, obj.h)) {
+            //     // Assign new coordinates to our object
+            //     obj.x = touch.pageX;
+            //     obj.y = touch.pageY;
+            //
+            //     // Redraw the canvas
+            // }
+            event.preventDefault();
+        }, false);
     }
     self.onCloseBattle = function(){
         //ket thuc man dau
@@ -706,14 +729,19 @@ angular.module('funstart').service('BattleService',
         });
     };
     self.onSendMessage = function(){
-        socket.emit('chat',{roomId: self.room._id, message: self.message, userId:self.user._id});
-        self.message = '';
+        socket.emit('chat',{roomId: self.room._id, message: self.chat.message, userId:self.user._id});
+        self.chat.message = '';
         // Message.save({_id: self.room._id,message: self.message},function(){
         //     self.message = '';
         // });
     };
+    self.onViewChat = function(){
+        self.chat.isNew = false;
+        self.chat.isChat = true;
+    }
     self.listenMessage = function(){
         socket.on('chat',function (data) {
+           self.chat.isNew = true;
            if(data.id == self.user._id){
                self.messages.push({
                    displayName: self.user.displayName,
@@ -721,6 +749,7 @@ angular.module('funstart').service('BattleService',
                    message: data.message,
                    type: 0
                });
+               self.chat.avatar = self.user.avatar;
            } else {
                self.room.members.forEach(function(member){
                    if(data.id == member._id){
@@ -730,9 +759,11 @@ angular.module('funstart').service('BattleService',
                            message: data.message,
                            type: 1
                        });
+                       self.chat.avatar = member.avatar;
                        return true;
                    }
                });
+
            }
             $rootScope.$apply();
         });
