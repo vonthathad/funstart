@@ -42,3 +42,12 @@ angular.module('funstart').filter('expPercent',function () {
         }
     }
 });
+angular.module('funstart').filter('winPercent',function () {
+    return function (items) {
+        if(items){
+            return parseInt(items.win/(items.win + items.lose)*100);
+        } else {
+            return 0;
+        }
+    }
+});

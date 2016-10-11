@@ -120,9 +120,15 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         $scope.onPlay = function(){
             if($scope.battle && $scope.battle.room && $scope.battle.room.time){
                 socket.on('turn',function(data){
+                    console.log('turn',data);
+                    console.log('play',$scope.isPlay);
                     if(!$scope.isPlay){
+                        console.log('vo day de doi host');
                         if(data[$rootScope.user._id] == 0){
                             $scope.battle.isHost = true;
+                            console.log('tao la host');
+                        } else {
+                            $scope.battle.isHost = false;
                         }
                     };
                     if($scope.battle.players){
@@ -203,6 +209,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.battle.onReady();
         };
         $scope.setActivity = function(obj){
+            $scope.isPlay = false;
             if($rootScope.user && $routeParams.gameId){
                 $scope.activity = ActivitiesService;
                 obj.game = $routeParams.gameId;

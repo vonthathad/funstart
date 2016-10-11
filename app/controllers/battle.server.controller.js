@@ -292,6 +292,12 @@ exports.updateRoom = function (req,res){
     } else if (req.body.status){
         if(req.room.status == 0) {
             req.room.status = 1;
+            // var dataTurn = {};
+            // Object.keys(req.room.players).forEach(function(id){
+            //     dataTurn[id] = req.room.players[id].turn;
+            // });
+            // console.log(dataTurn);
+            // io.to(req.room._id).emit('turn',dataTurn);
             if(req.room.time) setRoomInterval(req.room);
             req.room.save();
         } else if(req.room.status == 3){
@@ -305,9 +311,12 @@ exports.updateRoom = function (req,res){
                 var turn = 0;
                 req.room.members.forEach(function(member){
                     dataTurn[member._id] = turn;
+                    if(turn == 0){
+                        req.room.turn = member._id;
+                    }
                     tmp[member._id] = {score: 0, connect: 1, turn: turn++};
                 });
-                io.to(room._id).emit('turn',dataTurn);
+                io.to(req.room._id).emit('turn',dataTurn);
                 req.room.players = tmp;
                 console.log(req.room.players);
                 if(req.room.time) setRoomInterval(req.room);
@@ -316,8 +325,8 @@ exports.updateRoom = function (req,res){
         }
         return res.json();
     } else if (req.body.obj) {
-        console.log('time',req.room.time);
-        if(req.room.status !=2 && (req.body.prepare || req.room.status == 0 || req.room.time == undefined || req.room.turn == req.user._id) && req.room.players[req.user._id]){
+        // console.log('room update',req.room);
+        if(req.room.status !=2 && (req.body.prepare || req.room.status == 0 || req.room.status == 3 || req.room.time == undefined || req.room.turn == req.user._id) && req.room.players[req.user._id]){
             var isEnd = false;
             var stt = {};
             var tmp = req.room.players;
