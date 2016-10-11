@@ -299,12 +299,15 @@ exports.updateRoom = function (req,res){
             req.room.players = {};
             req.room.status = 1;
             req.room.save(function(){
+                var dataTurn = {};
                 var tmp = {};
                 console.log(req.room.members);
                 var turn = 0;
                 req.room.members.forEach(function(member){
+                    dataTurn[member._id] = turn;
                     tmp[member._id] = {score: 0, connect: 1, turn: turn++};
                 });
+                io.to(room._id).emit('turn',dataTurn);
                 req.room.players = tmp;
                 console.log(req.room.players);
                 if(req.room.time) setRoomInterval(req.room);

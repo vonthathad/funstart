@@ -120,6 +120,11 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         $scope.onPlay = function(){
             if($scope.battle && $scope.battle.room && $scope.battle.room.time){
                 socket.on('turn',function(data){
+                    if(!$scope.isPlay){
+                        if(data[$rootScope.user._id] == 0){
+                            $scope.battle.isHost = true;
+                        }
+                    };
                     if($scope.battle.players){
                         Object.keys(data).forEach(function(e){
                             $scope.battle.players.forEach(function (player) {
