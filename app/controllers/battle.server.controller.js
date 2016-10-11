@@ -41,7 +41,7 @@ function disconnect(data){
     Room.findById(data.room,function(err,room){
         console.log(room);
         if(room){
-            if(room.people <=1 || room.ready.length > 0 && room.mode == 'find'){
+            if(room.people <=1 || room.status != 1 && room.ready.length > 0 && room.mode == 'find'){
                 console.log('co 1 dua thoi');
                 room.remove();
             } else {
@@ -415,6 +415,7 @@ exports.updateRoom = function (req,res){
     } else if(req.body.again){
         if(req.room.status != 3){
             req.room.status = 3;
+            req.room.mode = "room";
             req.room.ready = [];
             req.room.members = [req.user._id];
             req.room.save();
