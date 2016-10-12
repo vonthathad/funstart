@@ -88,16 +88,12 @@ user-card .md-button.md-fab{
 .game-card>div:first-child{
   padding: 16px 0 16px 16px;
 }
-.game-card.activity-info>div:first-child{
-  padding: 8px 0 8px 8px;
-}
+
 
 .game-card>div:last-child{
   padding: 16px;
 }
-.game-card.activity-info>div:last-child{
-  padding: 8px;
-}
+
 
 @media only screen and (max-width: 767px) and (min-width: 600px){
   .game-card>div:first-child{
@@ -121,18 +117,128 @@ user-card .md-button.md-fab{
   border-radius: 5px;
 
 }
-.activity-status .status-img{
+.activity-frame{
+  padding: 20px;
+  background: #FAFBFB;
+  position: relative;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 20px rgba(0,0,0,.3);
+}
+
+.activity-panel.solo{
+  position: relative;
+  text-align: left;
+  margin-left: 300px;
+  padding: 20px 0 20px 20px;
+}
+.activity-panel.battle{
+  position: relative;
+  text-align: right;
+  margin-right: 300px;
+  padding: 20px 20px 20px 0;
+}
+.activity-panel>h4{
+  margin: 0;
+  margin-bottom: 6px;
+}
+
+.activity-panel>.activity-line{
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: #8F8D8D;
+  top: 0;
+  z-index: 1;
+}
+.activity-panel.solo>.activity-line{
+  left: -1px;
+}
+.activity-panel.battle>.activity-line{
+  right: -1px;
+}
+.activity-panel>.activity-point{
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px #FAFBFB solid;
+  background: #2e2d7c;
+  top: 24px;
+  z-index: 2;
+}
+.activity-panel.solo>.activity-point{
+  left: -6px;
+}
+.activity-panel.battle>.activity-point{
+  background: #f1702f;
+  right: -6px;
+}
+.activity-info{
+  color: #8F8D8D;
+  font-weight: bold;
+  font-size: 0.9em;
+  max-width: 300px;
+}
+.activity-info a{
+  color: #f1702f;
+  text-decoration: none;
+}
+.activity-info a:hover{
+  text-decoration: underline;
+}
+.activity-info>img{
+  width: 24px;
+  border-radius: 5px;
+  vertical-align: middle;
+  margin: 3px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.3);
+}
+.activity-info .title{
+  text-transform: uppercase;
+}
+.activity-info .title.win{
+  color: #f1702f;
+}
+.activity-info .title.lose{
+  color: #2e2d7c;
+}
+.activity-opponent img{
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  cursor: pointer;
+  vertical-align: middle;
 }
-.activity-status .status-name{
-  font-weight: bold;
-  line-height: 24px;
+.activity-opponent.win img{
+  -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+  filter: grayscale(100%);
+}
+
+.activity-opponent .name{
   margin-left: 5px;
+  color: #8F8D8D;
   cursor: pointer;
+  text-decoration: none;
 }
+
+@media screen and (max-width: 600px){
+  .activity-panel.solo{
+    margin-left: 0px;
+  }
+  .activity-panel.battle{
+    text-align: left;
+    margin-right: 0px;
+    padding: 20px 0 20px 20px;
+  }
+  .activity-panel.battle>.activity-line{
+    left: -1px;
+  }
+  .activity-panel.battle>.activity-point{
+    left: -6px;
+  }
+}
+
 /*Style Cu
 .game-info{
   position: absolute;
