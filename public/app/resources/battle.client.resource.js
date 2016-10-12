@@ -309,7 +309,8 @@ angular.module('funstart').service('BattleService',
                 _id: self.user._id,
                 username: self.user.username,
                 displayName: self.user.displayName,
-                avatar: self.user.avatar
+                avatar: self.user.avatar,
+                class: self.user.class
             }];
             if(self.room.mode=="room"){
                 self.handlingRoom();

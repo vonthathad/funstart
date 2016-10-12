@@ -6,11 +6,8 @@
         <md-card-header-text>
             <a class="a-item" ng-href="/user/{{data.username}}"><span class="md-title user-title" ng-bind="data.displayName"></span></a>
             <div class="user-subhead">
-                <img class="title-class" ng-src="/img/class{{data.class}}.gif">
-                <span style="color: #f6951e;border: 2px solid #f6951e" ng-if="data.class==0">Học sĩ</span>
-                <span style="color: #232323;border: 2px solid #232323" ng-if="data.class==1">Nhẫn giả</span>
-                <span style="color: #96291f;border: 2px solid #96291f" ng-if="data.class==2">Nhẫn tướng</span>
-                <span style="color: #609617;border: 2px solid #609617" ng-if="data.class==3">Nhẫn sư</span>
+                <img class="title-class" ng-src="/img/class{{data.class}}-small.gif">
+                <img class="title-class" ng-src="/img/class{{data.class}}title.png">
             </div>
         </md-card-header-text>
         <md-button class="md-fab md-mini" style="font-size: 0.85em;font-weight: bold;text-transform: none" aria-label="Explorer" ng-click="faded=!faded">
@@ -26,7 +23,7 @@
         </md-tooltip>
     </div>
     <div style="position: relative" id="hex-container" ng-class="{'faded': faded}" >
-        <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
+        <img ng-src="/img/class{{data.class}}bg.jpg" class="md-card-image" alt="Washed Out">
         <div class="hex hex-gap hex-gap-1">
             <div class="corner corner-1"></div>
             <div class="corner corner-2"></div>

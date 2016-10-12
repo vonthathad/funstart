@@ -64,12 +64,15 @@ user-card .md-button.md-fab{
   font-weight: bold;
   letter-spacing: 1px;
 }
+.class-friend{
+  margin-top: 12px;
+}
 .user-subhead>span{
   padding: 2px;
 }
 .title-class{
   height: 30px;
-  margin-right: 5px;
+  margin-right: 2px;
   float: left;
   width: auto;
   vertical-align: middle;
@@ -577,9 +580,9 @@ h5.status-2{
   vertical-align: center;
   padding: 8px 16px;
 }
-.friend-item img{
-  margin-top: 8px!important;
-}
+/*.friend-item img{*/
+  /*margin-top: 8px!important;*/
+/*}*/
 .friend-item h4{
   white-space: nowrap;
   overflow: hidden;

@@ -384,10 +384,22 @@
                         và {{battle.room.people - 2}} người chơi khác
                     </h3>
                 </div>
-                <img class="fight-avatar" ng-src="{{battle.opponent.avatar}}"/>
+                <div style="position: relative">
+                    <img class="fight-avatar" ng-src="{{battle.opponent.avatar}}"/>
+                    <div style="position: absolute;left: -10px; bottom: 0;height: 64px">
+                        <img style="height: 100%" ng-src="/img/class{{battle.opponent.class}}.gif">
+                    </div>
+                </div>
+
             </div>
             <div id="rect-blue" class="rect-blue" layout="row" layout-align="start center">
-                <img class="fight-avatar" ng-src="{{$root.user.avatar}}"/>
+                <div style="position: relative">
+                    <img class="fight-avatar" ng-src="{{$root.user.avatar}}"/>
+                    <div style="position: absolute;right: -10px; bottom: 0;height: 64px">
+                        <img style="height: 100%" ng-src="/img/class{{$root.user.class}}.gif">
+                    </div>
+                </div>
+
                 <div class="fight-info" layout="column"  layout-align="center start">
                     <h1>{{::$root.user.displayName}}</h1>
                     <h3>Level {{::$root.user.level}}</h3>

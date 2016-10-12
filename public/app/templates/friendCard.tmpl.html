@@ -3,7 +3,10 @@
     <div class="md-list-item-text">
         <a ng-click="onViewProfile($event)" class="a-item" style="cursor: pointer"><h4>{{::item.displayName}}</h4></a>
         <p ng-if="mode=='friend' || mode=='search' || mode=='invite'" class="clearfix">Level {{::item.level}}</p>
-        <p ng-if="mode=='room'" class="clearfix">@{{::item.username}}</p>
+        <div ng-if="mode=='room'" class="user-subhead">
+            <img class="title-class" ng-src="/img/class{{item.class}}-small.gif">
+            <img class="title-class" ng-src="/img/class{{item.class}}title.png">
+        </div>
         <p class="clearfix" ng-if="mode == 'game'">Điểm: <b>{{item.score}}</b></p>
         <p ng-if="item.turn && item.turn!=0 && gameType == 1" class="clearfix">{{item.turn}} lượt nữa</p>
     </div>
@@ -20,8 +23,8 @@
         ng-if="mode == 'game' && gameType == 1 && (item.isWin==null && item.turn == 0)">
         Đánh
     </h5>
-    <div class="user-subhead" ng-if="mode=='friend'">
-        <img class="title-class" ng-src="/img/class{{item.class}}.gif">
+    <div class="class-friend" ng-if="mode=='friend'">
+        <img class="title-class" ng-src="/img/class{{item.class}}-small.gif">
     </div>
     <md-button aria-label="ready"
                ng-if="mode == 'room' && item.isReady"

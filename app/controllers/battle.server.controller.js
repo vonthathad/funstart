@@ -199,7 +199,7 @@ exports.findRoom = function(req,res){
     //$where:"this.members.length < " + req.game.min
     Room.find({created: {$gt: new Date((new Date())+1000*60*60)},status: 0}).remove(function(){
         Room.findOne({ people: {$lt: req.game.min}, status: 0, game: req.game._id,mode: "find"})
-            .populate('members','username avatar displayName')
+            .populate('members','username avatar displayName class')
             .exec(function (err,room) {
                 if(err){
                     console.log(err);
@@ -236,7 +236,8 @@ function enterRoom(room,user,success,error) {
                 _id: user._id,
                 username: user.username,
                 displayName: user.displayName,
-                avatar: user.avatar
+                avatar: user.avatar,
+                class: user.class
             };
             result.members[result.members.length - 1] = player;
             user.status = 2;
@@ -430,7 +431,7 @@ exports.updateRoom = function (req,res){
             if(req.room.members.indexOf(req.user._id)<0){
                 check = true;
             };
-            Room.findById(req.room._id).populate('members','username displayName avatar').exec(function(err,room){
+            Room.findById(req.room._id).populate('members','username displayName avatar class').exec(function(err,room){
                 if(check){
                     room.members.push(req.user._id);
                     room.people++;
@@ -440,7 +441,8 @@ exports.updateRoom = function (req,res){
                     _id: req.user._id,
                     username: req.user.username,
                     displayName: req.user.displayName,
-                    avatar: req.user.avatar
+                    avatar: req.user.avatar,
+                    class: req.user.class
                 };
                 room.members[room.members.length - 1] = player;
                 if(connections[req.user._id]) connections[req.user._id].join(room._id);
@@ -555,7 +557,7 @@ exports.gameByID = function(req, res, next) {
 };
 exports.roomByID = function(req, res, next, id) {
     Room.findById(id)
-        .populate('members','username avatar displayName')
+        .populate('members','username avatar displayName class')
         .populate('game','title min max')
         .exec(function(err, room){
             if (err) {
