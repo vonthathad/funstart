@@ -46,6 +46,10 @@ var UserSchema = new Schema({
         default: false
     },
     mid: String,
+    class: {
+        type: Number,
+        enum: [0,1,2,3]
+    },
     provider: {
         type: String,
         required: 'Provider is required'

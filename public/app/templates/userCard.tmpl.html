@@ -6,16 +6,20 @@
         <md-card-header-text>
             <a class="a-item" ng-href="/user/{{data.username}}"><span class="md-title user-title" ng-bind="data.displayName"></span></a>
             <div class="user-subhead">
-                <img class="title-class" src="/img/class0.svg">
+                <img class="title-class" ng-src="/img/class{{data.class}}.gif">
+                <span style="color: #f6951e;border: 2px solid #f6951e" ng-if="data.class==0">Học sĩ</span>
+                <span style="color: #232323;border: 2px solid #232323" ng-if="data.class==1">Nhẫn giả</span>
+                <span style="color: #96291f;border: 2px solid #96291f" ng-if="data.class==2">Nhẫn tướng</span>
+                <span style="color: #609617;border: 2px solid #609617" ng-if="data.class==3">Nhẫn sư</span>
             </div>
         </md-card-header-text>
         <md-button class="md-fab md-mini" style="font-size: 0.85em;font-weight: bold;text-transform: none" aria-label="Explorer" ng-click="faded=!faded">
            Lv.{{data.level}}
         </md-button>
-
     </md-card-header>
     <div style="position: relative">
         <div class="exp-text">EXP</div>
+        <div class="exp-popup"></div>
         <md-progress-linear class="exp-progress" md-mode="determinate" value="{{data | expPercent}}"></md-progress-linear>
         <md-tooltip>
             {{data.exp}}/{{data.next}}
@@ -94,7 +98,7 @@
             <i class="ion-android-time"><md-tooltip>Online</md-tooltip></i> <span ng-bind="data.active | timeAgo"></span>
         </div>
         <div class="top-stat" ng-if="data.rank"><span><i class="ion-trophy"><md-tooltip>Xếp hạng</md-tooltip></i>{{data.rank}}</span></div>
-        <div class="rate-stat stat-right" ng-if="data.win || data.lose"><span><i class="ion-ribbon-a"><md-tooltip>Tỉ lệ thắng</md-tooltip></i> <span ng-bind="data | winPercent">{{data.win/(data.win+data.lose)*100}}</span>%</span></div>
+        <div class="rate-stat stat-right" ng-if="data.win || data.lose"><span><i class="ion-ribbon-a"><md-tooltip>Tỉ lệ thắng</md-tooltip></i> <span ng-bind="data | winPercent"></span>%</span></div>
     </div>
     <!--<md-card-actions layout="row" layout-align="center center">-->
         <!--<md-button class="md-raised md-primary">Thách đấu</md-button>-->

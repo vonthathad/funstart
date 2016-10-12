@@ -74,26 +74,6 @@ angular.module('funstart').service('ShortInfoService',['Users',function(Users){
                 });
 
             }
-        },
-        'follow': function(callback){
-            var params = {
-                action: 'follow'
-            };
-            self.data.$update(params,function(res){
-                self.data.isFriend = true;
-                if(callback) callback();
-            });
-        },
-        'unfollow': function(callback){
-
-            var params = {
-                action: 'unfollow'
-
-            };
-            self.data.$update(params,function(res){
-                self.data.isFriend = false;
-                if(callback) callback();
-            });
         }
     };
     return self;

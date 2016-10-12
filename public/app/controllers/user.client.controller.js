@@ -96,14 +96,21 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
             $scope.loadInformations();
         }
     });
-    // $rootScope.$watch('$root.user', function () {
-    //     if($location.path().indexOf('user')<0){
-    //         $scope.data = $rootScope.user;
-    //         $scope.reloadFriendList();
-    //         sessionStorage.setItem('user',JSON.stringify($rootScope.user));
-    //         drawPoint($scope.data);
-    //     }
-    // });
+    $rootScope.$watch('$root.user', function () {
+        if($location.path().indexOf('user')<0){
+            if($scope.data.exp != $rootScope.user.exp){
+                $('.exp-popup').addClass('active');
+                var inc = $rootScope.user.exp - $scope.data.exp;
+                $('.exp-popup').html("+" + inc + "EXP");
+                // drawPoint($rootScope.user);
+                setTimeout(function(){
+                    $('.exp-popup').removeClass('active');
+                },500);
+            }
+            $scope.data = $rootScope.user;
+
+        }
+    });
     $scope.updateFriendList = function(bool,obj){
         console.log('vo update friend');
         if(bool){

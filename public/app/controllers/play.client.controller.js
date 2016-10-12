@@ -223,14 +223,54 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 }
                 $scope.activity.createActivity(obj,function (res) {
                     if(res.data.level > $rootScope.user.level){
-                        var toast3 = $mdToast.simple()
-                            .textContent('Chúc mừng! Bạn đã được thăng cấp')
-                            .theme('md-accent')
-                            .position('bottom left');
-                        $mdToast.show(toast3).then(function(response) {
-                            //callback
-                        });
-                    }
+                        $mdDialog.show({
+                                controller: function($scope, $mdDialog,data) {
+                                    $scope.data = data;
+                                    $timeout(function(){
+                                        $scope.isCounting = true;
+                                    });
+                                    // $scope.percent = parseInt((data.exp - data.level*data.level*100) / (data.next-data.level*data.level*100)*100);
+                                    var lvInterval = $interval(function(){
+                                        // if(!$scope.isCounting) $scope.isCounting = true;
+                                        $scope.data.exp += 5;
+                                        if($scope.data.exp > $scope.data.next){
+                                            $scope.data.level = res.data.level;
+                                            $scope.data.next = res.data.next;
+                                        }
+                                        // console.log(data.exp);
+                                        // $scope.percent = parseInt((data.exp - data.level*data.level*100) / (data.next-data.level*data.level*100)*100);
+                                        if($scope.data.exp >= res.data.exp){
+                                            $interval.cancel(lvInterval);
+                                            $scope.data = res.data;
+                                            $timeout(function(){
+                                                $mdDialog.cancel();
+                                            },2000);
+                                        }
+                                    }, 100, 0, true);
+                                },
+                                autoWrap: false,
+                                bindToController: true,
+                                locals: {data: $rootScope.user},
+                                templateUrl: 'app/templates/levelDialog.tmpl.html',
+                                parent: angular.element(document.body),
+                                clickOutsideToClose:true
+                            })
+                            .then(function(answer) {
+
+                            }, function() {
+
+                            });
+                    };
+
+                    // if(res.data.level > $rootScope.user.level){
+                    //     var toast3 = $mdToast.simple()
+                    //         .textContent('Chúc mừng! Bạn đã được thăng cấp')
+                    //         .theme('md-accent')
+                    //         .position('bottom left');
+                    //     $mdToast.show(toast3).then(function(response) {
+                    //         //callback
+                    //     });
+                    // }
                     $rootScope.user = res.data;
                 });
             }

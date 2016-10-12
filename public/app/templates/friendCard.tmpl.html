@@ -20,7 +20,9 @@
         ng-if="mode == 'game' && gameType == 1 && (item.isWin==null && item.turn == 0)">
         Đánh
     </h5>
-    <h5 ng-if="mode=='friend'">Học sĩ</h5>
+    <div class="user-subhead" ng-if="mode=='friend'">
+        <img class="title-class" ng-src="/img/class{{item.class}}.gif">
+    </div>
     <md-button aria-label="ready"
                ng-if="mode == 'room' && item.isReady"
                style="margin-right: 5px;background-color: rgb(241,112,47)"
@@ -41,7 +43,7 @@
                ng-click="isLoading = true;follow({input: item, callback: updateFollow})"
                ng-if="(mode=='room' || mode=='search') && !item.isFriend && item._id != $root.user._id"
                class="md-fab md-mini md-primary">
-        <md-tooltip md-direction="bottom">
+        <md-tooltip hide-lt-md md-direction="bottom">
             Kết bạn
         </md-tooltip>
         <span ng-if="!isLoading"><i class="ion-person-add"></i></span>
@@ -51,7 +53,7 @@
                ng-click="isLoading = true;unfollow({input: item, callback: updateUnfollow})"
                ng-if="(mode=='room' || mode=='search') && item.isFriend == true && item._id != $root.user._id"
                class="md-fab md-mini md-accent">
-        <md-tooltip md-direction="bottom">
+        <md-tooltip hide-lt-md md-direction="bottom">
             Hủy kết bạn
         </md-tooltip>
         <span ng-if="!isLoading"><i class="ion-person-stalker"></i></span>

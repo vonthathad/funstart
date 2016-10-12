@@ -26,10 +26,7 @@ user-card .md-button.md-fab{
 .user-title{
   font-weight: bold;
 }
-.user-subhead{
-  margin-top: 5px;
-  text-align: left;
-}
+
 .exp-text{
   position: absolute;
   top: -8px;
@@ -41,11 +38,43 @@ user-card .md-button.md-fab{
   color: #fff;
   border-radius: 0 5px 0 0;
 }
-.title-class{
-  width: 70px;
-  height: 20px;
-  float: left;
+.exp-popup{
+  position: absolute;
+  top: -10px;
+  opacity: 0;
+  line-height: 11px;
+  left: 0;
+  padding: 5px;
+  /* width: 20px; */
+  background-color: #2e2d7c;
+  color: #fff;
+  border-radius: 5px;
+  transform: translate(0,0);
+  transition: all 300ms ease;
 }
+.exp-popup.active{
+  opacity: 1;
+  transform: translate(0,-20px);
+}
+.user-subhead{
+  font-size: 0.7em;
+  text-transform: uppercase;
+  line-height: 30px;
+  text-align: left;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.user-subhead>span{
+  padding: 2px;
+}
+.title-class{
+  height: 30px;
+  margin-right: 5px;
+  float: left;
+  width: auto;
+  vertical-align: middle;
+}
+
 .top-stat{
   left: 0;
   border-radius: 0 0 5px 0;
@@ -59,6 +88,21 @@ user-card .md-button.md-fab{
   font-weight: 900;
   font-size: 1.25em;
   box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 4px 1px 1px #ffdd8e, inset 0px -3px 1px 1px rgba(225, 144, 16, 0.5);
+}
+.profile-panel .top-stat.level{
+  position: relative;
+  border-radius: 5px 0 0 0;
+}
+.profile-btn{
+  height: 42px;
+  border-radius: 0;
+}
+.profile-btn span{
+  line-height: 42px;
+}
+.profile-panel .top-stat.top{
+  position: relative;
+  border-radius: 0 5px 0 0;
 }
 .rate-stat{
   position: absolute;
@@ -94,7 +138,38 @@ user-card .md-button.md-fab{
   padding: 16px;
 }
 
-
+.dialog-level{
+  box-shadow: none;
+  background-color: transparent;
+  width: 500px;
+}
+.dialog-level .avatar{
+  width: 100%;
+  border-radius: 50%;
+}
+.dialog-level .title{
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #2b2e7b;
+  text-align: center;
+}
+.dialog-level .exp-info{
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.exp-progress-dialog .md-container{
+  height: 25px;
+  border-radius: 13px;
+  background: -webkit-repeating-linear-gradient(135deg, #666, #666 25%, #5c5c5c 25%, #5c5c5c 50%, #666 50%) top left fixed;
+  background: repeating-linear-gradient(-45deg, #666, #666 25%, #5c5c5c 25%, #5c5c5c 50%, #666 50%) top left fixed;
+  background-size: 30px 30px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+}
+.exp-progress-dialog .md-container .md-bar{
+  height: 25px;
+}
 @media only screen and (max-width: 767px) and (min-width: 600px){
   .game-card>div:first-child{
     padding: 5px 0 5px 5px;
@@ -107,6 +182,15 @@ user-card .md-button.md-fab{
   .game-card{
     margin-left: 0;
     margin-right: 0;
+  }
+  .dialog-level{
+    width: 90%;
+  }
+  .dialog-level .title{
+    font-size: 1.15em;
+  }
+  .dialog-level .exp-info{
+    font-size: 0.85em;
   }
 }
 .game-card .md-button{
@@ -1572,32 +1656,32 @@ md-toast {
   left: 0;
   display: none;
 }
+
 .profile-panel .title{
   font-size: 16px;
   font-weight: bold;
   color: #1a1a1a;
 }
 .profile-panel .description{
-  margin-top: 5px;
+  font-size: 12px;
   color: #666;
+  line-height: 24px;
+}
+md-tooltip{
+  z-index: 201!important;
 }
 .profile-panel .info-title{
   font-weight: bold;
 }
-.profile-panel p{
-  font-size: 12px;
-  padding: 0;
-  margin: 0;
-}
 .profile-panel .md-card-title {
-  padding: 16px;
+  padding: 8px;
 }
 .profile-panel .md-card-media{
   margin-top: 0;
+  margin-right: 16px;
 }
 .profile-panel .md-card-action{
-  padding: 16px;
-  padding-top: 0;
+  padding: 0;
   margin: 0;
 }
 .profile-panel .md-card-action .md-button{

@@ -334,7 +334,7 @@ exports.loadUsers = function(req,res){
                 }
                 // console.log(match);
                 var sortType = getSortType(req.query.order);
-                User.find(match, 'username displayName avatar exp level friends')
+                User.find(match, 'username displayName avatar exp level friends class')
                     .skip(skip)
                     .limit(paging+1)
                     .sort(sortType)
