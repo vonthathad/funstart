@@ -1,8 +1,8 @@
 /**
  * Created by andh on 8/9/16.
  */
-angular.module('funstart').controller('PopupProfileController',['$scope','$rootScope','UserInfoService','$timeout',
-    function($scope,$rootScope,UserInfoService,$timeout){
+angular.module('funstart').controller('PopupProfileController',['$scope','$rootScope','ShortInfoService','$timeout',
+    function($scope,$rootScope,ShortInfoService,$timeout){
 
         $scope.close = function(){
             $rootScope.popupProfile = null;
@@ -17,9 +17,9 @@ angular.module('funstart').controller('PopupProfileController',['$scope','$rootS
                 }
                 $('.profile-panel').css('display','block');
             },100);
-            $scope.info = UserInfoService;
+            $scope.info = ShortInfoService;
             $scope.info.loadUser($rootScope.popupProfile.name,function(){
-                console.log($scope.info.data);
+              
             });
         }
     }])

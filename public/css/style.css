@@ -469,7 +469,7 @@ Use of this source code is governed by an MIT-style license that can be in found
     position: fixed;
   }
   .fixed{
-    z-index: 50;
+    z-index: 5;
   }
 }
 @media only screen and (max-width: 959px) and (min-width: 0) and (orientation: portrait){
@@ -480,7 +480,7 @@ Use of this source code is governed by an MIT-style license that can be in found
     position: fixed;
   }
   .fixed{
-    z-index: 50;
+    z-index: 5;
   }
 }
 @media only screen and (max-width: 959px){

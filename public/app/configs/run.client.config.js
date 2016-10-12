@@ -82,6 +82,13 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
     }
     function initSocket(){
         socket.emit('user', $rootScope.user.token);
+        socket.on('user',function(bool){
+            if(bool){
+                console.log('da nhan ping tu server');
+                $rootScope.readyBattle = true;
+                $rootScope.$apply();
+            }
+        });
         socket.on('invite',function(data){
             console.log(data);
             $mdDialog.show({

@@ -55,6 +55,51 @@ angular.module('funstart').service('UserInfoService',['Users',function(Users){
 
 }]);
 
+
+angular.module('funstart').service('ShortInfoService',['Users',function(Users){
+    var self = {
+        'isLoading': false,
+        'data': {},
+        'loadUser': function (username,callback) {
+            if (!self.isLoading) {
+                self.isLoading = true;
+                var params = {
+                    username: username,
+                    short: true
+                };
+                Users.get(params,function (res) {
+                    self.data = new Users(res.data);
+                    if(callback) callback();
+                    self.isLoading = false;
+                });
+
+            }
+        },
+        'follow': function(callback){
+            var params = {
+                action: 'follow'
+            };
+            self.data.$update(params,function(res){
+                self.data.isFriend = true;
+                if(callback) callback();
+            });
+        },
+        'unfollow': function(callback){
+
+            var params = {
+                action: 'unfollow'
+
+            };
+            self.data.$update(params,function(res){
+                self.data.isFriend = false;
+                if(callback) callback();
+            });
+        }
+    };
+    return self;
+
+}]);
+
 angular.module('funstart').service('FriendsService',['Users',function(Users){
     var self = {
         'isLoading': false,

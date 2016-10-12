@@ -21,7 +21,7 @@
         <!--GAME PANEL-->
         <!--<div ng-if="!games.isLoading" ng-include="'/sources/game/9/'" onload="finishLoading()"></div>-->
         <!--GAME INFO PANEL-->
-        <div ng-if="!isPlay" class="pre-game" layout="column" layout-align="center center">
+        <div ng-if="!isPlay && !isEnd" class="pre-game" layout="column" layout-align="center center">
             <div class="game-info">
                 <md-button aria-label="Thumb" class="md-raised"><img ng-src="{{games.currentGame.thumb}}"></md-button>
                 <div class="title">{{games.currentGame.title}}</div>
@@ -36,14 +36,14 @@
                 <span> Chơi Game</span>
             </md-button>
             <md-button aria-label="find"
-                       ng-if="!isLoad && games.currentGame.multi >= 1"
+                       ng-if="!isLoad && games.currentGame.multi >= 1 && $root.readyBattle"
                        ng-click="onBattleCall($event)"
                        class="md-raised md-accent btn-play">
                 <i class="ion-android-search"></i>
                 <span> Tìm đối thủ</span>
             </md-button>
             <md-button aria-label="createroom"
-                       ng-if="!isLoad && games.currentGame.multi >= 1"
+                       ng-if="!isLoad && games.currentGame.multi >= 1 && $root.readyBattle"
                        ng-click="onCreateRoom($event)"
                        class="md-raised md-pink btn-play">
                 <i class="ion-android-home"></i>

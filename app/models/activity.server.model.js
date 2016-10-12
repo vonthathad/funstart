@@ -10,7 +10,7 @@ var ActivitySchema = new Schema({
         required: 'Must have game'
     },
     user: {
-        type: String,
+        type: Number,
         ref: 'User',
         required: 'Must have user'
     },

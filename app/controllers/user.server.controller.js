@@ -423,17 +423,32 @@ exports.updateUser = function(req,res,next){
     })
 };
 exports.userByUsername = function(req, res, next, id) {
-    User.findOne({username: id},'-password -salt -token -isVerified -providerData')
-        .exec(function(err, user){
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return next(new Error('Failed to load user ' + id));
-            }
-            req.selectedUser = user;
-            next();
-        });
+    if(req.query.short){
+        User.findOne({username: id},'username displayName avatar class exp win lose games active friends')
+            .exec(function(err, user){
+                if (err) {
+                    return next(err);
+                }
+                if (!user) {
+                    return next(new Error('Failed to load user ' + id));
+                }
+                req.selectedUser = user;
+                next();
+            });
+    } else {
+        User.findOne({username: id},'-password -salt -token -isVerified -providerData')
+            .exec(function(err, user){
+                if (err) {
+                    return next(err);
+                }
+                if (!user) {
+                    return next(new Error('Failed to load user ' + id));
+                }
+                req.selectedUser = user;
+                next();
+            });
+    }
+
 };
 exports.renderAction = function (req,res) {
     var app = {

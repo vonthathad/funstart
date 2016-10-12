@@ -7,12 +7,17 @@ var connections = {};
 var roomsInterval = {};
 io.on('connection', function (socket) {
     socket.on('user', function(token) {
+
         socket.token = token;
         User.findOne({token: socket.token},function (err,data) {
-            if(data) connections[data._id] = socket;
-            data.status = 1;
-            data.save();
-
+            if(data) {
+                socket.emit('user',true);
+                connections[data._id] = socket;
+                data.status = 1;
+                data.save();
+            } else {
+                socket.emit('user',false);
+            }
         })
         console.log('token',token);
     });
