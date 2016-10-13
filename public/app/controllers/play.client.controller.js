@@ -224,7 +224,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 $scope.activity.createActivity(obj,function (res) {
                     if(res.data.level > $rootScope.user.level){
                         $mdDialog.show({
-                                controller: ['$scope','$mdDialog',function($scope, $mdDialog,data) {
+                                controller: ['$scope','$mdDialog','data',function($scope, $mdDialog,data) {
                                     $scope.data = data;
                                     $timeout(function(){
                                         $scope.isCounting = true;
