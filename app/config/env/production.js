@@ -28,7 +28,7 @@ module.exports = {
         id: '170584416691811',
         name: 'Fun Start - Phá đảo thế giới ảo',
         description: 'Mini Webgame đối kháng số 1 Việt Nam!',
-        url: 'http://www.funstart.net',
-        image: 'http://www.funstart.net/sources/ads.jpg'
+        url: 'https://www.funstart.net',
+        image: 'https://www.funstart.net/sources/ads.jpg'
     },
 }
