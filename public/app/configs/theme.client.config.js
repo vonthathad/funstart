@@ -1,7 +1,7 @@
 /**
  * Created by andh on 8/9/16.
  */
-angular.module('funstart').config(function ($mdThemingProvider) {
+angular.module('funstart').config(['$mdThemingProvider',function ($mdThemingProvider) {
     $mdThemingProvider.definePalette('funviolet', {
         '50': '#eaeaf1',
         '100': '#c0c0d7',
@@ -47,4 +47,4 @@ angular.module('funstart').config(function ($mdThemingProvider) {
         .warnPalette('deep-orange')
         .backgroundPalette('grey');
 
-});
+}]);

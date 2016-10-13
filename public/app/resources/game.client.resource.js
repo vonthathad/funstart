@@ -16,7 +16,7 @@ angular.module('funstart').factory('Topics',['$resource',
     function($resource){
         return $resource('api/topics')
     }])
-angular.module('funstart').service('IndexService', function (Games) {
+angular.module('funstart').service('IndexService', ['Games',function (Games) {
     var self = {
         'topic': null,
         'isLoading': false,
@@ -62,8 +62,8 @@ angular.module('funstart').service('IndexService', function (Games) {
 
     };
     return self;
-});
-angular.module('funstart').service('NavGamesService', function (Games) {
+}]);
+angular.module('funstart').service('NavGamesService', ['Games',function (Games) {
     var self = {
         'text': null,
         'isLoading': false,
@@ -98,8 +98,8 @@ angular.module('funstart').service('NavGamesService', function (Games) {
 
     };
     return self;
-});
-angular.module('funstart').service('GamesService', function (Games) {
+}]);
+angular.module('funstart').service('GamesService', ['Games',function (Games) {
     var self = {
         'page': 1,
         'hasMore': true,
@@ -161,4 +161,4 @@ angular.module('funstart').service('GamesService', function (Games) {
 
     };
     return self;
-});
+}]);

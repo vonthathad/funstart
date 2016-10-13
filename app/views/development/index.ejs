@@ -94,16 +94,17 @@
 <script defer type="text/javascript" src="/app/controllers/user.client.controller.js"></script>
 <script defer type="text/javascript" src="/app/controllers/play.client.controller.js"></script>
 <script defer type="text/javascript" src="/app/controllers/feed.client.controller.js"></script>
-<!--MODULE COMPONENTS-->
-<script defer type="text/javascript" src="/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
-<script defer type="text/javascript" src="/libs/ng-img-crop/compile/minified/ng-img-crop.js"></script>
-<script defer type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-<script defer>
-  var socket = io('//www.funstart.net:8088',{'forceNew':true});
+<script defer type="text/javascript">
+  var socket = io('//localhost:8088',{'forceNew':true});
   $(document).ready(function () {
     if (window.location.href.indexOf('#_=_') > 0) {
       window.location = window.location.href.replace(/#.*/, '');
     }});
 </script>
+<!--MODULE COMPONENTS-->
+<script defer type="text/javascript" src="/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+<script defer type="text/javascript" src="/libs/ng-img-crop/compile/minified/ng-img-crop.js"></script>
+<script defer type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
 </body>
 </html>

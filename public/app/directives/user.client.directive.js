@@ -14,7 +14,7 @@ angular.module('funstart').directive('userCard', function () {
             'unfollow' : '&',
             'updateFriendList' : '&'
         },
-        controller: function ($scope,$routeParams) {
+        controller: ['$scope','$routeParams',function ($scope,$routeParams) {
             if($routeParams.gameId){
                 $scope.faded = true;
             } else {
@@ -27,9 +27,7 @@ angular.module('funstart').directive('userCard', function () {
                    $scope.faded = false;
                 }
             });
-            $scope.imagePath = 'img/bgstat.jpg';
-            
-        }
+        }]
     }
 });
 
@@ -65,7 +63,7 @@ angular.module('funstart').directive('friendCard', function () {
             'statusClass' : '&',
             'updateList' : '&'
         },
-        controller: function ($scope,$rootScope,$timeout) {
+        controller: ['$scope','$rootScope',function ($scope,$rootScope) {
             $scope.onViewProfile = function(ev){
                 var position = $($(ev.currentTarget).parent().parent()).offset();
                 var top = position.top - $(window).scrollTop();
@@ -84,7 +82,7 @@ angular.module('funstart').directive('friendCard', function () {
                 $scope.updateList({bool: false,input: $scope.item});
                 $scope.isLoading = false;
             }
-        }
+        }]
     }
 });
 

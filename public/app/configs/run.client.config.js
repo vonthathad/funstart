@@ -13,7 +13,7 @@ angular.module('funstart').config([
         // $httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
     }
 ]);
-angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdDialog){
+angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSidenav','$mdDialog',function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdDialog){
     $rootScope.login = false;
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         $( 'body' ).on( 'mousewheel DOMMouseScroll','.scrollable', function ( e ) {
@@ -125,4 +125,4 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
                 });
         })
     };
-});
+}]);

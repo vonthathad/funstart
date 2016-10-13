@@ -32,10 +32,7 @@ angular.module('funstart').directive('sliderRight', function () {
 });
 angular.module('funstart').directive('sliderLeft', function () {
     return {
-        templateUrl: 'app/templates/sliderLeft.tmpl.html',
-        controller: function($scope){
-            $scope.mode = 'friend';
-        }
+        templateUrl: 'app/templates/sliderLeft.tmpl.html'
     }
 });
 // angular.module('funstart').

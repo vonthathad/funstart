@@ -87,25 +87,25 @@ exports.verifyEmail = function(req, res, next) {
     Jwt.verify(token, privateKey, function(err, decoded) {
         if(decoded === undefined) {
             message = "Mã token này không tồn tại";
-            return res.render('index', {user: null, message: message, app: app});
+            return res.render(process.env.NODE_ENV + '/index', {user: null, message: message, app: app});
         }
         User.findOne({email : decoded.email}, function(err, user){
             if (err) {
                 message = "Không tồn tại token, hoặc đã hết hạn";
-                return res.render('index', {user: null, message: message, app: app});
+                return res.render(process.env.NODE_ENV + '/index', {user: null, message: message, app: app});
             }
             if (user === null) {
                 message="Tài khoản không tồn tại";
-                return res.render('index', {user: null, message: message, app: app});
+                return res.render(process.env.NODE_ENV + '/index', {user: null, message: message, app: app});
             }
             user.isVerified = true;
             User.findByIdAndUpdate(user._id,user, function(err, user){
                 if (err) {
                     message="Đã xảy ra lỗi. Hãy thử lại sau";
-                    return res.render('index', {user: null, message: message, app: app});
+                    return res.render(process.env.NODE_ENV + '/index', {user: null, message: message, app: app});
                 } else {
                     message="Chúc mừng, tài khoản đã được xác thực!";
-                    return res.render('index', {user: null, message: message, app: app});
+                    return res.render(process.env.NODE_ENV + '/index', {user: null, message: message, app: app});
                 }
             })
         })
@@ -124,7 +124,7 @@ exports.resetPage = function(req,res){
                 image: Config.app.image
             };
             message = "Token để reset password không tồn tại, hoặc đã hết hạn.";
-            return res.render('index', {message: message, user: null, app: app});
+            return res.render(process.env.NODE_ENV + '/index', {message: message, user: null, app: app});
         }
         return res.redirect('/action/' + req.params.token);
     });
@@ -458,7 +458,7 @@ exports.renderAction = function (req,res) {
         url: 'https://www.funstart.net',
         image: 'https://www.funstart.net/sources/ads.jpg'
     };
-    res.render('index', {app: app});
+    res.render(process.env.NODE_ENV + '/index', {app: app});
 };
 exports.requiresLogin = function(req, res, next) {
     if (req.user === 'guest' || !req.isAuthenticated()) {

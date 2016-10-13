@@ -376,7 +376,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         }
 
     }]);
-angular.module('funstart').directive('fsImg', function($routeParams) {
+angular.module('funstart').directive('fsImg', ['$routeParams',function($routeParams) {
     return {
         restrict: 'E',
         scope: false,
@@ -400,9 +400,9 @@ angular.module('funstart').directive('fsImg', function($routeParams) {
             elem.remove();
         }
     };
-});
+}]);
 
-angular.module('funstart').directive('fsScript', function($routeParams) {
+angular.module('funstart').directive('fsScript', ['$routeParams',function($routeParams) {
     return {
         restrict: 'E',
         scope: false,
@@ -426,7 +426,7 @@ angular.module('funstart').directive('fsScript', function($routeParams) {
 
         }
     };
-});
+}]);
 // angular.module('funstart').directive('ng-game', function() {
 //     return {
 //         restrict: 'E',
@@ -438,7 +438,7 @@ angular.module('funstart').directive('fsScript', function($routeParams) {
 //     };
 // });
 
-angular.module('funstart').directive('fsLink', function($routeParams) {
+angular.module('funstart').directive('fsLink', ['$routeParams',function($routeParams) {
     return {
         restrict: 'E',
         scope: false,
@@ -461,4 +461,4 @@ angular.module('funstart').directive('fsLink', function($routeParams) {
             elem.remove();
         }
     };
-});
+}]);

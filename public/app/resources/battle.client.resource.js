@@ -68,7 +68,7 @@ angular.module('funstart').service('FriendsOnlineService',['Users',function(User
     return self;
 
 }]);
-angular.module('funstart').service('BattleService',
+angular.module('funstart').service('BattleService',['$rootScope','$timeout','Rooms','Invite','$mdDialog','FriendsOnlineService','Users','FriendsService','Message','$mdToast','$location',
     function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,Message,$mdToast,$location) {
     var self = this;
     self.chat  = {};
@@ -810,4 +810,4 @@ angular.module('funstart').service('BattleService',
             Rooms.update({_id: self.room._id, obj: {isDead: true}});
         }
     }
-});
+}]);

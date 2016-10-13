@@ -1,7 +1,7 @@
 var User = require('mongoose').model('User'),
     Room = require('mongoose').model('Room'),
     Game = require('mongoose').model('Game');
-    socket = require('../config/socket');
+    socket = require('../config/'+process.env.NODE_ENV+'/socket');
 io = socket.getSocket();
 var connections = {};
 var roomsInterval = {};

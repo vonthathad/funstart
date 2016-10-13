@@ -57,7 +57,7 @@ module.exports = function(app) {
       if(req.user){
         user = req.user;
       }
-      res.render('index', {app: app, user: user, message: null});
+      res.render(process.env.NODE_ENV + '/index', {app: app, user: user, message: null});
     } else {
       next();
     }

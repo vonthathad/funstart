@@ -4,7 +4,7 @@ angular.module('funstart').directive('activityCard', function () {
         'scope': {
             item: '='
         },
-        'controller': function($scope,$rootScope){
+        'controller': ['$scope','$rootScope',function($scope,$rootScope){
             $scope.onViewProfile = function(item,ev){
                 var position = $($(ev.currentTarget).parent()).offset();
                 var top = position.top - $(window).scrollTop();
@@ -15,6 +15,6 @@ angular.module('funstart').directive('activityCard', function () {
                     left: left
                 };
             };
-        }
+        }]
     }
 });

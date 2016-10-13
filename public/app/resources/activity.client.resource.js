@@ -7,7 +7,7 @@ angular.module('funstart').factory('Activities', ['$resource',
         return $resource('api/activities');
     }
 ]);
-angular.module('funstart').service('ActivitiesService',function(Activities){
+angular.module('funstart').service('ActivitiesService',['Activities',function(Activities){
     var self = {
         'user': null,
         'game': null,
@@ -53,4 +53,4 @@ angular.module('funstart').service('ActivitiesService',function(Activities){
     };
     return self;
     
-});
+}]);

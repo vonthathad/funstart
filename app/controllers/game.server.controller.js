@@ -163,7 +163,7 @@ exports.renderGame = function(req,res){
         // user._doc.created = parseInt(user._doc.created.getTime());
         // user._doc.active = parseInt(user._doc.active.getTime());
     }
-    res.render('index', {app : app, message: null, user: user});
+    res.render(process.env.NODE_ENV + '/index', {app : app, message: null, user: user});
 };
 exports.renderTest = function(req,res){
     console.log('here');
@@ -200,7 +200,7 @@ exports.renderTest = function(req,res){
             // user._doc.created = parseInt(user._doc.created.getTime());
             // user._doc.active = parseInt(user._doc.active.getTime());
         }
-        res.render('index', {app : app, message: null, user: user});
+        res.render(process.env.NODE_ENV + '/index', {app : app, message: null, user: user});
     } else {
         res.status(401).send();
     }
