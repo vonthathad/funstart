@@ -13,6 +13,17 @@ angular.module('funstart').config([
         // $httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
     }
 ]);
+angular.module('funstart').directive('ngSrc', function(){
+    return {
+        restrict : 'A',
+        link: function (scope, elem, attr) {
+            if(attr.retina){
+                console.log('retina true');
+
+            }
+        }
+    };
+});
 angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSidenav','$mdDialog',function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdDialog){
     $rootScope.login = false;
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {

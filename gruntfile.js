@@ -42,7 +42,7 @@ module.exports = function (grunt) {
                     ],
                 }
             }
-        },
+        }
         // processhtml: {
         //     dist: {
         //         options: {
@@ -70,21 +70,21 @@ module.exports = function (grunt) {
         // },
         //
         // clean: ['dist*//*.min.*']
-        img: {
-            // using only dirs with output path
-            task1: {
-                src: 'public/sources/thumb/*.jpg',
-                dest: 'dist/img'
-            }
-        }
+        // img: {
+        //     // using only dirs with output path
+        //     task1: {
+        //         src: 'public/sources/thumb/*.jpg',
+        //         dest: 'dist/img'
+        //     }
+        // }
     });
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    // grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-img');
+    // grunt.loadNpmTasks('grunt-img');
     // grunt.loadNpmTasks('grunt-contrib-imagemin');
     // grunt.loadNpmTasks('grunt-processhtml');
     // grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.registerTask('default', ['cssmin','uglify','img']);//'processhtml','clean', 'htmlmin'
-    grunt.registerTask('build', ['cssmin','uglify','img']);//'htmlmin', 'processhtml'
+    grunt.registerTask('default', ['cssmin','uglify']);//'processhtml','clean', 'htmlmin','img'
+    grunt.registerTask('build', ['cssmin','uglify']);//'htmlmin', 'processhtml','img'
 };
