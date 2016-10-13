@@ -1,4 +1,3 @@
-
 module.exports = function (grunt) {
     console.log('vo day');
     grunt.initConfig({
@@ -44,40 +43,48 @@ module.exports = function (grunt) {
                 }
             }
         },
-        processhtml: {
-            dist: {
-                options: {
-                    process: true,
-                    data: {
-                        title: 'My app',
-                        message: 'This is production distribution'
-                    }
-                },
-                files: {
-                    'dist/index.min.html': ['index.html']
-                }
+        // processhtml: {
+        //     dist: {
+        //         options: {
+        //             process: true,
+        //             data: {
+        //                 title: 'My app',
+        //                 message: 'This is production distribution'
+        //             }
+        //         },
+        //         files: {
+        //             'dist/index.min.html': ['index.html']
+        //         }
+        //     }
+        // },
+        // htmlmin: {
+        //     dist: {
+        //         options: {
+        //             removeComments: true,
+        //             collapseWhitespace: true
+        //         },
+        //         files: {
+        //             'dist/index.html': 'dist/index.min.html'
+        //         }
+        //     }
+        // },
+        //
+        // clean: ['dist*//*.min.*']
+        img: {
+            // using only dirs with output path
+            task1: {
+                src: 'public/sources/thumb/*.jpg',
+                dest: 'dist/img'
             }
-        },
-        htmlmin: {
-            dist: {
-                options: {
-                    removeComments: true,
-                    collapseWhitespace: true
-                },
-                files: {
-                    'dist/index.html': 'dist/index.min.html'
-                }
-            }
-        },
-
-        clean: ['dist*//*.min.*']
+        }
     });
-
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-processhtml');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.registerTask('default', ['cssmin','uglify', 'processhtml', 'htmlmin','clean']);
-    grunt.registerTask('build', ['cssmin','uglify', 'htmlmin', 'processhtml']);
+    grunt.loadNpmTasks('grunt-img');
+    // grunt.loadNpmTasks('grunt-contrib-imagemin');
+    // grunt.loadNpmTasks('grunt-processhtml');
+    // grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.registerTask('default', ['cssmin','uglify','img']);//'processhtml','clean', 'htmlmin'
+    grunt.registerTask('build', ['cssmin','uglify','img']);//'htmlmin', 'processhtml'
 };
