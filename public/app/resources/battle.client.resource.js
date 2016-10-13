@@ -69,7 +69,7 @@ angular.module('funstart').service('FriendsOnlineService',['Users',function(User
 
 }]);
 angular.module('funstart').service('BattleService',
-    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,Message,$mdToast) {
+    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,Message,$mdToast,$location) {
     var self = this;
     self.chat  = {};
     self.status = {};
@@ -303,6 +303,9 @@ angular.module('funstart').service('BattleService',
 
         Rooms.save({gameId: self.game._id, mode: mode},function (res) {
             self.room = new Rooms(res.data);
+            q = '?' + window.location.href.split('?')[1] + '&roomdId=' + self.room._id;
+            $location.search({});
+            // location.search = ()
             self.messages = [];
             self.listenMessage();
             self.room.members = [{

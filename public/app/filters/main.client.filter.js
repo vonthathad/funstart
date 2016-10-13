@@ -36,7 +36,6 @@ angular.module('funstart').filter('timeAgo', function(){
 angular.module('funstart').filter('expPercent',function () {
     return function (items) {
         if(items){
-            console.log(parseInt((items.exp - items.level*items.level*100) / (items.next-items.level*items.level*100)*100));
             return parseInt((items.exp - items.level*items.level*100) / (items.next-items.level*items.level*100)*100);
         } else {
             return 0;

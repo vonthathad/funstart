@@ -1,4 +1,4 @@
-<md-list-item class="md-2-line recommend-item" ng-href="/game/{{::item._id}}?utm_campaign=tracking&utm_source=recommend">
+<md-list-item class="md-2-line recommend-item" ng-href="/game/{{::item._id}}?utm_campaign=tracking&utm_source=recommend&login={{$root.login}}">
     <img ng-src="{{::item.thumb}}" class="md-avatar">
     <div class="md-list-item-text">
         <h3><b>{{::item.title}}</b></h3>

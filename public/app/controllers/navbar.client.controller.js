@@ -1,8 +1,8 @@
 /**
  * Created by andh on 8/9/16.
  */
-angular.module('funstart').controller('NavbarController', ['$timeout', '$q','$log','$scope','$location','NavGamesService','$mdMenu','$mdDialog','$mdSidenav',
-    function($timeout, $q,$log,$scope,$location,NavGamesService,$mdMenu,$mdDialog,$mdSidenav){
+angular.module('funstart').controller('NavbarController', ['$timeout', '$q','$log','$scope','$location','NavGamesService','$mdMenu','$mdDialog','$mdSidenav','$rootScope',
+    function($timeout, $q,$log,$scope,$location,NavGamesService,$mdMenu,$mdDialog,$mdSidenav,$rootScope){
     $scope.initNavbar = function(){
         $scope.games = NavGamesService;
         $scope.games.loadRandomGames();
@@ -99,8 +99,7 @@ angular.module('funstart').controller('NavbarController', ['$timeout', '$q','$lo
         return deferred.promise;
     }
     $scope.gotoLink = function(selectedItem){
-        window.location.href = '/game/'+selectedItem._id+'?utm_campaign=tracking&utm_source=search';
-        
+        window.location.href = '/game/'+selectedItem._id+'?utm_campaign=tracking&utm_source=search&login=' + $rootScope.login;
     }
 
 

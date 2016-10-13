@@ -14,6 +14,7 @@ angular.module('funstart').config([
     }
 ]);
 angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdDialog){
+    $rootScope.login = false;
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         $( 'body' ).on( 'mousewheel DOMMouseScroll','.scrollable', function ( e ) {
             var e0 = e.originalEvent,
@@ -55,6 +56,7 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
     }
     if(window.user){
         $rootScope.user = user;
+        $rootScope.login = true;
         // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
         localStorage.setItem('token',$rootScope.user.token);
         initSocket();
@@ -71,6 +73,7 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
     else if(localStorage.getItem('token')){
         AuthToken.get(function(res){
             $rootScope.user = res.data;
+            $rootScope.login = true;
             // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
             // $rootScope.missions = MissionsService;
             // $rootScope.missions.loadMissions($rootScope.user._id);
@@ -78,6 +81,8 @@ angular.module('funstart').run(function($FB,AuthToken,Topics,$rootScope,$mdSiden
             //doan nay nho set online
         },function (err) {
             $rootScope.user = null;
+            localStorage.removeItem('token');
+            location.reload();
         })
     }
     function initSocket(){

@@ -7,8 +7,9 @@ angular.module('auth').controller('ActionController',['$scope','$rootScope','$lo
             ActionReset.save({token: $routeParams.token,password: $scope.new.password},function(res){
                 $scope.successAction = res.message;
                 $rootScope.user = res.data;
+                $rootScope.login = true;
                 localStorage.setItem('token',res.data.token);
-                sessionStorage.setItem('user',JSON.stringify($rootScope.user));
+                // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
                 $scope.submitting = false;
             },function(err){
                 $scope.errorAction = err.message;
@@ -24,6 +25,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
         $scope.submitting = false;
         $scope.onSignOut = function(){
             localStorage.removeItem('token');
+            $rootScope.login = false;
             // sessionStorage.removeItem('user');
             user = null;
             window.location.href = "logout";
@@ -38,6 +40,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             $scope.submitting = true;
             AuthFacebook.get(function(res){
                 $rootScope.user = res.data;
+                $rootScope.login = true;
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
                 localStorage.setItem('token',res.data.token);
@@ -52,6 +55,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             $scope.errorSignup = null;
             AuthSignup.save($scope.signupModel,function(res){
                 $rootScope.user = res.user;
+                $rootScope.login = true;
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
                 localStorage.setItem('token',res.user.token);
@@ -70,6 +74,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             console.log('here');
             AuthSignin.save($scope.signinModel,function(res){
                 $rootScope.user = res.user;
+                $rootScope.login = true;
                 localStorage.setItem('token',res.user.token);
                 // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
                 // $rootScope.missions = MissionsService;

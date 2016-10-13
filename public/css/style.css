@@ -1706,22 +1706,24 @@ md-tooltip{
 .message-bubble{
   text-align: left;
   margin-left: 8px;
-  padding: 8px;
+  padding: 4px 6px;
   background: #2b2e7b;
   color: #fff;
   border-radius: 8px;
   display: table;
   float: left;
+  font-size: 13px;
 }
 .message-bubble-me{
-  text-align: right;
-  margin-right: 8px;
-  padding: 8px;
+  margin-right: 4px;
+  padding: 4px 6px;
   background: #f1702f;
   color: #fff;
   border-radius: 8px;
   display: table;
   float: right;
+  text-align: left;
+  font-size: 13px;
 }
 .close-chat-btn{
   position: absolute;
