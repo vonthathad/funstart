@@ -37,7 +37,7 @@ FunstartGame.prototype.gameStart = function (callback){
        var controllerScope = angular.element(controllerElement).scope();
        this.objAngular = controllerScope;
    }
-    console.log('start',this.objAngular);
+    console.log('start call game');
     this.objAngular.start = callback;
 };
 FunstartGame.prototype.updateUserScore = function (data) {
@@ -81,7 +81,7 @@ FunstartGame.prototype.updateData = function (data,prepare,callback) {
     if(this.objAngular.battle) {
         this.objAngular.battle.updateData(data,callback);
     }
-    console.log('thuc hien update value');
+    console.log('thuc hien update data');
 };
 //create img result
 FunstartGame.prototype.createShare = function (obj, callback) {
@@ -101,7 +101,7 @@ FunstartGame.prototype.createShare = function (obj, callback) {
     } else {
         this.objAngular.shareFacebook = function(){
             create_img(function(){
-                console.log('heeee');
+                console.log('begin create image');
                 self.objAngular.share.shareFacebook(function(){
                     if(callback) callback();
                     console.log('done share');

@@ -108,15 +108,12 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
         socket.on('invite',function(data){
             console.log(data);
             $mdDialog.show({
-                    controller: function($scope, $mdDialog,$location) {
+                    controller: ['$scope','$mdDialog','$location',function($scope, $mdDialog,$location) {
                         $scope.hide = function() {
                             $mdDialog.hide();
                         };
                         $scope.cancel = function() {
                             $mdDialog.cancel();
-                        };
-                        $scope.answer = function(answer) {
-                            $mdDialog.hide(answer);
                         };
                         $scope.data = data;
                         $scope.goRoom = function(){
@@ -124,12 +121,12 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
                             $location.search({roomId : $scope.data.room});
                             $mdDialog.cancel();
                         }
-                    },
+                    }],
                     templateUrl: 'app/templates/inviteDialog.tmpl.html',
                     parent: angular.element(document.body),
                     clickOutsideToClose:true
                 })
-                .then(function(answer) {
+                .then(function() {
 
                 }, function() {
 

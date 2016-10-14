@@ -113,7 +113,6 @@ angular.module('funstart').service('FriendsService',['Users',function(Users){
 
                     });
                     self.isLoading = false;
-                    console.log(self.data);
                     if(!res.isNext){
                         self.hasMore = false;
                     }
@@ -174,7 +173,6 @@ angular.module('funstart').service('SuggestService',['Users',function(Users){
                     order: self.order
                 };
                 Users.get(params,function (res) {
-                    console.log(res.data);
                     angular.forEach(res.data,function(user){
                         user.isFriend = false;
                         self.data.push(new Users(user));

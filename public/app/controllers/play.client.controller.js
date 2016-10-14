@@ -120,13 +120,13 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         $scope.onPlay = function(){
             if($scope.battle && $scope.battle.room && $scope.battle.room.time){
                 socket.on('turn',function(data){
-                    console.log('turn',data);
-                    console.log('play',$scope.isPlay);
+                    // console.log('turn',data);
+                    // console.log('play',$scope.isPlay);
                     if(!$scope.isPlay){
-                        console.log('vo day de doi host');
+                        // console.log('vo day de doi host');
                         if(data[$rootScope.user._id] == 0){
                             $scope.battle.isHost = true;
-                            console.log('tao la host');
+                            // console.log('tao la host');
                         } else {
                             $scope.battle.isHost = false;
                         }
@@ -140,7 +140,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                                 }
                             });
                         });
-                        console.log($scope.battle.players);
+                        // console.log($scope.battle.players);
                     }
                     $scope.$apply();
                     $scope.setTimeProgress();
@@ -181,7 +181,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         $scope.uploadResult = function(obj,callback){
             var fd = new FormData();
             var url = '/api/uploadresult/' + $routeParams.gameId;
-            console.log(url);
+            // console.log(url);
             fd.append('file',obj.file);
             $http.post(url, fd, {
                     withCredentials : false,
@@ -335,7 +335,6 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $('body').css('overflow','auto');
         };
         $scope.onCloseBattle = function(){
-            console.log('Vo day');
             var confirm = $mdDialog.confirm()
                 .title('Thoát chế độ thách đấu')
                 .textContent('Bạn chắc chắn muốn thoát chứ?')

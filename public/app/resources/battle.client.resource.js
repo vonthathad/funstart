@@ -278,7 +278,7 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
         // self.room.players = tmp;
     }
     self.kickMember = function(user){
-        console.log('vo kick',user);
+        // console.log('vo kick',user);
         if(self.room) Rooms.update({_id: self.room._id, kick: user._id},function(res){
         },function(err){
         });
@@ -300,11 +300,10 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
 
     };
     self.createRoom = function(mode,callback){
-
         Rooms.save({gameId: self.game._id, mode: mode},function (res) {
             self.room = new Rooms(res.data);
-            q = '?' + window.location.href.split('?')[1] + '&roomdId=' + self.room._id;
-            $location.search({});
+            // q = '?' + window.location.href.split('?')[1] + '&roomdId=' + self.room._id;
+            // $location.search({});
             // location.search = ()
             self.messages = [];
             self.listenMessage();
@@ -385,7 +384,8 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
             $rootScope.$apply();
         });
         socket.on('leave',function(data){
-            console.log('leave',data);
+            console.log('leave');
+            // console.log('leave',data);
             if(self.room){
                 var toastJoin = $mdToast.simple()
                     .theme('md-accent')
@@ -415,10 +415,10 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
                     self.isHost = true;
                     self.room.link = window.location.href.split("?")[0] + '?roomId=' + self.room._id;
                 }
-                console.log(self.room.members);
+                // console.log(self.room.members);
                 if (kick == true){
                     $mdDialog.show({
-                            controller: function($scope, $mdDialog,$location) {
+                            controller: ['$scope', '$mdDialog','$location',function($scope, $mdDialog,$location) {
                                 $scope.hide = function() {
                                     $location.search({});
                                     $mdDialog.cancel();
@@ -431,7 +431,7 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
                                     $location.search({});
                                     $mdDialog.cancel();
                                 }
-                            },
+                            }],
                             templateUrl: 'app/templates/kickDialog.tmpl.html',
                             parent: angular.element(document.body),
                             clickOutsideToClose:false
@@ -471,9 +471,26 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
             self.status.isFullRoom = false;
             self.status.isReady = true;
             self.listenReadyLong = self.listenReady(error);
+            self.isReady = true;
+            self.updateReady(start);
+        } else if(self.room.mode == "room"){
+            if(self.room.members.length >= self.game.min){
+                self.isReady = true;
+                self.updateReady(start);
+            } else {
+                var alert = $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .textContent('Phải đủ '+ self.game.min + ' người mới có thể bắt đầu phòng chơi. Mời thêm bạn nhé!')
+                    .clickOutsideToClose(true)
+                    .title('THÔNG BÁO!')
+                    .ok('Okie!');
+                $mdDialog.show(alert).then(function() {
+                }, function() {
+                });
+            }
+
         }
-        self.isReady = true;
-        self.updateReady(start);
+
     };
     self.onBattle = function(callback){
 
@@ -483,11 +500,10 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
         //bat bat dau choi
         self.status.isIntro = true;
         self.room.status = 1;
-        console.log('chui vo start');
+        console.log('start');
         Rooms.update({_id: self.room._id,status: true});
 
         socket.on('players',function (players) {
-            console.log('end client',Date.now());
             self.room.players = players;
             self.updatePlayers();
             $rootScope.$apply();
@@ -530,10 +546,8 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
         var params = {
             action: 'follow'
         };
-        console.log('here');
         var tmpUser = new Users(item);
         tmpUser.$update(params,function(res){
-            console.log('done update',callback);
             if(callback) callback();
         });
     };
@@ -543,12 +557,10 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
         };
         var tmpUser = new Users(item);
         tmpUser.$update(params,function(res){
-            console.log('done update');
             if(callback) callback();
         });
     };
     self.updateList = function(bool,item){
-        console.log('vo update',item);
         if(bool){
             item.isFriend = true;
             $rootScope.user.friends.push(item._id);
@@ -714,11 +726,10 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
                 })
                 return check;
             });
-            console.log(self.friends.data);
+            // console.log(self.friends.data);
         }
     }
     self.updateObj = function(obj,prepare,callback){
-        console.log('begin client',Date.now());
         if(self.room) Rooms.update({_id: self.room._id, obj: obj, prepare: prepare},function(res){
             if(callback) callback();
         },function(err){

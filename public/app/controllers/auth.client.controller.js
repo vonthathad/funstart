@@ -18,8 +18,45 @@ angular.module('auth').controller('ActionController',['$scope','$rootScope','$lo
         }
 
 }]);
-angular.module('auth').controller('AuthController',['$scope','AuthFacebook','AuthSignup','AuthSignin','ActionReset','$rootScope','$http',
-    function($scope,AuthFacebook,AuthSignup,AuthSignin,ActionReset,$rootScope,$http){
+angular.module('auth').controller('AuthController',['$scope','AuthFacebook','AuthSignup','AuthSignin','ActionReset','$rootScope','$http','$mdDialog',
+    function($scope,AuthFacebook,AuthSignup,AuthSignin,ActionReset,$rootScope,$http,$mdDialog){
+        function initSocket(){
+            socket.emit('user', $rootScope.user.token);
+            socket.on('user',function(bool){
+                if(bool){
+                    console.log('da nhan ping tu server');
+                    $rootScope.readyBattle = true;
+                    $rootScope.$apply();
+                }
+            });
+            socket.on('invite',function(data){
+                console.log(data);
+                $mdDialog.show({
+                        controller: ['$scope','$mdDialog','$location',function($scope, $mdDialog,$location) {
+                            $scope.hide = function() {
+                                $mdDialog.hide();
+                            };
+                            $scope.cancel = function() {
+                                $mdDialog.cancel();
+                            };
+                            $scope.data = data;
+                            $scope.goRoom = function(){
+                                $location.path('/game/'+$scope.data.game._id);
+                                $location.search({roomId : $scope.data.room});
+                                $mdDialog.cancel();
+                            }
+                        }],
+                        templateUrl: 'app/templates/inviteDialog.tmpl.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose:true
+                    })
+                    .then(function() {
+
+                    }, function() {
+
+                    });
+            })
+        };
         $scope.location = window.location.href;
         $scope.signupModel = {};
         $scope.submitting = false;
@@ -41,6 +78,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             AuthFacebook.get(function(res){
                 $rootScope.user = res.data;
                 $rootScope.login = true;
+                initSocket();
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
                 localStorage.setItem('token',res.data.token);
@@ -56,6 +94,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             AuthSignup.save($scope.signupModel,function(res){
                 $rootScope.user = res.user;
                 $rootScope.login = true;
+                initSocket();
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
                 localStorage.setItem('token',res.user.token);
@@ -75,6 +114,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             AuthSignin.save($scope.signinModel,function(res){
                 $rootScope.user = res.user;
                 $rootScope.login = true;
+                initSocket();
                 localStorage.setItem('token',res.user.token);
                 // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
                 // $rootScope.missions = MissionsService;
