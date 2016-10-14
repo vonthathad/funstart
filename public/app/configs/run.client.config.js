@@ -88,7 +88,14 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
         $rootScope.user = user;
         $rootScope.login = true;
         // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
-        localStorage.setItem('token',$rootScope.user.token);
+        try
+        {
+            localStorage.setItem('token',$rootScope.user.token);
+        }
+        catch (error)
+        {
+            return false;
+        }
         initSocket();
         // $rootScope.missions = MissionsService;
         // $rootScope.missions.loadMissions($rootScope.user._id);

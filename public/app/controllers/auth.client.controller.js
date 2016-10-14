@@ -81,7 +81,14 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
                 initSocket();
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
-                localStorage.setItem('token',res.data.token);
+                try
+                {
+                    localStorage.setItem('token',$rootScope.user.token);
+                }
+                catch (error)
+                {
+                    return false;
+                }
                 // sessionStorage.setItem('user',JSON.stringify(res.data));
                 $scope.submitting = false;
                 $http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
@@ -97,7 +104,14 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
                 initSocket();
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
-                localStorage.setItem('token',res.user.token);
+                try
+                {
+                    localStorage.setItem('token',$rootScope.user.token);
+                }
+                catch (error)
+                {
+                    return false;
+                }
                 // sessionStorage.setItem('user',JSON.stringify(res.user));
                 $http.defaults.headers.common['Authorization'] = 'Bearer ' + res.user.token;
                 $scope.submitting = false;
@@ -115,7 +129,14 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
                 $rootScope.user = res.user;
                 $rootScope.login = true;
                 initSocket();
-                localStorage.setItem('token',res.user.token);
+                try
+                {
+                    localStorage.setItem('token',$rootScope.user.token);
+                }
+                catch (error)
+                {
+                    return false;
+                }
                 // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
