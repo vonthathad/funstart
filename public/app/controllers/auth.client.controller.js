@@ -7,7 +7,7 @@ angular.module('auth').controller('ActionController',['$scope','$rootScope','$lo
             ActionReset.save({token: $routeParams.token,password: $scope.new.password},function(res){
                 $scope.successAction = res.message;
                 $rootScope.user = res.data;
-                $rootScope.login = true;
+                $rootScope.login = 'local';
                 localStorage.setItem('token',res.data.token);
                 // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
                 $scope.submitting = false;
@@ -42,7 +42,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
                             $scope.data = data;
                             $scope.goRoom = function(){
                                 $location.path('/game/'+$scope.data.game._id);
-                                $location.search({roomId : $scope.data.room});
+                                $location.search({"roomId" : $scope.data.room,"utm_campaign": "tracking","utm_source":"invite","utm_medium":"login"});
                                 $mdDialog.cancel();
                             }
                         }],
@@ -77,7 +77,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             $scope.submitting = true;
             AuthFacebook.get(function(res){
                 $rootScope.user = res.data;
-                $rootScope.login = true;
+                $rootScope.login = 'facebook';
                 initSocket();
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
@@ -100,7 +100,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             $scope.errorSignup = null;
             AuthSignup.save($scope.signupModel,function(res){
                 $rootScope.user = res.user;
-                $rootScope.login = true;
+                $rootScope.login = 'local';
                 initSocket();
                 // $rootScope.missions = MissionsService;
                 // $rootScope.missions.loadMissions($rootScope.user._id);
@@ -127,7 +127,7 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
             console.log('here');
             AuthSignin.save($scope.signinModel,function(res){
                 $rootScope.user = res.user;
-                $rootScope.login = true;
+                $rootScope.login = 'local';
                 initSocket();
                 try
                 {

@@ -5,7 +5,7 @@
     <div class="activity-info" layout-align="start center">
         <span>Chơi</span>
         <img ng-src="{{::item.game.thumb}}">
-        <a ng-href="/game/{{::item.game._id}}?utm_campaign=tracking&utm_source=activity&login={{$root.login}}">{{::item.game.title}}</a>
+        <a ng-href="/game/{{::item.game._id}}?utm_campaign=tracking&utm_source=activity&utm_medium={{$root.login}}">{{::item.game.title}}</a>
         <span ng-if="!item.opponents.length"> đạt {{item.score}} điểm</span>
         <span ng-if="item.opponents.length"> và </span>
         <span ng-if="item.opponents.length && item.isWin" class="title win"> CHIẾN THẮNG </span>

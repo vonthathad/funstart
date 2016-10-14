@@ -13,7 +13,7 @@
             </md-button>
             <md-menu-content width="4">
                 <md-menu-item ng-repeat="item in games.data | limitTo: 6">
-                    <md-button ng-href="/game/{{::item._id}}?utm_campaign=tracking&utm_source=explorer&login={{$root.login}}"><img class="thumb-search" style="padding-right: 5px" ng-src="{{::item.thumb}}"> <span class="title-search"> {{::item.title}}</span></md-button>
+                    <md-button ng-href="/game/{{::item._id}}?utm_campaign=tracking&utm_source=explorer&utm_medium={{$root.login}}"><img class="thumb-search" style="padding-right: 5px" ng-src="{{::item.thumb}}"> <span class="title-search"> {{::item.title}}</span></md-button>
                 </md-menu-item>
             </md-menu-content>
         </md-menu>

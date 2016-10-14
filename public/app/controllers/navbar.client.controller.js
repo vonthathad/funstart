@@ -96,7 +96,7 @@ angular.module('funstart').controller('NavbarController', ['$timeout', '$q','$lo
         return deferred.promise;
     }
     $scope.gotoLink = function(selectedItem){
-        window.location.href = '/game/'+selectedItem._id+'?utm_campaign=tracking&utm_source=search&login=' + $rootScope.login;
+        window.location.href = '/game/'+selectedItem._id+'?utm_campaign=tracking&utm_source=search&utm_medium=' + $rootScope.login;
     }
 
 

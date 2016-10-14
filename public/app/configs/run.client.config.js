@@ -13,19 +13,8 @@ angular.module('funstart').config([
         // $httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
     }
 ]);
-angular.module('funstart').directive('ngSrc', function(){
-    return {
-        restrict : 'A',
-        link: function (scope, elem, attr) {
-            if(attr.retina){
-                console.log('retina true');
-
-            }
-        }
-    };
-});
 angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSidenav','$mdDialog',function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdDialog){
-    $rootScope.login = false;
+    $rootScope.login = 'guest';
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         $( 'body' ).on( 'mousewheel DOMMouseScroll','.scrollable', function ( e ) {
             var e0 = e.originalEvent,
@@ -86,7 +75,12 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
     ];
     if(window.user){
         $rootScope.user = user;
-        $rootScope.login = true;
+        if($rootScope.user.provider == 'facebook'){
+            $rootScope.login = 'facebook';
+        } else {
+            $rootScope.login = 'local';
+        }
+
         // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
         try
         {
@@ -110,7 +104,11 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
     else if(localStorage.getItem('token')){
         AuthToken.get(function(res){
             $rootScope.user = res.data;
-            $rootScope.login = true;
+            if($rootScope.user.provider == 'facebook'){
+                $rootScope.login = 'facebook';
+            } else {
+                $rootScope.login = 'local';
+            }
             // sessionStorage.setItem('user',JSON.stringify($rootScope.user));
             // $rootScope.missions = MissionsService;
             // $rootScope.missions.loadMissions($rootScope.user._id);
@@ -144,7 +142,7 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
                         $scope.data = data;
                         $scope.goRoom = function(){
                             $location.path('/game/'+$scope.data.game._id);
-                            $location.search({roomId : $scope.data.room});
+                            $location.search({"roomId" : $scope.data.room,"utm_campaign": "tracking","utm_source":"invite","utm_medium":"login"});
                             $mdDialog.cancel();
                         }
                     }],
