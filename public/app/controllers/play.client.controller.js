@@ -27,7 +27,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                             $location.search({});
                         });
                     } else {
-                        $scope.openSigninDialog();
+                        $scope.showSigninDialog();
                     }
                 }
             });
