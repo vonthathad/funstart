@@ -57,14 +57,33 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
         };
     });
     $FB.init('170584416691811');
-    if(sessionStorage.getItem('topics')){
-        $rootScope.topics = JSON.parse(sessionStorage.getItem('topics'));
-    } else {
-        Topics.get(function(res){
-            $rootScope.topics = res.data;
-            sessionStorage.setItem('topics',JSON.stringify(res.data));
-        })
-    }
+    $rootScope.topics = [
+        {
+            "_id" : 0,
+            "icon" : "ion-ios-bolt",
+            "name" : "Nhanh nhạy"
+        },
+        {
+            "_id" : 1,
+            "icon" : "ion-ios-infinite",
+            "name" : "Linh hoạt"
+        },
+        {
+            "_id" : 2,
+            "icon" : "ion-ios-lightbulb",
+            "name" : "Trí nhớ"
+        },
+        {
+            "_id" : 3,
+            "icon" : "ion-ios-eye",
+            "name" : "Tập trung"
+        },
+        {
+            "_id" : 4,
+            "icon" : "ion-ios-cog",
+            "name" : "Trí tuệ"
+        }
+    ];
     if(window.user){
         $rootScope.user = user;
         $rootScope.login = true;

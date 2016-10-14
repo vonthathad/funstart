@@ -110,14 +110,21 @@ angular.module('funstart').controller('UserController',['$scope','$rootScope','$
     });
     $scope.updateFriendList = function(bool,obj){
         console.log('vo update friend');
-        if(bool){
-            $scope.friends.data.push(obj);
-            $rootScope.user.friends.push(obj._id);
+        if($location.path().indexOf('user')<0 || $location.path().split('user/')[1] == $rootScope.user.username){
+            if(bool){
+                $scope.friends.data.push(obj);
+                $rootScope.user.friends.push(obj._id);
+            } else {
+                $scope.friends.data.splice($scope.friends.data.indexOf(obj),1);
+                $rootScope.user.friends.splice($rootScope.user.friends.indexOf(obj._id),1);
+            }
         } else {
-            $scope.friends.data.splice($scope.friends.data.indexOf(obj),1);
-            $rootScope.user.friends.splice($rootScope.user.friends.indexOf(obj._id),1);
+            if(bool){
+                $rootScope.user.friends.push(obj._id);
+            } else {
+                $rootScope.user.friends.splice($rootScope.user.friends.indexOf(obj._id),1);
+            }
         }
-
     };
     $scope.loadUser = function(){
         if($location.path().indexOf('user')>=0){

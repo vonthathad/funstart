@@ -160,7 +160,6 @@
                     <md-tab label="MỜI BẠN ({{battle.friends.data.length}})" ng-click="battle.refreshListInvite()">
                         <md-list>
                             <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
-                                 ng-if="mode=='friend'"
                                  infinite-scroll="battle.refreshListInviteMore()"
                                  infinite-scroll-immediate-check="false"
                                  infinite-scroll-distance="1">
@@ -181,7 +180,6 @@
                     <md-tab label="THÊM BẠN ({{suggestFriends.data.length}})">
                         <md-list>
                             <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}"
-                                 ng-if="mode=='friend'"
                                  infinite-scroll="suggestFriends.loadMore()"
                                  infinite-scroll-immediate-check="false"
                                  infinite-scroll-distance="1">

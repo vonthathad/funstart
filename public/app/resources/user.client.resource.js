@@ -35,6 +35,7 @@ angular.module('funstart').service('UserInfoService',['Users',function(Users){
                 action: 'follow'
             };
             self.data.$update(params,function(res){
+                console.log('update follow status');
                 self.data.isFriend = true;
                 if(callback) callback();
             });
@@ -46,6 +47,7 @@ angular.module('funstart').service('UserInfoService',['Users',function(Users){
 
             };
             self.data.$update(params,function(res){
+                console.log('update unfollow status');
                 self.data.isFriend = false;
                 if(callback) callback();
             });

@@ -1,8 +1,8 @@
 <section ng-if="$root.user" ng-controller="UserController" ng-init="loadUser()">
     <user-card data="data"
                check-user="checkUser()"
-               follow="userInfo.follow(callback)"
-               unfollow="userInfo.unfollow(callback)"
+               follow="$root.profile.follow(callback)"
+               unfollow="$root.profile.unfollow(callback)"
                update-friend-list = "updateFriendList(bool,input)">
     </user-card>
     <div layout="row" hide-md hide-lg>
