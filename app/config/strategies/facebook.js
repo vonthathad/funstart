@@ -32,6 +32,7 @@ var saveOAuthUserProfile = function(req, profile, done) {
                 User.findUniqueUsername(possibleUsername, null,
                     function(availableUsername) {
                         profile.username = availableUsername;
+                        profile.trackData = {};
                         user = new User(profile);
                         user.save(function(err,user) {
                             console.log(err);
