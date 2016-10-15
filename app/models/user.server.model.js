@@ -116,7 +116,10 @@ var UserSchema = new Schema({
     },
     room: String,
     rank: Number,
-    trackData: {}
+    trackData: {
+        type: Schema.Types.Mixed,
+        default: {}
+    }
 });
 UserSchema.plugin(autoIncrement.plugin, {
     model: 'User',
