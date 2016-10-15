@@ -48,7 +48,8 @@ var UserSchema = new Schema({
     mid: String,
     class: {
         type: Number,
-        enum: [0,1,2,3]
+        enum: [0,1,2,3],
+        default: 0
     },
     provider: {
         type: String,
