@@ -4,15 +4,17 @@
 /**
  * Created by andh on 7/28/16.
  */
-angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivitiesService','SuggestService','ShareService','BattleService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
-    function($scope,$rootScope,GamesService,ActivitiesService,SuggestService,ShareService,BattleService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
+angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivitiesService','SuggestService','ShareService','BattleService','TrackingService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
+    function($scope,$rootScope,GamesService,ActivitiesService,SuggestService,ShareService,BattleService,TrackingService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
         $scope.loadGame = function(){
             $scope.isInit = true;
             $scope.games = GamesService;
+            $scope.tracking = TrackingService;
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
                 document.title = $scope.games.currentGame.title;
                 $scope.isInit = false;
+
                 if($location.search().roomId){
                     if($rootScope.user){
                         $scope.isBattle = true;
@@ -64,6 +66,8 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         };
         $scope.finishLoading = function(){
             if($rootScope.user){
+                $scope.tracking.init('visit',$routeParams.gameId);
+                $scope.tracking.track();
                 $scope.user = {
                     _id: $rootScope.user._id,
                     username: $rootScope.user.username,
@@ -150,6 +154,11 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.isEnd = false;
             $scope.isPlay = true;
             $scope.start();
+            if($rootScope.user){
+                $scope.tracking.init('start',$routeParams.gameId);
+                $scope.tracking.track();
+            }
+
         }
         // $scope.onReplay = function(){
         //     $scope.isEnd = false;

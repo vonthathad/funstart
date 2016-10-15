@@ -31,3 +31,27 @@ angular.module('funstart').service('ShareService',function(){
     return self;
 
 });
+angular.module('funstart').factory('Tracking', ['$resource',
+    function($resource) {
+        return $resource('api/tracking', {
+        }, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }
+]);
+angular.module('funstart').service('TrackingService',['Tracking',function(Tracking){
+    var self = {
+        'source': null,
+        'game': null,
+        'init': function(source,game){
+            self.source = source;
+            self.game = game;
+        },
+        'track' : function () {
+            Tracking.update({source: self.source, game: self.game});
+        }
+    }
+    return self;
+}]);

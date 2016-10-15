@@ -34,6 +34,12 @@ exports.authLogout = function(req,res){
     res.redirect('/');
 };
 exports.authSignin = function(req,res){
+    var tmp = req.user.trackData;
+    req.user.trackData = {};
+    tmp.hourlySession = 0;
+    tmp.dailySession = 0;
+    req.user.trackData = tmp;
+    req.user.save();
     return res.status(200).send({user: req.user});
 };
 exports.authSignup = function(req,res){
@@ -43,6 +49,9 @@ exports.authSignup = function(req,res){
         user.username = req.body.username;
         user.displayName = req.body.username;
         user.password = req.body.password;
+        user.trackData = {};
+        user.trackData.hourlySession = 0;
+        user.trackData.dailySession = 0;
         user.provider = 'local';
         user.isVerified = false;
         user.avatar = "https://www.funstart.net/sources/ninja.png";
@@ -342,7 +351,6 @@ exports.loadUsers = function(req,res){
                         if(err) {
                             res.status(400).send();
                         } else {
-                            console.log('list fr online',data);
                             var isNext = false;
                             if(data.length==(paging+1)){
                                 isNext = true;
@@ -381,6 +389,15 @@ exports.authToken = function(req,res){
         res.json({data:req.user});
     });
     req.user.status = 1;
+    var tmp = req.user.trackData;
+    req.user.trackData = {};
+    if(Date.now() - req.user.active >= 3600000){
+        tmp.hourlySession = 0;
+    };
+    if(Date.now() - req.user.active >= 24*3600000){
+        tmp.dailySession = 0;
+    };
+    req.user.trackData = tmp;
     req.user.active = Date.now();
     req.user.save();
 };
@@ -480,3 +497,25 @@ exports.isDeveloper = function(req, res, next) {
     }
     next();
 };
+exports.trackUser = function(req,res){
+    console.log(req.body);
+    if(req.body.source && req.body.game && req.user._id){
+        var tmp = req.user.trackData;
+        req.user.trackData = {};
+        switch (req.body.source){
+            case 'start': tmp.lastPlay = req.body.game;break;
+            case 'visit':
+                tmp.lastVisit = req.body.game;
+                tmp.hourlySession = (tmp.hourlySession)?(tmp.hourlySession+1):1;
+                tmp.dailySession = (tmp.dailySession)?(tmp.dailySession+1):1;
+                req.user.trackData = tmp;break;
+        }
+        req.user.trackData = tmp;
+        req.user.save(function(err){
+            console.log(err);
+        });
+        res.status(200).send();
+    } else {
+        res.status(401).send();
+    }
+}

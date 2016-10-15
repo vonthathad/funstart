@@ -114,7 +114,8 @@ var UserSchema = new Schema({
         enum: [0,1,2]
     },
     room: String,
-    rank: Number
+    rank: Number,
+    trackData: {}
 });
 UserSchema.plugin(autoIncrement.plugin, {
     model: 'User',

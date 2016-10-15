@@ -24,7 +24,6 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
        if(socket.token){
           User.findOne({token: socket.token},function (err,data) {
-
               if(data){
                   console.log('User ' + data._id + ' vua out room ' + data.room);
                   disconnect(data);

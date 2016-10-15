@@ -148,8 +148,6 @@ exports.renderGame = function(req,res){
             url = url + '&rs_des=' + des;
         }
     }
-
-
     var app = {
         id: Config.app.id,
         name: title,

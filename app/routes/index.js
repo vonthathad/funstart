@@ -18,17 +18,19 @@ module.exports = function(app) {
   app.get('/oauth/facebook/callback',  passport.authenticate('facebook',{ failureRedirect: '/login' }),function(req,res){
     if(req.session.mid){
         req.user.mid = req.session.mid;
-        req.user.save();
         res.writeHead(301,
             {Location: 'https://www.messenger.com/closeWindow/?image_url=IMAGE_URL&display_text=DISPLAY_TEXT'}
         );
         res.end();
-        req.user.mid = req.session.mid;
-        res.redirect('/close');
     } else {
         res.redirect(req.session.redirect || '/');
     }
-
+    var tmp = req.user.trackData;
+    req.user.trackData = {};
+    tmp.hourlySession = 0;
+    tmp.dailySession = 0;
+    req.user.trackData = tmp;
+    req.user.save();
   });
   app.get('/logout',users.authLogout);
   app.route('/action/verify/:token')
