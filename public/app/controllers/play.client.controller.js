@@ -13,8 +13,10 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
                 document.title = $scope.games.currentGame.title;
+                if($scope.games.currentGame._id == 2){
+                    eventAdsense.load();
+                }
                 $scope.isInit = false;
-
                 if($location.search().roomId){
                     if($rootScope.user){
                         $scope.isBattle = true;
@@ -44,7 +46,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.isBattle = false;
             $scope.time = Date.now();
             $scope.share = ShareService;
-            // eventAdsense.load();
+
         };
         $scope.loadTest = function(){
             $scope.isInit = true;
