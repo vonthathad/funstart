@@ -659,24 +659,24 @@ Use of this source code is governed by an MIT-style license that can be in found
   .bottom-nav{
     padding-top: 48px;
   }
-  md-sidenav,md-backdrop{
+  md-backdrop,.md-sidenav-right,.md-sidenav-left{
     position: fixed;
   }
   .fixed{
     width: 100%;
-    z-index: 60;
+    z-index: 5;
   }
 }
 @media only screen and (max-width: 959px) and (min-width: 0) and (orientation: portrait){
   .bottom-nav{
     padding-top: 56px;
   }
-  md-sidenav,md-backdrop{
+  md-backdrop,.md-sidenav-right,.md-sidenav-left{
     position: fixed;
   }
   .fixed{
     width: 100%;
-    z-index: 60;
+    z-index: 5;
   }
 }
 @media only screen and (max-width: 959px){
