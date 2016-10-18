@@ -179,9 +179,7 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
                         };
                         $scope.data = data;
                         $scope.goRoom = function(){
-                            $location.path('/game/'+$scope.data.game._id);
-                            $location.search({"roomId" : $scope.data.room,"utm_campaign": "tracking","utm_source":"invite","utm_medium":"login"});
-                            $mdDialog.cancel();
+                            window.location.href = '/game/'+$scope.data.game._id+'?roomId=' + $scope.data.room + '&utm_campaign=tracking&utm_source=invite&utm_medium=login';
                         }
                     }],
                     templateUrl: 'app/templates/inviteDialog.tmpl.html',

@@ -53,6 +53,7 @@ io.on('connection', function (socket) {
 });
 function disconnect(data){
     Room.find({members: data._id},function(err,rooms){
+        console.log('room',rooms);
         if(rooms){
             rooms.forEach(function(room){
                 if(room.people <=1 || room.status != 1 && room.ready.length > 0 && room.mode == 'find'){
@@ -63,7 +64,7 @@ function disconnect(data){
                     var tmpTurn = null;
                     var tmp = room.players;
                     room.players = {};
-                    if(room.status == 0){
+                    if(room.status == 0 || room.status == 3){
                         if(indMember >= 0){
                             room.members.splice(indMember,1);
                             console.log('room con lai',room.members);
@@ -434,6 +435,7 @@ exports.updateRoom = function (req,res){
             req.room.mode = "room";
             req.room.ready = [];
             req.room.members = [req.user._id];
+            req.room.people = 1;
             req.room.save();
             res.json({data: req.room.members});
         } else {
@@ -462,7 +464,7 @@ exports.updateRoom = function (req,res){
 
 
         }
-    } else if(req.body.kick && req.room.turn == req.user._id && req.room.status == 0){
+    } else if(req.body.kick && req.room.turn == req.user._id && req.room.status == 0 || req.room.status == 3){
         var members = [];
         req.room.members.forEach(function(e,i){
             members.push(e._id);

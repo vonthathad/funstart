@@ -232,6 +232,7 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
     };
     self.onFindBattle = function(success,error){
         self.offSocket();
+        $location.search({});
         self.status.isSearching = true;
         self.listenSearchLong = self.listenSearch(error);
         Rooms.get({gameId: self.game._id},function(res){
@@ -581,6 +582,10 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
             isWaitRoom: true
         };
         self.room.mode = 'room';
+        self.offSocket();
+        self.handlingRoom();
+        $location.search({roomId: self.room._id});
+        self.room.link = window.location.href.split("?")[0] + '?roomId=' + self.room._id;
         if(self.room) Rooms.update({_id: self.room._id, again: true},function(res){
             self.isReady = false;
             self.room.status = 3;
