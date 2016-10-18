@@ -92,7 +92,7 @@
             <div layout="column" flex>
                 <md-toolbar ng-if="battle.status.isWaitRoom || battle.chat.isChat && (battle.status.isFullscreen || battle.status.isEndGame)" class="md-theme-light">
                     <h2 class="md-toolbar-tools">
-                        <md-button aria-label="closechat" class="md-icon-button" style="font-size: 1em" hide-gt-sm ng-click="battle.chat.isChat = false" ><i class="ion-android-arrow-back"></i> </md-button>
+                        <md-button aria-label="closechat" class="md-icon-button" style="font-size: 1em" ng-click="battle.chat.isChat = false" ><i class="ion-android-arrow-back"></i> </md-button>
                         <span flex>Chat:</span>
                     </h2>
                 </md-toolbar>
