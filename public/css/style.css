@@ -645,6 +645,9 @@ Use of this source code is governed by an MIT-style license that can be in found
     height: calc(100vh - 56px);
   }
 }
+.nav-toolbar{
+  position: relative;
+}
 .fixed{
   position: fixed;
   top: 0;
