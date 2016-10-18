@@ -268,7 +268,7 @@
                             <div ng-if="!isBattle" flex="65" layout="column">
                                 <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
                                     <div flex="35" layout-padding style="text-align: right">
-                                        <img ng-if="$root.user" class="canvas-avatar" ng-src="{{resultObj.image}}">
+                                        <img ng-if="resultObj.image" class="canvas-avatar" ng-src="{{resultObj.image}}">
                                     </div>
                                     <div flex="65" layout-padding class="canvas-info">
                                         <p>{{$root.user.displayName}}</p>
