@@ -70,7 +70,7 @@
         <!--GAME INFO PANEL-->
         <!--PLAYERS LIST DESKTOP-->
         <div ng-if="isBattle && (battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame)" layout="column" class="full-mode-2" ng-class="{'active':battle.chat.isChat}" >
-            <div layout="column" flex  ng-if="battle.status.isFullscreen" hide-xs hide-sm>
+            <div layout="column" class="rank-frame" ng-if="battle.status.isFullscreen" hide-xs hide-sm>
                 <md-toolbar class="md-theme-light">
                     <h2 class="md-toolbar-tools">
                         <span>Xếp hạng:</span>
@@ -89,7 +89,7 @@
                     </md-list>
                 </md-content>
             </div>
-            <div layout="column" flex>
+            <div layout="column" flex class="chat-frame">
                 <md-toolbar ng-if="battle.status.isWaitRoom || battle.chat.isChat && (battle.status.isFullscreen || battle.status.isEndGame)" class="md-theme-light">
                     <h2 class="md-toolbar-tools">
                         <md-button aria-label="closechat" class="md-icon-button" style="font-size: 1em" ng-click="battle.chat.isChat = false" ><i class="ion-android-arrow-back"></i> </md-button>

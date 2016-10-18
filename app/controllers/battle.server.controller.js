@@ -52,94 +52,96 @@ io.on('connection', function (socket) {
     });
 });
 function disconnect(data){
-    Room.findById(data.room,function(err,room){
-        console.log(room);
-        if(room){
-            if(room.people <=1 || room.status != 1 && room.ready.length > 0 && room.mode == 'find'){
-                console.log('co 1 dua thoi');
-                room.remove();
-            } else {
-                var indMember = room.members.indexOf(data._id);
-                var tmpTurn = null;
-                var tmp = room.players;
-                room.players = {};
-                if(room.status == 0){
-                    if(indMember >= 0){
-                        room.members.splice(indMember,1);
-                        console.log('room con lai',room.members);
-                        room.people--;
-                        tmpTurn = tmp[data._id].turn;
-                        delete tmp[data._id];
-                        Object.keys(tmp).forEach(function(e){
-                            if(tmp[e].connect == 1 && tmp[e].turn > tmpTurn){
-                                tmp[e].turn --;
-                                if(tmp[e].turn == 0){
-                                    console.log('doi turn cho '+e);
-                                    room.turn = e;
-                                };
-                            } else {
-                                tmp[e].turn = null;
-                            }
-                        });
-                        room.ready = [];
-                        room.players = tmp;
-                        io.to(room._id).emit('leave',{members: room.members,turn: room.turn});
-                        console.log('member',room.members);
-                    }
-                    // var tmp = room.players;
-                    // room.players = {};
-                    // Object.keys(tmp).forEach(function(e){
-                    //     delete tmp[e].isReady;
-                    // });
-                    // room.players = tmp;
-                } else if(room.status != 0){
-                    if (tmp[data._id]) {
-                        tmp[data._id].connect = 0;
-                        room.people--;
-                        if(room.time){
-                            console.log('vo update turn khi disconnect',tmp);
-                            var dataTurn = {};
-                            if(room.turn == data._id){
-                                Object.keys(tmp).forEach(function(e){
-                                    if(tmp[e].connect == 1){
-                                        tmp[e].turn --;
-                                        if(tmp[e].turn == 0){
-                                            room.turn = e;
-                                        };
-                                        dataTurn[e] = tmp[e].turn;
-                                    } else {
-                                        tmp[e].turn = null;
-                                        dataTurn[e] = null;
-                                    }
-                                });
-                                console.log('vo trong nay',room.turn);
-                                console.log('vo trong nay data',dataTurn);
-                                io.to(room._id).emit('turn',dataTurn);
-                            } else {
-                                tmpTurn = tmp[data._id].turn;
-                                Object.keys(tmp).forEach(function(e){
-                                    if(tmp[e].connect == 1 && tmp[e].turn > tmpTurn){
-                                        tmp[e].turn --;
-                                        dataTurn[e] = tmp[e].turn;
-                                    } else {
-                                        tmp[e].turn = null;
-                                        dataTurn[e] = null;
-                                    }
-                                });
-                            }
+    Room.find({members: data._id},function(err,rooms){
+        if(rooms){
+            rooms.forEach(function(room){
+                if(room.people <=1 || room.status != 1 && room.ready.length > 0 && room.mode == 'find'){
+                    console.log('co 1 dua thoi');
+                    room.remove();
+                } else {
+                    var indMember = room.members.indexOf(data._id);
+                    var tmpTurn = null;
+                    var tmp = room.players;
+                    room.players = {};
+                    if(room.status == 0){
+                        if(indMember >= 0){
+                            room.members.splice(indMember,1);
+                            console.log('room con lai',room.members);
+                            room.people--;
+                            tmpTurn = tmp[data._id].turn;
+                            delete tmp[data._id];
+                            Object.keys(tmp).forEach(function(e){
+                                if(tmp[e].connect == 1 && tmp[e].turn > tmpTurn){
+                                    tmp[e].turn --;
+                                    if(tmp[e].turn == 0){
+                                        console.log('doi turn cho '+e);
+                                        room.turn = e;
+                                    };
+                                } else {
+                                    tmp[e].turn = null;
+                                }
+                            });
+                            room.ready = [];
                             room.players = tmp;
-                            setRoomInterval(room);
-                        } else {
-                            room.players = tmp;
+                            io.to(room._id).emit('leave',{members: room.members,turn: room.turn});
+                            console.log('member',room.members);
                         }
-                        io.to(room._id).emit('leave',data._id);
+                        // var tmp = room.players;
+                        // room.players = {};
+                        // Object.keys(tmp).forEach(function(e){
+                        //     delete tmp[e].isReady;
+                        // });
+                        // room.players = tmp;
+                    } else if(room.status != 0){
+                        if (tmp[data._id]) {
+                            tmp[data._id].connect = 0;
+                            room.people--;
+                            if(room.time){
+                                console.log('vo update turn khi disconnect',tmp);
+                                var dataTurn = {};
+                                if(room.turn == data._id){
+                                    Object.keys(tmp).forEach(function(e){
+                                        if(tmp[e].connect == 1){
+                                            tmp[e].turn --;
+                                            if(tmp[e].turn == 0){
+                                                room.turn = e;
+                                            };
+                                            dataTurn[e] = tmp[e].turn;
+                                        } else {
+                                            tmp[e].turn = null;
+                                            dataTurn[e] = null;
+                                        }
+                                    });
+                                    console.log('vo trong nay',room.turn);
+                                    console.log('vo trong nay data',dataTurn);
+                                    io.to(room._id).emit('turn',dataTurn);
+                                } else {
+                                    tmpTurn = tmp[data._id].turn;
+                                    Object.keys(tmp).forEach(function(e){
+                                        if(tmp[e].connect == 1 && tmp[e].turn > tmpTurn){
+                                            tmp[e].turn --;
+                                            dataTurn[e] = tmp[e].turn;
+                                        } else {
+                                            tmp[e].turn = null;
+                                            dataTurn[e] = null;
+                                        }
+                                    });
+                                }
+                                room.players = tmp;
+                                setRoomInterval(room);
+                            } else {
+                                room.players = tmp;
+                            }
+                            io.to(room._id).emit('leave',data._id);
+                        }
+
                     }
 
+                    room.save();
+                    if(connections[data._id]) connections[data._id].leave(room._id);
                 }
+            })
 
-                room.save();
-                if(connections[data._id]) connections[data._id].leave(room._id);
-            }
         }
     });
 }
@@ -250,7 +252,6 @@ function enterRoom(room,user,success,error) {
             };
             result.members[result.members.length - 1] = player;
             user.status = 2;
-            user.room = room._id;
             user.save();
             if(connections[user._id]) connections[user._id].join(result._id);
             io.to(result._id).emit('join',result.members);

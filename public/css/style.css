@@ -1262,13 +1262,16 @@ md-toast {
   height: 100%;
   overflow-y: auto;
 }
+.chat-frame,.rank-frame{
+  height: 100%;
+}
 .chat-list{
   border-top: 1px solid #bababa;
-  min-height: calc(50vh - 64px);
+  min-height: calc(100% - 64px);
   overflow-y: auto;
 }
 .chat-list-full{
-  min-height: calc(100vh - 128px);
+  min-height: calc(100% - 128px);
   overflow-y: auto;
 }
 .room-list{
