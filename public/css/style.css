@@ -646,16 +646,15 @@ Use of this source code is governed by an MIT-style license that can be in found
   }
 }
 .nav-toolbar{
-  position: relative;
-}
-.fixed{
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 60;
+  position: fixed;
 }
+
 .bottom-nav{
+  position: relative;
   padding-top: 64px;
 }
 @media only screen and (max-width: 959px) and (min-width: 0) and (orientation: landscape) {
@@ -665,13 +664,7 @@ Use of this source code is governed by an MIT-style license that can be in found
   md-backdrop,.md-sidenav-right,.md-sidenav-left{
     position: fixed;
   }
-  .fixed{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 5;
-  }
+
 }
 @media only screen and (max-width: 959px) and (min-width: 0) and (orientation: portrait){
   .bottom-nav{
@@ -679,13 +672,6 @@ Use of this source code is governed by an MIT-style license that can be in found
   }
   md-backdrop,.md-sidenav-right,.md-sidenav-left{
     position: fixed;
-  }
-  .fixed{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 5;
   }
 }
 @media only screen and (max-width: 959px){
