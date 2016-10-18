@@ -15,6 +15,20 @@ angular.module('funstart').config([
 ]);
 angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSidenav','$mdDialog',function($FB,AuthToken,Topics,$rootScope,$mdSidenav,$mdDialog){
     $rootScope.login = 'guest';
+    $rootScope.messages = [];
+    socket.on('chatAll',function (data) {
+        $rootScope.messages.push({
+            displayName: data.displayName,
+            username: data.username,
+            avatar: data.avatar,
+            message: data.message,
+            time: new Date(data.time).toTimeString().split(' ')[0],
+            type: 2
+        });
+        var objDiv = document.getElementById("scroll-bottom-1");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        $rootScope.$apply();
+    });
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         $( 'body' ).on( 'mousewheel DOMMouseScroll','.scrollable', function ( e ) {
             var e0 = e.originalEvent,
@@ -73,6 +87,18 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
             "name" : "Trí tuệ"
         }
     ];
+    $rootScope.onViewProfile = function(item,ev){
+        var position = $($(ev.currentTarget).parent()).offset();
+        var top = position.top - $(window).scrollTop();
+        var left = position.left;
+        console.log(item);
+        $rootScope.popupProfile = {
+            name: item.username,
+            top: top,
+            left: left
+        };
+        console.log($rootScope.popupProfile);
+    };
     if(window.user){
         $rootScope.user = user;
         if($rootScope.user.provider == 'facebook'){
@@ -124,8 +150,18 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
         socket.emit('user', $rootScope.user.token);
         socket.on('user',function(bool){
             if(bool){
-                console.log('da nhan ping tu server');
                 $rootScope.readyBattle = true;
+                $rootScope.chat = {};
+                $rootScope.onSendMessage = function(){
+                    socket.emit('chatAll',{
+                        message: $rootScope.chat.message,
+                        avatar: $rootScope.user.avatar,
+                        displayName: $rootScope.user.displayName,
+                        userId: $rootScope.user._id,
+                        username: $rootScope.user.username,
+                        time: Date.now()});
+                    $rootScope.chat.message = '';
+                };
                 $rootScope.$apply();
             }
         });

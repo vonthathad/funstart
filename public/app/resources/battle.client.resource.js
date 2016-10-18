@@ -16,13 +16,6 @@ angular.module('funstart').factory('Invite', ['$resource',
         });
     }
 ]);
-angular.module('funstart').factory('Message', ['$resource',
-    function($resource) {
-        return $resource('api/message/room/:id', {
-            id: '@_id'
-        });
-    }
-]);
 angular.module('funstart').service('FriendsOnlineService',['Users',function(Users){
     var self = {
         'isLoading': false,
@@ -68,8 +61,8 @@ angular.module('funstart').service('FriendsOnlineService',['Users',function(User
     return self;
 
 }]);
-angular.module('funstart').service('BattleService',['$rootScope','$timeout','Rooms','Invite','$mdDialog','FriendsOnlineService','Users','FriendsService','Message','$mdToast','$location',
-    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,Message,$mdToast,$location) {
+angular.module('funstart').service('BattleService',['$rootScope','$timeout','Rooms','Invite','$mdDialog','FriendsOnlineService','Users','FriendsService','$mdToast','$location',
+    function ($rootScope,$timeout,Rooms,Invite,$mdDialog,FriendsOnlineService,Users,FriendsService,$mdToast,$location) {
     var self = this;
     self.chat  = {};
     self.status = {};
@@ -677,7 +670,7 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
         socket.off('join');
         socket.off('leave');
         socket.off('again');
-        socket.off('chat');
+        socket.off('chatRoom');
     }
     self.onCreateRoom = function(){
         self.offSocket();
@@ -744,7 +737,7 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
         });
     };
     self.onSendMessage = function(){
-        socket.emit('chat',{roomId: self.room._id, message: self.chat.message, userId:self.user._id});
+        socket.emit('chatRoom',{roomId: self.room._id, message: self.chat.message, userId:self.user._id});
         self.chat.message = '';
         // Message.save({_id: self.room._id,message: self.message},function(){
         //     self.message = '';
@@ -755,7 +748,7 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
         self.chat.isChat = true;
     }
     self.listenMessage = function(){
-        socket.on('chat',function (data) {
+        socket.on('chatRoom',function (data) {
            if(data.id == self.user._id){
                self.messages.push({
                    displayName: self.user.displayName,
@@ -780,6 +773,8 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
                });
 
            }
+            var objDiv = document.getElementById("scroll-bottom-2");
+            objDiv.scrollTop = objDiv.scrollHeight;
             $rootScope.$apply();
         });
     }

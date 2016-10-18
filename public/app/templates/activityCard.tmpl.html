@@ -11,7 +11,7 @@
         <span ng-if="item.opponents.length && item.isWin" class="title win"> CHIẾN THẮNG </span>
         <span ng-if="item.opponents.length && !item.isWin" class="title lose"> THUA CUỘC </span>
         <div class="activity-opponent" ng-class="{'win': item.isWin,'lose': !item.isWin}" ng-repeat="opponent in item.opponents">
-            <img ng-src="{{opponent.avatar}}"><a ng-click="onViewProfile(opponent, $event)" class="name">{{opponent.displayName}}</a>
+            <img ng-src="{{opponent.avatar}}"><a ng-click="$root.onViewProfile(opponent, $event)" class="name">{{opponent.displayName}}</a>
         </div>
     </div>
 </div>

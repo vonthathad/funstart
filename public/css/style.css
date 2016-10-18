@@ -1696,6 +1696,26 @@ md-tooltip{
 .side-game-panel>md-content{
   height: calc(100% - 64px);
 }
+.chat-all-index{
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.chat-all-game{
+  height: calc(100vh - 140px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+@media screen and (max-width: 769px){
+  .chat-all-game{
+    height: 150px;
+  }
+}
+@media screen and (max-width: 769px) and (max-height: 600px){
+  .chat-all-game{
+    height: 80px;
+  }
+}
 .message-panel{
   margin: 4px 8px;
 }
@@ -1713,6 +1733,19 @@ md-tooltip{
   display: table;
   float: left;
   font-size: 13px;
+}
+.message-description{
+  font-size: 0.7em;
+  color: #666;
+}
+.message-name>a{
+  font-size: 0.85em;
+  font-weight: bold;
+  color: #232323;
+  cursor: pointer;
+}
+.message-name>a:hover{
+  text-decoration: underline;
 }
 .message-bubble-me{
   margin-right: 4px;

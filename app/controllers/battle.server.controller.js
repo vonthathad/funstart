@@ -34,11 +34,21 @@ io.on('connection', function (socket) {
           })
        }
     });
-    socket.on('chat',function(data){
-        console.log('chat',data);
+    socket.on('chatRoom',function(data){
+        console.log('chatRoom',data);
         if(data.roomId){
-            io.to(data.roomId).emit('chat',{message: data.message,id: data.userId});
+            io.to(data.roomId).emit('chatRoom',{message: data.message,id: data.userId});
         }
+    });
+    socket.on('chatAll',function(data){
+        console.log('chatAll',data);
+        io.sockets.emit('chatAll',{
+            message: data.message,
+            id: data.userId,
+            displayName: data.displayName,
+            avatar: data.avatar,
+            username: data.username,
+            time: data.time});
     });
 });
 function disconnect(data){

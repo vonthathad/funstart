@@ -26,6 +26,17 @@ angular.module('auth').controller('AuthController',['$scope','AuthFacebook','Aut
                 if(bool){
                     console.log('da nhan ping tu server');
                     $rootScope.readyBattle = true;
+                    $rootScope.chat = {};
+                    $rootScope.onSendMessage = function(){
+                        socket.emit('chatAll',{
+                            message: $rootScope.chat.message,
+                            avatar: $rootScope.user.avatar,
+                            displayName: $rootScope.user.displayName,
+                            userId: $rootScope.user._id,
+                            username: $rootScope.user.username,
+                            time: Date.now()});
+                        $rootScope.chat.message = '';
+                    };
                     $rootScope.$apply();
                 }
             });

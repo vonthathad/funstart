@@ -31,6 +31,10 @@ angular.module('funstart').service('ActivitiesService',['Activities',function(Ac
             self.hasMore = true;
             self.isLoading = false;
         },
+        "loadMore": function(){
+            self.page++;
+            self.loadActivities();
+        },
         "loadActivities": function(){
             if(!self.isLoading && self.hasMore){
                 self.isLoading = true;
@@ -40,8 +44,11 @@ angular.module('funstart').service('ActivitiesService',['Activities',function(Ac
                 if(self.game) params.game = self.game;
                 if(self.user) params.user = self.user;
                 Activities.get(params,function(res){
-                    console.log(res);
-                    self.data = res.data;
+                    angular.forEach(res.data,function(activity){
+                        console.log(activity);
+                        self.data.push(new Activities(activity));
+                    });
+
                     if(!res.isNext){
                         self.hasMore = false;
                     }

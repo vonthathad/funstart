@@ -71,8 +71,9 @@ angular.module('funstart').service('ShortInfoService',['Users',function(Users){
                 };
                 Users.get(params,function (res) {
                     self.data = new Users(res.data);
-                    if(callback) callback();
                     self.isLoading = false;
+                    if(callback) callback();
+
                 });
 
             }

@@ -35,6 +35,4 @@ angular.module('funstart').controller('IndexController', ['$scope','$rootScope',
 
             });
         }
-  
-
     }]);

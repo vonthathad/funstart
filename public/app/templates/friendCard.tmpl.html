@@ -1,7 +1,7 @@
 <md-list-item class="md-3-line friend-item">
     <a class="a-item"><img ng-src="{{::item.avatar}}" class="md-avatar"></a>
     <div class="md-list-item-text">
-        <a ng-click="onViewProfile($event)" class="a-item" style="cursor: pointer"><h4>{{::item.displayName}}</h4></a>
+        <a ng-click="$root.onViewProfile(item,$event)" class="a-item" style="cursor: pointer"><h4>{{::item.displayName}}</h4></a>
         <p ng-if="mode=='friend' || mode=='search' || mode=='invite'" class="clearfix">Level {{::item.level}}</p>
         <div ng-if="mode=='room'" class="user-subhead">
             <img class="title-class" ng-src="/img/class{{item.class}}-small.gif">

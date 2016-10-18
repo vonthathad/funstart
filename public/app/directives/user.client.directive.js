@@ -63,17 +63,8 @@ angular.module('funstart').directive('friendCard', function () {
             'statusClass' : '&',
             'updateList' : '&'
         },
-        controller: ['$scope','$rootScope',function ($scope,$rootScope) {
-            $scope.onViewProfile = function(ev){
-                var position = $($(ev.currentTarget).parent().parent()).offset();
-                var top = position.top - $(window).scrollTop();
-                var left = position.left;
-                $rootScope.popupProfile = {
-                    name: $scope.item.username,
-                    top: top,
-                    left: left
-                };
-            };
+        controller: ['$scope',function ($scope) {
+
             $scope.updateFollow = function(){
                 $scope.updateList({bool: true,input: $scope.item});
                 $scope.isLoading = false;

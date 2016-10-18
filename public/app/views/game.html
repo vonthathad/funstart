@@ -21,7 +21,9 @@
         <!--GAME PANEL-->
         <!--<div ng-if="!games.isLoading" ng-include="'/sources/game/9/'" onload="finishLoading()"></div>-->
         <!--GAME INFO PANEL-->
-        <div ng-if="!isPlay && !isEnd" class="pre-game" layout="column" layout-align="center center">
+        <div ng-if="!isPlay && !isEnd" class="pre-game" layout="row" layout-wrap layout-align="center center">
+            <message-frame ng-if="games.currentGame.multi >= 1" flex="33" flex-md="50" flex-sm="100" flex-xs="100" type="1" style="max-width: 500px;"></message-frame>
+            <div flex="66" flex-md="50" flex-sm="100" flex-xs="100" layout="column" layout-align="center center">
             <div class="game-info">
                 <md-button aria-label="Thumb" class="md-raised"><img ng-src="{{games.currentGame.thumb}}"></md-button>
                 <div class="title">{{games.currentGame.title}}</div>
@@ -63,6 +65,7 @@
                 <i class="ion-android-home"></i>
                 <span> Tạo phòng</span>
             </md-button>
+            </div>
         </div>
         <!--GAME INFO PANEL-->
         <!--PLAYERS LIST DESKTOP-->
@@ -93,7 +96,7 @@
                         <span flex>Chat:</span>
                     </h2>
                 </md-toolbar>
-                <md-content ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}">
+                <md-content ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}" id="scroll-bottom-2">
                     <message-panel ng-repeat="item in battle.messages" item="item"></message-panel>
                 </md-content>
                 <div style="height: 64px">

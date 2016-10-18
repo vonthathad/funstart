@@ -6,3 +6,11 @@ angular.module('funstart').directive('messagePanel', function () {
         }
     }
 });
+angular.module('funstart').directive('messageFrame', function () {
+    return {
+        'templateUrl': '/app/templates/messageFrame.tmpl.html',
+        'scope' : {
+            type: '='
+        }
+    }
+});

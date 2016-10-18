@@ -3,18 +3,6 @@ angular.module('funstart').directive('activityCard', function () {
         'templateUrl': '/app/templates/activityCard.tmpl.html',
         'scope': {
             item: '='
-        },
-        'controller': ['$scope','$rootScope',function($scope,$rootScope){
-            $scope.onViewProfile = function(item,ev){
-                var position = $($(ev.currentTarget).parent()).offset();
-                var top = position.top - $(window).scrollTop();
-                var left = position.left;
-                $rootScope.popupProfile = {
-                    name: item.username,
-                    top: top,
-                    left: left
-                };
-            };
-        }]
+        }
     }
 });
