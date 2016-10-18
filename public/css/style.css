@@ -663,6 +663,9 @@ Use of this source code is governed by an MIT-style license that can be in found
     position: fixed;
   }
   .fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     z-index: 5;
   }
@@ -675,6 +678,9 @@ Use of this source code is governed by an MIT-style license that can be in found
     position: fixed;
   }
   .fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     z-index: 5;
   }
