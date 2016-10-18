@@ -28,6 +28,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                         $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,function(){
                             console.log('room err');
                             $scope.isBattle = false;
+                            $scope.isPlay = false;
                             $location.search({});
                         });
                     } else {

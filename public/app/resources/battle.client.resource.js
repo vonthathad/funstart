@@ -125,20 +125,15 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
             });
         }
         $(document).bind('touchmove','#chat-btn', function() {
-            //Assume only one touch/only process one touch even if there's more
-            var touch = event.targetTouches[0];
-            if(touch.pageY>0 && touch.pageX>0 && touch.pageY<$(window).height() && touch.pageX < $(window).width()){
-                $('#chat-btn').offset({top: touch.pageY - 25,left : touch.pageX - 25});
-            }
-            // Is touch close enough to our object?
-            // if(detectHit(obj.x, obj.y, touch.pageX, touch.pageY, obj.w, obj.h)) {
-            //     // Assign new coordinates to our object
-            //     obj.x = touch.pageX;
-            //     obj.y = touch.pageY;
-            //
-            //     // Redraw the canvas
-            // }
-            event.preventDefault();
+            if($(event.target).parent() && $(event.target).parent().attr("id")=="chat-btn"){
+                //Assume only one touch/only process one touch even if there's more
+                var touch = event.targetTouches[0];
+                if(touch.pageY>0 && touch.pageX>0 && touch.pageY<$(window).height() && touch.pageX < $(window).width()){
+                    $('#chat-btn').offset({top: touch.pageY - 25,left : touch.pageX - 25});
+                }
+                event.preventDefault();
+            };
+
         }, false);
     }
     self.onCloseBattle = function(){
@@ -414,14 +409,17 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
                             controller: ['$scope', '$mdDialog','$location',function($scope, $mdDialog,$location) {
                                 $scope.hide = function() {
                                     $location.search({});
+                                    window.location.reload();
                                     $mdDialog.cancel();
                                 };
                                 $scope.cancel = function() {
                                     $location.search({});
+                                    window.location.reload();
                                     $mdDialog.cancel();
                                 };
                                 $scope.goHome = function(){
                                     $location.search({});
+                                    window.location.reload();
                                     $mdDialog.cancel();
                                 }
                             }],
@@ -681,6 +679,7 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
         self.status.isWaitRoom = true;
         self.createRoom("room",function(key){
             self.isReady = false;
+            $location.search({roomId: key});
             self.room.link = window.location.href.split("?")[0] + '?roomId=' + key;
         });
         // var toastBattleAgain = $mdToast.simple()
@@ -773,8 +772,10 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
                });
 
            }
-            var objDiv = document.getElementById("scroll-bottom-2");
-            objDiv.scrollTop = objDiv.scrollHeight;
+            setTimeout(function(){
+                var objDiv = document.getElementById("scroll-bottom-2");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            },100);
             $rootScope.$apply();
         });
     }

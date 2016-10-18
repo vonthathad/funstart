@@ -5,7 +5,8 @@ angular.module('funstart').config([
         $routeProvider.when('/', {
             templateUrl: '/app/views/index.html'
         }).when('/game/:gameId', {
-            templateUrl: '/app/views/game.html'
+            templateUrl: '/app/views/game.html',
+            reloadOnSearch: false
         }).
         when('/user/:username',{
             templateUrl: '/app/views/user.html'

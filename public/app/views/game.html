@@ -1,7 +1,7 @@
 <script async defer type="text/javascript" src="/js/ads.js"></script>
 <script async defer type="text/javascript" src="/js/html2canvas.js"></script>
 
-<div ng-controller="PlayController" ng-init="loadGame()" >
+<div ng-controller="PlayController" ng-init="loadGame()" style="position: relative">
     <!--GAME SCREEN-->
     <div class="game-section" id="contentElement" flex>
         <!--them game vao day-->
@@ -76,9 +76,9 @@
                         <span>Xếp hạng:</span>
                     </h2>
                 </md-toolbar>
-                <md-content>
+                <md-content class="player-list">
                     <md-list>
-                        <div class="player-list">
+                        <div>
                             <friend-card ng-repeat="item in battle.players | orderBy: battle.orderPlayer"
                                          status-class="statusClass(input)"
                                          game-type="games.currentGame.type"
@@ -133,10 +133,10 @@
                         </md-input-container>
                     </div>
                 </div>
-                <md-tabs md-dynamic-height>
+                <md-tabs ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
                     <md-tab label="THÀNH VIÊN [{{battle.room.people}}/{{battle.game.max}}]">
                         <md-list>
-                        <div ng-class="{'room-list-host': battle.isHost,'room-list': !battle.isHost}">
+                        <div>
                             <friend-card ng-repeat="item in battle.room.members"
                                          item="item"
                                          game-type="battle.game.type"
@@ -173,7 +173,7 @@
                                 </friend-card>
                                 <loading-circle flex="100" is-loading="battle.friends.isLoading"></loading-circle>
                                 <div layout-padding
-                                     ng-if="battle.friends.data.length==0"
+                                     ng-if="battle.friends.data.length==0 && !battle.friends.isLoading"
                                      style="font-size: 15px;color: #666">
                                     Không có bạn đang online, hãy add thêm bạn nhé!
                                 </div>

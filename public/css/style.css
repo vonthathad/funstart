@@ -1261,24 +1261,24 @@ md-toast {
   /*display: none;*/
 /*}*/
 .player-list{
-  height: calc(50vh - 64px);
+  height: 100%;
   overflow-y: auto;
 }
 .chat-list{
   border-top: 1px solid #bababa;
-  min-height: calc(50vh - 64px);
+  height: calc(100% - 64px);
   overflow-y: auto;
 }
 .chat-list-full{
-  min-height: calc(100vh - 128px);
+  height: calc(100% - 128px);
   overflow-y: auto;
 }
 .room-list{
-  height: calc(100vh - 200px);
+  height: calc(100% - 70px);
   overflow-y: auto;
 }
 .room-list-host{
-  height: calc(100vh - 270px);
+  height: calc(100% - 140px);
   overflow-y: auto;
 }
 .find-btn{
@@ -1837,7 +1837,7 @@ md-tooltip{
     right: 0;
   }
   .chat-list{
-    min-height: calc(100vh - 120px);
+    min-height: calc(100% - 120px);
     overflow-y: auto;
   }
 }

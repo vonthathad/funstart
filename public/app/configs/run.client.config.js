@@ -25,8 +25,10 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
             time: new Date(data.time).toTimeString().split(' ')[0],
             type: 2
         });
-        var objDiv = document.getElementById("scroll-bottom-1");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        setTimeout(function(){
+            var objDiv = document.getElementById("scroll-bottom-1");
+            objDiv.scrollTop = objDiv.scrollHeight;
+        },100);
         $rootScope.$apply();
     });
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {

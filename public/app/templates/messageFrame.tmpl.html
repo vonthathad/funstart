@@ -7,7 +7,7 @@
         <form name="messageForm" ng-submit="$root.onSendMessage()">
             <md-content layout="row">
                 <md-input-container flex style="margin: 0;padding: 8px" md-no-float layout="row">
-                    <input ng-model="$root.chat.message" type="text" placeholder="Chat ở đây ..." >
+                    <input ng-model="$root.chat.message" maxlength="256" type="text" placeholder="Chat ở đây ..." >
                 </md-input-container>
                 <md-button ng-disabled="!$root.chat.message" type="submit" class="md-fab md-mini md-accent" aria-label="More">
                     <i class="ion-android-send"></i>
