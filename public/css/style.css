@@ -1274,18 +1274,15 @@ md-toast {
   /*height: 100%;*/
   overflow-y: auto;
 }
-.chat-frame,.rank-frame{
-  height: 100%;
-}
 .chat-list{
-  border-top: 1px solid #bababa;
+  border-top: 1px solid #efefef;
   /*min-height: calc(50% - 64px);*/
   overflow-y: auto;
 }
-.chat-list-full{
-  /*min-height: calc(100% - 128px);*/
-  overflow-y: auto;
-}
+/*.chat-list-full{*/
+  /*!*min-height: calc(100% - 128px);*!*/
+  /*overflow-y: auto;*/
+/*}*/
 .room-list{
   height: calc(100% - 70px);
   overflow-y: auto;

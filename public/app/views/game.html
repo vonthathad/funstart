@@ -96,8 +96,10 @@
                         <span flex>Chat:</span>
                     </h2>
                 </md-toolbar>
-                <md-content flex ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}" id="scroll-bottom-2">
-                    <message-panel ng-repeat="item in battle.messages" item="item"></message-panel>
+                <md-content flex class="chat-list" id="scroll-bottom-2">
+                    <div>
+                        <message-panel ng-repeat="item in battle.messages" item="item"></message-panel>
+                    </div>
                 </md-content>
                 <div style="height: 64px">
                     <form name="messageForm" style="height: 100%" ng-submit="battle.onSendMessage()">
