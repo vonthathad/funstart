@@ -8,7 +8,7 @@ module.exports = function (grunt) {
                     banner: '/*! MyLib.js 1.0.0 | Aurelio De Rosa (@AurelioDeRosa) | MIT Licensed */'
                 },
                 files: {
-                    'public/release/style.min.css': ['public/libs/angular-material/angular-material.min.css','public/css/*.css']
+                    'public/release/style.min.css': ['public/libs/angular-material/angular-material.min.css','public/libs/flexslider/flexslider.css','public/css/style.css']
                 }
             }
         },
