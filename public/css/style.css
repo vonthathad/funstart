@@ -417,6 +417,15 @@ user-card .md-button.md-fab{
   padding-top: 2px;
   text-align: center;
 }
+.policy{
+  color: #666;
+  font-size: 0.85em;
+  font-weight: bold;
+  text-decoration: none;
+}
+.policy:hover{
+  text-decoration: underline;
+}
 .group-game-index .description,.group-game-card .description{
   color: #666;
   font-size: 0.85em;
