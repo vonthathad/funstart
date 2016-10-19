@@ -28,6 +28,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                         $scope.battle.init($scope.games.currentGame,$rootScope.user,$location.search().roomId,function(){
                             console.log('room err');
                             $scope.isBattle = false;
+                            $('body').css('overflow','auto');
                             $scope.isPlay = false;
                             $location.search({});
                         });
@@ -310,38 +311,114 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         };
         $scope.onCreateRoom = function(ev){
             if($rootScope.user){
-                $scope.isEnd = false;
-                $scope.isPlay = false;
-                if(!$scope.isBattle){
-                    $scope.isBattle = true;
-                    $('body').css('overflow','hidden');
-                    $scope.battle = BattleService;
-                    $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
-                };
-                $scope.battle.onCreateRoom(function(){
-                });
-            } else {
-                $scope.openSigninDialog(ev);
+                if(!localStorage.getItem('helpCreate')){
+                    $mdDialog.show({
+                            controller: ['$scope', '$mdDialog', 'callCreate',function($scope, $mdDialog, callCreate) {
+                                $scope.cancel = function() {
+                                    try
+                                    {
+                                        localStorage.setItem('helpCreate',true);
+                                    }
+                                    catch (error)
+                                    {
+                                        return false;
+                                    }
+                                    $mdDialog.cancel();
+                                    callCreate();
+                                };
+                                $scope.slides = [
+                                    '/img/tutorroom1.png',
+                                    '/img/tutorroom2.png',
+                                    '/img/tutorroom3.png',
+                                    '/img/tutorroom4.png'
+                                ]
+                            }],
+                            autoWrap: false,
+                            templateUrl: 'app/templates/helpDialog.tmpl.html',
+                            locals: {callCreate: $scope.callCreate},
+                            parent: angular.element(document.body),
+                            targetEvent: ev,
+                            clickOutsideToClose:true
+                        })
+                        .then(function() {
+
+                        }, function() {
+
+                        });
+                } else {
+                    $scope.callCreate();
+                }
             }
 
+
         };
+        $scope.callCreate = function(){
+            $scope.isEnd = false;
+            $scope.isPlay = false;
+            if(!$scope.isBattle){
+                $scope.isBattle = true;
+                $('body').css('overflow','hidden');
+                $scope.battle = BattleService;
+                $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
+            };
+            $scope.battle.onCreateRoom(function(){
+            });
+        }
         $scope.statusClass = function(status){
             return 'status-' + status;
         }
         $scope.onBattleCall = function (ev) {
             if($rootScope.user){
-                $scope.isBattle = true;
-                $('body').css('overflow','hidden');
-                $scope.battle = BattleService;
-                $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
-                $scope.battle.onFindBattle(null,function(){
-                    $scope.onError();
-                });
-            } else {
-                $scope.openSigninDialog(ev);
+                if(!localStorage.getItem('helpFind')){
+                    $mdDialog.show({
+                            controller: ['$scope', '$mdDialog', 'callFind',function($scope, $mdDialog, callFind) {
+                                $scope.cancel = function() {
+                                    try
+                                    {
+                                        localStorage.setItem('helpFind',true);
+                                    }
+                                    catch (error)
+                                    {
+                                        return false;
+                                    }
+                                    $mdDialog.cancel();
+                                    callFind();
+                                };
+                                $scope.slides = [
+                                    '/img/tutorfind1.png',
+                                    '/img/tutorfind2.png',
+                                    '/img/tutorfind3.png',
+                                    '/img/tutorfind4.png'
+                                ]
+                            }],
+                            autoWrap: false,
+                            templateUrl: 'app/templates/helpDialog.tmpl.html',
+                            locals: {callFind: $scope.callFind},
+                            parent: angular.element(document.body),
+                            targetEvent: ev,
+                            clickOutsideToClose:true
+                        })
+                        .then(function() {
+
+                        }, function() {
+
+                        });
+                } else {
+                    $scope.callFind();
+                }
             }
 
-        }
+
+        };
+        $scope.callFind = function(){
+            $scope.isBattle = true;
+            $('body').css('overflow','hidden');
+            $scope.battle = BattleService;
+            $scope.battle.init($scope.games.currentGame,$rootScope.user,null);
+            $scope.battle.onFindBattle(null,function(){
+                $scope.onError();
+            });
+        };
         $scope.onError = function(){
             $scope.isBattle = false;
             $('body').css('overflow','auto');

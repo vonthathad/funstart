@@ -5,6 +5,7 @@ var config = require('./config.js'),
     mongoose = require('mongoose');
 module.exports = function(callback) {
     var db = mongoose.connect(config.db);
+    //mongoose.Promise = global.Promise;
     var dbc = mongoose.connection;
     dbc.on('error', console.error.bind(console, 'connection error:'));
     dbc.once('open', function() {

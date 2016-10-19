@@ -433,10 +433,14 @@
         <md-progress-circular class="md-accent" md-mode="indeterminate" md-diameter="100"></md-progress-circular>
     </div>
     <!--ROOM LOADING-->
+
+    <!--CHAT-->
     <div ng-if="isBattle && (battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame)" ng-show="!battle.chat.isChat" hide-gt-sm id="chat-btn" role="button" ng-click="battle.onViewChat()" class="chat-btn" ng-class="{'active':battle.chat.isNew}">
         <img style="width: 100%" ng-src="{{battle.chat.avatar}}">
         <span>CHAT</span>
         <div ng-show="battle.chat.isNew"><i class="ion-alert"></i></div>
     </div>
-    <div ng-click="battle.chat.isChat = false" ng-if="isBattle && battle.chat.isChat" class="shadow-chat"></div>
+    <div ng-click="battle.chat.isChat = false" ng-if="isBattle && battle.chat.isChat" class="shadow"></div>
+    <!--CHAT-->
+
 </div>

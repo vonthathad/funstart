@@ -223,10 +223,11 @@ angular.module('funstart').service('BattleService',['$rootScope','$timeout','Roo
                     .ok('Okie!');
                 $mdDialog.show(alert).then(function() {
                     self.status = {};
+                    self.onCloseBattle();
                     if(error) error();
                 }, function() {
                 });
-                self.onCloseBattle();
+
             }
         },10000);
     };

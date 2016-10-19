@@ -146,6 +146,19 @@ user-card .md-button.md-fab{
   background-color: transparent;
   width: 500px;
 }
+.dialog-help{
+  box-shadow: none;
+  background-color: transparent;
+  width: 400px;
+  overflow: hidden;
+}
+.dialog-help img{
+  width: 100%;
+}
+.dialog-help .md-button{
+  max-width: 150px;
+  margin: auto;
+}
 .dialog-level .avatar{
   width: 100%;
   border-radius: 50%;
@@ -186,7 +199,7 @@ user-card .md-button.md-fab{
     margin-left: 0;
     margin-right: 0;
   }
-  .dialog-level{
+  .dialog-level,.dialog-help{
     width: 90%;
   }
   .dialog-level .title{
@@ -985,16 +998,6 @@ nav-toolbar .md-button{
 }
 .animate-if.ng-enter.ng-enter-active,.animate-if.ng-leave{
   opacity: 1;
-}
-
-.shadow-recommend{
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  left: 0;
-  height: 100%;
-  top: 0;
-  background-color: rgba(0,0,0,0.75);
 }
 .recommend-card{
   padding: 0!important;
@@ -1829,16 +1832,25 @@ md-tooltip{
   font-weight: bold;
   color: #fff;
 }
+.shadow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.15);
+  z-index: 102;
+}
+.flexslider {
+  border: none;
+  background: none;
+  margin: 0 0 30px;
+}
+.flexslider .flex-control-nav{
+  bottom: -30px;
+}
 @media (max-width: 959px){
-  .shadow-chat{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.15);
-    z-index: 102;
-  }
+
   .full-mode-2{
     right: -320px;
     transition: all 300ms ease;
