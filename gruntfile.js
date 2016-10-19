@@ -36,6 +36,8 @@ module.exports = function (grunt) {
                         'public/app/filters/*.js',
                         'public/app/directives/*.js',
                         'public/app/controllers/*.js',
+                        'public/libs/flexslider/jquery.flexslider.js',
+                        'public/libs/angular-flexslider/angular-flexslider.js',
                         'public/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
                         'public/libs/ng-img-crop/compile/minified/ng-img-crop.js',
                         'public/js/main.js',
