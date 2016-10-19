@@ -70,13 +70,13 @@
         <!--GAME INFO PANEL-->
         <!--PLAYERS LIST DESKTOP-->
         <div ng-if="isBattle && (battle.status.isWaitRoom || battle.status.isFullscreen || battle.status.isEndGame)" layout="column" class="full-mode-2" ng-class="{'active':battle.chat.isChat}" >
-            <div layout="column" class="rank-frame" ng-if="battle.status.isFullscreen" hide-xs hide-sm>
+            <div layout="column" flex="50" ng-if="battle.status.isFullscreen" hide-xs hide-sm>
                 <md-toolbar class="md-theme-light">
                     <h2 class="md-toolbar-tools">
                         <span>Xếp hạng:</span>
                     </h2>
                 </md-toolbar>
-                <md-content class="player-list">
+                <md-content flex class="player-list">
                     <md-list>
                         <div>
                             <friend-card ng-repeat="item in battle.players | orderBy: battle.orderPlayer"
@@ -96,7 +96,7 @@
                         <span flex>Chat:</span>
                     </h2>
                 </md-toolbar>
-                <md-content ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}" id="scroll-bottom-2">
+                <md-content flex ng-class="{'chat-list':battle.status.isFullscreen,'chat-list-full':!battle.status.isFullscreen}" id="scroll-bottom-2">
                     <message-panel ng-repeat="item in battle.messages" item="item"></message-panel>
                 </md-content>
                 <div style="height: 64px">

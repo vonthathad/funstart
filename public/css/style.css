@@ -1271,7 +1271,7 @@ md-toast {
   /*display: none;*/
 /*}*/
 .player-list{
-  height: 100%;
+  /*height: 100%;*/
   overflow-y: auto;
 }
 .chat-frame,.rank-frame{
@@ -1279,11 +1279,11 @@ md-toast {
 }
 .chat-list{
   border-top: 1px solid #bababa;
-  min-height: calc(100% - 64px);
+  /*min-height: calc(50% - 64px);*/
   overflow-y: auto;
 }
 .chat-list-full{
-  min-height: calc(100% - 128px);
+  /*min-height: calc(100% - 128px);*/
   overflow-y: auto;
 }
 .room-list{
