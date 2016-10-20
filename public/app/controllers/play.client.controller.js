@@ -184,9 +184,10 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $timeout(function() {
                 $scope.isEnd = true;
             });
-            // if(Date.now() - $scope.time >= 2*60*1000){
-                // eventAdsense.load();
-            // }
+            if(Date.now() - $scope.time >= 2*60*1000){
+                $scope.time = Date.now();
+                eventAdsense.load();
+            }
             if(obj) $scope.setActivity(obj);
         };
         $scope.uploadResult = function(obj,callback){
