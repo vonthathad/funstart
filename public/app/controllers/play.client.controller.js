@@ -10,12 +10,10 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.isInit = true;
             $scope.games = GamesService;
             $scope.tracking = TrackingService;
+            eventAdsense.load();
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
                 document.title = $scope.games.currentGame.title;
-                if($scope.games.currentGame._id == 2){
-                    eventAdsense.load();
-                }
                 $scope.isInit = false;
                 if($location.search().roomId){
                     if($rootScope.user){

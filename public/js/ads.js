@@ -10,9 +10,9 @@ height_ads = heightGame;
 $("#adContainer").width(adsContainer.width());
 $("#adContainer").height(adsContainer.height());
 
-var channel_id = '3019941177'; //channel ads main
+var channel_id = '8788971041'; //channel ads main
 var href_ads = top.window.location.href;
-var url_ads = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_image_text_flash&client=ca-video-pub-4968145218643279&videoad_start_delay=0&description_url=http%3A%2F%2Fwww.google.com&hl=en&max_ad_duration=40000&adtest=on";
+var url_ads = "https://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-games-pub-8167045239596974&description_url="+href_ads+"&channel="+channel_id+"&videoad_start_delay=0&hl=en&max_ad_duration=30000";
 var eventAdsense = new adsAdsense();
 
 var adsManager;
