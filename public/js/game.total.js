@@ -87,7 +87,6 @@ FunstartGame.prototype.updateData = function (data,prepare,callback) {
 FunstartGame.prototype.createShare = function (obj, callback) {
     var self = this;
     if(obj.pic){
-        self.objAngular.result = '<img style="width: 100%" src="'+obj.pic+'">';
         self.objAngular.share.setInfo(obj);
         self.objAngular.share.shareFacebook(function(){
             if(callback) callback();
@@ -182,6 +181,9 @@ FunstartGame.prototype.createShare = function (obj, callback) {
 };
 FunstartGame.prototype.setResultHtml = function (html) {
     this.objAngular.result = html;
+};
+FunstartGame.prototype.setResultImg = function (pic) {
+    this.objAngular.result = '<img style="width: 100%" src="'+ pic +'">';
 };
 FunstartGame.prototype.setResultObj = function (obj) {
     this.objAngular.resultObj = obj;
