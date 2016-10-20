@@ -88,10 +88,12 @@ FunstartGame.prototype.createShare = function (obj, callback) {
     var self = this;
     if(obj.pic){
         self.objAngular.share.setInfo(obj);
-        self.objAngular.share.shareFacebook(function(){
-            if(callback) callback();
-            console.log('done share');
-        });
+        this.objAngular.shareFacebook = function(){
+            self.objAngular.share.shareFacebook(function(){
+                if(callback) callback();
+                console.log('done share');
+            });
+        }
     } else {
         if (obj.htmlTag) tag = obj.htmlTag; else tag = "#canvan";
         var quality = (obj.quality) ? obj.quality : "0.5";
