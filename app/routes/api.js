@@ -35,6 +35,7 @@ module.exports = function(router) {
     router.route('/message/room/:id')
         .post(battle.messageToRoom);
     router.post('/uploadresult/:game',uploads.uploadResult);
+    router.post('/shooting/:gameId',uploads.captureResult);
     router.param('gameId', games.gameByID);
     router.param('roomId', battle.roomByID);
     router.route('/activities')

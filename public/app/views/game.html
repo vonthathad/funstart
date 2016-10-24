@@ -270,8 +270,8 @@
                                     <p>{{games.currentGame.title}}</p>
                                 </div>
                             </div>
-                            <div ng-if="!isBattle" flex="65" layout="column">
-                                <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
+                            <div flex="65" layout="column">
+                                <div ng-if="!isBattle" style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
                                     <div flex="35" layout-padding style="text-align: right">
                                         <img ng-if="resultObj.image" class="canvas-avatar" ng-src="{{resultObj.image}}">
                                     </div>
@@ -280,16 +280,7 @@
                                         <p>{{resultObj.title}}</p>
                                     </div>
                                 </div>
-                                <div class="canvas-des"
-                                     layout-padding
-                                     flex="40"
-                                     layout="row"
-                                     layout-align="center center">
-                                    {{resultObj.des}}
-                                </div>
-                            </div>
-                            <div ng-if="isBattle" flex="65" layout="column">
-                                <div style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
+                                <div ng-if="isBattle" style="background: rgba(0,0,0,0.1);" flex="60" layout="row" layout-align="center center">
                                     <div flex="35" layout-padding style="text-align: right">
                                         <img class="canvas-avatar" ng-src="{{$root.user.avatar}}">
                                     </div>
@@ -322,7 +313,7 @@
                            ng-click="onShareFacebook()">
                     <i class="ion-social-facebook" style="font-size: 1.25em"></i>
                     <span ng-if="!sharing">Chia sẻ điểm</span>
-                    <span ng-if="sharing">Đang chia sẻ</span>
+                    <span ng-if="sharing">Đang tạo kết quả</span>
                 </md-button>
                 <md-button aria-label="playagain"
                            ng-if="!isBattle"

@@ -28,11 +28,12 @@
     "passport-facebook": "^2.1.1",
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
+    "phantom": "1.0.0",
+    "phantomjs": "^2.1.7",
     "request": "^2.75.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "1.4.5",
-    "socket.io-client": "^1.4.8",
-    "webshot": "^0.18.0"
+    "socket.io-client": "^1.4.8"
   },
   "devDependencies": {
     "grunt": "^1.0.1",

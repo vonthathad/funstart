@@ -47,6 +47,7 @@ FunstartGame.prototype.updateUserScore = function (data) {
 
 FunstartGame.prototype.gameOver = function (data,callback){
     var self = this;
+
     if(data && data.score != null) {
         console.log(data);
         self.objAngular.endGame(data);
@@ -62,7 +63,6 @@ FunstartGame.prototype.gameOver = function (data,callback){
     } else {
         if(callback) callback();
     }
-
     console.log('game over cmnr');
 };
 FunstartGame.prototype.fetchPlayers = function(callback){
@@ -87,6 +87,7 @@ FunstartGame.prototype.updateData = function (data,prepare,callback) {
 FunstartGame.prototype.createShare = function (obj, callback) {
     var self = this;
     if(obj.pic){
+        self.objAngular.sharing = false;
         self.objAngular.share.setInfo(obj);
         this.objAngular.shareFacebook = function(){
             self.objAngular.share.shareFacebook(function(){
@@ -188,7 +189,14 @@ FunstartGame.prototype.setResultImg = function (pic) {
     this.objAngular.result = '<img style="width: 100%" src="'+ pic +'">';
 };
 FunstartGame.prototype.setResultObj = function (obj) {
+    self = this;
+    self.objAngular.sharing = true;
     this.objAngular.resultObj = obj;
+    self.objAngular.capturing = true;
+    self.objAngular.captureResult(obj,function(){
+        self.objAngular.capturing = false;
+        self.objAngular.captured = true;
+    });
 };
 FunstartGame.prototype.pauseGame = function () {
 

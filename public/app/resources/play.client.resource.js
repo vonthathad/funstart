@@ -31,6 +31,13 @@ angular.module('funstart').service('ShareService',function(){
     return self;
 
 });
+angular.module('funstart').factory('Shooting', ['$resource',
+    function($resource) {
+        return $resource('api/shooting/:gameId', {
+            gameId: '@_id'
+        });
+    }
+]);
 angular.module('funstart').factory('Tracking', ['$resource',
     function($resource) {
         return $resource('api/tracking', {

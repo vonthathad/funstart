@@ -4,8 +4,8 @@
 /**
  * Created by andh on 7/28/16.
  */
-angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivitiesService','SuggestService','ShareService','BattleService','TrackingService','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
-    function($scope,$rootScope,GamesService,ActivitiesService,SuggestService,ShareService,BattleService,TrackingService,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
+angular.module('funstart').controller('PlayController', ['$scope','$rootScope','GamesService','ActivitiesService','SuggestService','ShareService','BattleService','TrackingService','Shooting','$location','$routeParams','$http','$timeout','$mdToast','$mdDialog','$interval',
+    function($scope,$rootScope,GamesService,ActivitiesService,SuggestService,ShareService,BattleService,TrackingService,Shooting,$location,$routeParams,$http,$timeout,$mdToast,$mdDialog,$interval){
         $scope.loadGame = function(){
             $scope.isInit = true;
             $scope.games = GamesService;
@@ -168,10 +168,9 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         // };
         $scope.shareFacebook = function(){
 
-        }
+        };
         $scope.onShareFacebook = function(){
             // $scope.share();
-            $scope.sharing = true;
             $scope.shareFacebook();
         };
         $scope.skipAds = function() {
@@ -187,8 +186,38 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             if(Date.now() - $scope.time >= 2*60*1000){
                 $scope.time = Date.now();
                 eventAdsense.load();
+            } else {
+                if(obj.score > 10000){
+                    $mdDialog.show({
+                            controller: ['$scope','$mdDialog','capturing','captured','capturedImage',function($scope, $mdDialog,capturing,captured,capturedImage) {
+                                $scope.capturing = capturing;
+                                $scope.captured = captured;
+                                $scope.capturedImage = capturedImage;
+                            }],
+                            bindToController: true,
+                            locals: {capturing: $scope.capturing, captured: $scope.captured, captureImage: $scope.captureImage},
+                            templateUrl: 'app/templates/shareDialog.tmpl.html',
+                            parent: angular.element(document.body),
+                            clickOutsideToClose:true
+                        })
+                        .then(function(answer) {
+
+                        }, function() {
+
+                        });
+                }
             }
             if(obj) $scope.setActivity(obj);
+        };
+        $scope.captureResult = function(obj,callback){
+            obj._id = $routeParams.gameId;
+            Shooting.save(obj,function(res){
+                $scope.share.setInfo({pic: res.data});
+                $scope.sharing = false;
+                if(callback) callback();
+            },function(err){
+                if(callback) callback(err);
+            })
         };
         $scope.uploadResult = function(obj,callback){
             var fd = new FormData();

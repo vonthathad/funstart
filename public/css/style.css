@@ -130,6 +130,9 @@ user-card .md-button.md-fab{
 /*}*/
 .game-card{
   position: relative;
+  max-height: 134px;
+  height: 134px;
+  overflow: hidden;
   /*overflow: hidden;*/
 }
 .game-card>div:first-child{
@@ -196,6 +199,9 @@ user-card .md-button.md-fab{
 }
 @media only screen and (max-width: 599px){
   .game-card{
+    height: auto;
+    max-height: none;
+    overflow: auto;
     margin-left: 0;
     margin-right: 0;
   }
@@ -668,11 +674,11 @@ Use of this source code is governed by an MIT-style license that can be in found
   }
 }
 .nav-toolbar{
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   position: fixed;
+  z-index: 100;
 }
 
 .bottom-nav{
@@ -699,6 +705,9 @@ Use of this source code is governed by an MIT-style license that can be in found
 @media only screen and (max-width: 959px){
   .search-panel{
     margin: 0!important;
+  }
+  .nav-toolbar{
+    z-index: 5;
   }
 }
 .quest-item .md-chips .md-chip {
