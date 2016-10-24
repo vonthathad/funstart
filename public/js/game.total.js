@@ -85,23 +85,10 @@ FunstartGame.prototype.updateData = function (data,prepare,callback) {
 };
 //create img result
 FunstartGame.prototype.createShare = function (obj, callback) {
-
+    var self = this;
     if(obj.pic){
         self.objAngular.sharing = false;
-        self.objAngular.share.setInfo(obj);
-        this.objAngular.shareFacebook = function(){
-            self.objAngular.share.shareFacebook(function(){
-                if(callback) callback();
-                console.log('done share');
-            });
-        }
     } else {
-        var self = this;
-        self.objAngular.share.setInfo(obj);
-        self.objAngular.share.shareFacebook(function(){
-            if(callback) callback();
-            console.log('done share');
-        });
         // if (obj.htmlTag) tag = obj.htmlTag; else tag = "#canvan";
         // var quality = (obj.quality) ? obj.quality : "0.5";
         // var share = (obj.share) ? obj.share : false;
@@ -185,6 +172,13 @@ FunstartGame.prototype.createShare = function (obj, callback) {
         //         }
         //     }
         // }
+    }
+    self.objAngular.share.setInfo(obj);
+    self.objAngular.shareFacebook = function(){
+        self.objAngular.share.shareFacebook(function(){
+            if(callback) callback();
+            console.log('done share');
+        });
     }
 
 };
