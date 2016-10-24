@@ -96,10 +96,10 @@ exports.captureResult = function(req,res){
                         '</div>'+
                         '<div style="position: absolute;left: 35%;width: calc(65% - 20px);height: calc(100% - 40px);padding: 20px 20px 20px 0;">';
         if(req.user.displayName){
-            domHTML+=       '<p style="padding: 10px;background: rgba(0,0,0,0.1);height: 80px">'+req.user.displayName+'</p>';
+            domHTML+=       '<div style="width: 100%;padding: 10px;background: rgba(0,0,0,0.1);height: 80px"><p>'+req.user.displayName+'</p></div>';
         }
         domHTML+=
-                            '<p style="padding: 10px;background: rgba(0,0,0,0.1)">'+result.title+'</p>' +
+                            '<div style="width: 100%;padding: 10px;background: rgba(0,0,0,0.1)"><p>'+result.title+'</p></div>' +
                         '</div>';
     }
     domHTML+=
