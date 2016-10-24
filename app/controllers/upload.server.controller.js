@@ -4,7 +4,7 @@
 formidable = require('formidable');
 var dir = 'uploaded/results/';
 var fs = require('fs');
-// var phantom = require('phantom');
+var phantom = require('phantom');
 var webshot = require('webshot');
 var Game = Game = require('mongoose').model('Game');
 exports.uploadResult = function(req,res){
@@ -117,27 +117,27 @@ exports.captureResult = function(req,res){
     } else {
         path = req.user._id + '_' + req.game._id + '.jpg';
     }
-    webshot(domHTML,uploadDir + '/' + path,shotOptions, function(err) {
-            if(err){
-                res.status(400).send();
-            } else {
-                console.log(Date.now());
-                res.json({data: 'http://www.funstart.net/uploaded/results/' + path});
-            }
-        });
-    // phantom.create(function(ph) {
-    //     ph.createPage(function(page) {
-    //         page.setContent(domHTML);
-    //         page.set("viewportSize", {
-    //             width: 960,
-    //             height: 500
-    //         });
-    //         page.set('onLoadFinished', function() {
-    //             page.render(uploadDir + '/' + path,function(){
-    //                 return res.json({data: 'http://www.funstart.net/uploaded/results/' + path});
-    //             });
-    //             ph.exit();
-    //         });
+    // webshot(domHTML,uploadDir + '/' + path,shotOptions, function(err) {
+    //         if(err){
+    //             res.status(400).send();
+    //         } else {
+    //             console.log(Date.now());
+    //             res.json({data: 'http://www.funstart.net/uploaded/results/' + path});
+    //         }
     //     });
-    // });
+    phantom.create(function(ph) {
+        ph.createPage(function(page) {
+            page.setContent(domHTML);
+            page.set("viewportSize", {
+                width: 960,
+                height: 500
+            });
+            page.set('onLoadFinished', function() {
+                page.render(uploadDir + '/' + path,function(){
+                    return res.json({data: 'http://www.funstart.net/uploaded/results/' + path});
+                });
+                ph.exit();
+            });
+        });
+    });
 }
