@@ -26,7 +26,8 @@ module.exports = {
         resetPasswordUrl: "action/reset"
     },
     server: {
-        host: 'http://www.funstart.net'
+        host: 'http://www.funstart.net',
+        port: 8235
     },
     app: {
         id: '170584416691811',
