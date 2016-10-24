@@ -51,11 +51,11 @@ exports.uploadResult = function(req,res){
 exports.captureResult = function(req,res){
     Game.findByIdAndUpdate(req.game._id,{$inc: {shares: 1}},function(){
     });
-    // var shotOptions = {
-    //     siteType:'html',
-    //     screenSize: { width: 960, height: 500 },
-    //     shotSize: { width: 960, height: 500 }
-    // };
+    var shotOptions = {
+        siteType:'html',
+        screenSize: { width: 960, height: 500 },
+        shotSize: { width: 960, height: 500 }
+    };
 
     var result = {};
     result.title = req.body.title || 'GAME OVER';
