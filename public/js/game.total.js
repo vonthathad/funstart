@@ -86,100 +86,105 @@ FunstartGame.prototype.updateData = function (data,prepare,callback) {
 //create img result
 FunstartGame.prototype.createShare = function (obj, callback) {
     var self = this;
-    if(obj.pic){
-        self.objAngular.sharing = false;
-        self.objAngular.share.setInfo(obj);
-        this.objAngular.shareFacebook = function(){
-            self.objAngular.share.shareFacebook(function(){
-                if(callback) callback();
-                console.log('done share');
-            });
-        }
-    } else {
-        if (obj.htmlTag) tag = obj.htmlTag; else tag = "#canvan";
-        var quality = (obj.quality) ? obj.quality : "0.5";
-        var share = (obj.share) ? obj.share : false;
-        if(share){
-            create_img();
-            this.objAngular.shareFacebook = function(){
-                self.objAngular.share.shareFacebook(function(){
-                    if(callback) callback();
-                    console.log('done share');
-                });
-            }
-        } else {
-            this.objAngular.shareFacebook = function(){
-                create_img(function(){
-                    console.log('begin create image');
-                    self.objAngular.share.shareFacebook(function(){
-                        if(callback) callback();
-                        console.log('done share');
-                    });
-                });
-            }
-        }
-        function startLoading() {
-            console.log('start create img');
-        }
-
-        function endLoading() {
-            console.log("Done create img result");
-        }
-
-        function create_img(cb) {
-            startLoading();
-            console.log(tag + quality);
-            html2canvas($(tag),{
-                //proxy: "//www.appnhe.com/data/temp/server.js",
-                useCORS: true,
-                onrendered: function(canvas) {
-                    var myImage = canvas.toDataURL('image/jpeg', quality);
-                    endLoading();
-                    resizeBase64Img({
-                        'image' : myImage,
-                        'width': 500
-                    }, function (data) {
-                        // console.log(data);
-                        obj.file = dataURItoBlob(data);
-                        // console.log(obj.file);
-                        self.objAngular.uploadResult(obj, function(){
-                            if(cb) cb();
-                        });
-
-                    })
-                }
-            });
-        }
-
-        function resizeBase64Img(obj, callback) {
-
-            var imgBase64 = obj.image;
-            var maxWidth = obj.width;
-
-            var canvas = document.createElement("canvas");
-
-            var base_image = new Image();
-            base_image.src = imgBase64;
-            base_image.onload = function(){
-                var sourceWidth = base_image.width;
-                var sourceHeight = base_image.height;
-
-                if (sourceWidth > maxWidth) {
-                    canvas.width = maxWidth;
-                    canvas.height = sourceHeight*maxWidth/ sourceWidth;
-
-                    var context = canvas.getContext('2d');
-
-                    context.scale( maxWidth/sourceWidth,  maxWidth/sourceWidth);
-                    context.drawImage(base_image, 0, 0);
-                    var newImg = canvas.toDataURL();
-                    if (callback) callback(newImg)
-                } else {
-                    if (callback) callback(imgBase64)
-                }
-            }
-        }
-    }
+    self.objAngular.share.setInfo(obj);
+    self.objAngular.share.shareFacebook(function(){
+        if(callback) callback();
+        console.log('done share');
+    });
+    // if(obj.pic){
+    //     self.objAngular.sharing = false;
+    //     self.objAngular.share.setInfo(obj);
+    //     this.objAngular.shareFacebook = function(){
+    //         self.objAngular.share.shareFacebook(function(){
+    //             if(callback) callback();
+    //             console.log('done share');
+    //         });
+    //     }
+    // } else {
+    //     if (obj.htmlTag) tag = obj.htmlTag; else tag = "#canvan";
+    //     var quality = (obj.quality) ? obj.quality : "0.5";
+    //     var share = (obj.share) ? obj.share : false;
+    //     if(share){
+    //         create_img();
+    //         this.objAngular.shareFacebook = function(){
+    //             self.objAngular.share.shareFacebook(function(){
+    //                 if(callback) callback();
+    //                 console.log('done share');
+    //             });
+    //         }
+    //     } else {
+    //         this.objAngular.shareFacebook = function(){
+    //             create_img(function(){
+    //                 console.log('begin create image');
+    //                 self.objAngular.share.shareFacebook(function(){
+    //                     if(callback) callback();
+    //                     console.log('done share');
+    //                 });
+    //             });
+    //         }
+    //     }
+    //     function startLoading() {
+    //         console.log('start create img');
+    //     }
+    //
+    //     function endLoading() {
+    //         console.log("Done create img result");
+    //     }
+    //
+    //     function create_img(cb) {
+    //         startLoading();
+    //         console.log(tag + quality);
+    //         html2canvas($(tag),{
+    //             //proxy: "//www.appnhe.com/data/temp/server.js",
+    //             useCORS: true,
+    //             onrendered: function(canvas) {
+    //                 var myImage = canvas.toDataURL('image/jpeg', quality);
+    //                 endLoading();
+    //                 resizeBase64Img({
+    //                     'image' : myImage,
+    //                     'width': 500
+    //                 }, function (data) {
+    //                     // console.log(data);
+    //                     obj.file = dataURItoBlob(data);
+    //                     // console.log(obj.file);
+    //                     self.objAngular.uploadResult(obj, function(){
+    //                         if(cb) cb();
+    //                     });
+    //
+    //                 })
+    //             }
+    //         });
+    //     }
+    //
+    //     function resizeBase64Img(obj, callback) {
+    //
+    //         var imgBase64 = obj.image;
+    //         var maxWidth = obj.width;
+    //
+    //         var canvas = document.createElement("canvas");
+    //
+    //         var base_image = new Image();
+    //         base_image.src = imgBase64;
+    //         base_image.onload = function(){
+    //             var sourceWidth = base_image.width;
+    //             var sourceHeight = base_image.height;
+    //
+    //             if (sourceWidth > maxWidth) {
+    //                 canvas.width = maxWidth;
+    //                 canvas.height = sourceHeight*maxWidth/ sourceWidth;
+    //
+    //                 var context = canvas.getContext('2d');
+    //
+    //                 context.scale( maxWidth/sourceWidth,  maxWidth/sourceWidth);
+    //                 context.drawImage(base_image, 0, 0);
+    //                 var newImg = canvas.toDataURL();
+    //                 if (callback) callback(newImg)
+    //             } else {
+    //                 if (callback) callback(imgBase64)
+    //             }
+    //         }
+    //     }
+    // }
 
 };
 FunstartGame.prototype.setResultHtml = function (html) {

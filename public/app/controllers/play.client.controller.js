@@ -87,10 +87,10 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             console.log('done load!');
             //init info share
             $scope.share.setInfo({
-                game: ($scope.games.currentGame)?$scope.games.currentGame.title:'Test Title',
+                game: ($scope.games.currentGame)?$scope.games.currentGame.title:'Funstart',
                 url: location.href.split('?')[0],
                 pic: ($scope.games.currentGame)?$scope.games.currentGame.thumbAds:'http://www.funstart.net/sources/ads.jpg',
-                des: ($scope.games.currentGame)?$scope.games.currentGame.des:'Test Description'
+                des: ($scope.games.currentGame)?$scope.games.currentGame.des:'Webgame Mini số 1 Việt Nam'
             });
             //load recommend games
             $scope.games.paging = 6;
