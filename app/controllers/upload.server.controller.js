@@ -4,9 +4,9 @@
 formidable = require('formidable');
 var dir = 'uploaded/results/';
 var fs = require('fs');
-var phantom = require('phantom');
+// var phantom = require('phantom');
 var webshot = require('webshot');
-var Game = Game = require('mongoose').model('Game');
+var Game = require('mongoose').model('Game');
 exports.uploadResult = function(req,res){
     Game.findByIdAndUpdate(parseInt(req.params.game),{$inc: {shares: 1}},function(){
     });
@@ -96,10 +96,10 @@ exports.captureResult = function(req,res){
                         '</div>'+
                         '<div style="position: absolute;left: 35%;width: calc(65% - 20px);height: calc(100% - 40px);padding: 20px 20px 20px 0;">';
         if(req.user.displayName){
-            domHTML+=       '<div style="width: 100%;padding: 10px;background: rgba(0,0,0,0.1);height: 80px"><p>'+req.user.displayName+'</p></div>';
+            domHTML+=       '<p style="padding: 10px;background: rgba(0,0,0,0.1);height: 80px">'+req.user.displayName+'</p>';
         }
         domHTML+=
-                            '<div style="width: 100%;padding: 10px;background: rgba(0,0,0,0.1)"><p>'+result.title+'</p></div>' +
+                            '<p style="padding: 10px;background: rgba(0,0,0,0.1)">'+result.title+'</p>' +
                         '</div>';
     }
     domHTML+=
