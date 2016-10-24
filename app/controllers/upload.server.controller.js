@@ -117,6 +117,7 @@ exports.captureResult = function(req,res){
     } else {
         path = req.user._id + '_' + req.game._id + '.jpg';
     }
+    // var domHTML2 = ;
     webshot(domHTML,uploadDir + '/' + path,shotOptions, function(err) {
             if(err){
                 res.status(400).send();
