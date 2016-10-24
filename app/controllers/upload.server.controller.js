@@ -53,8 +53,8 @@ exports.captureResult = function(req,res){
     });
     var shotOptions = {
         siteType:'html',
-        screenSize: { width: 960, height: 500 },
-        shotSize: { width: 960, height: 500 }
+        screenSize: { width: 750, height: 391 },
+        shotSize: { width: 750, height: 391 }
     };
 
     var result = {};
