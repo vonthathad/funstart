@@ -97,7 +97,7 @@
 <script defer type="text/javascript" src="/app/controllers/play.client.controller.js"></script>
 <script defer type="text/javascript" src="/app/controllers/feed.client.controller.js"></script>
 <script defer type="text/javascript">
-  var socket = io('//localhost:8088',{'forceNew':true});
+  var socket = io('//localhost:8089',{'forceNew':true});
   $(document).ready(function () {
     if (window.location.href.indexOf('#_=_') > 0) {
       window.location = window.location.href.replace(/#.*/, '');
