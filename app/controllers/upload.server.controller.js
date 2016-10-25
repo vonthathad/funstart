@@ -37,7 +37,7 @@ exports.uploadResult = function(req,res){
             }
 
             fs.renameSync(file.path, form.uploadDir + path);
-            res.json({data: 'http://www.funstart.net/uploaded/results/' + path});
+            res.json({data: 'https://www.funstart.net/uploaded/results/' + path});
         } else {
             fs.unlink(file.path);
             console.log('loi dinh dang');
@@ -124,7 +124,7 @@ exports.captureResult = function(req,res){
                 res.status(400).send();
             } else {
                 console.log(Date.now());
-                res.json({data: 'http://www.funstart.net/uploaded/results/' + path});
+                res.json({data: 'https://www.funstart.net/uploaded/results/' + path});
             }
         });
     // phantom.create(function(ph) {
