@@ -111,12 +111,12 @@ exports.captureResult = function(req,res){
         console.log(Date.now());
         var uploadDir = __dirname + '/../../public/' + dir;
         var path;
-        if(req.user == 'guest'){
+        // if(req.user == 'guest'){
             path = Date.now() + '_' + req.game._id + '.jpg';
             console.log(path);
-        } else {
-            path = req.user._id + '_' + req.game._id + '.jpg';
-        }
+        // } else {
+        //     path = req.user._id + '_' + req.game._id + '.jpg';
+        // }
     }
     // var domHTML2 = ;
     webshot(domHTML,uploadDir + '/' + path,shotOptions, function(err) {
