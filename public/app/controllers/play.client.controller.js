@@ -222,6 +222,9 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         };
         $scope.captureResult = function(obj,callback){
             obj._id = $routeParams.gameId;
+            if($scope.battle && $scope.battle.opponent){
+                obj.opponent = $scope.battle.opponent.avatar;
+            }
             Shooting.save(obj,function(res){
                 $scope.capturedImage = res.data;
                 $scope.share.setInfo({pic: res.data});

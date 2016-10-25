@@ -49,73 +49,74 @@ exports.uploadResult = function(req,res){
 
 }
 exports.captureResult = function(req,res){
-    Game.findByIdAndUpdate(req.game._id,{$inc: {shares: 1}},function(){
-    });
     var shotOptions = {
         siteType:'html',
         screenSize: { width: 960, height: 500 },
         shotSize: { width: 960, height: 500 }
     };
-
-    var result = {};
-    result.title = req.body.title || 'GAME OVER';
-    result.des = req.body.des || req.game.des;
-    var avatar = req.user.avatar || 'https://www.funstart.net/sources/ninja.png';
-    result.image = req.body.image || avatar;
-    var domHTML =
-        '<div style="position:absolute;top:0;left:0;">' +
+    if(req.body.html){
+        var domHTML = req.body.html;
+    } else {
+        var result = {};
+        result.title = req.body.title || 'GAME OVER';
+        result.des = req.body.des || req.game.des;
+        var avatar = req.user.avatar || 'https://www.funstart.net/sources/ninja.png';
+        result.image = req.body.image || avatar;
+        var domHTML =
+            '<div style="position:absolute;top:0;left:0;">' +
             '<img style="width: 100%;height: 100%" src="https://www.funstart.net/'+req.game.thumbResult+'"/>'+
             '<div style="font-family:Open Sans,sans-serif;position:absolute;top:0;left:0;width: 100%;height: 100%;font-size: 1.5em;color: #fff;text-transform: uppercase;font-size: 2em;font-weight: bold;text-align: center;">'+
-                '<div style="position: absolute; top: 0;left: 0; width: 35%; height: 100%;">'+
-                    '<div style="position: absolute; top: 0;left: 0;width: 100%;height: 60%;"></div>'+
-                    '<div style="padding: 20px;font-size: 1.15em;position: absolute; top: 60%;left: 0; width: calc(100% - 40px); height: calc(40% - 40px);">'+
-                        '<p>'+req.game.title+'</p>'+
-                    '</div>'+
+            '<div style="position: absolute; top: 0;left: 0; width: 35%; height: 100%;">'+
+            '<div style="position: absolute; top: 0;left: 0;width: 100%;height: 60%;"></div>'+
+            '<div style="padding: 20px;font-size: 1.15em;position: absolute; top: 60%;left: 0; width: calc(100% - 40px); height: calc(40% - 40px);">'+
+            '<p>'+req.game.title+'</p>'+
+            '</div>'+
+            '</div>'+
+            '<div style="background: rgba(0,0,0,0.1);position: absolute; top: 0;left: 35%; width: 65%; height: 100%;">'+
+            '<div style="position: absolute; top: 0;left: 0;width: 100%;height: 60%;">';
+
+        if(req.body.opponent && req.user){
+            result.status = req.body.status || 'VS';
+            domHTML+=
+                '<div style="position: absolute; top: 12.5%;left: 0;width: calc(35% - 40px);height: calc(100% - 40px);text-align: center;padding: 20px">' +
+                '<img style="border-radius: 50%;width: 100%;" src="'+result.image+'">' +
+                '</div>' +
+                '<div style="position: absolute; top: 20%;left: 35%;width: 30%;height: 100%;text-align: center;">' +
+                '<h1>'+result.status+'</h1>' +
+                '</div>' +
+                '<div style="position: absolute; top: 12.5%;right: 0;width: calc(35% - 40px);height: calc(100% - 40px);text-align: center;padding: 20px">' +
+                '<img style="border-radius: 50%;width: 100%;"  src="'+req.body.opponent+'">' +
+                '</div>';
+        } else {
+            domHTML+=
+                '<div style="position: absolute;top: 12.5%;left: 0;width: calc(35% - 40px);height: calc(100% - 40px);text-align: center;padding: 20px">'+
+
+                '<img style="border-radius: 50%;width: 100%;" src="'+result.image+'"/>'+
+
                 '</div>'+
-                '<div style="background: rgba(0,0,0,0.1);position: absolute; top: 0;left: 35%; width: 65%; height: 100%;">'+
-                    '<div style="position: absolute; top: 0;left: 0;width: 100%;height: 60%;">';
-
-    if(req.body.opponent && req.user){
-        result.status = req.body.status || 'VS';
-        domHTML+=
-                        '<div style="position: absolute; top: 12.5%;left: 0;width: calc(35% - 40px);height: calc(100% - 40px);text-align: center;padding: 20px">' +
-                            '<img style="border-radius: 50%;width: 100%;" src="'+result.image+'">' +
-                        '</div>' +
-                        '<div style="position: absolute; top: 20%;left: 35%;width: 30%;height: 100%;text-align: center;">' +
-                            '<h1>'+result.status+'</h1>' +
-                        '</div>' +
-                        '<div style="position: absolute; top: 12.5%;right: 0;width: calc(35% - 40px);height: calc(100% - 40px);text-align: center;padding: 20px">' +
-                            '<img style="border-radius: 50%;width: 100%;"  src="'+req.body.opponent+'">' +
-                        '</div>';
-    } else {
-        domHTML+=
-                        '<div style="position: absolute;top: 12.5%;left: 0;width: calc(35% - 40px);height: calc(100% - 40px);text-align: center;padding: 20px">'+
-
-                                '<img style="border-radius: 50%;width: 100%;" src="'+result.image+'"/>'+
-
-                        '</div>'+
-                        '<div style="position: absolute;left: 35%;width: calc(65% - 20px);height: calc(100% - 40px);padding: 20px 20px 20px 0;">';
-        if(req.user.displayName){
-            domHTML+=       '<p style="padding: 10px;background: rgba(0,0,0,0.1);height: 80px">'+req.user.displayName+'</p>';
+                '<div style="position: absolute;left: 35%;width: calc(65% - 20px);height: calc(100% - 40px);padding: 20px 20px 20px 0;">';
+            if(req.user.displayName){
+                domHTML+=       '<p style="padding: 10px;background: rgba(0,0,0,0.1);height: 80px">'+req.user.displayName+'</p>';
+            }
+            domHTML+=
+                '<p style="padding: 10px;background: rgba(0,0,0,0.1)">'+result.title+'</p>' +
+                '</div>';
         }
         domHTML+=
-                            '<p style="padding: 10px;background: rgba(0,0,0,0.1)">'+result.title+'</p>' +
-                        '</div>';
-    }
-    domHTML+=
-                    '</div>'+
-                    '<div style="background: rgba(0,0,0,0.1);position: absolute; top: 60%;left: 0;width: calc(100% - 40px);height: calc(40% - 40px);line-height: 1.5em; padding: 20px;font-size: 0.75em;text-transform: none;font-weight: normal">'+result.des+'</div>'+
-                '</div>'+
             '</div>'+
-        '</div>';
-    console.log(Date.now());
-    var uploadDir = __dirname + '/../../public/' + dir;
-    var path;
-    if(req.user == 'guest'){
-        path = Date.now() + '_' + req.game._id + '.jpg';
-        console.log(path);
-    } else {
-        path = req.user._id + '_' + req.game._id + '.jpg';
+            '<div style="background: rgba(0,0,0,0.1);position: absolute; top: 60%;left: 0;width: calc(100% - 40px);height: calc(40% - 40px);line-height: 1.5em; padding: 20px;font-size: 0.75em;text-transform: none;font-weight: normal">'+result.des+'</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>';
+        console.log(Date.now());
+        var uploadDir = __dirname + '/../../public/' + dir;
+        var path;
+        if(req.user == 'guest'){
+            path = Date.now() + '_' + req.game._id + '.jpg';
+            console.log(path);
+        } else {
+            path = req.user._id + '_' + req.game._id + '.jpg';
+        }
     }
     // var domHTML2 = ;
     webshot(domHTML,uploadDir + '/' + path,shotOptions, function(err) {

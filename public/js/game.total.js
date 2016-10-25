@@ -182,8 +182,13 @@ FunstartGame.prototype.createShare = function (obj, callback) {
     }
 
 };
-FunstartGame.prototype.setResultHtml = function (html) {
+FunstartGame.prototype.setResultHtml = function (html,html2) {
     this.objAngular.result = html;
+    if(html2){
+        this.objAngular.captureResult({html: html2});
+    } else {
+        this.objAngular.captureResult({html: html});
+    }
 };
 FunstartGame.prototype.setResultImg = function (pic) {
     this.objAngular.result = '<img style="width: 100%" src="'+ pic +'">';
