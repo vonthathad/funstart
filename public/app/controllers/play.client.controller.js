@@ -11,9 +11,11 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.games = GamesService;
             $scope.tracking = TrackingService;
             $scope.capturedImage = null;
-            eventAdsense.load();
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
+                if($scope.games.currentGame.public){
+                    eventAdsense.load();
+                }
                 document.title = $scope.games.currentGame.title;
                 $scope.isInit = false;
                 if($location.search().roomId){
@@ -184,7 +186,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $timeout(function() {
                 $scope.isEnd = true;
             });
-            if(Date.now() - $scope.time >= 2*60*1000){
+            if((Date.now() - $scope.time >= 2*60*1000) && $scope.games.currentGame.public){
                 $scope.time = Date.now();
                 eventAdsense.load();
             } else {
@@ -266,7 +268,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         };
         $scope.setActivity = function(obj){
             $scope.isPlay = false;
-            if($rootScope.user && $routeParams.gameId){
+            if($rootScope.user && $routeParams.gameId && obj.score){
                 $scope.activity = ActivitiesService;
                 obj.game = $routeParams.gameId;
                 if($scope.battle && $scope.battle.players){
