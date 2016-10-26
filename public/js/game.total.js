@@ -176,7 +176,9 @@ FunstartGame.prototype.createShare = function (obj, callback) {
     if(obj.capture){
         self.objAngular.shareFacebook = function(){
             self.objAngular.sharing = true;
+
             // self.objAngular.capturing = true;
+            self.objAngular.share.setInfo(obj);
             self.objAngular.captureResult(obj,function(){
                 // self.objAngular.capturing = false;
                 // self.objAngular.captured = true;
