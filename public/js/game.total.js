@@ -173,14 +173,28 @@ FunstartGame.prototype.createShare = function (obj, callback) {
         //     }
         // }
     }
-    self.objAngular.share.setInfo(obj);
-    self.objAngular.shareFacebook = function(){
-        self.objAngular.share.shareFacebook(function(){
-            if(callback) callback();
-            console.log('done share');
-        });
+    if(obj.capture){
+        self.objAngular.shareFacebook = function(){
+            self.objAngular.sharing = true;
+            // self.objAngular.capturing = true;
+            self.objAngular.captureResult(obj,function(){
+                // self.objAngular.capturing = false;
+                // self.objAngular.captured = true;
+                self.objAngular.share.shareFacebook(function(){
+                    if(callback) callback();
+                    console.log('done share');
+                });
+            });
+        }
+    } else {
+        self.objAngular.share.setInfo(obj);
+        self.objAngular.shareFacebook = function(){
+            self.objAngular.share.shareFacebook(function(){
+                if(callback) callback();
+                console.log('done share');
+            });
+        }
     }
-
 };
 FunstartGame.prototype.setResultHtml = function (html,html2) {
     this.objAngular.result = html;
@@ -195,15 +209,18 @@ FunstartGame.prototype.setResultImg = function (pic) {
     this.objAngular.result = '<img style="width: 100%" src="'+ pic +'">';
     this.objAngular.share.setInfo({pic: pic});
 };
-FunstartGame.prototype.setResultObj = function (obj) {
+FunstartGame.prototype.setResultObj = function (obj,bool) {
     self = this;
-    self.objAngular.sharing = true;
     this.objAngular.resultObj = obj;
-    self.objAngular.capturing = true;
-    self.objAngular.captureResult(obj,function(){
-        self.objAngular.capturing = false;
-        self.objAngular.captured = true;
-    });
+    if(bool != false){
+        self.objAngular.sharing = true;
+        // self.objAngular.capturing = true;
+        self.objAngular.captureResult(obj,function(){
+            // self.objAngular.capturing = false;
+            // self.objAngular.captured = true;
+        });
+    }
+
 };
 FunstartGame.prototype.pauseGame = function () {
 
