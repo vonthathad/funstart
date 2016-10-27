@@ -221,7 +221,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                         scope: $scope,        // use parent scope in template
                         preserveScope: true,
                         templateUrl: 'app/templates/shareDialog.tmpl.html',
-                        parent: angular.element(document.querySelector('#contentElement'))
+                        parent: angular.element(document.body)
                     })
                     .then(function(answer) {
 
