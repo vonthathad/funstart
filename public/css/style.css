@@ -208,6 +208,12 @@ user-card .md-button.md-fab{
 .dialog-share .share-trophy{
   max-width: 200px;
 }
+.dialog-share .share-close{
+  position: absolute;
+  top: 5px;
+  right: 0;
+  color: #bababa;
+}
 @media only screen and (max-width: 599px){
   .game-card{
     height: auto;

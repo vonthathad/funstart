@@ -196,6 +196,9 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             if(obj.score > $scope.maxScore){
                 $mdDialog.show({
                         controller: ['$scope','$mdDialog','score',function($scope, $mdDialog, score) {
+                            $scope.cancel = function() {
+                                $mdDialog.cancel();
+                            };
                             // $scope.capturing = capturing;
                             // $scope.captured = captured;
                             // $scope.capturedImage = capturedImage;
