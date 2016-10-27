@@ -1,7 +1,8 @@
 <!--<loading-circle is-loading="capturing"></loading-circle>-->
 <md-dialog layout-padding layout-align="center center">
     <img style="max-width: 200px" ng-src="{{image}}">
-    <div style="font-size: 1.25em;font-weight: bold">Điểm của bạn cao hơn {{percent}}% người chơi còn lại!</div>
-    <img style="width: 100%;max-width: 400px;margin: 12px" ng-src="{{capturedImage}}">
+    <div style="font-size: 1.25em;font-weight: bold">Điểm của bạn cao hơn {{percent}}% người chơi còn lại</div>
+    <div style="font-size: 1.25em;font-weight: bold;text-transform: uppercase">Chia sẻ để khoe với bạn bè ngay!</div>
+    <img style="width: 100%;max-width: 400px;" ng-src="{{capturedImage}}">
     <md-button style="width: 100%" ng-click="onShareFacebook()" class="md-raised md-facebook">Chia sẻ lên tường</md-button>
 </md-dialog>
