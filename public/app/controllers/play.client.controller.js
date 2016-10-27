@@ -217,12 +217,11 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                                 $scope.maxScore = 20000;
                             }
                         }],
-                        bindToController: true,
                         locals: {score: obj.score},
-                        scope: $scope,
+                        scope: $scope,        // use parent scope in template
+                        preserveScope: true,
                         templateUrl: 'app/templates/shareDialog.tmpl.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose:true
+                        parent: angular.element(document.querySelector('#contentElement'))
                     })
                     .then(function(answer) {
 
