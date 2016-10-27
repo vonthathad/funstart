@@ -188,7 +188,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $timeout(function() {
                 $scope.isEnd = true;
             });
-            if((Date.now() - $scope.time >= 2*60*1000) && $scope.games.currentGame.public){
+            if((Date.now() - $scope.time >= 1*60*1000) && $scope.games.currentGame.public){
                 $scope.time = Date.now();
                 eventAdsense.load();
             } else {
