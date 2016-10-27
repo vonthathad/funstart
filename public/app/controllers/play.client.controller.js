@@ -11,6 +11,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.games = GamesService;
             $scope.tracking = TrackingService;
             $scope.capturedImage = null;
+            $scope.maxScore = 10000;
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
                 if($scope.games.currentGame.public){
@@ -90,7 +91,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             console.log('done load!');
             //init info share
             $scope.share.setInfo({
-                game: ($scope.games.currentGame)?$scope.games.currentGame.title:'Funstart',
+                name: ($scope.games.currentGame)?$scope.games.currentGame.title:'Funstart',
                 url: location.href.split('?')[0],
                 pic: ($scope.games.currentGame)?$scope.games.currentGame.thumbAds:'http://www.funstart.net/sources/ads.jpg',
                 des: ($scope.games.currentGame)?$scope.games.currentGame.des:'Webgame Mini số 1 Việt Nam'
@@ -191,36 +192,40 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             if((Date.now() - $scope.time >= 1*60*1000) && $scope.games.currentGame.public){
                 $scope.time = Date.now();
                 eventAdsense.load();
-            } else {
-                // if(obj.score > 0){
-                //     $mdDialog.show({
-                //             controller: ['$scope','$mdDialog','score',function($scope, $mdDialog, score) {
-                //                 // $scope.capturing = capturing;
-                //                 // $scope.captured = captured;
-                //                 // $scope.capturedImage = capturedImage;
-                //                 // $scope.user = user;
-                //                 if(score > 25000){
-                //                     $scope.percent = Math.floor(Math.random()*10) + 90;
-                //                 } else if (score > 15000) {
-                //                     $scope.percent = Math.floor(Math.random()*10) + 70;
-                //                 } else {
-                //                     $scope.percent = Math.floor(Math.random()*10) + 60;
-                //                     $scope.image = '/img/1star.svg';
-                //                 }
-                //             }],
-                //             bindToController: true,
-                //             locals: {score: obj.score},
-                //             scope: $scope,
-                //             templateUrl: 'app/templates/shareDialog.tmpl.html',
-                //             parent: angular.element(document.body),
-                //             clickOutsideToClose:true
-                //         })
-                //         .then(function(answer) {
-                //
-                //         }, function() {
-                //
-                //         });
-                // }
+            }
+            if(obj.score > $scope.maxScore){
+                $mdDialog.show({
+                        controller: ['$scope','$mdDialog','score',function($scope, $mdDialog, score) {
+                            // $scope.capturing = capturing;
+                            // $scope.captured = captured;
+                            // $scope.capturedImage = capturedImage;
+                            // $scope.user = user;
+                            if(score >= 30000){
+                                $scope.percent = Math.floor(Math.random()*10) + 90;
+                                $scope.image = '/img/3star.svg';
+                                $scope.maxScore = 100000;
+                            } else if (score >= 20000) {
+                                $scope.percent = Math.floor(Math.random()*10) + 70;
+                                $scope.image = '/img/2star.svg';
+                                $scope.maxScore = 30000;
+                            } else {
+                                $scope.percent = Math.floor(Math.random()*10) + 60;
+                                $scope.image = '/img/1star.svg';
+                                $scope.maxScore = 20000;
+                            }
+                        }],
+                        bindToController: true,
+                        locals: {score: obj.score},
+                        scope: $scope,
+                        templateUrl: 'app/templates/shareDialog.tmpl.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose:true
+                    })
+                    .then(function(answer) {
+
+                    }, function() {
+
+                    });
             }
             if(obj) $scope.setActivity(obj);
         };
