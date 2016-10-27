@@ -40,6 +40,7 @@ angular.module('funstart').run(['$FB','AuthToken','Topics','$rootScope','$mdSide
             e.preventDefault();
         });
         $(window).scrollTop(0);
+        $('body').css('overflow','auto');
         $mdSidenav('left').close();
         $mdSidenav('right').close();
         if(current && ('gameId' in current.params) && ('gameId' in next.params) && current.params!=next.params){

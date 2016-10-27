@@ -156,6 +156,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 });
                 $scope.setTimeProgress();
             }
+            $('body').css('overflow','hidden');
             $scope.isEnd = false;
             $scope.isPlay = true;
             $scope.start();
@@ -183,6 +184,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         $scope.endGame = function(obj){
             // if()
             console.log('end!');
+            $('body').css('overflow','auto');
             $timeout(function() {
                 $scope.isEnd = true;
             });
