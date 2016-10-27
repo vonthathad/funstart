@@ -197,6 +197,17 @@ user-card .md-button.md-fab{
     padding: 5px;
   }
 }
+.dialog-share .share-image{
+  width: 100%;max-width: 400px;
+}
+.dialog-share .share-text{
+  font-size: 1.25em;
+  font-weight: bold;
+  text-align: center;
+}
+.dialog-share .share-trophy{
+  max-width: 200px;
+}
 @media only screen and (max-width: 599px){
   .game-card{
     height: auto;
@@ -205,8 +216,15 @@ user-card .md-button.md-fab{
     margin-left: 0;
     margin-right: 0;
   }
-  .dialog-level,.dialog-help{
+
+  .dialog-level,.dialog-help,.dialog-share{
     width: 90%;
+  }
+  .dialog-share .share-text{
+    font-size: 1em;
+  }
+  .dialog-share .share-trophy{
+    max-width: 100px;
   }
   .dialog-level .title{
     font-size: 1.15em;
