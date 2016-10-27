@@ -193,12 +193,14 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                 $scope.time = Date.now();
                 eventAdsense.load();
             }
+            $scope.cancelDialog = function() {
+                $mdDialog.cancel();
+            };
             if(obj.score > $scope.maxScore){
                 $mdDialog.show({
-                        controller: ['$scope','$mdDialog','score',function($scope, $mdDialog, score) {
-                            $scope.cancel = function() {
-                                $mdDialog.cancel();
-                            };
+                        controller: ['$scope','score',function($scope, score) {
+                            console.log('vo day');
+
                             // $scope.capturing = capturing;
                             // $scope.captured = captured;
                             // $scope.capturedImage = capturedImage;
