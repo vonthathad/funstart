@@ -1017,7 +1017,8 @@ nav-toolbar .md-button{
 
 @media screen and (min-width: 600px){
   .recommend-btn{
-    min-width: 320px;
+    margin: 0 8px;
+    min-width: 305px;
     font-size: 1.25em;
     padding: 10px 30px;
   }
