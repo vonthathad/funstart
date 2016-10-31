@@ -28,6 +28,7 @@ function createAdDisplayContainer() {
 }
 
 function requestAds() {
+    // console.log(url_ads);
     // Create the ad display container.
     createAdDisplayContainer();
     // Initialize the container. Must be done via a user action on mobile devices.
@@ -191,7 +192,12 @@ function adsAdsense() {
         this.FuncCallback();
         this.skipAds();
     };
-    this.load = function(callback){
+    this.load = function(obj,callback){
+        if(typeof obj === 'object'){
+            if(obj.channel_id) channel_id = obj.channel_id;
+            if(obj.href_ads) href_ads = obj.href_ads;
+            url_ads = "https://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-games-pub-8167045239596974&description_url="+href_ads+"&channel="+channel_id+"&videoad_start_delay=0&hl=en&max_ad_duration=30000";
+        }
         $("#adContainer").html("").css('display','block');
         requestAds();
         console.log('Load new ads');

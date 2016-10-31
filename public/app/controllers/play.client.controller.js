@@ -15,7 +15,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
                 if($scope.games.currentGame.public){
-                    eventAdsense.load();
+                    eventAdsense.load({channel_id: '8788971041'});
                 }
                 document.title = $scope.games.currentGame.title;
                 $scope.isInit = false;
@@ -191,7 +191,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             });
             if((Date.now() - $scope.time >= 1*60*1000) && $scope.games.currentGame.public){
                 $scope.time = Date.now();
-                eventAdsense.load();
+                eventAdsense.load({channel_id: '6660299449'});
             }
             $scope.cancelDialog = function() {
                 $mdDialog.cancel();
