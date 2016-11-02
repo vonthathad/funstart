@@ -37,34 +37,38 @@
                 <i class="ion-play"></i>
                 <span> Chơi Game</span>
             </md-button>
-            <md-button aria-label="find"
-                       ng-if="!isLoad && games.currentGame.multi >= 1 && $root.readyBattle"
-                       ng-click="onBattleCall($event)"
-                       class="md-raised md-accent btn-play">
-                <i class="ion-android-search"></i>
-                <span> Tìm đối thủ</span>
-            </md-button>
-            <md-button aria-label="createroom"
-                       ng-if="!isLoad && games.currentGame.multi >= 1 && $root.readyBattle"
-                       ng-click="onCreateRoom($event)"
-                       class="md-raised md-pink btn-play">
-                <i class="ion-android-home"></i>
-                <span> Tạo phòng</span>
-            </md-button>
-            <md-button aria-label="find"
-                       ng-if="!isLoad && games.currentGame.multi >= 1 && !$root.user"
-                       ng-click="showSigninDialog($event)"
-                       class="md-raised md-accent btn-play">
-                <i class="ion-android-search"></i>
-                <span> Tìm đối thủ</span>
-            </md-button>
-            <md-button aria-label="createroom"
-                       ng-if="!isLoad && games.currentGame.multi >= 1 && !$root.user"
-                       ng-click="showSigninDialog($event)"
-                       class="md-raised md-pink btn-play">
-                <i class="ion-android-home"></i>
-                <span> Tạo phòng</span>
-            </md-button>
+            <div layout-lg="row">
+                <md-button aria-label="find"
+                           ng-if="!isLoad && games.currentGame.multi >= 1 && $root.readyBattle"
+                           ng-click="onBattleCall($event)"
+                           class="md-raised md-accent btn-play">
+                    <i class="ion-android-search"></i>
+                    <span> Chơi ngay</span>
+                </md-button>
+                <md-button aria-label="createroom"
+                           ng-if="!isLoad && games.currentGame.multi >= 1 && $root.readyBattle"
+                           ng-click="onCreateRoom($event)"
+                           class="md-raised md-pink btn-play">
+                    <i class="ion-android-home"></i>
+                    <span> Tạo phòng</span>
+                </md-button>
+            </div>
+            <div layout-lg="row">
+                <md-button aria-label="find"
+                           ng-if="!isLoad && games.currentGame.multi >= 1 && !$root.user"
+                           ng-click="showSigninDialog($event)"
+                           class="md-raised md-accent btn-play">
+                    <i class="ion-android-search"></i>
+                    <span> Chơi ngay</span>
+                </md-button>
+                <md-button aria-label="createroom"
+                           ng-if="!isLoad && games.currentGame.multi >= 1 && !$root.user"
+                           ng-click="showSigninDialog($event)"
+                           class="md-raised md-pink btn-play">
+                    <i class="ion-android-home"></i>
+                    <span> Tạo phòng</span>
+                </md-button>
+            </div>
             </div>
         </div>
         <!--GAME INFO PANEL-->
