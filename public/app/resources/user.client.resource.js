@@ -61,8 +61,9 @@ angular.module('funstart').service('UserInfoService',['Users',function(Users){
 angular.module('funstart').service('ShortInfoService',['Users',function(Users){
     var self = {
         'isLoading': false,
+        'isFollowing': false,
         'data': {},
-        'loadUser': function (username,callback) {
+        'loadUser': function (username,user,callback) {
             if (!self.isLoading) {
                 self.isLoading = true;
                 var params = {
@@ -71,12 +72,30 @@ angular.module('funstart').service('ShortInfoService',['Users',function(Users){
                 };
                 Users.get(params,function (res) {
                     self.data = new Users(res.data);
+                    self.data.friends.forEach(function(e){
+                        if(e == user._id){
+                            self.data.isFriend = true;
+                            return true;
+                        }
+                    })
                     self.isLoading = false;
                     if(callback) callback();
 
                 });
 
             }
+        },
+        'follow': function(callback){
+            var params = {
+                action: 'follow'
+            };
+            self.isFollowing = true;
+            self.data.$update(params,function(res){
+                console.log('update follow status');
+                self.data.isFriend = true;
+                self.isFollowing = false;
+                if(callback) callback();
+            });
         }
     };
     return self;

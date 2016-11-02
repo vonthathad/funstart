@@ -9,17 +9,27 @@ angular.module('funstart').controller('PopupProfileController',['$scope','$rootS
         };
         $scope.loadProfile = function(){
             $timeout(function(){
-                var checkY = $rootScope.popupProfile.top + 200;
+                var checkY = $rootScope.popupProfile.top + 250;
+                var checkX = $rootScope.popupProfile.left + 300;
+                var offset = {};
+
                 if(checkY < $(window).height()){
-                    $('.profile-panel').css({'top' : ($rootScope.popupProfile.top + 20) + 'px','left' : $rootScope.popupProfile.left + 'px'});
+                    offset.top =  ($rootScope.popupProfile.top + 20) + 'px';
                 } else {
-                    $('.profile-panel').css({'top' : ($rootScope.popupProfile.top - 180) + 'px','left' : $rootScope.popupProfile.left + 'px'});
+                    offset.top = ($rootScope.popupProfile.top - 230) + 'px';
                 }
+                if(checkX < $(window).width()){
+                    offset.left = $rootScope.popupProfile.left + 'px';
+                } else {
+                    offset.left = ($rootScope.popupProfile.left - 100) + 'px';
+                }
+                $('.profile-panel').css(offset);
                 $('.profile-panel').css('display','block');
-            },100);
+            },300);
+
             $scope.info = ShortInfoService;
-            $scope.info.loadUser($rootScope.popupProfile.name,function(){
-              
+            $scope.info.loadUser($rootScope.popupProfile.name,$rootScope.user,function(){
+
             });
         }
     }])

@@ -18,7 +18,6 @@ module.exports = function(){
                 if (decoded === undefined) {
                     return done(null,false);
                 }
-                console.log('decoded',decoded);
                 User.findOne({email : decoded.email},function(err,user){
 
                     if(!user)

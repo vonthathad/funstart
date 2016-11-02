@@ -45,7 +45,6 @@ angular.module('funstart').service('ActivitiesService',['Activities',function(Ac
                 if(self.user) params.user = self.user;
                 Activities.get(params,function(res){
                     angular.forEach(res.data,function(activity){
-                        console.log(activity);
                         self.data.push(new Activities(activity));
                     });
 

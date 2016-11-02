@@ -99,9 +99,17 @@ user-card .md-button.md-fab{
 .profile-btn{
   height: 42px;
   border-radius: 0;
+  background: rgb(255, 196, 36)!important;
+  text-shadow: 0px -1px 1px #ffa21a, 1px 1px 1px #ffdd8e!important;
+  color: rgb(194, 134, 14)!important;
+  font-weight: 900;
+  font-size: 1.25em;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), inset 0px 4px 1px 1px #ffdd8e, inset 0px -3px 1px 1px rgba(225, 144, 16, 0.5)!important;
+
 }
 .profile-btn span{
   line-height: 42px;
+
 }
 .profile-panel .top-stat.top{
   position: relative;

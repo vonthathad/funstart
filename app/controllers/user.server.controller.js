@@ -22,7 +22,6 @@ var getErrorMessage = function(err) {
     return message;
 };
 exports.authFacebookSuccess = function(req,res){
-    console.log(req.user);
     res.json(req.user);
 };
 exports.authFacebookFail = function(req,res){
@@ -30,7 +29,6 @@ exports.authFacebookFail = function(req,res){
 };
 exports.authLogout = function(req,res){
     req.logout();
-    console.log(req.user);
     res.redirect('/');
 };
 exports.authSignin = function(req,res){
@@ -322,7 +320,6 @@ exports.loadUsers = function(req,res){
         var match = {};
         if(req.query.friend) {
             User.findById(req.query.friend,function(err,user){
-                console.log('tim friend cua',user);
                 if(user){
                     conds.push({_id: { $in: user.friends}});
                     if(req.query.online){

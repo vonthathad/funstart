@@ -38,6 +38,7 @@ exports.loadActivities = function(req,res){
             if(err) {
                 res.status(400).send();
             } else {
+                console.log(data);  
                 var isNext = false;
                 if(data.length==(paging+1)){
                     isNext = true;
@@ -53,8 +54,8 @@ exports.loadActivities = function(req,res){
         })
 };
 exports.createActivity = function (req,res,next) {
-    if(req.user){
-        console.log(req.body);
+    console.log('activity',req.body);
+    if(req.user._id){
         Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: { plays: 1}},function(err,game){
             if(!req.body.opponents){
                 Activity.findOne({user: req.user._id})
