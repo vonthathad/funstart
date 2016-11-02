@@ -30,7 +30,7 @@
     </md-card-title>
     <md-card-actions class="md-card-action" ng-if="!info.isLoading" layout="row" layout-align="space-between center">
         <div class="top-stat top" ng-if="info.data.rank < 100"><span><i class="ion-trophy"><md-tooltip>Xếp hạng</md-tooltip></i>{{info.data.rank}}</span></div>
-        <md-button flex ng-click="$root.popupProfile = null" ng-href="/user/{{info.data.username}}?utm_campaign=track&utm_source=profile&utm_medium={{$root.login}}" class="md-raised profile-btn">Xem trang</md-button>
+        <md-button flex ng-click="$root.popupProfile = null;" ng-href="/user/{{info.data.username}}?utm_campaign=track&utm_source=profile&utm_medium={{$root.login}}" class="md-raised profile-btn">Xem trang</md-button>
         <div class="top-stat level" ><span>Lv. {{info.data.level}}<md-tooltip>Xếp hạng</md-tooltip></span></div>
     </md-card-actions>
 

@@ -8,25 +8,26 @@ angular.module('funstart').controller('PopupProfileController',['$scope','$rootS
             $rootScope.popupProfile = null;
         };
         $scope.loadProfile = function(){
+
+            var checkY = $rootScope.popupProfile.top + 250;
+            var checkX = $rootScope.popupProfile.left + 300;
+            var offset = {};
+
+            if(checkY < $(window).height()){
+                offset.top =  ($rootScope.popupProfile.top + 20) + 'px';
+            } else {
+                offset.top = ($rootScope.popupProfile.top - 230) + 'px';
+            }
+            if(checkX < $(window).width()){
+                offset.left = $rootScope.popupProfile.left + 'px';
+            } else {
+                offset.left = ($rootScope.popupProfile.left - 100) + 'px';
+            }
+
             $timeout(function(){
-                var checkY = $rootScope.popupProfile.top + 250;
-                var checkX = $rootScope.popupProfile.left + 300;
-                var offset = {};
-
-                if(checkY < $(window).height()){
-                    offset.top =  ($rootScope.popupProfile.top + 20) + 'px';
-                } else {
-                    offset.top = ($rootScope.popupProfile.top - 230) + 'px';
-                }
-                if(checkX < $(window).width()){
-                    offset.left = $rootScope.popupProfile.left + 'px';
-                } else {
-                    offset.left = ($rootScope.popupProfile.left - 100) + 'px';
-                }
                 $('.profile-panel').css(offset);
-                $('.profile-panel').css('display','block');
-            },300);
-
+                $('.profile-panel').css('opacity','1');
+            },200);
             $scope.info = ShortInfoService;
             $scope.info.loadUser($rootScope.popupProfile.name,$rootScope.user,function(){
 
