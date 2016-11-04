@@ -289,7 +289,8 @@
                                         <img class="canvas-avatar" ng-src="{{$root.user.avatar}}">
                                     </div>
                                     <div flex="30" layout-padding class="canvas-info">
-                                        <h1>VS</h1>
+                                        <h1 ng-if="!resultObj.status">VS</h1>
+                                        <h4 ng-if="resultObj.status">{{resultObj.status}}</h4>
                                     </div>
                                     <div flex="35" layout-padding style="text-align: left">
                                         <img class="canvas-avatar" ng-src="{{battle.opponent.avatar}}">
