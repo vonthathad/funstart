@@ -11,7 +11,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.games = GamesService;
             $scope.tracking = TrackingService;
             $scope.capturedImage = null;
-            $scope.maxScore = 10000;
+            $scope.maxScore = 20000;
             //load info this game
             $scope.games.loadGame($routeParams.gameId,function(){
                 if($scope.games.currentGame.public){
@@ -209,14 +209,14 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
                                 $scope.percent = Math.floor(Math.random()*10) + 90;
                                 $scope.image = '/img/3star.svg';
                                 $scope.maxScore = 100000;
-                            } else if (score >= 20000) {
+                            } else if (score >= 25000) {
                                 $scope.percent = Math.floor(Math.random()*10) + 70;
                                 $scope.image = '/img/2star.svg';
                                 $scope.maxScore = 30000;
                             } else {
                                 $scope.percent = Math.floor(Math.random()*10) + 60;
                                 $scope.image = '/img/1star.svg';
-                                $scope.maxScore = 20000;
+                                $scope.maxScore = 25000;
                             }
                         }],
                         locals: {score: obj.score},
