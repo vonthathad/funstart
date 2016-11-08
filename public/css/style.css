@@ -1046,13 +1046,20 @@ nav-toolbar .md-button{
 .recommend-games .group-game-card {
   padding-top: 0;
 }
-
 @media screen and (min-width: 600px){
   .recommend-btn{
     margin: 0 8px;
     min-width: 305px;
     font-size: 1.25em;
     padding: 10px 30px;
+  }
+}
+@media screen and (max-width: 600px){
+  .recommend-group-btn{
+    width: 100%;
+  }
+  .recommend-btn{
+    width: 100%;
   }
 }
 .btn-play{

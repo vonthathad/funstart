@@ -21,7 +21,7 @@ angular.module('funstart').service('ShareService',function(){
                 mobile_iframe: true,
                 href: self.url + "?ref=share&rs_image="+self.pic+"&rs_title="+self.name+"&rs_des="+self.des
             }, function(res){
-                if (callback) callback;
+                if (callback) callback();
             });
 
 

@@ -234,3 +234,34 @@ exports.loadTopics = function(req,res){
         return res.json({data:data});
     })
 }
+exports.trackUser = function(req,res){
+    console.log(req.body);
+    if(req.body.source && req.body.game && req.user._id){
+        var tmp = req.user.trackData;
+        req.user.trackData = {};
+        switch (req.body.source){
+            case 'start': tmp.lastPlay = req.body.game; break;
+            case 'visit':
+                tmp.lastVisit = req.body.game;
+                tmp.hourlySession = (tmp.hourlySession)?(tmp.hourlySession+1):1;
+                tmp.dailySession = (tmp.dailySession)?(tmp.dailySession+1):1;
+                break;
+            case 'share':
+                tmp.share = req.body.game;
+                Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: {shares: 1}},function(){});break;
+        }
+        req.user.trackData = tmp;
+        req.user.save(function(err){
+            console.log(err);
+        });
+        res.status(200).send();
+    } else {
+        if(req.body.source === 'share'){
+            Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: {shares: 1}},function(){});
+            res.status(200).send();
+        } else {
+            res.status(401).send();
+        }
+
+    }
+}

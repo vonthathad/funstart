@@ -25,7 +25,7 @@ module.exports = function(router) {
         .get(battle.gameByID,battle.findRoom)
         .post(battle.gameByID,battle.createRoom);
     router.route('/tracking')
-        .put(users.trackUser);
+        .put(games.trackUser);
     router.route('/battle/:roomId')
         .get(battle.joinRoom)
         .put(battle.updateRoom)

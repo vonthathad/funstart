@@ -48,7 +48,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $scope.isPlay = false;
             $scope.isEnd = false;
             $scope.isBattle = false;
-            $scope.time = Date.now();
+            // $scope.time = Date.now();
             $scope.share = ShareService;
 
         };
@@ -176,12 +176,17 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
         };
         $scope.onShareFacebook = function(){
             // $scope.share();
+            $scope.tracking.init('share',$routeParams.gameId);
+            $scope.tracking.track();
             $scope.shareFacebook();
         };
         $scope.skipAds = function() {
             eventAdsense.skipAds();
         }
         $scope.user = {};
+        $scope.cancelDialog = function() {
+            $mdDialog.cancel();
+        };
         $scope.endGame = function(obj){
             // if()
             console.log('end!');
@@ -189,48 +194,48 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $timeout(function() {
                 $scope.isEnd = true;
             });
-            if((Date.now() - $scope.time >= 1*60*1000) && $scope.games.currentGame.public){
-                $scope.time = Date.now();
+            if($scope.games.currentGame.public && Math.floor(Math.random()*3)==1){
+                // $scope.time = Date.now();
                 eventAdsense.load({channel_id: '6660299449'});
+            } else {
+                if(obj.score > $scope.maxScore){
+                    $mdDialog.show({
+                            controller: ['$scope','score',function($scope, score) {
+                                console.log('vo day');
+
+                                // $scope.capturing = capturing;
+                                // $scope.captured = captured;
+                                // $scope.capturedImage = capturedImage;
+                                // $scope.user = user;
+                                if(score >= 30000){
+                                    $scope.percent = Math.floor(Math.random()*10) + 90;
+                                    $scope.image = '/img/3star.svg';
+                                    $scope.maxScore = 100000;
+                                } else if (score >= 25000) {
+                                    $scope.percent = Math.floor(Math.random()*10) + 70;
+                                    $scope.image = '/img/2star.svg';
+                                    $scope.maxScore = 30000;
+                                } else {
+                                    $scope.percent = Math.floor(Math.random()*10) + 60;
+                                    $scope.image = '/img/1star.svg';
+                                    $scope.maxScore = 25000;
+                                }
+                            }],
+                            locals: {score: obj.score},
+                            scope: $scope,        // use parent scope in template
+                            preserveScope: true,
+                            templateUrl: 'app/templates/shareDialog.tmpl.html',
+                            parent: angular.element(document.body)
+                        })
+                        .then(function(answer) {
+
+                        }, function() {
+
+                        });
+                }
             }
-            $scope.cancelDialog = function() {
-                $mdDialog.cancel();
-            };
-            if(obj.score > $scope.maxScore){
-                $mdDialog.show({
-                        controller: ['$scope','score',function($scope, score) {
-                            console.log('vo day');
 
-                            // $scope.capturing = capturing;
-                            // $scope.captured = captured;
-                            // $scope.capturedImage = capturedImage;
-                            // $scope.user = user;
-                            if(score >= 30000){
-                                $scope.percent = Math.floor(Math.random()*10) + 90;
-                                $scope.image = '/img/3star.svg';
-                                $scope.maxScore = 100000;
-                            } else if (score >= 25000) {
-                                $scope.percent = Math.floor(Math.random()*10) + 70;
-                                $scope.image = '/img/2star.svg';
-                                $scope.maxScore = 30000;
-                            } else {
-                                $scope.percent = Math.floor(Math.random()*10) + 60;
-                                $scope.image = '/img/1star.svg';
-                                $scope.maxScore = 25000;
-                            }
-                        }],
-                        locals: {score: obj.score},
-                        scope: $scope,        // use parent scope in template
-                        preserveScope: true,
-                        templateUrl: 'app/templates/shareDialog.tmpl.html',
-                        parent: angular.element(document.body)
-                    })
-                    .then(function(answer) {
 
-                    }, function() {
-
-                    });
-            }
             if(obj) $scope.setActivity(obj);
         };
         $scope.captureResult = function(obj,callback){
