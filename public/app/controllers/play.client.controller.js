@@ -194,7 +194,7 @@ angular.module('funstart').controller('PlayController', ['$scope','$rootScope','
             $timeout(function() {
                 $scope.isEnd = true;
             });
-            if($scope.games.currentGame.public && Math.floor(Math.random()*3)==1){
+            if($scope.games.currentGame.public && Math.floor(Math.random()*2)==1){
                 // $scope.time = Date.now();
                 eventAdsense.load({channel_id: '6660299449'});
             } else {

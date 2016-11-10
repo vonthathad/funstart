@@ -10,6 +10,27 @@
             <i class="ion-log-out"></i> <span>Đăng xuất</span>
         </md-button>
     </div>
+    <div ng-controller="NavbarController">
+        <md-card ng-if="!$root.user">
+            <md-card-content>
+                <md-button aria-label="Signup" ng-click="showSigninDialog($event)">
+                    <i class="ion-android-create"></i> <span>Đăng nhập / Đăng ký</span>
+                </md-button>
+            </md-card-content>
+        </md-card>
+        <md-card ng-if="isRecommend">
+            <md-toolbar class="md-theme-light">
+                <h2 class="md-toolbar-tools">
+                    <span>Có thể bạn thích:</span>
+                </h2>
+            </md-toolbar>
+            <md-content>
+                <md-list>
+                    <recommend-card ng-repeat="item in games.data" item="item"></recommend-card>
+                </md-list>
+            </md-content>
+        </md-card>
+    </div>
     <md-card>
         <md-toolbar class="md-theme-light">
             <h2 class="md-toolbar-tools">
@@ -68,24 +89,3 @@
     <!--</md-content>-->
     <!--</md-card>-->
 </section>
-<div ng-controller="NavbarController">
-    <md-card ng-if="!$root.user">
-        <md-card-content>
-            <md-button aria-label="Signup" ng-click="showSigninDialog($event)">
-                <i class="ion-android-create"></i> <span>Đăng nhập / Đăng ký</span>
-            </md-button>
-        </md-card-content>
-    </md-card>
-    <md-card ng-if="isRecommend">
-        <md-toolbar class="md-theme-light">
-            <h2 class="md-toolbar-tools">
-                <span>Có thể bạn thích:</span>
-            </h2>
-        </md-toolbar>
-        <md-content>
-            <md-list>
-                <recommend-card ng-repeat="item in games.data" item="item"></recommend-card>
-            </md-list>
-        </md-content>
-    </md-card>
-</div>
