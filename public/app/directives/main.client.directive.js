@@ -69,16 +69,3 @@ angular.module('funstart').directive('facebookComment', function () {
         }
     };
 });
-angular.module('funstart').directive('fbPage', [function() {
-    return {
-        restrict: 'A',
-        scope: {},
-        template: '<div class="fb-page" data-href="{{page}}" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>',
-        link: function($scope, $element, $attrs) {
-            $attrs.$observe('page', function(val){
-                console.log('Fanpage');
-                $scope['page'] = val;
-            });
-        }
-    };
-}]);
