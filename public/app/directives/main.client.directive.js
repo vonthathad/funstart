@@ -78,7 +78,10 @@ angular.module('funstart').directive('facebookLike', ['$FB',function ($FB) {
         scope: {},
         link: function postLink(scope, elem) {
             elem.html(createHTML());
-            $FB.XFBML.parse(elem[0]);
+            setTimeout(function(){
+                $FB.XFBML.parse(elem[0]);
+            },500);
+
         }
     };
 }]);
