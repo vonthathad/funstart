@@ -69,7 +69,7 @@ angular.module('funstart').directive('facebookComment', function () {
         }
     };
 });
-angular.module('funstart').directive('facebookLike', ['$FB',function ($FB) {
+angular.module('funstart').directive('facebookLike', function () {
     function createHTML() {
         return '<div class="fb-page" data-href="https://www.facebook.com/FunStart/" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/FunStart/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/FunStart/">Fun Start</a></blockquote></div>';
     }
@@ -77,11 +77,12 @@ angular.module('funstart').directive('facebookLike', ['$FB',function ($FB) {
         restrict: 'A',
         scope: {},
         link: function postLink(scope, elem) {
-            elem.html(createHTML());
+
             setTimeout(function(){
-                $FB.XFBML.parse(elem[0]);
-            },500);
+                elem.html(createHTML());
+                FB.XFBML.parse(elem[0]);
+            },2000);
 
         }
     };
-}]);
+});
