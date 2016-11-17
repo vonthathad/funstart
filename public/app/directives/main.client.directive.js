@@ -45,3 +45,27 @@ angular.module('funstart').directive('sliderLeft', function () {
 //         });
 //     }
 // });
+angular.module('funstart').directive('facebookComment', function () {
+    function createHTML(href, numposts, width) {
+        return '<div class="fb-comments" ' +
+            'data-href="' + href + '" ' +
+            'data-width="' + width + '" ' +
+            'data-numposts="' + numposts + '" ' +
+            '</div>';
+    }
+
+    return {
+        restrict: 'A',
+        scope: {},
+        link: function postLink(scope, elem, attrs) {
+            attrs.$observe('pageHref', function (newValue) {
+                var href        = newValue;
+                var numposts    = attrs.numposts    || 5;
+                var width    = attrs.width    || $('#facebook-comment').width();
+                console.log(width);
+                elem.html(createHTML(href, numposts, width));
+                FB.XFBML.parse(elem[0]);
+            });
+        }
+    };
+});

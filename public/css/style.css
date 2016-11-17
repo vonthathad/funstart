@@ -1909,3 +1909,9 @@ md-tooltip{
     overflow-y: auto;
   }
 }
+.fb-page{
+  margin: 8px;
+}
+#facebook-comment{
+  width: 100%;
+}
