@@ -1,4 +1,4 @@
-<div id="facebook-like"></div>
+<div fb-page="https://www.facebook.com/FunStart/"></div>
 <div ng-controller="NavbarController">
     <md-card ng-if="!$root.user">
         <md-card-content>
@@ -90,10 +90,3 @@
     <!--</md-content>-->
     <!--</md-card>-->
 </section>
-<script>
-    if(document.getElementById('facebook-like').innerHTML == ''){
-        console.log('TH2');
-        document.getElementById('facebook-like').innerHTML = '<div class="fb-page" data-href="https://www.facebook.com/FunStart/" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/FunStart/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/FunStart/">Fun Start</a></blockquote></div>';
-    }
-
-</script>
