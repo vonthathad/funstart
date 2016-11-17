@@ -25,7 +25,6 @@ angular.module('funstart').factory('$FB', ['$window', function($window) {
                     js.src = "//connect.facebook.net/en_US/all.js";
 
                     ref.parentNode.insertBefore(js, ref);
-
                 }(document));
             } else {
                 throw ("FB App Id Cannot be blank");
