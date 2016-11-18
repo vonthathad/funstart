@@ -1059,6 +1059,7 @@ nav-toolbar .md-button{
     width: 100%;
   }
   .recommend-btn{
+    min-width: 280px;
     width: 100%;
   }
 }
