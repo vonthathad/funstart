@@ -3,7 +3,7 @@
 
 <div ng-controller="PlayController" ng-init="loadGame()" style="position: relative">
     <!--GAME SCREEN-->
-    <div class="game-section" id="contentElement" flex>
+    <div class="game-section" id="contentElement" flex ng-class="{'end': isEnd}">
         <!--them game vao day-->
         <!--GAME PANEL-->
         <div class="game-area" ng-class="{'full-mode' : battle.status.isFullscreen}">
@@ -351,7 +351,7 @@
                            class="recommend-card"></game-card>
             </div>
             <!--RECOMMEND-->
-            <div id="facebook-comment" facebook-comment page-href="https://www.funstart.net/game/{{games.currentGame._id}}" numposts="5"></div>
+
         </div>
         <!--RESULT & RECOMMEND-->
     </div>
@@ -444,5 +444,5 @@
     </div>
     <div ng-click="battle.chat.isChat = false" ng-if="isBattle && battle.chat.isChat" class="shadow"></div>
     <!--CHAT-->
-
+    <div id="facebook-comment" facebook-comment page-href="https://www.funstart.net/game/{{games.currentGame._id}}" numposts="5"></div>
 </div>

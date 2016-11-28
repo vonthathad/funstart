@@ -694,6 +694,9 @@ Use of this source code is governed by an MIT-style license that can be in found
   /*overflow: hidden;*/
 }
 
+.game-section.end{
+  height: auto;
+}
 @media only screen and (max-width: 959px) and (min-width: 0) and (orientation: landscape) {
 
   .game-section{
