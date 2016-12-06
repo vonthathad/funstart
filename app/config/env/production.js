@@ -32,5 +32,5 @@ module.exports = {
         description: 'Mini Webgame đối kháng số 1 Việt Nam!',
         url: 'https://www.funstart.net',
         image: 'https://www.funstart.net/sources/ads.jpg'
-    },
+    }
 }
