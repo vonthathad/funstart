@@ -23,8 +23,9 @@
     $ node app
     ```
   
-    > Don't ask me why
-    > ask you how
+    > _**DON'T** ask me **WHY**._
+
+    > _Ask you **HOW**._
     
     *_ An Doan Huu's Quote*  
     
