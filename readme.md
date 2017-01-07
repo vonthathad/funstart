@@ -6,9 +6,11 @@
 
 - Install [Angular 2 Cli][angularcli]
 - Go to public folder
+
     ```
     $ cd public
     ```
+
 - Run angular 2 cli the front-end run at gate [4200][4200]
 
     ```
