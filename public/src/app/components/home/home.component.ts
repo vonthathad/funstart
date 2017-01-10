@@ -1,8 +1,12 @@
 import { NgModule, Component, OnInit } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, FormGroup, FormBuilder } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
+import { ActivatedRoute, Router, Routes, RouterModule } from '@angular/router';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+
+import { RestService } from '../../services/rest.service';
+import { ConstantService } from '../../services/constant.service';
+
+import { Game } from '../../classes/game';
+import { Topic } from '../../classes/topic';
 
 @Component({
   selector: 'app-home',
@@ -10,33 +14,27 @@ import { MaterialModule } from '@angular/material';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  constructor(private router: Router, private rest: RestService) { }
 
-  constructor() { }
+  private gamesCollections: any[];
 
   ngOnInit() {
+    this.gamesCollections = [];
+
+    let _this = this;
+    ConstantService.TOPICS.forEach(function (topic) { // loop through topics
+      _this.rest
+        .getGames({ paging: 6, topic: topic._id })
+        .subscribe((res: any) => _this.renderGame(res, topic)); // take game from database
+    });
   }
-
+  renderGame(games: any, topic: Topic) {
+    console.log(JSON.stringify(games));
+    this.gamesCollections.push({ topic: topic, games: games['data'] }); // set to views
+  }
+  goUser() {
+    this.router.navigate(['user']);
+  }
 }
-export const routes: Routes = [
-  // { path: '', component: HomeComponent },
-  // { path: 'home', component: HomeComponent }
-]
 
 
-@NgModule({
-  declarations: [
-    HomeComponent
-  ],
-  exports: [
-    HomeComponent
-  ],
-  imports: [
-    RouterModule,
-    CommonModule,
-    FormsModule,
-    MaterialModule
-  ],
-  providers: [
-  ]
-})
-export class HomeComponentModule { }

@@ -8,21 +8,15 @@ var config = require('./config'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     session = require('express-session'),
-    passport = require('passport');
-    // https = require('https'),
-    // http = require('http'),
-    // fs = require('fs');
-module.exports = function() {
+    passport = require('passport'),
+    cors = require('cors');
+module.exports = function () {
     var app = express();
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
 
-    
-    // app.all('/', function(req, res, next) {
-    //     res.header("Access-Control-Allow-Origin", "*");
-    //     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    //     next();
-    // });
+
+    app.use(cors());
 
     if (process.env.NODE_ENV === 'development') {
         app.use(morgan('dev'));
@@ -49,14 +43,14 @@ module.exports = function() {
 
     var api = express.Router();
     require('../routes/api')(api);
-    app.use('/api',api);
+    app.use('/api', api);
     var secure = express.Router();
     require('../routes/index')(secure);
     app.use('/', secure);
 
     app.set('port', (process.env.PORT || config.server.port));
 
-    app.listen(app.get('port'), function() {
+    app.listen(app.get('port'), function () {
         console.log('Node app is running on port', app.get('port'));
     });
 

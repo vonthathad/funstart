@@ -10,6 +10,7 @@ var passport = require('passport'),
 module.exports = function(){
     passport.use(new BearerStrategy({},
         function(token,done){
+            console.log("TOKEN " + token);
             if(token === Config.token.guest){
                 return done(null,'guest');
             }

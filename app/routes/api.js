@@ -1,9 +1,7 @@
 
 var games = require('../controllers/game.server.controller.js');
-var missions =  require('../controllers/mission.server.controller.js');
 var activities =  require('../controllers/activity.server.controller.js');
 var users =  require('../controllers/user.server.controller.js');
-var battle =  require('../controllers/battle.server.controller.js');
 var uploads =  require('../controllers/upload.server.controller.js');
 var passport = require('passport');
 /* GET users listing. */
@@ -21,33 +19,16 @@ module.exports = function(router) {
         .get(games.loadGame)
         .put(games.updateGame)
         .delete(games.deleteGame);
-    router.route('/battle')
-        .get(battle.gameByID,battle.findRoom)
-        .post(battle.gameByID,battle.createRoom);
+
     router.route('/tracking')
         .put(games.trackUser);
-    router.route('/battle/:roomId')
-        .get(battle.joinRoom)
-        .put(battle.updateRoom)
-        .delete(battle.outRoom);
-    router.route('/invite/:roomId')
-        .post(battle.inviteToRoom);
-    router.route('/message/room/:id')
-        .post(battle.messageToRoom);
+
     router.post('/uploadresult/:game',uploads.uploadResult);
     router.post('/shooting/:gameId',uploads.captureResult);
     router.param('gameId', games.gameByID);
-    router.param('roomId', battle.roomByID);
     router.route('/activities')
         .get(activities.loadActivities)
         .post(activities.createActivity);
-    router.route('/missions')
-        .get(missions.loadMissions);
-    router.route('/missions/:missionId')
-        .put(missions.updateMission);
-    router.param('missionId',missions.missionById);
-    router.route('/quests')
-        .post(missions.createQuest);
     router.route('/users')
         .get(users.loadUsers);
     router.route('/users/:username')

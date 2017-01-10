@@ -1,7 +1,5 @@
-import { NgModule, Component, OnInit } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Routes } from '@angular/router';
 
 @Component({
   selector: 'app-topic',
@@ -16,27 +14,3 @@ export class TopicComponent implements OnInit {
   }
 
 }
-
-
-export const routes: Routes = [
-  // { path: '', component: TopicComponent },
-  // { path: 'home', component: TopicComponent }
-]
-
-
-@NgModule({
-  declarations: [
-    TopicComponent,
-  ],
-  exports: [
-    TopicComponent,
-  ],
-  imports: [
-    RouterModule,
-    CommonModule,
-    FormsModule,
-  ],
-  providers: [
-  ]
-})
-export class TopicComponentModule { }
