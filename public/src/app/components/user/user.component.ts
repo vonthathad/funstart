@@ -16,8 +16,3 @@ export class UserComponent implements OnInit {
   }
 
 }
-
-export const routes: Routes = [
-  // { path: '', component: UserComponent },
-  // { path: 'home', component: UserComponent }
-]

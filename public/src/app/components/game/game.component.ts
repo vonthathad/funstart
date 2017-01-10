@@ -16,8 +16,3 @@ export class GameComponent implements OnInit {
   }
 
 }
-export const routes: Routes = [
-  // { path: '', component: GameComponent },
-  // { path: 'home', component: GameComponent },
-]
-

@@ -23,7 +23,7 @@ var UserSchema = new Schema({
         required: 'Email is required',
         unique: true
     },
-    password: {
+    password: { 
         type: String,
         validate: [
             function(password) {
@@ -34,22 +34,11 @@ var UserSchema = new Schema({
     salt: {
         type: String
     },
-    friends: [{
-        type: String,
-        default: [],
-        ref: 'User'
-    }],
     avatar: String,
     mobile: Number,
     isVerified: {
         type: Boolean,
         default: false
-    },
-    mid: String,
-    class: {
-        type: Number,
-        enum: [0,1,2,3],
-        default: 0
     },
     provider: {
         type: String,
@@ -67,14 +56,7 @@ var UserSchema = new Schema({
         ref: 'Game',
         default: []
     }],
-    win: {
-        type: Number,
-        default: 0
-    },
-    lose: {
-        type: Number,
-        default: 0
-    },
+
     games: {
         type: Number,
         default: 0
@@ -83,43 +65,13 @@ var UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    quick: {
-        type: Number,
-        default: 0
-    },
-    memory: {
-        type: Number,
-        default: 0
-    },
-    focus: {
-        type: Number,
-        default: 0
-    },
-    flex: {
-        type: Number,
-        default: 0
-    },
-    wit: {
-        type: Number,
-        default: 0
-    },
     created: {
         type: Date,
         default: Date.now
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
-    status: {
-        type: Number,
-        default: 1,
-        enum: [0,1,2]
-    },
-    room: String,
-    rank: Number,
-    trackData: {
-        type: Schema.Types.Mixed,
-        default: {}
-    }
+
 });
 UserSchema.plugin(autoIncrement.plugin, {
     model: 'User',

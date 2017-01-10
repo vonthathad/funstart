@@ -14,10 +14,3 @@ export class TopicComponent implements OnInit {
   }
 
 }
-
-
-export const routes: Routes = [
-  // { path: '', component: TopicComponent },
-  // { path: 'home', component: TopicComponent }
-]
-

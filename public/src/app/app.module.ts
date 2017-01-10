@@ -7,12 +7,6 @@ import { MaterialModule } from '@angular/material'
 import { routing } from './app.routes';
 import { APP_BASE_HREF } from '@angular/common';
 
-
-// import { HomeComponentModule } from './components/home/home.module';
-// import { GameComponentModule } from './components/game/game.module';
-// import { TopicComponentModule } from './components/topic/topic.module';
-// import { UserComponentModule } from './components/user/user.module';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared-components/header/header.component';
 import { FooterComponent } from './shared-components/footer/footer.component';
@@ -21,10 +15,14 @@ import { HomeComponent } from './components/home/home.component';
 import { GameComponent } from './components/game/game.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { UserComponent} from './components/user/user.component';
+import { SidebarComponent } from './shared-components/sidebar/sidebar.component';
 
 import { GameCardComponent} from './child-components/game-card/game-card.component';
 
 import { REST_PROVIDER } from './services/rest.service';
+import { CONSTANT_SERVICE } from './services/constant.service';
+import { GameCollectionComponent } from './child-components/game-collection/game-collection.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +33,9 @@ import { REST_PROVIDER } from './services/rest.service';
     GameComponent,
     TopicComponent,
     UserComponent,
-    GameCardComponent
+    GameCardComponent,
+    SidebarComponent,
+    GameCollectionComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +45,7 @@ import { REST_PROVIDER } from './services/rest.service';
   ],
   providers: [
     REST_PROVIDER,
+    CONSTANT_SERVICE,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: APP_BASE_HREF, useValue: '/' }
   ],

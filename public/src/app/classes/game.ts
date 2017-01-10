@@ -1,12 +1,12 @@
-import {GameTopic} from './game-topic';
+import {Topic} from './topic';
 export class Game{
     constructor(
-        public id: number,
+        public _id: number,
         public title: string,
-        public topic: GameTopic,
+        public topic: Topic,
         public desc: string,
         public thumb: string,
-        public clip: string,
-        public playCount: number
+        public clip?: string,
+        public plays?: number
     ){}
 }

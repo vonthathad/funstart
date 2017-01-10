@@ -21,14 +21,6 @@ var ActivitySchema = new Schema({
     score: {
         type: Number,
         required: 'Must have score'
-    },
-    isWin: Boolean,
-    opponents: [{
-        type: Number,
-        ref: 'User'
-    }],
-    exp: {
-        type: Number
     }
 })
 ActivitySchema.set('toJSON',{getters: true,virtuals: true});
