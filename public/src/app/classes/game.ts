@@ -4,7 +4,7 @@ export class Game{
         public _id: number,
         public title: string,
         public topic: Topic,
-        public desc: string,
+        public des: string,
         public thumb: string,
         public clip?: string,
         public plays?: number

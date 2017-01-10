@@ -33,7 +33,7 @@ export class RestService {
         return this.get('games', paramsList);
     }
     getGame(id: string): Observable<any[]> {
-        return this.get('games');
+        return this.get(`games/${id}`);
     }
 }
 
