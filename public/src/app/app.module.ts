@@ -2,24 +2,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MaterialModule } from '@angular/material'
+import { routing } from './app.routes';
+import { APP_BASE_HREF } from '@angular/common';
 
+
+import { HomeComponentModule } from './components/home/home.module';
+import { GameComponentModule } from './components/game/game.module';
+import { TopicComponentModule } from './components/topic/topic.module';
+import { UserComponentModule } from './components/user/user.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent, HomeComponentModule, routes as homeChildRoutes } from './components/home/home.component';
-import { GameComponent, GameComponentModule, routes as gameChildRoutes } from './components/game/game.component';
-import { TopicComponent, TopicComponentModule, routes as topicChildRoutes } from './components/topic/topic.component';
-import { UserComponent, UserComponentModule, routes as userChildRoutes } from './components/user/user.component';
-import { HeaderComponent } from './child_components/header/header.component';
-import { FooterComponent } from './child_components/footer/footer.component';
+import { HeaderComponent } from './shared-components/header/header.component';
+import { FooterComponent } from './shared-components/footer/footer.component';
 
-const routes: Routes = [
-  { path: '', component: HomeComponent, children: homeChildRoutes },
-  { path: 'topic', component: TopicComponent, children: topicChildRoutes },
-  { path: 'game', component: GameComponent, children: gameChildRoutes },
-  { path: 'user', component: UserComponent, children: userChildRoutes }
-];
+import { REST_PROVIDER } from './services/rest.service';
 
 @NgModule({
   declarations: [
@@ -28,18 +26,21 @@ const routes: Routes = [
     FooterComponent
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
+    MaterialModule.forRoot(),
     HomeComponentModule,
     GameComponentModule,
     TopicComponentModule,
     UserComponentModule,
-    BrowserModule,
-    HttpModule,
-    MaterialModule.forRoot(),
-    RouterModule.forRoot(routes)
+    routing
   ],
   providers: [
-    //  { provide: LocationStrategy, useClass: HashLocationStrategy }
+    REST_PROVIDER,
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: APP_BASE_HREF, useValue: '/' }
   ],
+  //  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

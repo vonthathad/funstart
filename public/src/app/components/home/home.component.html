@@ -1,15 +1,7 @@
 <div>
+    <button md-button (click)="goUser()">Go user</button>
+</div>
 
-  <md-card>
-    <button md-button>All</button>
-    <button md-raised-button>Of</button>
-    <button md-raised-button color="primary">The</button>
-    <button md-raised-button color="accent">Buttons</button>
-  </md-card>
-   <span><md-icon color="primary">mood</md-icon></span>
-  <span class="done">
-    <button md-fab>
-      <md-icon>check circle</md-icon>
-    </button>
-  </span>
+<div *ngFor="let game of games">
+    <app-game-card [game]="game"></app-game-card>
 </div>

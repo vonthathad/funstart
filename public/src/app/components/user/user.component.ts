@@ -21,21 +21,3 @@ export const routes: Routes = [
   // { path: '', component: UserComponent },
   // { path: 'home', component: UserComponent }
 ]
-
-
-@NgModule({
-  declarations: [
-    UserComponent,
-  ],
-  exports: [
-    UserComponent,
-  ],
-  imports: [
-    RouterModule,
-    CommonModule,
-    FormsModule,
-  ],
-  providers: [
-  ]
-})
-export class UserComponentModule { }
