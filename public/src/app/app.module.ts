@@ -29,7 +29,7 @@ import { AccountDialogComponent } from './child-components/account-dialog/accoun
 import { FormLoginComponent } from './child-components/form-login/form-login.component';
 import { FormRegisterComponent } from './child-components/form-register/form-register.component';
 import { FormPasswordResetComponent } from './child-components/form-password-reset/form-password-reset.component';
-
+import { FlexLayoutModule } from "@angular/flex-layout"; 
 
 @NgModule({
   declarations: [
@@ -56,6 +56,7 @@ import { FormPasswordResetComponent } from './child-components/form-password-res
     HttpModule,
     FormsModule,
     MaterialModule.forRoot(),
+    FlexLayoutModule,
     routing
   ],
   providers: [

@@ -1,23 +1,27 @@
-<div class="game-card-item flex-xs-33 flex-sm-25 flex-12.5">
-    <a [routerLink]="['/game', game._id]">
-        <img class="game-thumb" src="{{game.thumb}}" width=100 height=100 alt="game.title" [routerLink]="['/game', game._id]">
-    </a>
+<md-card class="game-card-item" layout="row" layout-wrap>
+    <div flex="33">
+        <a [routerLink]="['/game', game._id]">
+            <img class="game-thumb" src="{{game.thumb}}" width=100 height=100 alt="game.title" [routerLink]="['/game', game._id]">
+        </a>
+    </div>
 
-    <a class="game-item-link" [routerLink]="['/game', game._id]">
-        <span class="game-title">
-            {{game.title}}
+    <div flex="66">
+        <a class="game-item-link" [routerLink]="['/game', game._id]">
+            <span class="game-title">
+                {{game.title}}
+            </span>
+        </a>
+
+        <span class="game-topic">
+            {{game.topic.name}}<br/> 
         </span>
-    </a>
 
-    <span class="game-topic">
-        {{game.topic.name}}<br/> 
-    </span>
-
-    <span class="game-desc">
-        {{game.des}}
-    </span>
-    
-    <span class="game-play-no">
-        <i class="icon ion-ios-infinite-outline"></i>{{game.plays}}
-    </span>
-</div>
+        <span class="game-desc">
+            {{game.des}}
+        </span>
+        
+        <span class="game-play-no">
+            <i class="icon ion-ios-infinite-outline"></i>{{game.plays}}
+        </span>
+    </div>
+</md-card>

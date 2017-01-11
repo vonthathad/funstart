@@ -1,10 +1,15 @@
-<div *ngFor="let game of gamesCollection.games">
-    <!--<loading-circle flex="100" is-loading="games.isLoading" class="ng-isolate-scope flex-100">
-        <div layout="row" layout-align="center center" class="layout-align-center-center layout-row">
-    </div></loading-circle>-->
+<div class="flex-container" 
+     fxLayout="row" 
+     fxLayout.xs="column"
+     fxLayoutAlign="start center"
+     fxLayoutAlign.xs="start">
 
-    <!-- render game card items -->
-    <app-game-card [game]="game"></app-game-card>
+  <div *ngFor="let game of gamesCollection.games"   class="flex-item" fxFlex="12.5%" fxFlex.xs="40%"> 
+      
+       <app-game-card [game]="game"></app-game-card></div>
+</div> 
+<div layout="row" layout-wrap>
+    
 </div>
 <div style="clear:both"></div>
 <hr>
