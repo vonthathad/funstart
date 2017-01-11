@@ -1,30 +1,29 @@
-
-  <md-toolbar color="primary">
-    <button md-button [routerLink]="['']">
+<md-toolbar color="primary">
+  <button md-button [routerLink]="['']">
       <img src="img/logofunstart.svg" class="ng-scope">
       </button>
-    <button md-button [md-menu-trigger-for]="topic">
+  <button md-button [md-menu-trigger-for]="topic">
       Topics
       </button>
-    <button md-button [md-menu-trigger-for]="discover">
+  <button md-button [md-menu-trigger-for]="discover">
       Discover
       </button>
-    <app-autocomplete></app-autocomplete>
-  </md-toolbar>
+  <app-autocomplete></app-autocomplete>
+  <button md-button (click)="openDialog()">Login</button>
+</md-toolbar>
 
-  <!-- menu for topics -->
-  <md-menu x-position="after" y-position="below" #topic="mdMenu">
-    <button md-menu-item *ngFor="let topic of topics" [routerLink]="['/topic', topic._id]">
+<!-- menu for topics -->
+<md-menu x-position="after" y-position="below" #topic="mdMenu">
+  <button md-menu-item *ngFor="let topic of topics" [routerLink]="['/topic', topic._id]">
       <i class="icon submenu-icon {{topic.icon}}"></i> {{topic.name}}
     </button>
-  </md-menu>
+</md-menu>
 
-  <!-- menu for discovery -->
-  <md-menu x-position="after" y-position="below" #discover="mdMenu">
-    <button md-menu-item *ngFor="let game of games" [routerLink]="['/game', game._id]">
+<!-- menu for discovery -->
+<md-menu x-position="after" y-position="below" #discover="mdMenu">
+  <button md-menu-item *ngFor="let game of games" [routerLink]="['/game', game._id]">
       <img class="submenu-thumb" src="{{game.thumb}}" alt="{{game.title}}" width="40" height="40">
       {{game.title}}
     </button>
-  </md-menu>
 
-
+</md-menu>
