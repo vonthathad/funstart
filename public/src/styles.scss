@@ -30,3 +30,23 @@ body {
   margin: 0;
   font-family: Roboto, sans-serif;
 }
+
+.layout-wrap {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.layout-row {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.layout-padding{
+  padding: 10px;
+}
+
+.group-game-index {
+    padding: 20px;
+}

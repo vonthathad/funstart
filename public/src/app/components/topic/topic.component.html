@@ -10,7 +10,7 @@
       <app-game-card-detail [game]="game"></app-game-card-detail>
     </div>
   </md-tab>
-  <md-tab label="Top Games"  (onCentering)="alert(1234)">
+  <md-tab label="Top Games"  (onCentering)="getGames('top')">
     <div *ngFor="let game of games">
      <app-game-card-detail [game]="game"></app-game-card-detail>
     </div>
