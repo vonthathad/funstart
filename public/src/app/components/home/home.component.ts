@@ -1,5 +1,5 @@
 import { NgModule, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Routes, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { RestService } from '../../services/rest.service';
@@ -25,12 +25,12 @@ export class HomeComponent implements OnInit {
     ConstantService.TOPICS.forEach(function (topic) { // loop through topics
       _this.rest
         .getGames({ paging: 6, topic: topic._id })
-        .subscribe((res: any) => _this.renderGame(res, topic)); // take game from database
+        .subscribe((res: any) => _this.renderGames(res.data, topic)); // take game from database
     });
   }
-  renderGame(games: any, topic: Topic) {
+  renderGames(games: any, topic: Topic) {
     console.log(JSON.stringify(games));
-    this.gamesCollections.push({ topic: topic, games: games['data'] }); // set to views
+    this.gamesCollections.push({ topic: topic, games: games }); // set to views
   }
   goUser() {
     this.router.navigate(['user']);

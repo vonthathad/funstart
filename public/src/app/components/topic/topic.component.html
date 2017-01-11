@@ -1,3 +1,18 @@
-<p>
-  topic works!
-</p>
+<md-tab-group>
+  <md-tab label="New Games" (onCentering)="getGames('created')">
+    <div *ngFor="let game of games">
+     <app-game-card-detail [game]="game"></app-game-card-detail>
+    </div>
+    
+  </md-tab>
+  <md-tab label="Hot Games"  (onCentering)="getGames('hot')">
+      <div *ngFor="let game of games">
+      <app-game-card-detail [game]="game"></app-game-card-detail>
+    </div>
+  </md-tab>
+  <md-tab label="Top Games"  (onCentering)="alert(1234)">
+    <div *ngFor="let game of games">
+     <app-game-card-detail [game]="game"></app-game-card-detail>
+    </div>
+  </md-tab>
+</md-tab-group>

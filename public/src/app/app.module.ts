@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -22,6 +23,8 @@ import { GameCardComponent} from './child-components/game-card/game-card.compone
 import { REST_PROVIDER } from './services/rest.service';
 import { CONSTANT_SERVICE } from './services/constant.service';
 import { GameCollectionComponent } from './child-components/game-collection/game-collection.component';
+import { GameCardDetailComponent } from './child-components/game-card-detail/game-card-detail.component';
+import { AutocompleteComponent } from './child-components/autocomplete/autocomplete.component';
 
 
 @NgModule({
@@ -35,11 +38,14 @@ import { GameCollectionComponent } from './child-components/game-collection/game
     UserComponent,
     GameCardComponent,
     SidebarComponent,
-    GameCollectionComponent
+    GameCollectionComponent,
+    GameCardDetailComponent,
+    AutocompleteComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     MaterialModule.forRoot(),
     routing
   ],
