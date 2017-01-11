@@ -1,7 +1,7 @@
 
   <md-toolbar color="primary">
     <button md-button [routerLink]="['']">
-      <img   src="img/logofunstart.svg" class="ng-scope">
+      <img src="img/logofunstart.svg" class="ng-scope">
       </button>
     <button md-button [md-menu-trigger-for]="topic">
       Topics
@@ -12,10 +12,14 @@
     <app-autocomplete></app-autocomplete>
   </md-toolbar>
 
+  <!-- menu for topics -->
   <md-menu x-position="after" y-position="below" #topic="mdMenu">
-    <button md-menu-item *ngFor="let topic of topics" [routerLink]="['/topic', topic._id]"><i class="icon {{topic.icon}}"></i> {{topic.name}}</button>
+    <button md-menu-item *ngFor="let topic of topics" [routerLink]="['/topic', topic._id]">
+      <i class="icon submenu-icon {{topic.icon}}"></i> {{topic.name}}
+    </button>
   </md-menu>
 
+  <!-- menu for discovery -->
   <md-menu x-position="after" y-position="below" #discover="mdMenu">
     <button md-menu-item *ngFor="let game of games" [routerLink]="['/game', game._id]">
       <img src="{{game.thumb}}" alt="{{game.title}}" width="40" height="40">
