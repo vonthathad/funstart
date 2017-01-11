@@ -25,6 +25,7 @@ import { CONSTANT_SERVICE } from './services/constant.service';
 import { GameCollectionComponent } from './child-components/game-collection/game-collection.component';
 import { GameCardDetailComponent } from './child-components/game-card-detail/game-card-detail.component';
 import { AutocompleteComponent } from './child-components/autocomplete/autocomplete.component';
+import { LoginDialogComponent } from './child-components/login-dialog/login-dialog.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { AutocompleteComponent } from './child-components/autocomplete/autocompl
     SidebarComponent,
     GameCollectionComponent,
     GameCardDetailComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    LoginDialogComponent
   ],
   imports: [
     BrowserModule,
