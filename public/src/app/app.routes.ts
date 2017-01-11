@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'topic/:id', component: TopicComponent },
   { path: 'game/:id', component: GameComponent },
-  { path: 'user', component: UserComponent }
+  { path: 'user/:username', component: UserComponent }
 ];
 
 // - Updated Export

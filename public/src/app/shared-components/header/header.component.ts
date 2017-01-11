@@ -5,6 +5,7 @@ import {ConstantService} from '../../services/constant.service';
 
 import {Game} from '../../classes/game';
 
+import {AccountDialogComponent} from '../../child-components/account-dialog/account-dialog.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,7 +14,7 @@ import {Game} from '../../classes/game';
 export class HeaderComponent implements OnInit {
   private topics = ConstantService.TOPICS;
   private games: Game[];
-  constructor(private rest: RestService, private model: MdDialog) { 
+  constructor(private rest: RestService, public dialog: MdDialog) { 
       this.rest.getGames({order: "random", paging: 6}).subscribe((res: any)=>this.renderGames(res))
   }
   
@@ -22,5 +23,11 @@ export class HeaderComponent implements OnInit {
   }
   renderGames(games){
     this.games = games['data'];
+  }
+  openDialog(){
+    let dialogRef = this.dialog.open(AccountDialogComponent, {
+      height: '300px',
+      width: '600px'
+    });
   }
 }

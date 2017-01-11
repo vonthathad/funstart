@@ -35,6 +35,9 @@ export class RestService {
     getGame(id: string): Observable<any[]> {
         return this.get(`games/${id}`);
     }
+    getUser(username: string): Observable<any[]>{
+        return this.get(`users/${username}`);
+    }
 }
 
 export var REST_PROVIDER: Array<any> = [

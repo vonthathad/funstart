@@ -12,6 +12,7 @@ export class AuthService {
   accessToken: string;
   user: Observable<any>;
   userChange: Subject<any>;
+  
   constructor(private http: Http) {
     this.user = new Subject<any>();
     var date = new Date(localStorage.getItem("expires"));

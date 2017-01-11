@@ -25,7 +25,10 @@ import { CONSTANT_SERVICE } from './services/constant.service';
 import { GameCollectionComponent } from './child-components/game-collection/game-collection.component';
 import { GameCardDetailComponent } from './child-components/game-card-detail/game-card-detail.component';
 import { AutocompleteComponent } from './child-components/autocomplete/autocomplete.component';
-import { LoginDialogComponent } from './child-components/login-dialog/login-dialog.component';
+import { AccountDialogComponent } from './child-components/account-dialog/account-dialog.component';
+import { FormLoginComponent } from './child-components/form-login/form-login.component';
+import { FormRegisterComponent } from './child-components/form-register/form-register.component';
+import { FormPasswordResetComponent } from './child-components/form-password-reset/form-password-reset.component';
 
 
 @NgModule({
@@ -42,8 +45,12 @@ import { LoginDialogComponent } from './child-components/login-dialog/login-dial
     GameCollectionComponent,
     GameCardDetailComponent,
     AutocompleteComponent,
-    LoginDialogComponent
+    AccountDialogComponent,
+    FormLoginComponent,
+    FormRegisterComponent,
+    FormPasswordResetComponent
   ],
+   entryComponents:[AccountDialogComponent],
   imports: [
     BrowserModule,
     HttpModule,

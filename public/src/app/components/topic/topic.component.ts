@@ -10,12 +10,12 @@ import { Game } from '../../classes/game';
   styleUrls: ['./topic.component.scss']
 })
 export class TopicComponent implements OnInit {
-  private topic: string;
+  private topicId: string;
   private games: Game[];
   constructor(private route: ActivatedRoute, private rest: RestService) {
     route.params.subscribe(params => {
-      this.topic = params['id'];
-      this.rest.getGames({ topic: this.topic, order: "new" }).subscribe((res: any) => this.renderGames(res.data))
+      this.topicId = params['id'];
+      this.rest.getGames({ topic: this.topicId, order: "new" }).subscribe((res: any) => this.renderGames(res.data))
     });
   }
 
@@ -23,7 +23,7 @@ export class TopicComponent implements OnInit {
   }
   getGames(order) {
     console.log(order);
-    this.rest.getGames({ topic: this.topic, order: order }).subscribe((res: any) => this.renderGames(res.data))
+    this.rest.getGames({ topic: this.topicId, order: order }).subscribe((res: any) => this.renderGames(res.data))
   }
   renderGames(games) {
     this.games = games;
