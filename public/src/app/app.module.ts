@@ -29,7 +29,8 @@ import { AccountDialogComponent } from './child-components/account-dialog/accoun
 import { FormLoginComponent } from './child-components/form-login/form-login.component';
 import { FormRegisterComponent } from './child-components/form-register/form-register.component';
 import { FormPasswordResetComponent } from './child-components/form-password-reset/form-password-reset.component';
-import { FlexLayoutModule } from "@angular/flex-layout"; 
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { VideoPlayerComponent } from './video-player/video-player.component'; 
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     AccountDialogComponent,
     FormLoginComponent,
     FormRegisterComponent,
-    FormPasswordResetComponent
+    FormPasswordResetComponent,
+    VideoPlayerComponent
   ],
    entryComponents:[AccountDialogComponent],
   imports: [
