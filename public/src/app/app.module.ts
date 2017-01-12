@@ -30,7 +30,7 @@ import { FormLoginComponent } from './child-components/form-login/form-login.com
 import { FormRegisterComponent } from './child-components/form-register/form-register.component';
 import { FormPasswordResetComponent } from './child-components/form-password-reset/form-password-reset.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { VideoPlayerComponent } from './video-player/video-player.component'; 
+import { VideoPlayerComponent } from './child-components/video-player/video-player.component'; 
 
 @NgModule({
   declarations: [

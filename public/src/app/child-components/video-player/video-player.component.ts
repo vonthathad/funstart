@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class VideoPlayerComponent implements OnInit {
 
   constructor() { }
-
   ngOnInit() {
   }
 

@@ -1,3 +1,6 @@
-<p>
-  video-player works!
-</p>
+<div class="video">
+    <video controls (click)="toggleVideo()" #videoPlayer>
+        <source src="{{videoSource}}" type="video/mp4" />
+        Browser not supported
+    </video>
+</div>
