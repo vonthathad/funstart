@@ -1,6 +1,7 @@
 .game-card-item{
-    text-align: center;
-    border:1px red solid;
+    text-align: justify;
+    margin: 10px;
+    flex: 1 0 auto;
 }
 
 .game-thumb{
@@ -10,10 +11,6 @@
 
 .game-topic{
     display: block;
-}
-
-.game-desc{
-    display: none;
 }
 
 .game-title{
@@ -26,9 +23,8 @@
 .game-item-link{
     text-decoration: none;
     word-wrap: break-word;
-    overflow: hidden;
+    font-weight: 700;
     color: #444;
-    outline: red thin solid;
 }
 
 .game-play-no{
@@ -47,4 +43,18 @@ md-card>:not(md-card-content) img, md-card>img {
     flex: 0 0 auto;
     width: 100%;
     height: auto;
+}
+
+md-card-content >p{
+    text-align: justify;
+    padding-top:10px;    
+    flex: 1 0 auto;
+}
+
+.game-desc{
+}
+
+md-card-title{
+    font-size: 14px;
+    font-weight: 700;
 }

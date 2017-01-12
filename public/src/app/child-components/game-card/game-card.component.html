@@ -1,34 +1,18 @@
-<div class="game-card-item" fxLayoutAlign="center start" fxLayout="column" fxFlex="12.5%" fxFlex.xs="33%" fxLayoutAlign="center start">
-    
-    <div fxflex="100">
-
-        <a class="block" [routerLink]="['/game', game._id]">
-            <img class="game-thumb" src="{{game.thumb}}" width=100 height=100 alt="game.title" [routerLink]="['/game', game._id]">
-        </a>
-        
-        <div class="game-title">
-            <a class="game-item-link" [routerLink]="['/game', game._id]">
-                {{game.title}}
-            </a>
-        </div>
-
-        <div class="game-play-no">
-            <i class="icon ion-ios-infinite-outline"></i> {{game.plays}}
-        </div>
-
-        <!--<div flex="66">
-
-        <div class="game-topic">
-            {{game.topic.name}}
-        </div>
-
-        <div class="game-desc">
-            {{game.des}}
-        </div>
-        
-        <div class="game-play-no">
-            <i class="icon ion-ios-infinite-outline"></i>{{game.plays}}
-        </div>
-    </div>-->
+<md-card class="game-card-item" style="height: 100%;" layout-fill>
+  <md-card-header>    
+    <md-card-title>{{game.title}}</md-card-title>
+    <md-card-subtitle>{{game.topic.name}}</md-card-subtitle>
+  </md-card-header>
+  <img md-card-image class="game-thumb" src="{{game.thumb}}" width=100 height=100 alt="game.title" [routerLink]="['/game', game._id]">
+  <md-card-content>
+    <p class="game-desc">
+      {{game.des}}
+    </p>
+    <div class="game-play-no">
+        <i class="icon ion-ios-infinite-outline"></i> {{game.plays}}
     </div>
-</div>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button> <i class="icon ion-play"></i>  PLAY</button>
+  </md-card-actions>
+</md-card>

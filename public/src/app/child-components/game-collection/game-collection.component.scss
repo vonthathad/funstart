@@ -1,7 +1,17 @@
 .group-game-index {
-    padding: 20px;
+    padding: 10px;
 }
 
-hr{
+.game-card{
+    width: 100%;
+}
+
+.seperator{
     clear:both;
+    color: #ddd;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    display: block;
+    // padding: 10px 0px;
+    margin: 20px 0px;
 }
