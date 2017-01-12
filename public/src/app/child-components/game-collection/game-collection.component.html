@@ -1,15 +1,7 @@
-<div class="flex-container" 
-     fxLayout="row" 
-     fxLayout.xs="column"
-     fxLayoutAlign="start center"
-     fxLayoutAlign.xs="start">
-
-  <div *ngFor="let game of gamesCollection.games"   class="flex-item" fxFlex="12.5%" fxFlex.xs="40%"> 
-      
-       <app-game-card [game]="game"></app-game-card></div>
-</div> 
-<div layout="row" layout-wrap>
-    
+ <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutAlign.xs="start" fxFlex="100">
+    <div *ngFor="let game of gamesCollection.games" class="group-game-index">
+        <app-game-card [game]="game"></app-game-card>
+</div>
 </div>
 <div style="clear:both"></div>
 <hr>

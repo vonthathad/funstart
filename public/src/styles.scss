@@ -24,8 +24,6 @@ $candy-app-theme: md-light-theme($candy-app-primary, $candy-app-accent, $candy-a
 // that you are using.
 @include angular-material-theme($candy-app-theme);
 
-
-
 body {
   margin: 0;
   font-family: Roboto, sans-serif;
@@ -39,7 +37,7 @@ body {
 
 .layout-row {
     -webkit-flex-direction: row;
-    -ms-flex-direction: row;
+    -ms-flex-direction: row;  
     flex-direction: row;
 }
 
@@ -47,3 +45,6 @@ body {
   padding: 10px;
 }
 
+.block{
+  display: block;  
+}
