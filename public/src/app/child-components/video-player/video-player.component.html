@@ -1,6 +1,6 @@
-<div class="video">
-    <video controls (click)="toggleVideo()" #videoPlayer>
-        <source src="{{videoSource}}" type="video/mp4" />
+<div [hidden]="!isDisplay" class="video">
+    <video class="videoPlayer" #videoPlayer>
+        <source src="./assets/sample.mp4" type="video/mp4">
         Browser not supported
     </video>
 </div>

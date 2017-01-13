@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Game } from '../../classes/game';
-import { VideoPlayer } from '../video-player'; 
+import { VideoPlayerComponent } from '../video-player/video-player.component';
 
 @Component({
   selector: 'app-game-card',
@@ -9,22 +9,25 @@ import { VideoPlayer } from '../video-player';
 })
 export class GameCardComponent implements OnInit {
   @Input('game') game: Game;
+  @ViewChild(VideoPlayerComponent) videoplayer: VideoPlayerComponent;
+
   constructor() { }
-  
-   showGameInfo(event) {
-      event.preventDefault();
-      console.log("Show Info");
-   }
 
-  @ViewChild('VideoPlayer') videoplayer: any;
 
-   
-  over(){
-    console.log("Mouseover called");
+  showGameInfo() {    
+    console.log("Show Info");
+    this.videoplayer.isDisplay = true;
+    this.videoplayer.playVideo();
   }
 
-  toggleVideo(event: any) {
-      this.videoplayer.nativeElement.play();
+  over() {
+    this.videoplayer.isDisplay = true;
+    this.videoplayer.playVideo();
+  }
+
+  leave(){
+      this.videoplayer.isDisplay = false;
+      this.videoplayer.stopVideo();
   }
 
   ngOnInit() {
