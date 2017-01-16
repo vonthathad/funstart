@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
+import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MaterialModule } from '@angular/material'
 import { routing } from './app.routes';
@@ -58,6 +59,11 @@ import { VideoPlayerComponent } from './child-components/video-player/video-play
     HttpModule,
     FormsModule,
     MaterialModule.forRoot(),
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
+      deps: [Http]
+    }),
     FlexLayoutModule,
     routing
   ],
