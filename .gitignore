@@ -5,3 +5,5 @@ public/libs
 public/uploaded/
 public/sources/
 app/controllers/bot.server.controller.js
+.vscode
+.vscode/*
