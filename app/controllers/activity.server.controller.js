@@ -11,6 +11,52 @@ var getSortType = function(sortType){
     }
     return {created : -1} ;
 };
+exports.loadChallengeGame = function(req,res){
+    Game.findOneRandom({$and: [{_id: {$ne: parseInt(req.query.game)}},{plays: {$gt: 100}},{public: true}]},{},{},function(err,game){
+        if(err){
+            return res.status(400).send();
+        } else {
+            if(game){
+                Activity.find({game: game._id})
+                    .sort({score : -1}).limit(1)
+                    .populate('user','displayName username avatar')
+                    .populate('game','title thumb')
+                    .exec(function(err,activities){
+                        if(err){
+                            return res.status(400).send();
+                        } else {
+                            if(activities.length){
+                                var activity = activities[0];
+                                res.json({data: activity});
+                            } else {
+                                return res.status(400).send();
+                            }
+                        }
+                    })
+            } else {
+                return res.status(400).send();
+            }
+        }
+    })
+};
+exports.loadRanks = function(req,res){
+    Activity.find({game: parseInt(req.query.game)})
+        .limit(3)
+        .sort('-score')
+        .populate('user','displayName username avatar')
+        .exec(function(err,activities){
+            if(err) return res.status(400).send();
+            Activity.findOne({game: parseInt(req.query.game),user: req.query.user})
+                .populate('user','displayName username avatar')
+                .exec(function(err,activity){
+                    if(err) return res.status(400).send();
+                    if(activity){
+                        activities.push(activity);
+                    }
+                    return res.json({data: activities});
+                });
+        })
+};
 exports.loadActivities = function(req,res){
     var page = parseInt(req.query.page),
         skip = page > 0 ? ((page - 1) * paging) : 0;
@@ -33,7 +79,6 @@ exports.loadActivities = function(req,res){
         .sort(sortType)
         .populate('user','displayName username avatar')
         .populate('game','title thumb')
-        .populate('opponents','displayName username avatar')
         .exec(function(err,data){
             if(err) {
                 res.status(400).send();
@@ -57,57 +102,24 @@ exports.createActivity = function (req,res,next) {
     console.log('activity',req.body);
     if(req.user._id){
         Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: { plays: 1}},function(err,game){
-            if(!req.body.opponents){
-                Activity.findOne({user: req.user._id})
-                    .sort({created : -1})
-                    .limit(1)
-                    .exec(function(err,data){
-                        if(data && data.game == parseInt(req.body.game)){
-                            data.score = req.body.score;
-                            data.created = Date.now();
-                            if(req.body.isWin != null){
-                                data.isWin = req.body.isWin;
-                            };
-                            data.save();
-                        } else {
-                            var newActivity = new Activity({
-                                game: parseInt(req.body.game),
-                                user: req.user._id,
-                                score: req.body.score
-                            });
-                            if(req.body.isWin != null){
-                                newActivity.isWin = req.body.isWin;
-                            };
-                            newActivity.save();
-                        }
-                    });
-            } else {
-                var newActivity = new Activity({
-                    game: parseInt(req.body.game),
-                    user: req.user._id,
-                    score: req.body.score
+            Activity.findOne({user: req.user._id,game: parseInt(req.body.game)})
+                .sort({created : -1})
+                .limit(1)
+                .exec(function(err,data){
+                    if(err) return res.status(400).send();
+                    if(data){
+                        data.score = req.body.score;
+                        data.created = Date.now();
+                        data.save();
+                    } else {
+                        var newActivity = new Activity({
+                            game: parseInt(req.body.game),
+                            user: req.user._id,
+                            score: req.body.score
+                        });
+                        newActivity.save();
+                    }
                 });
-                if(req.body.isWin != null){
-                    newActivity.isWin = req.body.isWin;
-                };
-                if(req.body.opponents){
-                    newActivity.opponents = req.body.opponents;
-                };
-                newActivity.save();
-            }
-            var el = 0;
-            if(req.body.score>30000){
-                el = 1000;
-            } else {
-                el = parseInt(req.body.score*1/30);
-            }
-            switch (game.topic){
-                case 0: req.user.quick = (req.user.quick==0)?el:parseInt((el+req.user.quick)/2);break;
-                case 1: req.user.flex = (req.user.flex==0)?el:parseInt((el+req.user.flex)/2);break;
-                case 2: req.user.memory = (req.user.memory==0)?el:parseInt((el+req.user.memory)/2);break;
-                case 3: req.user.focus = (req.user.focus==0)?el:parseInt((el+req.user.focus)/2);break;
-                case 4: req.user.wit = (req.user.wit==0)?el:parseInt((el+req.user.wit)/2);break;
-            }
             var isPlayGame = false;
             req.user.gameList.forEach(function(e){
                 if(e == parseInt(req.body.game)){
@@ -119,27 +131,21 @@ exports.createActivity = function (req,res,next) {
             req.user.exp += parseInt(req.body.score/100);
             req.user.games++;
             req.user.active = Date.now();
-            if(req.body.isWin != null){
-                if(req.body.isWin == true){
-                    req.user.win++;
-                } else {
-                    req.user.lose++;
-                }
-            }
             req.user.save(function(err,user){
                 if(err) return res.status(400).send();
-                User.find({exp : {$gt : user.exp}}).count(function (err,count){
-                    if(err) return res.json({data:user});
-                    var rank = 0;
-                    if(!err) rank = count + 1;
-                    user.rank = rank;
-                    return res.json({data:user});
-                });
+                return res.json({data:user});
+                // User.find({exp : {$gt : user.exp}}).count(function (err,count){
+                //     if(err) return res.json({data:user});
+                //     var rank = 0;
+                //     if(!err) rank = count + 1;
+                //     user.rank = rank;
+                //     return res.json({data:user});
+                // });
             });
         });
 
     } else {
-        res.status(400).send();
+        return res.status(400).send();
     }
 
-;}
+};
