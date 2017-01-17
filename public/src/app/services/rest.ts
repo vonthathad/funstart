@@ -7,7 +7,7 @@ import { QueryOptions } from '../classes/query-options'
 
 import 'rxjs/Rx';
 
-export class RestService {
+export class Rest {
     static BASE_URL: string = 'http://localhost:8235/';
     private loggedUserSource = new Subject<string>();
     loggedUser$ = this.loggedUserSource.asObservable();
@@ -15,7 +15,7 @@ export class RestService {
     // calling request
     request(options: QueryOptions, callback) {
         // set partial url to full url
-        options.url = `${RestService.BASE_URL}${options.url}`;
+        options.url = `${Rest.BASE_URL}${options.url}`;
         // stringify body from json to string
         options.body = JSON.stringify(options.body);
         // add default header if there are no header
@@ -40,7 +40,7 @@ export class RestService {
         this.request(options, callback);
     }
     get(dataName: string, params?: Array<string>): Observable<any[]> {
-        let url: string = `${RestService.BASE_URL}${dataName}`;
+        let url: string = `${Rest.BASE_URL}${dataName}`;
         if (params) {
             url = `${url}?${params.join('&')}`;
         }
