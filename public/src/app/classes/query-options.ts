@@ -4,7 +4,7 @@ export class QueryOptions {
          public url?: string,
         public body?: Object,
         public headers?: Headers,
-        public queryArgs?:Array<string>,
+        public queryArgs?:Object,
         public method?: RequestMethod
     ){}
 }

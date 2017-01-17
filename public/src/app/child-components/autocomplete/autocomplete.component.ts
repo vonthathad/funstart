@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 
-import { RestService } from '../../services/rest.service';
+import { GameService } from '../../services/game.service';
 
 import { Game } from '../../classes/game';
 @Component({
@@ -17,12 +17,10 @@ export class AutocompleteComponent implements OnInit {
   private games: Game[];
   private filteredList = [];
 
-  constructor(private elementRef: ElementRef, private rest: RestService) {
-
-  }
+  constructor(private elementRef: ElementRef, private gameService: GameService) {}
 
   ngOnInit() {
-    this.rest
+    this.gameService
       .getGames({ paging: 100 })
       .subscribe((res: any) => this.renderGames(res.data));
   }

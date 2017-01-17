@@ -1,19 +1,18 @@
 
-import { Http, Headers, Request, RequestOptionsArgs, Response, RequestMethod, RequestOptions } from '@angular/http';
+import { Http, Headers, Request, Response, RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-
 import { QueryOptions } from '../classes/query-options'
 
 import 'rxjs/Rx';
 
 export class Rest {
+    // set base url of api backend
     static BASE_URL: string = 'http://localhost:8235/';
-    private loggedUserSource = new Subject<string>();
-    loggedUser$ = this.loggedUserSource.asObservable();
+
     constructor(private http: Http) { }
-    // calling request
-    request(options: QueryOptions, callback) {
+
+    // send request
+    request(options: QueryOptions): Observable<any[]> {
         // set partial url to full url
         options.url = `${Rest.BASE_URL}${options.url}`;
         // stringify body from json to string
@@ -22,50 +21,34 @@ export class Rest {
         if (!options.headers) options.headers = new Headers({ 'Content-Type': 'application/json' });
         // add params to query params
         if (options.queryArgs) {
-            options.url = `${options.url}?${options.queryArgs.join('&')}`;
+            // pour object properties to array
+            let queryArgsArray: string[] = [];
+            Object.keys(options.queryArgs).forEach(function (param) {
+                queryArgsArray.push(`${param}=${options.queryArgs[param]}`)
+            });
+            // connect array componet with '&' then connect with full url
+            options.url = `${options.url}?${queryArgsArray.join('&')}`;
         }
+        console.log("URL " + options.url);
+        console.log(JSON.stringify(options))
+        let headers = new Headers({ 'Authorization': 'Bearer CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My' });
+        let _options: RequestOptionsArgs = { headers: headers };
         // create request object
         let reqOptions = new RequestOptions(options);
         var req = new Request(reqOptions);
-        // send request
-        this.http.request(req)
-            .subscribe(
-            res => callback(res.json()),
-            error => console.error('Error: ' + error),
-            () => console.log('Request completed!')
-            )
+        // send request and return observable
+        return this.http.request(req)
+            .map((res: Response) => { console.log(JSON.stringify(res)); return res.json() })
+            .catch((error: any) => Observable.throw(error || 'Server error'));
     }
-    post(options: QueryOptions, callback) {
+    // create post 
+    post(options: QueryOptions): Observable<any[]> {
         options.method = RequestMethod.Post;
-        this.request(options, callback);
+        return this.request(options);
     }
-    get(dataName: string, params?: Array<string>): Observable<any[]> {
-        let url: string = `${Rest.BASE_URL}${dataName}`;
-        if (params) {
-            url = `${url}?${params.join('&')}`;
-        }
-
-        let headers = new Headers({ 'Authorization': 'Bearer CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My' });
-        let options: RequestOptionsArgs = { headers: headers };
-        console.log("URL " + url);
-        return this.http.request(url, options).map((res: Response) => res.json()).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    }
-
-    getGames(paramsObj?: any) {
-        let paramsList: string[] = [];
-        if (paramsObj) {
-            paramsList = [];
-            Object.keys(paramsObj).forEach(function (param) {
-                paramsList.push(`${param}=${paramsObj[param]}`)
-            });
-        }
-        return this.get('games', paramsList);
-    }
-
-    getGame(id: string): Observable<any[]> {
-        return this.get(`games/${id}`);
-    }
-    getUser(username: string): Observable<any[]> {
-        return this.get(`users/${username}`);
+    // create get
+    get(options: QueryOptions): Observable<any[]> {
+        options.method = RequestMethod.Get;
+        return this.request(options);
     }
 }

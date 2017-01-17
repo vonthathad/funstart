@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { RestService } from '../../services/rest.service'
+import { UserService } from '../../services/user.service'
 
 import { User } from '../../classes/user';
 @Component({
@@ -10,10 +10,10 @@ import { User } from '../../classes/user';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private rest: RestService) {
+  constructor(private route: ActivatedRoute, private userService: UserService) {
      route.params.subscribe(params => {
       let username = params['username'];
-      this.rest.getUser(username).subscribe((res: any) => this.renderUser(res.data))
+      // this.userService.getUser(username).subscribe((res: any) => this.renderUser(res.data))
     });
    }
   renderUser(user: User){

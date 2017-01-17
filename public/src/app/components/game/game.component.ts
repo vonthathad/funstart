@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { RestService } from '../../services/rest.service'
+import {GameService } from '../../services/game.service'
+import {RestService } from '../../services/rest.service'
 
 import { Game } from '../../classes/game';
 @Component({
@@ -12,14 +13,14 @@ import { Game } from '../../classes/game';
 })
 export class GameComponent implements OnInit {
   private game: Game;
-  constructor(private route: ActivatedRoute, private rest: RestService) { 
+  constructor(private route: ActivatedRoute, private gameService: RestService) { 
     route.params.subscribe(params=>{
-       this.rest.getGame(params['id']).subscribe((res: any)=>this.renderGame(res.data))
+       this.gameService.getGame(params['id']).subscribe((res: any)=>this.renderGame(res.data))
     });
   }
   renderGame(game){
     this.game = game;
-    console.log(JSON.stringify(game));
+    console.log("GAME " + JSON.stringify(game));
   }
   ngOnInit() {
     

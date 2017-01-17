@@ -6,24 +6,22 @@ import { Rest } from './rest';
 
 @Injectable()
 export class UserService {
-    private loggedUserSource = new Subject<string>();
     private rest: Rest;
+    private loggedUserSource = new Subject<string>();
     public loggedUser$ = this.loggedUserSource.asObservable();
 
     constructor(private http: Http) {
         this.rest = new Rest(http);
     }
+    // sign up by email, username and password
     signUp(registerInfo) {
         let loggedUserSource = this.loggedUserSource;
-        this.rest.post(
-            {
+        this.rest
+            .post({
                 body: registerInfo,
                 url: `auth/signup`
-            },
-            function (userInfo) {
-                loggedUserSource.next(userInfo);
-            }
-        );
+            })
+            .subscribe(userInfo => { loggedUserSource.next(userInfo.toString()) });
     }
 }
 

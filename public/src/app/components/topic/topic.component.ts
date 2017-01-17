@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { RestService } from '../../services/rest.service'
+import { GameService } from '../../services/game.service'
 
 import { Game } from '../../classes/game';
 @Component({
@@ -12,10 +12,10 @@ import { Game } from '../../classes/game';
 export class TopicComponent implements OnInit {
   private topicId: string;
   private games: Game[];
-  constructor(private route: ActivatedRoute, private rest: RestService) {
+  constructor(private route: ActivatedRoute, private gameService: GameService) {
     route.params.subscribe(params => {
       this.topicId = params['id'];
-      this.rest.getGames({ topic: this.topicId, order: "new" }).subscribe((res: any) => this.renderGames(res.data))
+      this.gameService.getGames({ topic: this.topicId, order: "new" }).subscribe((res: any) => this.renderGames(res.data))
     });
   }
 
@@ -23,7 +23,7 @@ export class TopicComponent implements OnInit {
   }
   getGames(order) {
     console.log(order);
-    this.rest.getGames({ topic: this.topicId, order: order }).subscribe((res: any) => this.renderGames(res.data))
+    this.gameService.getGames({ topic: this.topicId, order: order }).subscribe((res: any) => this.renderGames(res.data))
   }
   renderGames(games) {
     this.games = games;
