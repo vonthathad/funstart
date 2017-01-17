@@ -13,7 +13,13 @@ module.exports = {
         clientID: '170584416691811',
         clientSecret: '3a3cabfcbe1fcc2782b977aae1787d6c',
         callbackURL: '/oauth/facebook/callback',
-        profileFields: ['id', 'displayName','email','gender']
+        profileFields: ['id', 'displayName', 'email', 'gender']
+    },
+    twitter: {
+        consumerKey: 'M0bLQIqMjpD3YdwxSMFqmJjAQ',
+        consumerSecret: '0mbGODRgKV2waKwjCan1B19ZOF5bhA1KHzzfYQgwszTkrZer62',
+        callbackURL: '/oauth/twitter/callback',
+        profileFields: ['id', 'displayName', 'email', 'gender']
     },
     email: {
         username: "funstart.net",

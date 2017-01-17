@@ -14,6 +14,7 @@ module.exports = function() {
             if (!user) {
                 return done(null, false);
             }
+             // authenticate
             if (!user.authenticate(password)) {
                 return done(null, false);
             }

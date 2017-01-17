@@ -16,21 +16,47 @@ module.exports = function(app) {
     next();
   }, passport.authenticate('facebook', {scope: ['user_friends','email','public_profile']}));
   app.get('/oauth/facebook/callback',  passport.authenticate('facebook',{ failureRedirect: '/login' }),function(req,res){
-    if(req.session.mid){
-        req.user.mid = req.session.mid;
-        res.writeHead(301,
-            {Location: 'https://www.messenger.com/closeWindow/?image_url=IMAGE_URL&display_text=DISPLAY_TEXT'}
-        );
-        res.end();
-    } else {
-        res.redirect(req.session.redirect || '/');
-    }
-    var tmp = req.user.trackData;
-    req.user.trackData = {};
-    tmp.hourlySession = 0;
-    tmp.dailySession = 0;
-    req.user.trackData = tmp;
-    req.user.save();
+    // if(req.session.mid){
+    //     req.user.mid = req.session.mid;
+    //     res.writeHead(301,
+    //         {Location: 'https://www.messenger.com/closeWindow/?image_url=IMAGE_URL&display_text=DISPLAY_TEXT'}
+    //     );
+    //     res.end();
+    // } else {
+    //     res.redirect(req.session.redirect || '/');
+    // }
+     res.redirect(req.session.redirect || '/');
+    // var tmp = req.user.trackData;
+    // req.user.trackData = {};
+    // tmp.hourlySession = 0;
+    // tmp.dailySession = 0;
+    // req.user.trackData = tmp;
+    // req.user.save();
+  });
+
+  app.get('/oauth/twitter',function (req,res,next) {
+    req.session.redirect = req.query.redirect || '/';
+    // if(req.query.mid) req.session.mid = req.query.mid;
+    next();
+  }, passport.authenticate('twitter', {scope: ['user_friends','email','public_profile']}));
+  app.get('/oauth/twitter/callback',  passport.authenticate('twitter',{ failureRedirect: '/login' }),function(req,res){
+    // if(req.session.mid){
+    //     req.user.mid = req.session.mid;
+    //     res.writeHead(301,
+    //         {Location: 'https://www.messenger.com/closeWindow/?image_url=IMAGE_URL&display_text=DISPLAY_TEXT'}
+    //     );
+    //     res.end();
+    // } else {
+        // res.redirect(req.session.redirect || '/');
+    // }
+    console.log(JSON.stringify(req.user));
+     res.redirect(req.session.redirect + '?token=' + JSON.stringify(req.user.token));
+    // var tmp = req.user.trackData;
+    // req.user.trackData = {};
+    // tmp.hourlySession = 0;
+    // tmp.dailySession = 0;
+    // req.user.trackData = tmp;
+    // req.user.save();
   });
   app.get('/logout',users.authLogout);
   app.route('/action/verify/:token')
