@@ -50,11 +50,6 @@ var saveOAuthUserProfile = function (req, profile, done) {
 };
 module.exports = function () {
     passport.use(new TwitterStrategy({
-        // clientID: config.facebook.clientID,
-        // clientSecret: config.facebook.clientSecret,
-        // callbackURL: config.facebook.callbackURL,
-        // profileFields: config.facebook.profileFields,
-        // passReqToCallback: true
         consumerKey: config.twitter.consumerKey,
         consumerSecret: config.twitter.consumerSecret,
         callbackURL: config.twitter.callbackURL,

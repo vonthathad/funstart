@@ -1,26 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { User } from '../../classes/user';
+import { Error } from '../../classes/error';
+
 @Component({
   selector: 'app-form-register',
   templateUrl: './form-register.component.html',
   styleUrls: ['./form-register.component.scss']
 })
 export class FormRegisterComponent implements OnInit {
-data: any;
+  private user: User;
+  private error: Error;
+
   constructor(private service: UserService) {
-     this.data = {};
-    this.data.email = "";
-    this.data.username = "";
-    this.data.password = "";
-   }
+    this.user = new User();
+    this.error = new Error();
+  }
 
   ngOnInit() {
   }
-   signUp() {
-    console.log(JSON.stringify(this.data));
-    this.data.email = "sirdat193@gmail.com";
-    this.data.username = "dat12345";
-    this.data.password = "123456";
-    this.service.signUp(this.data);
+  register() {
+    this.user.email = "sirdat1993@gmail.com";
+    this.user.username = "thanhdatvo";
+    this.user.password = "123456";
+    console.log(JSON.stringify(this.user));
+    this.service
+      .register(this.user)
+      .subscribe(data => this.succeed(data["user"]), error => this.fail(error), () => console.log("Complete"));
+  }
+  succeed(user: User) {
+    alert("Add user successful");
+    // update user
+    this.service.loggedUserSource.next(user);
+  }
+  fail(e) {
+    this.error.email = (JSON.parse(e._body)).message;
+    console.error("Error " + e);
   }
 }

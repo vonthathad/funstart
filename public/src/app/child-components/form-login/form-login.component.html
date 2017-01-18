@@ -1,15 +1,15 @@
 <div>
   <md-input-container>
-    <input md-input placeholder="Email" [required]=true focused>
+    <input md-input placeholder="Email" [required]=true focused [(ngModel)]="user.username">
   </md-input-container>
 </div>
 <div>
   <md-input-container>
-    <input md-input placeholder="Password" [required]=true>
+    <input md-input placeholder="Password" [required]=true [(ngModel)]="user.password">
   </md-input-container>
 </div>
 <div>
-  <button md-button>LOGIN</button>
+  <button md-button (click)="loginLocal()">LOGIN BY EMAIL</button>
 </div>
 <div>
    <button md-button (click)="loginFacebook()">LOGIN BY FACEBOOK</button>

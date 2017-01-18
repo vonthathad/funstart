@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     });
   }
   renderGames(games: any, topic: Topic) {
-    console.log(JSON.stringify(games));
+    // console.log(JSON.stringify(games));
     this.gamesCollections.push({ topic: topic, games: games }); // set to views
   }
   goUser() {

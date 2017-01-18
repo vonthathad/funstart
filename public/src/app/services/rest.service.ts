@@ -19,7 +19,7 @@ export class RestService {
         console.log("URL " + url);
         console.log(JSON.stringify(options))
         return this.http.request(url, options)
-           .map((res: Response) => {console.log(JSON.stringify(res)); return res.json()})
+            .map((res: Response) => { console.log(JSON.stringify(res)); return res.json() })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 
