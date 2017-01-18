@@ -1,17 +1,22 @@
 
 var games = require('../controllers/game.server.controller.js');
-var activities =  require('../controllers/activity.server.controller.js');
-var users =  require('../controllers/user.server.controller.js');
-var uploads =  require('../controllers/upload.server.controller.js');
+var activities = require('../controllers/activity.server.controller.js');
+var users = require('../controllers/user.server.controller.js');
+var uploads = require('../controllers/upload.server.controller.js');
 var passport = require('passport');
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 // });
-module.exports = function(router) {
+module.exports = function (router) {
     router.use(passport.authenticate('bearer', { session: false }));
-    router.get('/topics',games.loadTopics);
-    router.get('/token',users.authToken);
+    router.get('/topics', games.loadTopics);
+    
+    //////////////////////////////////////////////////
+    ////GET USER DATA, Header Authorization By Token
+    //////////////////////////////////////////////////
+    router.get('/token', users.authToken);
+
     router.route('/games')
         .get(games.loadGames)
         .post(games.createGame);
@@ -23,8 +28,8 @@ module.exports = function(router) {
     router.route('/tracking')
         .put(games.trackUser);
 
-    router.post('/uploadresult/:game',uploads.uploadResult);
-    router.post('/shooting/:gameId',uploads.captureResult);
+    router.post('/uploadresult/:game', uploads.uploadResult);
+    router.post('/shooting/:gameId', uploads.captureResult);
     router.param('gameId', games.gameByID);
     router.route('/activities')
         .get(activities.loadActivities)
@@ -37,5 +42,5 @@ module.exports = function(router) {
     router.route('/user')
         .put(users.updateUser);
     router.param('username', users.userByUsername);
-    
+
 };

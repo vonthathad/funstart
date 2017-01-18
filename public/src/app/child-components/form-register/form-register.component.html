@@ -1,18 +1,21 @@
 <div>
   <md-input-container>
-    <input md-input placeholder="Email" [required]=true focused>
+    <input md-input placeholder="Email" [required]=true focused [(ngModel)]="user.email">
   </md-input-container>
+  <div *ngIf="error.email" class="alert">{{error.email}}</div>
 </div>
 <div>
   <md-input-container>
-    <input md-input placeholder="Username" [required]=true focused>
+    <input md-input placeholder="Username" [required]=true focused [(ngModel)]="user.username">
   </md-input-container>
+  <div *ngIf="error.username" class="alert">{{error.username}}</div>
 </div>
 <div>
   <md-input-container>
-    <input md-input placeholder="Password" [required]=true>
+    <input md-input placeholder="Password" [required]=true [(ngModel)]="user.password">
   </md-input-container>
+  <div *ngIf="error.password" class="alert">{{error.password}}</div>
 </div>
 <div>
-  <button md-button>LOGIN</button>
+  <button md-button (click)="register()">REGISTER</button>
 </div>
