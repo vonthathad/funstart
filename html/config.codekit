@@ -126,6 +126,28 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/img\/right_sidebar.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 189446,
+		"inputAbbreviatedPath": "\/assets\/img\/right_sidebar.png",
+		"outputAbbreviatedPath": "\/assets\/img\/right_sidebar.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/img\/tony.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 54633,
+		"inputAbbreviatedPath": "\/assets\/img\/tony.jpg",
+		"outputAbbreviatedPath": "\/assets\/img\/tony.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/js\/bootstrap-datepicker.js": {
 		"fileType": 64,
 		"ignore": 0,

@@ -820,6 +820,11 @@
 	margin: 0px 20px 50px;
 }
 
+.topic-list {
+	border-radius: 10px;
+}
+
+
 #feature-game{
 	margin: 0px 20px 50px;
 	border-radius: 10px;
@@ -844,4 +849,9 @@
 	display: block;
 	border-top: 1px solid #ddd;
 	margin: 40px auto 20px;
+}
+
+.topic-nav{
+	display: block;
+	margin: 30px auto;
 }
