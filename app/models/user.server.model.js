@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
     crypto = require('crypto'),
     autoIncrement = require('mongoose-auto-increment'),
     config = require('../config/config.js'),
-    connection = mongoose.createConnection(config.db);
+    connection = mongoose.createConnection(config.db),
     Schema = mongoose.Schema;
 autoIncrement.initialize(connection);
 var UserSchema = new Schema({
@@ -23,10 +23,10 @@ var UserSchema = new Schema({
         required: 'Email is required',
         unique: true
     },
-    password: { 
+    password: {
         type: String,
         validate: [
-            function(password) {
+            function (password) {
                 return password && password.length > 5;
             }, 'Password should be longer'
         ]
@@ -79,25 +79,25 @@ UserSchema.plugin(autoIncrement.plugin, {
 });
 
 
-UserSchema.virtual('level').get(function() {
-    return parseInt(Math.sqrt(this.exp/100));
+UserSchema.virtual('level').get(function () {
+    return parseInt(Math.sqrt(this.exp / 100));
 });
-UserSchema.virtual('fire').get(function() {
+UserSchema.virtual('fire').get(function () {
     var time = Date.now() - this.created;
     var days = parseInt(time / 86400000);
     var games = 10 * days;
-    var fire = parseInt(this.games*1000/games);
-    if (fire >1000) fire = 1000;
+    var fire = parseInt(this.games * 1000 / games);
+    if (fire > 1000) fire = 1000;
     return fire;
 });
-UserSchema.virtual('next').get(function() {
-    var level = parseInt(Math.sqrt(this.exp/100));
-    return (level+1)*(level+1)*100;
+UserSchema.virtual('next').get(function () {
+    var level = parseInt(Math.sqrt(this.exp / 100));
+    return (level + 1) * (level + 1) * 100;
 });
-UserSchema.methods.authenticate = function(password) {
+UserSchema.methods.authenticate = function (password) {
     return this.password === this.hashPassword(password);
 };
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
     if (this.password) {
         this.salt = new
             Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
@@ -105,21 +105,21 @@ UserSchema.pre('save', function(next) {
     }
     next();
 });
-UserSchema.methods.hashPassword = function(password) {
-    console.log(crypto.pbkdf2Sync(password, this.salt, 10000,64).toString('base64'));
+UserSchema.methods.hashPassword = function (password) {
+    console.log(crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64'));
     return crypto.pbkdf2Sync(password, this.salt, 10000,
         64).toString('base64');
 };
 
 
 
-UserSchema.statics.findUniqueUsername = function(username, suffix,
-                                                 callback) {
+UserSchema.statics.findUniqueUsername = function (username, suffix,
+    callback) {
     var _this = this;
     var possibleUsername = username + (suffix || '');
     _this.findOne({
         username: possibleUsername
-    }, function(err, user) {
+    }, function (err, user) {
         if (!err) {
             if (!user) {
                 callback(possibleUsername);
@@ -132,5 +132,5 @@ UserSchema.statics.findUniqueUsername = function(username, suffix,
         }
     });
 };
-UserSchema.set('toJSON',{getters: true,virtuals: true});
-mongoose.model('User',UserSchema);
+UserSchema.set('toJSON', { getters: true, virtuals: true });
+mongoose.model('User', UserSchema);
