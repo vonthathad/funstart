@@ -127,7 +127,7 @@
 .card .card-actions {
 	position: absolute;
 	z-index: 1;
-	top: -50px;
+	top: -30px;
 	width: calc(100% - 30px);
 	left: 17px;
 	right: 17px;
@@ -884,4 +884,12 @@
 .game-desc-sm{
 	margin-bottom: 5px;
 	color: #444;
+}
+
+.game-list .card .card-footer{
+	text-align: center;
+}
+
+.game-list .card .card-footer a:first-child{
+	left: 0px;
 }
