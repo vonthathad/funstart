@@ -322,6 +322,11 @@
 	height: auto;
 }
 
+.card img.avatar {
+	width: 30px;
+	height: 30px;
+}
+
 .card .category .material-icons {
 	position: relative;
 	top: 6px;

@@ -60,6 +60,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/img\/avatar.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 85214,
+		"inputAbbreviatedPath": "\/assets\/img\/avatar.jpg",
+		"outputAbbreviatedPath": "\/assets\/img\/avatar.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/img\/co_the_ban_cung_thich.png": {
 		"fileType": 32768,
 		"ignore": 0,
