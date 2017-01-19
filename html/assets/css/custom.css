@@ -886,11 +886,12 @@
 	color: #444;
 }
 
-.game-list .card .card-footer{
+.game-list .card .card-footer, .topic-list .card .card-footer {
 	text-align: center;
 	margin: 0px 20px 0px;
 }
 
-.game-list .card .card-footer a:first-child{
+.game-list .card .card-footer a:first-child, 
+.topic-list .card .card-footer a:first-child{
 	left: 0px;
 }
