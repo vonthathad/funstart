@@ -379,24 +379,14 @@ var getSortType = function(sortType){
 };
 
 exports.authToken = function(req,res){
-    User.find({exp : {$gt : req.user.exp}}).count(function (err,count){
-        var rank = 0;
-        if(!err) rank = count + 1;
-        req.user.rank = rank;
-        res.json({data:req.user});
-    });
-    req.user.status = 1;
-    var tmp = req.user.trackData;
-    req.user.trackData = {};
-    if(Date.now() - req.user.active >= 3600000){
-        tmp.hourlySession = 0;
-    };
-    if(Date.now() - req.user.active >= 24*3600000){
-        tmp.dailySession = 0;
-    };
-    req.user.trackData = tmp;
-    req.user.active = Date.now();
-    req.user.save();
+    if(req.user){
+        return res.json({user: req.user});
+        req.user.active = Date.now();
+        req.user.save();
+    } else {
+        res.status(400).send();
+    }
+
 };
 exports.loadUser = function(req,res,next){
     User.find({exp : {$gt : req.selectedUser.exp}}).count(function (err,count){
