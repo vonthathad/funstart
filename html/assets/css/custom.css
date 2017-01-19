@@ -888,6 +888,7 @@
 
 .game-list .card .card-footer{
 	text-align: center;
+	margin: 0px 20px 0px;
 }
 
 .game-list .card .card-footer a:first-child{
