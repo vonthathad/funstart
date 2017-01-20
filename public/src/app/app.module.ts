@@ -3,28 +3,30 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
-import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MaterialModule } from '@angular/material'
-import { routing } from './app.routes';
 import { APP_BASE_HREF } from '@angular/common';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared-components/header/header.component';
-import { FooterComponent } from './shared-components/footer/footer.component';
-
-import { HomeComponent } from './components/home/home.component';
-import { GameComponent } from './components/game/game.component';
-import { TopicComponent } from './components/topic/topic.component';
-import { UserComponent} from './components/user/user.component';
-import { SidebarComponent } from './shared-components/sidebar/sidebar.component';
-
-import { GameCardComponent} from './child-components/game-card/game-card.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 import { USER_PROVIDER } from './services/user.service';
 import { GAME_PROVIDER } from './services/game.service';
 import { REST_PROVIDER } from './services/rest.service';
 import { CONSTANT_SERVICE } from './services/constant.service';
+
+import { routing } from './app.routes';
+
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './shared-components/header/header.component';
+import { FooterComponent } from './shared-components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { GameComponent } from './components/game/game.component';
+import { TopicComponent } from './components/topic/topic.component';
+import { UserComponent} from './components/user/user.component';
+import { SidebarComponent } from './shared-components/sidebar/sidebar.component';
+import { GameCardComponent} from './child-components/game-card/game-card.component';
 import { GameCollectionComponent } from './child-components/game-collection/game-collection.component';
 import { GameCardDetailComponent } from './child-components/game-card-detail/game-card-detail.component';
 import { AutocompleteComponent } from './child-components/autocomplete/autocomplete.component';
@@ -32,11 +34,15 @@ import { AccountDialogComponent } from './child-components/account-dialog/accoun
 import { FormLoginComponent } from './child-components/form-login/form-login.component';
 import { FormRegisterComponent } from './child-components/form-register/form-register.component';
 import { FormPasswordResetComponent } from './child-components/form-password-reset/form-password-reset.component';
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { VideoPlayerComponent } from './child-components/video-player/video-player.component'; 
+import { VideoPlayerComponent } from './child-components/video-player/video-player.component';
+import { IframeGameComponent } from './child-components/iframe-game/iframe-game.component'; 
+import { IframeAdsComponent } from './child-components/iframe-ads/iframe-ads.component';
+
+
 
 @NgModule({
   declarations: [
+    SafePipe,
     AppComponent,
     HeaderComponent,
     FooterComponent,
@@ -53,9 +59,12 @@ import { VideoPlayerComponent } from './child-components/video-player/video-play
     FormLoginComponent,
     FormRegisterComponent,
     FormPasswordResetComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    IframeGameComponent,
+    IframeAdsComponent
+    
   ],
-   entryComponents:[AccountDialogComponent],
+  entryComponents:[AccountDialogComponent],
   imports: [
     BrowserModule,
     HttpModule,
@@ -77,7 +86,6 @@ import { VideoPlayerComponent } from './child-components/video-player/video-play
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: APP_BASE_HREF, useValue: '/' }
   ],
-  //  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
