@@ -1,9 +1,12 @@
-<div [hidden]="!(process=='intro')">
-    <button (click)="show()">Play game</button>
+<div [hidden]="!(show=='game')">
+   <!--BUTTON FOR TEST, DO NOT DELETE-->
+    <!--<button (click)="preload()">Preload</button>
+     <button (click)="boot()">Boot</button>
+    <button (click)="menu()">Menu</button>
+    <button (click)="game()">Game</button>
+    <button (click)="help()">Help</button>
+    <button (click)="credit()">Credit</button>
+    <button (click)="resume()">Resume</button>
+    <button (click)="pause()">Pause</button>-->
+    <iframe id="iframe-game" width="100%" height="100%" [src]="this.src | safe" (load)="onLoad()"></iframe>
 </div>
-<button (click)="preload()">Preload</button>
-<button (click)="start()">Start</button>
-<button (click)="paused()">Pause</button>
-<button (click)="continue()">Continue</button>
-<button (click)="next()">Next</button>
-<iframe [hidden]="!(process=='play')" id="iframe-game" width="100%" height="100%" [src]="this.src | safe" (load)="onLoad()"></iframe>

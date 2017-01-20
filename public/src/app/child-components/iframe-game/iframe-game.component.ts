@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-iframe-game',
   templateUrl: './iframe-game.component.html',
@@ -6,23 +6,35 @@ import { Component, OnInit, NgZone } from '@angular/core';
 })
 export class IframeGameComponent implements OnInit {
   private angularComponentRef: any;
-  private process: string;
-  src: string;
+  private _preload: boolean;
+  private loadOnce: boolean;
+  @Input() private show: string;
+  @Input() private src: string;
+  @Input() private adsClosed: boolean;
+   @Output() updateResult = new EventEmitter();
+
   constructor(private zone: NgZone) {
     (<any>window).angularComponentRef = {
       zone: this.zone,
+      boot: (func) => { this.boot = func },
       preload: (func) => { this.preload = func },
-      start: (func) => { this.start = func },
+      menu: (func) => { this.menu = func },
+      level: (func) => { this.level = func },
+      game: (func) => { this.game = func },
+      help: (func) => { this.help = func },
+      credit: (func) => { this.credit = func },
       pause: (func) => { this.pause = func },
       resume: (func) => { this.resume = func },
-      next: (func) => { this.next = func },
-      share: (result) => this.share(result),
+      continue: (func) => {this.continue = func},
+      preloadDone: () => this.preloadDone(),
+      updateResult: (result) => { this.updateResult.emit(result); },
       component: this
     };
     this.src = "http://localhost:4200/sources/games/32/index.html";
-    this.process = "intro";
   }
-  ngOnInit() { }
+  ngOnInit() {
+    this.loadOnce = true;
+  }
   onLoad() {
     var iframe = document.getElementById('iframe-game');
     var win = (<HTMLIFrameElement>iframe).contentWindow;
@@ -34,15 +46,40 @@ export class IframeGameComponent implements OnInit {
     this.angularComponentRef = null;
   }
 
+  boot() { };
   preload() { };
-  start() { };
+  menu() { };
+  level() { };
+  game() { };
+  help() { };
+  credit() { };
   resume() { };
   pause() { };
-  next() { };
-  share(result) {
-    alert(result);
+  continue() { };
+
+  preloadDone() {
+    console.log("done preload");
+    this._preload = true;
+    // this.pause();
+    if (!this.adsClosed) this.pause();
+    else this.menu();
+
   }
-  show() {
-    this.process = "play";
+  _adsClosed() {
+    alert("done adsClosed");
+    this.adsClosed = true;
+    if (this.loadOnce && this._preload) {
+      this.menu();
+      this.loadOnce = false;
+    }
+    
+  }
+  _continue() {
+    console.log("continue");
+    console.log(typeof this.level);
+    console.log(typeof this.game);
+    // if (this.level) this.level();
+    // else 
+    this.continue();
   }
 }

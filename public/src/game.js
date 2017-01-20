@@ -7,7 +7,7 @@ function Share(share) {
     this.sheetId = share.sheetId;
     this.descr = {};
 
-    this.share = function (result) {
+    this.updateResult = function (result) {
         switch (this.version) {
             case "0.0.1":
             case "0.0.2":
@@ -29,7 +29,9 @@ function Share(share) {
                     console.log("Score " + result.score);
                     console.log("Descr " + result.descr);
                     console.log("Title " + result.title);
-                    window.angularComponentRef.zone.run(function () { window.angularComponentRef.share(JSON.stringify(result)) });
+                    window.angularComponentRef.zone.run(function () {
+                        window.angularComponentRef.updateResult(JSON.stringify(result))
+                    });
                 });
                 break;
         }
@@ -216,35 +218,62 @@ function _Phaser(phaser) {
             this.game.state.add(this.state[i][0], this.state[i][1]);
         }
 
-        window.addEventListener("hashchange", function () {
-            alert(2134);
-        }, false);
+        // window.addEventListener("hashchange", function () {
+        //     alert(2134);
+        // }, false);
+
+
 
         callback(this.game);
     };
-    this.preload = function (func) {
+    this.state.boot = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.boot(func)
+        });
+    }
+    this.state.preload = function (func) {
         window.angularComponentRef.zone.run(function () {
             window.angularComponentRef.preload(func)
         });
     }
-    this.start = function (func) {
+     this.state.preloadDone = function () {
         window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.start(func)
+            window.angularComponentRef.preloadDone()
         });
     }
-    this.resume = function (func) {
+    this.state.menu = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.menu(func)
+        });
+    }
+    this.state.game = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.game(func)
+        });
+    }
+    this.state.help = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.help(func)
+        });
+    }
+    this.state.credit = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.credit(func)
+        });
+    }
+    this.state.resume = function (func) {
         window.angularComponentRef.zone.run(function () {
             window.angularComponentRef.resume(func);
         });
     }
-    this.pause = function (func) {
+    this.state.pause = function (func) {
         window.angularComponentRef.zone.run(function () {
             window.angularComponentRef.pause(func);
         });
     }
-    this.next = function (func) {
+    this.state.continue = function (func) {
         window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.next(func)
+            window.angularComponentRef.continue(func);
         });
     }
     // HELPING WITH SIZE ISSUE
@@ -342,7 +371,6 @@ function Game() {
 
         if (info.share) {
             this.share = new Share(info.share);
-            // this.share.game = this.game;
         } else {
             console.error("No game share");
         }

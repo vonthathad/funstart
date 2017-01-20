@@ -1,3 +1,7 @@
-<p>
-  game-share works!
-</p>
+<div [hidden]="!(show=='share')">
+  <h1>
+    Result {{result}}
+  </h1>
+  <button (click)="shareFacebook()">ShareFacebook</button>
+  <button (click)="_continue()">Continue</button>
+</div>

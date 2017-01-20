@@ -1,3 +1,6 @@
-<p>
-  game-intro works!
-</p>
+<div [hidden]="!(show=='intro')">
+  <h1>
+    INTRODUCE SOMETHING ABOUT THIS GAME!
+  </h1>
+  <button (click)="_play()">PLAY</button>
+</div>

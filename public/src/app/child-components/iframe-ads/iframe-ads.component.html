@@ -1,3 +1,6 @@
-<p>
-  iframe-ads works!
-</p>
+<div *ngIf="showAds">
+  <p>
+    iframe-ads works!{{seconds}}
+  </p>
+  <button (click)="_closeAds()">Close ads!</button>
+</div>
