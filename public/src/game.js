@@ -29,8 +29,7 @@ function Share(share) {
                     console.log("Score " + result.score);
                     console.log("Descr " + result.descr);
                     console.log("Title " + result.title);
-                    // console.log("THUS" + (JSON.stringify(_this)));
-
+                    window.angularComponentRef.zone.run(function () { window.angularComponentRef.share(JSON.stringify(result)) });
                 });
                 break;
         }
@@ -110,7 +109,7 @@ function Share(share) {
         }
         callback(data);
     }
-   
+
     ////////// GET DES FROM GOOGLE SHEET
     this.getDescrFromSheet = function () {
         var _this = this;
@@ -213,24 +212,40 @@ function _Phaser(phaser) {
         this.game = game;
         // console.log(JSON.stringify(game));
         var i;
-        for (i = 0; i < this.state.list.length; i++) {
-            this.game.state.add(this.state.list[i][0], this.state.list[i][1]);
+        for (i = 0; i < this.state.length; i++) {
+            this.game.state.add(this.state[i][0], this.state[i][1]);
         }
 
         window.addEventListener("hashchange", function () {
             alert(2134);
         }, false);
+
         callback(this.game);
     };
-    this.preload = function(){
-        this.game.state.start(this.state.preload);
+    this.preload = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.preload(func)
+        });
     }
-    this.start = function(){
-        this.game.state.start(this.state.start);
+    this.start = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.start(func)
+        });
     }
-    this.continue = function () {
-        this.game.paused = false;
-        this.game.state.start(this.state.continue);
+    this.resume = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.resume(func);
+        });
+    }
+    this.pause = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.pause(func);
+        });
+    }
+    this.next = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.next(func)
+        });
     }
     // HELPING WITH SIZE ISSUE
     this.setSize = function (_this) {

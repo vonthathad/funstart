@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MaterialModule } from '@angular/material'
 import { APP_BASE_HREF } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
+
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 
 import { SafePipe } from './pipes/safe.pipe';
 
@@ -37,6 +38,8 @@ import { FormPasswordResetComponent } from './child-components/form-password-res
 import { VideoPlayerComponent } from './child-components/video-player/video-player.component';
 import { IframeGameComponent } from './child-components/iframe-game/iframe-game.component'; 
 import { IframeAdsComponent } from './child-components/iframe-ads/iframe-ads.component';
+import { GameIntroComponent } from './child-components/game-intro/game-intro.component';
+import { GameShareComponent } from './child-components/game-share/game-share.component';
 
 
 
@@ -61,7 +64,9 @@ import { IframeAdsComponent } from './child-components/iframe-ads/iframe-ads.com
     FormPasswordResetComponent,
     VideoPlayerComponent,
     IframeGameComponent,
-    IframeAdsComponent
+    IframeAdsComponent,
+    GameIntroComponent,
+    GameShareComponent
     
   ],
   entryComponents:[AccountDialogComponent],
