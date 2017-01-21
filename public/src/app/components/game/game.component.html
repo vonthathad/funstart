@@ -1,9 +1,9 @@
 <div *ngIf="game">
     <!--<app-game-card [game]="game"></app-game-card>-->
     {{show}}
-    <app-game-intro [show]="show" (play)="handlePlay($event)" ></app-game-intro>
+    <app-game-intro [show]="show" (playGame)="handlePlayGame($event)" ></app-game-intro>
     <app-iframe-game [show]="show" (updateResult)="handleUpdateResult($event)"></app-iframe-game>
     <app-iframe-ads (closeAds)="handleCloseAds($event)"></app-iframe-ads>
-    <app-game-share [show]="show" (continue)="handleContinue($event)"></app-game-share>
+    <app-game-share [show]="show" (continueGame)="handleContinueGame($event)"></app-game-share>
 
 </div>

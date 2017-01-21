@@ -8,18 +8,21 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class GameShareComponent implements OnInit {
   @Input() private show: string;
   @Input() private result: Object;
-  @Output() continue = new EventEmitter();
+  @Output() continueGame = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
-  _continue() {
-    this.continue.emit();
+  _continueGame() {
+    this.continueGame.emit();
   }
   updateResult(result) {
     this.result = result;
   }
   shareFacebook(){
+    alert("NOT DONE");
+  }
+  shareTwitter(){
     alert("NOT DONE");
   }
 }

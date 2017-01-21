@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 
 import { GameService } from '../../services/game.service'
 import { RestService } from '../../services/rest.service'
-import { IframeGameComponent } from '../..../../../child-components/iframe-game/iframe-game.component';
-import { IframeAdsComponent } from '../..../../../child-components/iframe-ads/iframe-ads.component';
-import { GameIntroComponent } from '../..../../../child-components/game-intro/game-intro.component';
-import { GameShareComponent } from '../..../../../child-components/game-share/game-share.component';
+import { IframeGameComponent } from '../..../../../components-child/iframe-game/iframe-game.component';
+import { IframeAdsComponent } from '../..../../../components-child/iframe-ads/iframe-ads.component';
+// import { GameIntroComponent } from '../..../../../components-child/game-intro/game-intro.component';
+import { GameShareComponent } from '../..../../../components-child/game-share/game-share.component';
 import { Game } from '../../classes/game';
 @Component({
   selector: 'app-game',
@@ -21,7 +21,7 @@ export class GameComponent implements OnInit {
 
   @ViewChild(IframeGameComponent) private iframeGameComponent: IframeGameComponent;
   @ViewChild(IframeAdsComponent) private iframeAdsComponent: IframeAdsComponent;
-  @ViewChild(GameIntroComponent) private gameIntroComponent: GameIntroComponent;
+  // @ViewChild(GameIntroComponent) private gameIntroComponent: GameIntroComponent;
   @ViewChild(GameShareComponent) private gameShareComponent: GameShareComponent;
 
   constructor(private route: ActivatedRoute, private gameService: RestService) {
@@ -37,7 +37,7 @@ export class GameComponent implements OnInit {
     this.game = game;
     console.log("GAME " + JSON.stringify(game));
   }
-  handleContinue(show) {
+  handleContinueGame(show) {
     this.show = "game";
     this.iframeGameComponent._continue();
     this.iframeAdsComponent._closeAds();
@@ -51,7 +51,7 @@ export class GameComponent implements OnInit {
   handleCloseAds() {
     this.iframeGameComponent._adsClosed();
   }
-  handlePlay() {
+  handlePlayGame() {
     this.show = "game";
     this.iframeAdsComponent._showAds();
   }
