@@ -7,12 +7,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class GameIntroComponent implements OnInit {
   @Input() private show: string;
-  @Output() play = new EventEmitter();
+  @Output() playGame = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
-  _play(){
-    this.play.emit("game");
+  _playGame(){
+    this.playGame.emit("game");
   }
 }

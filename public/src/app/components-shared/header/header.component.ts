@@ -11,7 +11,7 @@ import { ConstantService } from '../../services/constant.service';
 import { User } from '../../classes/user';
 import { Game } from '../../classes/game';
 
-import { AccountDialogComponent } from '../../child-components/account-dialog/account-dialog.component';
+import { AccountDialogComponent } from '../../components-child/account-dialog/account-dialog.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
