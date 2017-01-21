@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { Routes, RouterModule } from '@angular/router';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { MaterialModule } from '@angular/material'
 import { APP_BASE_HREF } from '@angular/common';
-import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 
@@ -72,15 +72,15 @@ import { GameShareComponent } from './components-child/game-share/game-share.com
   entryComponents:[AccountDialogComponent],
   imports: [
     BrowserModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule,
     HttpModule,
     FormsModule,
-    MaterialModule.forRoot(),
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
       deps: [Http]
     }),
-    FlexLayoutModule,
     routing
   ],
   providers: [

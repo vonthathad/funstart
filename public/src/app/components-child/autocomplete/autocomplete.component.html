@@ -1,10 +1,17 @@
-<md-input-container>
-  <input md-input type="text" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
-</md-input-container>
-<div *ngIf="filteredList.length > 0">
-  <div *ngFor="let game of filteredList">
-    <a (click)="select(game.title)" [routerLink]="['/game', game._id]">
-      <img src="{{game.thumb}}" alt="{{game.title}}" width="30" height="30"> {{game.title}}
-    </a>
-  </div>
+<div class="search-panel">
+    <div class="form-group">
+        <input type="text" class="form-control" [(ngModel)]=query (keyup)=filter() placeholder="{{ 'HOME.SEARCHGAME' | translate }}">
+        <div class="search-btn-group">
+            <button type="button" class="btn btn-fab btn-fab-mini btn-round btn-danger search-btn">
+                <i class="ion-android-search"></i>
+            </button>
+        </div>
+    </div>
+    <div class="dropdown-search" *ngIf="filteredList.length > 0">
+      <li *ngFor="let game of filteredList">
+        <a (click)="select(game.title)" [routerLink]="['/game', game._id]">
+          <img src="{{game.thumb}}" alt="{{game.title}}" width="30" height="30"> {{game.title}}
+        </a>
+      </li>
+    </div>
 </div>

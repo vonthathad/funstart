@@ -1,21 +1,60 @@
-<div>
-  <md-input-container>
-    <input md-input placeholder="Email" [required]=true focused [(ngModel)]="user.email">
-  </md-input-container>
-  <div *ngIf="error.email" class="alert">{{error.email}}</div>
+<!--<div>-->
+  <!--<md-input-container>-->
+    <!--<input md-input placeholder="Email" [required]=true focused [(ngModel)]="user.email">-->
+  <!--</md-input-container>-->
+  <!--<div *ngIf="error.email" class="alert">{{error.email}}</div>-->
+<!--</div>-->
+<!--<div>-->
+  <!--<md-input-container>-->
+    <!--<input md-input placeholder="Username" [required]=true focused [(ngModel)]="user.username">-->
+  <!--</md-input-container>-->
+  <!--<div *ngIf="error.username" class="alert">{{error.username}}</div>-->
+<!--</div>-->
+<!--<div>-->
+  <!--<md-input-container>-->
+    <!--<input md-input placeholder="Password" [required]=true [(ngModel)]="user.password">-->
+  <!--</md-input-container>-->
+  <!--<div *ngIf="error.password" class="alert">{{error.password}}</div>-->
+<!--</div>-->
+<!--<div>-->
+  <!--<button md-button (click)="register()">REGISTER</button>-->
+<!--</div>-->
+<div class="content">
+
+
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="ion-at"></i>
+        </span>
+        <div class="form-group label-floating is-empty">
+            <input type="text" class="form-control" [required]=true focused [(ngModel)]="user.email"><span class="material-input"></span>
+            <label class="control-label">Email</label>
+        </div>
+        <div *ngIf="error.email" class="alert">{{error.email}}</div>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="ion-person"></i>
+        </span>
+        <div class="form-group label-floating is-empty">
+            <input type="text" class="form-control" [required]=true [(ngModel)]="user.username"><span class="material-input"></span>
+            <label class="control-label">Username</label>
+        </div>
+        <div *ngIf="error.username" class="alert">{{error.email}}</div>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="ion-locked"></i>
+        </span>
+        <div class="form-group label-floating is-empty">
+            <input type="password" class="form-control" [required]=true [(ngModel)]="user.password"><span class="material-input"></span>
+            <label class="control-label">Password</label>
+        </div>
+        <div *ngIf="error.password" class="alert">{{error.email}}</div>
+    </div>
 </div>
-<div>
-  <md-input-container>
-    <input md-input placeholder="Username" [required]=true focused [(ngModel)]="user.username">
-  </md-input-container>
-  <div *ngIf="error.username" class="alert">{{error.username}}</div>
-</div>
-<div>
-  <md-input-container>
-    <input md-input placeholder="Password" [required]=true [(ngModel)]="user.password">
-  </md-input-container>
-  <div *ngIf="error.password" class="alert">{{error.password}}</div>
-</div>
-<div>
-  <button md-button (click)="register()">REGISTER</button>
+<div class="footer text-center">
+    <a (click)="register()" class="btn btn-primary">Register</a>
 </div>

@@ -1,40 +1,91 @@
-<md-toolbar color="primary">
-    <button md-button [routerLink]="['']">
-      <img src="img/logofunstart.svg" class="ng-scope">
-      </button>
-    <button md-button [md-menu-trigger-for]="topic">
-      Topics
-      </button>
-    <button md-button [md-menu-trigger-for]="discover">
-      Discover
-      </button>
-    <app-autocomplete></app-autocomplete>
-    <!--
-       USER CHƯA ĐĂNG NHẬP
-    -->
-    <div *ngIf="!user">
-        <button md-button (click)="openDialog()">Login</button>
-    </div>
-    <!--
-        USER ĐÃ ĐĂNG NHẬP
-    -->
-    <div *ngIf="user">
-        <img class="avatar" src="{{user.avatar}}" alt="{{user.displayName}}">
-        <button md-button (click)="logout()">Logout</button>
-    </div>
-</md-toolbar>
+<!--<md-toolbar color="primary">-->
 
-<!-- menu for topics -->
-<md-menu x-position="after" y-position="below" #topic="mdMenu">
-    <button md-menu-item *ngFor="let topic of topics" [routerLink]="['/topic', topic._id]">
-      <i class="icon submenu-icon {{topic.icon}}"></i> {{topic.name}}
-    </button>
-</md-menu>
+<!--</md-toolbar>-->
 
-<!-- menu for discovery -->
-<md-menu x-position="after" y-position="below" #discover="mdMenu">
-    <button md-menu-item *ngFor="let game of games" [routerLink]="['/game', game._id]">
-      <img class="submenu-thumb" src="{{game.thumb}}" alt="{{game.title}}" width="40" height="40">
-      {{game.title}}
-    </button>
-</md-menu>
+<!--&lt;!&ndash; menu for topics &ndash;&gt;-->
+<!--<md-menu x-position="after" y-position="below" #topic="mdMenu">-->
+    <!--<button md-menu-item *ngFor="let topic of topics" [routerLink]="['/topic', topic._id]">-->
+      <!--<i class="icon submenu-icon {{topic.icon}}"></i> {{topic.name}}-->
+    <!--</button>-->
+<!--</md-menu>-->
+
+<!--&lt;!&ndash; menu for discovery &ndash;&gt;-->
+<!--<md-menu x-position="after" y-position="below" #discover="mdMenu">-->
+    <!--<button md-menu-item *ngFor="let game of games" [routerLink]="['/game', game._id]">-->
+      <!--<img class="submenu-thumb" src="{{game.thumb}}" alt="{{game.title}}" width="40" height="40">-->
+      <!--{{game.title}}-->
+    <!--</button>-->
+<!--</md-menu>-->
+
+<nav class="navbar navbar-primary" role="navigation">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-offset-2"></div>
+        </div>
+        <div class="navbar-header col-md-offset-2">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['/']" style="font-size: 22px;letter-spacing: 2px"><img style="height: 25px" src="./assets/img/logofunstart.svg"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar">
+            <ul class="nav navbar-nav">
+                <!--<li class="active"><a href="#">Link</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{ 'HOME.EXPLORER' | translate }}
+                        <b class="caret"></b>
+                        <div class="ripple-container"></div></a>
+                    <ul class="dropdown-menu">
+
+                        <li *ngFor="let game of games"><a [routerLink]="['/game', game._id]">
+                            <img class="submenu-thumb" src="{{game.thumb}}" alt="{{game.title}}">
+                            {{game.title}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{ 'HOME.TOPIC' | translate }}
+                        <b class="caret"></b>
+                        <div class="ripple-container"></div></a>
+                    <ul class="dropdown-menu">
+
+                        <li *ngFor="let topic of topics" ><a [routerLink]="['/topic', topic._id]">
+                            <i class="icon submenu-icon {{topic.icon}}"></i> {{topic.name}}</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <app-autocomplete></app-autocomplete>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <!-- USER CHƯA ĐĂNG NHẬP -->
+                <li *ngIf="!user">
+                    <a (click)="openDialog()">Login</a>
+                </li>
+                <!--USER ĐÃ ĐĂNG NHẬP-->
+                <li *ngIf="user">
+                    <img class="avatar" src="{{user.avatar}}" alt="{{user.displayName}}">
+                    <a (click)="logout()">Logout</a>
+                </li>
+                <!--<li>-->
+                    <!--<button [disabled]="!amount"  [routerLink]="['/Home','Order',orderService.orderID]" class="btn btn-primary btn-md btn-shopping"><i class="material-icons">shopping_basket</i> Thanh toán {{amount}}</button>-->
+                <!--</li>-->
+                <!--<li *ngIf="!user"><a class="btn btn-login" href="http://localhost:18179/api/Account/ExternalLogin?provider=Facebook&response_type=token&client_id=self&redirect_uri=http://localhost:18179/">Đăng nhập</a></li>-->
+                <!--<li *ngIf="user" class="dropdown">-->
+                    <!--<a class="dropdown-toggle" data-toggle="dropdown"><img [src]="user.Avatar" class="img img-responsive img-circle" style="width: 34px; display: inline-block"> <b>{{user.DisplayName}}</b> <b class="caret"></b></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a (click)="onSignOut()">Đăng xuất</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <!--<app-autocomplete></app-autocomplete>-->
+
+    </div>
+</nav>

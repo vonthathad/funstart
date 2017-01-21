@@ -373,11 +373,6 @@ var getSortType = function (sortType) {
     return { created: -1 };
 };
 
-<<<<<<< HEAD
-exports.authToken = function(req,res){
-    if(req.user){
-        return res.json({user: req.user});
-=======
 //////////////////////////////////////////////////
 ////GET USER DATA, Header Authorization By Token
 //////////////////////////////////////////////////
