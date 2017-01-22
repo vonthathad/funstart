@@ -226,14 +226,14 @@ function _Phaser(phaser) {
 
         callback(this.game);
     };
-    this.state.boot = function (func) {
+    this.state.startBoot = function (func) {
         window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.boot(func)
+            window.angularComponentRef.startBoot(func)
         });
     }
-    this.state.preload = function (func) {
+    this.state.startPreload = function (func) {
         window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.preload(func)
+            window.angularComponentRef.startPreload(func)
         });
     }
      this.state.preloadDone = function () {
@@ -241,24 +241,24 @@ function _Phaser(phaser) {
             window.angularComponentRef.preloadDone()
         });
     }
-    this.state.menu = function (func) {
+    this.state.startMenu = function (func) {
         window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.menu(func)
+            window.angularComponentRef.startMenu(func)
         });
     }
-    this.state.game = function (func) {
+    this.state.startGame = function (func) {
         window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.game(func)
+            window.angularComponentRef.startGame(func)
         });
     }
-    this.state.help = function (func) {
+    this.state.startHelp = function (func) {
         window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.help(func)
+            window.angularComponentRef.startHelp(func)
         });
     }
-    this.state.credit = function (func) {
+    this.state.startCredit = function (func) {
         window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.credit(func)
+            window.angularComponentRef.startCredit(func)
         });
     }
     this.state.resume = function (func) {

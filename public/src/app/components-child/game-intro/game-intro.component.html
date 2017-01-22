@@ -1,6 +1,6 @@
-<div [hidden]="!(show=='intro')">
+<div [hidden]="!visible">
   <h1>
-    INTRODUCE SOMETHING ABOUT THIS GAME!
+   {{game.title}}
   </h1>
   <button (click)="_playGame()">PLAY</button>
 </div>

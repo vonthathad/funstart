@@ -3,9 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 
 import { GameService } from '../../services/game.service'
 import { RestService } from '../../services/rest.service'
+
+
 import { IframeGameComponent } from '../..../../../components-child/iframe-game/iframe-game.component';
 import { IframeAdsComponent } from '../..../../../components-child/iframe-ads/iframe-ads.component';
-// import { GameIntroComponent } from '../..../../../components-child/game-intro/game-intro.component';
+import { GameIntroComponent } from '../..../../../components-child/game-intro/game-intro.component';
 import { GameShareComponent } from '../..../../../components-child/game-share/game-share.component';
 import { Game } from '../../classes/game';
 @Component({
@@ -17,11 +19,10 @@ export class GameComponent implements OnInit {
   private game: Game;
   private show: string;
   private share: string;
-  private adsClosed: boolean;
 
   @ViewChild(IframeGameComponent) private iframeGameComponent: IframeGameComponent;
   @ViewChild(IframeAdsComponent) private iframeAdsComponent: IframeAdsComponent;
-  // @ViewChild(GameIntroComponent) private gameIntroComponent: GameIntroComponent;
+  @ViewChild(GameIntroComponent) private gameIntroComponent: GameIntroComponent;
   @ViewChild(GameShareComponent) private gameShareComponent: GameShareComponent;
 
   constructor(private route: ActivatedRoute, private gameService: RestService) {
@@ -30,29 +31,33 @@ export class GameComponent implements OnInit {
     });
 
   }
+  
   ngOnInit() {
-    this.show = "intro";
+    // this.show = "intro";
+    // this.iframeAdsComponent._showAds();
   }
   renderGame(game) {
     this.game = game;
     console.log("GAME " + JSON.stringify(game));
   }
   handleContinueGame(show) {
-    this.show = "game";
     this.iframeGameComponent._continue();
     this.iframeAdsComponent._closeAds();
+    this.iframeGameComponent.setVisible(true);
+    this.gameShareComponent.setVisible(false);
   }
   handleUpdateResult(result) {
     console.log(1234);
-    this.show = "share";
     this.gameShareComponent.updateResult(result);
-    this.iframeAdsComponent._showAds();
+    this.gameShareComponent.setVisible(true);
+    this.iframeGameComponent.setVisible(false);
   }
   handleCloseAds() {
-    this.iframeGameComponent._adsClosed();
+    
   }
   handlePlayGame() {
-    this.show = "game";
-    this.iframeAdsComponent._showAds();
+    this.iframeGameComponent._playGame();
+    this.gameIntroComponent.setVisible(false);
+    this.iframeGameComponent.setVisible(true);
   }
 }

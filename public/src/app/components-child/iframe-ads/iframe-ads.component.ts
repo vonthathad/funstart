@@ -11,6 +11,7 @@ export class IframeAdsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.showAds = true
   }
   _showAds() {
     this.showAds = true;
