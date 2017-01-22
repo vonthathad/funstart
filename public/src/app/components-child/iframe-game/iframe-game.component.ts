@@ -10,7 +10,7 @@ export class IframeGameComponent implements OnInit {
   private loadOnce: boolean;
   private visible: boolean;
   @Input() private src: string;
-  @Input() private adsClosed: boolean;
+  @Input() private playGame: boolean;
   @Output() updateResult = new EventEmitter();
 
   constructor(private zone: NgZone) {
@@ -61,13 +61,13 @@ export class IframeGameComponent implements OnInit {
     console.log("done preload");
     this._preload = true;
     // this.pause();
-    if (!this.adsClosed) this.pause();
+    if (!this.playGame) this.pause();
     else this.menu();
 
   }
-  _adsClosed() {
-    alert("done adsClosed");
-    this.adsClosed = true;
+  _playGame() {
+    alert("done playGame");
+    this.playGame = true;
     if (this.loadOnce && this._preload) {
       this.menu();
       this.loadOnce = false;
