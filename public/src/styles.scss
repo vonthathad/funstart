@@ -33,7 +33,9 @@ body {
   margin: 0;
   font-family: Roboto, sans-serif;
 }
-
+a{
+  cursor: pointer;
+}
 .layout-wrap {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;

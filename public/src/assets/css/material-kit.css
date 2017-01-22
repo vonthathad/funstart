@@ -1976,10 +1976,10 @@ legend {
 }
 .navbar .navbar-brand {
   position: relative;
-  height: 50px;
+  height: 40px;
   line-height: 30px;
   color: inherit;
-  padding: 10px 15px;
+  padding: 5px 15px;
 }
 .navbar .navbar-brand:hover, .navbar .navbar-brand:focus {
   color: inherit;
@@ -1992,8 +1992,8 @@ legend {
 }
 .navbar .navbar-nav > li > a {
   color: inherit;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -2352,23 +2352,23 @@ legend {
 .navbar-fixed-top {
   border-radius: 0;
 }
-@media (max-width: 1199px) {
-  .navbar {
+/*@media (max-width: 1199px) {*/
+  /*.navbar {*/
     /*
         .navbar-form {
           margin-top: 10px;
         }
     */
-  }
-  .navbar .navbar-brand {
-    height: 50px;
-    padding: 10px 15px;
-  }
-  .navbar .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-}
+  /*}*/
+  /*.navbar .navbar-brand {*/
+    /*height: 50px;*/
+    /*padding: 10px 15px;*/
+  /*}*/
+  /*.navbar .navbar-nav > li > a {*/
+    /*padding-top: 15px;*/
+    /*padding-bottom: 15px;*/
+  /*}*/
+/*}*/
 .navbar .alert {
   border-radius: 0;
   left: 0;
