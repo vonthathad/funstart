@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialogRef} from'@angular/material';
 
 @Component({
   selector: 'app-account-dialog',
@@ -8,7 +7,7 @@ import {MdDialogRef} from'@angular/material';
 })
 export class AccountDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MdDialogRef<AccountDialogComponent>) { }
+  constructor() { }
 
   ngOnInit() {
   }

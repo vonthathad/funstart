@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { overlayConfigFactory } from "angular2-modal";
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 
 import { GameService } from '../../services/game.service'
@@ -22,7 +23,7 @@ export class HeaderComponent implements OnInit {
   private games: Game[];
   private user: User;
 
-  constructor(private gameService: GameService, private userService: UserService, public dialog: MdDialog, private route: ActivatedRoute) {
+  constructor(private gameService: GameService, private userService: UserService, private route: ActivatedRoute,private modal: Modal) {
     // listening for registered user, if there is one, render to user
     this.userService.loggedUser$.subscribe(user => this.renderUser(user));
   }
@@ -51,10 +52,11 @@ export class HeaderComponent implements OnInit {
     this.user.avatar = user.avatar;
   }
   openDialog() {
-    let dialogRef = this.dialog.open(AccountDialogComponent, {
-      height: '300px',
-      width: '600px'
-    });
+    this.modal.open(AccountDialogComponent, overlayConfigFactory({ num1: 2, num2: 3,isBlocking: false},BSModalContext));
+    // let dialogRef = this.dialog.open(AccountDialogComponent, {
+    //   height: '300px',
+    //   width: '600px'
+    // });
   }
   logout() {
     this.userService.logout(this.user.token);
