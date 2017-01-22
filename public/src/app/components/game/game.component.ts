@@ -19,7 +19,6 @@ export class GameComponent implements OnInit {
   private game: Game;
   private show: string;
   private share: string;
-  private showAds: boolean;
 
   @ViewChild(IframeGameComponent) private iframeGameComponent: IframeGameComponent;
   @ViewChild(IframeAdsComponent) private iframeAdsComponent: IframeAdsComponent;
@@ -36,7 +35,6 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     // this.show = "intro";
     // this.iframeAdsComponent._showAds();
-    this.showAds = true;
   }
   renderGame(game) {
     this.game = game;
