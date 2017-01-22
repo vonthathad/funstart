@@ -12,18 +12,21 @@ import { Game } from '../../classes/game';
 export class TopicComponent implements OnInit {
   private topicId: string;
   private games: Game[];
+  private paging: number;
   constructor(private route: ActivatedRoute, private gameService: GameService) {
+    this.paging = 6;
     route.params.subscribe(params => {
       this.topicId = params['id'];
-      this.gameService.getGames({ topic: this.topicId, order: "new" }).subscribe((res: any) => this.renderGames(res.data))
+      this.gameService.getGames({ topic: this.topicId, order: "new", paging: this.paging }).subscribe((res: any) => this.renderGames(res.data))
     });
+
   }
 
   ngOnInit() {
   }
   getGames(order) {
     console.log(order);
-    this.gameService.getGames({ topic: this.topicId, order: order }).subscribe((res: any) => this.renderGames(res.data))
+    this.gameService.getGames({ topic: this.topicId, order: order, paging: this.paging }).subscribe((res: any) => this.renderGames(res.data))
   }
   renderGames(games) {
     this.games = games;
