@@ -21,7 +21,7 @@
         "styles.scss"
       ],
       "scripts": [
-        "../node_modules/hammerjs/hammer.min.js"
+       
       ],
       "environments": {
         "source": "environments/environment.ts",
