@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import {Game} from '../../classes/game';
 import { ImageService } from '../../services/image.service'
 import { ShareService } from '../../services/share.service'
 
@@ -11,6 +11,7 @@ import { ShareService } from '../../services/share.service'
 export class GameShareComponent implements OnInit {
   private visible: boolean;
   @Input() private result: Object;
+  @Input() private game: Game;
   @Output() continueGame = new EventEmitter();
   constructor(private imageService: ImageService, private shareService: ShareService) { }
 

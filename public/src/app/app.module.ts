@@ -5,6 +5,7 @@ import { HttpModule, Http } from '@angular/http';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { Routes, RouterModule } from '@angular/router';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { APP_BASE_HREF } from '@angular/common';
 
@@ -79,6 +80,7 @@ import { GameShareComponent } from './components-child/game-share/game-share.com
     BootstrapModalModule,
     HttpModule,
     FormsModule,
+    InfiniteScrollModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),

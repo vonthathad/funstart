@@ -127,7 +127,7 @@
 .card .card-actions {
 	position: absolute;
 	z-index: 1;
-	top: -30px;
+	top: -20px;
 	width: calc(100% - 30px);
 	left: 17px;
 	right: 17px;
@@ -440,11 +440,11 @@
 }
 
 .card:hover [data-header-animation="true"] {
-	-webkit-transform: translate3d(0, -50px, 0);
-	-moz-transform: translate3d(0, -50px, 0);
-	-o-transform: translate3d(0, -50px, 0);
-	-ms-transform: translate3d(0, -50px, 0);
-	transform: translate3d(0, -50px, 0);
+	-webkit-transform: translate3d(0, -30px, 0);
+	-moz-transform: translate3d(0, -30px, 0);
+	-o-transform: translate3d(0, -30px, 0);
+	-ms-transform: translate3d(0, -30px, 0);
+	transform: translate3d(0, -30px, 0);
 }
 
 .card [data-background-color] {
@@ -819,6 +819,7 @@
 .game-list {
 	border-radius: 10px;
 	margin: 0px 20px 50px;
+	padding-top: 10px;
 }
 
 .topic-list {
@@ -896,4 +897,14 @@
 .game-list .card .card-footer a:first-child, 
 .topic-list .card .card-footer a:first-child{
 	left: 0px;
+}
+
+.btn-facebook{
+	background: #3c599b!important;;
+}
+.btn-twitter{
+	background: #55acef!important;
+}
+.btn-social{
+	width: 200px;
 }

@@ -1,6 +1,17 @@
-<div [hidden]="!visible">
-  <h1>
-   {{game.title}}
-  </h1>
-  <button (click)="_playGame()">PLAY</button>
+<div class="text-center intro-frame" [hidden]="!visible">
+    <div class="card-image" data-header-animation="false">
+        <img class="img" [src]="game.thumb">
+        <div class="ripple-container"></div>
+    </div>
+    <div class="card-content">
+        <h4 class="card-title">
+                {{game.title}}
+        </h4>
+        <div class="card-description">
+            {{game.des}}
+        </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary btn-md" (click)="_playGame()"> <i class="ion-flash"></i> PLAY</a>
+    </div>
 </div>

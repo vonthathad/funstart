@@ -1,0 +1,27 @@
+.result-panel{
+  padding: 12px;
+}
+.result-image{
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  margin: auto;
+}
+.result-image img{
+  width: 100%;
+}
+.result-text{
+  position: absolute;
+  padding: 12px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  z-index: 2;
+  color: #fff;
+}
+.btn-facebook{
+  margin-top: 0;
+}

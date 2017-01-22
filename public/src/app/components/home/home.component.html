@@ -1,4 +1,19 @@
-<div *ngFor="let gamesCollection of gamesCollections">
-    <app-game-collection [gamesCollection]="gamesCollection"></app-game-collection>
-</div>
+<!--<app-game-collection [gamesCollection]="games"></app-game-collection>-->
 <!--<app-game-collection [gamesCollection]="gamesCollection"></app-game-collection>-->
+<div class="wrapper">
+    <div class="main game-list">
+        <div class="container">
+            <!-- here you can add your content -->
+            <div class="row" infinite-scroll
+                 [infiniteScrollDistance]="1"
+                 [infiniteScrollThrottle]="500"
+                 (scrolled)="onScroll()">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
+                    <app-game-card-detail [game]="game"></app-game-card-detail>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="seperator"></div>-->

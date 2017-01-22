@@ -1,15 +1,12 @@
-
 <div class="wrapper">
     <div class="row">
         <div class="col-sm-8 col-md-8">
-            <div class="game-frame" *ngIf="game">
+            <div class="game-frame">
             <!--<app-game-card [game]="game"></app-game-card>-->
-            {{show}}
-            <app-game-intro [show]="show" (playGame)="handlePlayGame($event)" ></app-game-intro>
-            <app-iframe-game [show]="show" (updateResult)="handleUpdateResult($event)"></app-iframe-game>
-            <app-iframe-ads (closeAds)="handleCloseAds($event)"></app-iframe-ads>
-            <app-game-share [show]="show" (continueGame)="handleContinueGame($event)"></app-game-share>
-
+                <app-game-intro *ngIf="game" [game]="game" (playGame)="handlePlayGame($event)"></app-game-intro>
+                <app-iframe-game *ngIf="game" [_game]="game" (updateResult)="handleUpdateResult($event)"></app-iframe-game>
+                <app-iframe-ads  (closeAds)="handleCloseAds($event)"></app-iframe-ads>
+                <app-game-share *ngIf="game" [game]="game" (continueGame)="handleContinueGame($event)"></app-game-share>
             </div>
             <div class="devider"></div>
             <div class="row">
@@ -166,5 +163,3 @@
             </div>
         </div>
     </div>
-
-</div>

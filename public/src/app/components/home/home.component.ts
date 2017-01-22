@@ -19,7 +19,10 @@ export class HomeComponent implements OnInit {
   // private gamesCollections: any[];
   private games: Game[];
   private paging: number;
-  private 
+  private page: number;
+  private hasMore: boolean;
+  private isLoading: boolean;
+  private
   ngOnInit() {
     // let _this = this;
     // ConstantService.TOPICS.forEach(function (topic) { // loop through topics
@@ -27,16 +30,33 @@ export class HomeComponent implements OnInit {
     //     .getGames({ paging: 6, topic: topic._id })
     //     .subscribe((res: any) => _this.renderGames(res.data, topic)); // take game from database
     // });
-    this.paging = 12;
+    this.paging = 8;
+    this.page = 1;
+    this.isLoading = true;
+    this.hasMore = true;
     this.gameService
-        .getGames({ paging: this.paging, order: {create:-1}})
-        .subscribe((res: any) => this.renderGames(res.data));
+        .getGames({ paging: this.paging,page: this.page, order: {create:-1}})
+        .subscribe((res: any) => this.renderGames(res.data,true,res.isNext));
   }
-  renderGames(games: Game[]) {
+  onScroll(){
+    if(this.hasMore && !this.isLoading){
+      this.gameService
+          .getGames({ paging: this.paging,page: this.page, order: {create:-1}})
+          .subscribe((res: any) => this.renderGames(res.data,false,res.isNext));
+    }
+  }
+  renderGames(games: Game[],isNew,isNext) {
+    console.log(isNext);
     // console.log(JSON.stringify(games));
     // this.gamesCollections.push({ topic: topic, games: games }); // set to views
-    this.games = games;
-    console.log(JSON.stringify(this.games));
+    if(isNew){
+      this.games = games;
+    } else {
+      this.games = this.games.concat(games);
+    }
+    this.hasMore = isNext;
+    this.page++;
+    this.isLoading = false;
   }
   goUser() {
     this.router.navigate(['user']);

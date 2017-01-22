@@ -1,8 +1,14 @@
-<div [hidden]="!visible">
-  <h1>
-    Result {{result}}
-  </h1>
-  <button (click)="shareFacebook()">Share Facebook</button>
-  <button (click)="shareTwitter()">Share Twitter</button>
-  <button (click)="_continueGame()">Continue</button>
+<div class="text-center result-panel" [hidden]="!visible">
+  <div class="result-image">
+    <img [src]="game.thumbResult">
+    <div *ngIf="result" class="result-text">{{result}}</div>
+  </div>
+  <div>
+    <button class="btn btn-primary btn-social btn-danger" (click)="_continueGame()"><i class="ion-play"></i> Continue</button>
+  </div>
+  <div>
+    <button class="btn btn-primary btn-social btn-facebook" (click)="loginFacebook()"><i class="ion-android-share-alt"></i> Share on Facebook</button>
+  </div>
+
+  <!--<button (click)="shareTwitter()">Share Twitter</button>-->
 </div>

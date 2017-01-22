@@ -5,10 +5,10 @@ import { GameService } from '../../services/game.service'
 import { RestService } from '../../services/rest.service'
 
 
-import { IframeGameComponent } from '../..../../../components-child/iframe-game/iframe-game.component';
-import { IframeAdsComponent } from '../..../../../components-child/iframe-ads/iframe-ads.component';
-import { GameIntroComponent } from '../..../../../components-child/game-intro/game-intro.component';
-import { GameShareComponent } from '../..../../../components-child/game-share/game-share.component';
+import { IframeGameComponent } from './../../components-child/iframe-game/iframe-game.component';
+import { IframeAdsComponent } from './../../components-child/iframe-ads/iframe-ads.component';
+import { GameIntroComponent } from './../../components-child/game-intro/game-intro.component';
+import { GameShareComponent } from './../../components-child/game-share/game-share.component';
 import { Game } from '../../classes/game';
 @Component({
   selector: 'app-game',
@@ -27,17 +27,19 @@ export class GameComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private gameService: RestService) {
     route.params.subscribe(params => {
-      this.gameService.getGame(params['id']).subscribe((res: any) => this.renderGame(res.data))
+      this.gameService.getGame(params['id']).subscribe((res: any) => this.renderGame(res.data));
+
     });
 
   }
   
   ngOnInit() {
     // this.show = "intro";
-    // this.iframeAdsComponent._showAds();
+
   }
   renderGame(game) {
     this.game = game;
+    this.iframeAdsComponent._showAds({channelId: '123'});
     console.log("GAME " + JSON.stringify(game));
   }
   handleContinueGame(show) {
@@ -47,10 +49,14 @@ export class GameComponent implements OnInit {
     this.gameShareComponent.setVisible(false);
   }
   handleUpdateResult(result) {
-    console.log(1234);
+
     this.gameShareComponent.updateResult(result);
     this.gameShareComponent.setVisible(true);
     this.iframeGameComponent.setVisible(false);
+    let self = this;
+    setTimeout(function(){
+      self.iframeAdsComponent._showAds({channelId: '123'});
+    });
   }
   handleCloseAds() {
     
