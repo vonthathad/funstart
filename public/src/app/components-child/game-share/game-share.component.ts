@@ -1,17 +1,25 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import { ImageService } from '../../services/image.service'
+import { ShareService } from '../../services/share.service'
+
 @Component({
   selector: 'app-game-share',
   templateUrl: './game-share.component.html',
   styleUrls: ['./game-share.component.scss']
 })
 export class GameShareComponent implements OnInit {
-  @Input() private show: string;
+  private visible: boolean;
   @Input() private result: Object;
   @Output() continueGame = new EventEmitter();
-  constructor() { }
+  constructor(private imageService: ImageService, private shareService: ShareService) { }
 
   ngOnInit() {
+     this.shareService.setInfo({
+      title: "abc",
+      des: "you win",
+      shareUrl: "https://www.solome.co/games/32"
+    });
   }
   _continueGame() {
     this.continueGame.emit();
@@ -19,10 +27,27 @@ export class GameShareComponent implements OnInit {
   updateResult(result) {
     this.result = result;
   }
-  shareFacebook(){
+  
+  shareFacebook() {
+    let result = {};
+    result["score"] = 12;
+    this.imageService.createImage(32, result).subscribe(
+      pictureUrl => {
+        console.log(pictureUrl);
+        this.shareService.setInfo({ pictureUrl: pictureUrl });
+        this.shareService.shareFacebook(function () {
+          console.log('done share');
+        });
+      },
+      err => {
+        // Log errors if any
+        console.log(err);
+      });
+  }
+  shareTwitter() {
     alert("NOT DONE");
   }
-  shareTwitter(){
-    alert("NOT DONE");
+  setVisible(visible){
+    this.visible = visible;
   }
 }

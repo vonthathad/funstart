@@ -1,9 +1,14 @@
+<a class="twitter-share-button"
+  href="https://twitter.com/intent/tweet?text=Hello%20world"
+  data-size="large">
+Tweet</a>
+
 <div *ngIf="game">
     <!--<app-game-card [game]="game"></app-game-card>-->
     {{show}}
-    <app-game-intro [show]="show" (playGame)="handlePlayGame($event)" ></app-game-intro>
-    <app-iframe-game [show]="show" (updateResult)="handleUpdateResult($event)"></app-iframe-game>
+    <app-game-intro  (playGame)="handlePlayGame($event)" ></app-game-intro>
+    <app-iframe-game (updateResult)="handleUpdateResult($event)"></app-iframe-game>
     <app-iframe-ads (closeAds)="handleCloseAds($event)"></app-iframe-ads>
-    <app-game-share [show]="show" (continueGame)="handleContinueGame($event)"></app-game-share>
+    <app-game-share (continueGame)="handleContinueGame($event)"></app-game-share>
 
 </div>

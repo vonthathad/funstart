@@ -8,10 +8,10 @@ export class IframeGameComponent implements OnInit {
   private angularComponentRef: any;
   private _preload: boolean;
   private loadOnce: boolean;
-  @Input() private show: string;
+  private visible: boolean;
   @Input() private src: string;
   @Input() private adsClosed: boolean;
-   @Output() updateResult = new EventEmitter();
+  @Output() updateResult = new EventEmitter();
 
   constructor(private zone: NgZone) {
     (<any>window).angularComponentRef = {
@@ -25,7 +25,7 @@ export class IframeGameComponent implements OnInit {
       credit: (func) => { this.credit = func },
       pause: (func) => { this.pause = func },
       resume: (func) => { this.resume = func },
-      continue: (func) => {this.continue = func},
+      continue: (func) => { this.continue = func },
       preloadDone: () => this.preloadDone(),
       updateResult: (result) => { this.updateResult.emit(result); },
       component: this
@@ -72,7 +72,7 @@ export class IframeGameComponent implements OnInit {
       this.menu();
       this.loadOnce = false;
     }
-    
+
   }
   _continue() {
     console.log("continue");
@@ -81,5 +81,8 @@ export class IframeGameComponent implements OnInit {
     // if (this.level) this.level();
     // else 
     this.continue();
+  }
+  setVisible(visible) {
+    this.visible = visible;
   }
 }

@@ -6,13 +6,18 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./game-intro.component.scss']
 })
 export class GameIntroComponent implements OnInit {
-  @Input() private show: string;
+  private visible: boolean;
   @Output() playGame = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
+    this.visible = true;
   }
   _playGame(){
     this.playGame.emit("game");
+    this.visible = false;
+  }
+  setVisible(visible){
+    this.visible = visible;
   }
 }
