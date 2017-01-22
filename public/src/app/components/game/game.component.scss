@@ -1,3 +1,17 @@
-app-iframe-game{
-  
+.wrapper{
+  padding: 0px 10px;
+}
+.card-header-game{
+  padding: 15px 22px;
+  font-size: 1.5em;
+}
+.game-frame{
+  height: calc(100vh - 80px);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  background: #fff;
+  position: relative;
+}
+td{
+  line-height: 30px!important;
 }

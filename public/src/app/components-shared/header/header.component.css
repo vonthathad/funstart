@@ -11,7 +11,12 @@
     border-radius: 50%;
 }
 .avatar{
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
+    margin-right: 5px;
+}
+.dropdown-user{
+    padding-top: 5px!important;
+    padding-bottom: 5px!important;
 }

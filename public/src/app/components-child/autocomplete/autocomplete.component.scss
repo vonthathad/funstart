@@ -11,8 +11,10 @@
 }
 .form-group{
   padding: 0;
-  margin: 10px;
-  margin-top: 7px;
+  margin: 0 10px;
+}
+.form-group .form-control{
+  margin-bottom: 0;
 }
 input{
   padding-left: 35px;

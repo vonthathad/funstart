@@ -400,8 +400,8 @@
 }
 
 .card [data-background-color="orange"] {
-	background: linear-gradient(60deg, #ffa726, #fb8c00);
-	box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
+	background: linear-gradient(60deg, #f18b48, #f1702f);
+	box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 119, 9, 0.4);
 }
 
 .card [data-icon-bg-color="orange"] i {
@@ -876,6 +876,7 @@
 }
 
 .game-heading-sm{
+	text-transform: uppercase;
 	font-weight: 600;
 	margin-top: 0;
 	margin-bottom: 0px;
@@ -883,7 +884,8 @@
 
 .game-desc-sm{
 	margin-bottom: 5px;
-	color: #444;
+	color: #999;
+	font-size: 0.85em;
 }
 
 .game-list .card .card-footer, .topic-list .card .card-footer {

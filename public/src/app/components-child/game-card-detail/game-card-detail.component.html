@@ -1,6 +1,24 @@
-<!--<p [routerLink]="['/game', game._id]">Title: {{game.title}}<p>-->
-<!--Topic: {{game.topic.name}}<br/>-->
-<!--Desc: {{game.des}}<br/>-->
-<!--<img src="{{game.thumb}}" width=100 height=100 alt="game.title" [routerLink]="['/game', game._id]"><br/>-->
-<!--Play count: {{game.plays}}-->
-<!--<br/>-->
+<div class="card card-product" data-count="3">
+    <div class="card-image" data-header-animation="true">
+        <a [routerLink]="['/game', game._id]">
+            <img class="img" [src]="game.thumb">
+        </a>
+        <div class="ripple-container"></div>
+    </div>
+    <div class="card-content">
+        <div class="card-actions">
+            <i class="ion-play"></i> {{game.plays}} plays
+        </div>
+        <p class="card-title">
+            <a [routerLink]="['/game', game._id]">
+                {{game.title}}
+            </a>
+        </p>
+        <div class="card-description">
+            {{game.des}}
+        </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary btn-md" [routerLink]="['/game', game._id]"> <i class="ion-flash"></i> PLAY NOW</a>
+    </div>
+</div>

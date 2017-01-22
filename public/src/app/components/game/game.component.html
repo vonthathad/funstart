@@ -1,12 +1,171 @@
-<!--<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world" data-size="large">
-Tweet</a>-->
 
-<div *ngIf="game">
-  <!--<app-game-card [game]="game"></app-game-card>-->
-  {{show}}
-  <app-game-intro [game]="game"(playGame)="handlePlayGame($event)"></app-game-intro>
-  <app-iframe-game [_game]="game"(updateResult)="handleUpdateResult($event)"></app-iframe-game>
-  <app-iframe-ads  (closeAds)="handleCloseAds($event)"></app-iframe-ads>
-  <app-game-share (continueGame)="handleContinueGame($event)"></app-game-share>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-8 col-md-8">
+            <div class="game-frame" *ngIf="game">
+            <!--<app-game-card [game]="game"></app-game-card>-->
+            {{show}}
+            <app-game-intro [game]="game"(playGame)="handlePlayGame($event)"></app-game-intro>
+            <app-iframe-game [_game]="game"(updateResult)="handleUpdateResult($event)"></app-iframe-game>
+            <app-iframe-ads  (closeAds)="handleCloseAds($event)"></app-iframe-ads>
+            <app-game-share (continueGame)="handleContinueGame($event)"></app-game-share>
+
+
+            </div>
+            <div class="devider"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="section-heading">Recommended Games</h4>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-4">
+                            <app-game-card></app-game-card>
+                        </div>
+                        <div class="col-md-12 col-sm-4">
+                            <app-game-card></app-game-card>
+                        </div>
+                        <div class="col-md-12 col-sm-4">
+                            <app-game-card></app-game-card>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h4 class="section-heading">Facebook Comments</h4>
+                    <div class="fb-comments">
+                        <img class="img img-responsive" src="assets/img/fb_chat_mockup.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="action-area">
+
+            </div>
+            <div class="ranking-area">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-game" data-background-color="orange">
+                        <i class="ion-flag"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Top Players</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Name</th>
+                                    <th>Score</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>#1</td>
+                                    <td>
+                                        <img src="assets/img/avatar.jpg" alt="Thumbnail Image" class="img-circle img-raised avatar">
+                                        <span class="rank-name">Niger</span>
+                                    </td>
+                                    <td class="text-primary">36,738</td>
+                                </tr>
+                                <tr>
+                                    <td>#2</td>
+                                    <td>
+                                        <img src="assets/img/avatar.jpg" alt="Thumbnail Image" class="img-circle img-raised avatar">
+                                        <span class="rank-name">Niger</span>
+                                    </td>
+                                    <td class="text-primary">23,789</td>
+                                </tr>
+                                <tr>
+                                    <td>#3</td>
+                                    <td>
+                                        <img src="assets/img/avatar.jpg" alt="Thumbnail Image" class="img-circle img-raised avatar">
+                                        <span class="rank-name">Niger</span>
+                                    </td>
+                                    <td class="text-primary">56,142</td>
+                                </tr>
+                                <tr>
+                                    <td>--</td>
+                                    <td>---</td>
+                                    <td class="text-primary">---</td>
+                                </tr>
+                                <tr class="danger">
+                                    <td>#45</td>
+                                    <td>
+                                        <img src="assets/img/tony.jpg" alt="Thumbnail Image" class="img-circle img-raised avatar">
+                                        <span class="rank-name">Tony Tin Nguyen</span>
+                                    </td>
+                                    <td class="text-primary">78,615</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rec-area">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-game" data-background-color="orange">
+                        <i class="ion-heart"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">You May Also Like</h4>
+                        <div class="game-list-sm">
+                            <div class="game-item">
+                                <a href="#">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img class="img img-circle img-raised game-thumb-sm" src="../assets/img/thumb/5_thumb.svg">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="game-heading-sm">Hộp xoay</p>
+                                            <p class="game-desc-sm">Thử thách khả năng hình dung không gian cực khó</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="game-item">
+                                <a href="#">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img class="img img-circle img-raised game-thumb-sm" src="../assets/img/thumb/6_thumb.svg">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="game-heading-sm">Hộp xoay</p>
+                                            <p class="game-desc-sm">Thử thách khả năng hình dung không gian cực khó</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="game-item">
+                                <a href="">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img class="img img-circle img-raised game-thumb-sm" src="../assets/img/thumb/7_thumb.svg">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="game-heading-sm">Hộp xoay</p>
+                                            <p class="game-desc-sm">Thử thách khả năng hình dung không gian cực khó</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="game-item">
+                                <a href="">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img class="img img-circle img-raised game-thumb-sm" src="../assets/img/thumb/10_thumb.svg">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="game-heading-sm">Hộp xoay</p>
+                                            <p class="game-desc-sm">Thử thách khả năng hình dung không gian cực khó</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!--/.row-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
