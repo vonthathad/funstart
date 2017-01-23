@@ -36,7 +36,7 @@ export class IframeGameComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.src = "http://localhost:4200/sources/games/" + this._game._id + "/index.html";
+    this.src = "/sources/games/" + this._game._id + "/index.html";
     this.loadOnce = true;
   }
   onLoad() {
