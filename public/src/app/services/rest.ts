@@ -7,15 +7,10 @@ import 'rxjs/Rx';
 
 export class Rest {
     // set base url of api backend
-    BASE_URL: string;
-    // static BASE_URL: string = '/';
+    static BASE_URL: string = '/';
+    // static BASE_URL: string = 'http://localhost:8235/';
     static DEFAULT_TOKEN: string = 'CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My';
     constructor(private http: Http) {
-        if(window.local){
-            this.BASE_URL = 'http://localhost:8235/';
-        } else {
-            this.BASE_URL = '/';
-        }
     }
 
     //////////////////////////////////////////////////
@@ -23,7 +18,7 @@ export class Rest {
     //////////////////////////////////////////////////
     request(options: QueryOptions): Observable<any[]> {
         // set partial url to full url
-        options.url = `${this.BASE_URL}${options.url}`;
+        options.url = `${Rest.BASE_URL}${options.url}`;
         // stringify body from json to string
         options.body = JSON.stringify(options.body);
         // add default header if there are no header

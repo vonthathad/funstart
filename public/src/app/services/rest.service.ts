@@ -6,18 +6,14 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class RestService {
-    BASE_URL: string;
-    // static BASE_URL: string = '/api/';
+
+    static BASE_URL: string = '/api/';
+    // static BASE_URL: string = 'http://localhost:8235/api/';
     static DEFAULT_TOKEN: string = 'CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My';
-    constructor(public http: Http) { 
-        if(window.local){
-            this.BASE_URL = 'http://localhost:8235/api/';
-        } else {
-            this.BASE_URL = '/api/';
-        }
+    constructor(public http: Http) {
     }
     get(document: string, params?: Array<string>): Observable<any[]> {
-        let url: string = `${this.BASE_URL}${document}`;
+        let url: string = `${RestService.BASE_URL}${document}`;
         if (params) {
             url = `${url}?${params.join('&')}`;
         }
