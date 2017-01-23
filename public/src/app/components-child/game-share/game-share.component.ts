@@ -26,24 +26,24 @@ export class GameShareComponent implements OnInit {
     this.continueGame.emit();
   }
   updateResult(result) {
-    this.result = result;
+    this.result = JSON.parse(result);
+    console.log("RESUKT" + JSON.stringify(result));
   }
   
   shareFacebook() {
-    let result = {};
-    result["score"] = 12;
-    this.imageService.createImage(32, result).subscribe(
-      pictureUrl => {
-        console.log(pictureUrl);
-        this.shareService.setInfo({ pictureUrl: pictureUrl });
-        this.shareService.shareFacebook(function () {
-          console.log('done share');
-        });
-      },
-      err => {
-        // Log errors if any
-        console.log(err);
-      });
+    this.imageService.createImage(32, this.result).subscribe(
+      // pictureUrl => {
+      //   console.log(pictureUrl);
+      //   this.shareService.setInfo({ pictureUrl: pictureUrl });
+      //   this.shareService.shareFacebook(function () {
+      //     console.log('done share');
+      //   });
+      // },
+      // err => {
+      //   // Log errors if any
+      //   console.log(err);
+      // }
+      );
   }
   shareTwitter() {
     alert("NOT DONE");

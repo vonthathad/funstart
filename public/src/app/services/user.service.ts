@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import { Rest } from './rest';
 import { Subject } from 'rxjs/Subject';
+
+import { Rest } from './rest';
 
 import { User } from '../classes/user';
 @Injectable()
