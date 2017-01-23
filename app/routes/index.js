@@ -91,7 +91,6 @@ module.exports = function (app) {
     .get(users.resetPage)
     .post(users.resetDone);
   app.get('/game/:gameId', games.renderGame);
-  app.get('/test/:key/:game', games.renderTest);
   app.param('gameId', games.gameByID);
   app.get('*', function (req, res, next) {
     if (req.url.indexOf('sources') < 0 && req.url.indexOf('api') < 0 && req.url.indexOf('uploaded') < 0) {
@@ -109,7 +108,7 @@ module.exports = function (app) {
       if (req.user) {
         user = req.user;
       }
-      res.render(process.env.NODE_ENV + '/index', { app: app, user: user, message: null });
+      res.render(process.env.NODE_ENV + '/index', { app: app, user: user, message: null, channel: Config.server.channel });
     } else {
       next();
     }

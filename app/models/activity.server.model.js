@@ -18,6 +18,7 @@ var ActivitySchema = new Schema({
         type: Date,
         default: Date.now
     },
+    image: String,
     score: {
         type: Number,
         required: 'Must have score'

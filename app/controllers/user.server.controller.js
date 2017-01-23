@@ -85,25 +85,25 @@ exports.verifyEmail = function (req, res, next) {
     Jwt.verify(token, privateKey, function (err, decoded) {
         if (decoded === undefined) {
             message = "Mã token này không tồn tại";
-            return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app });
+            return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app, channel: Config.server.channel });
         }
         User.findOne({ email: decoded.email }, function (err, user) {
             if (err) {
                 message = "Không tồn tại token, hoặc đã hết hạn";
-                return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app });
+                return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app, channel: Config.server.channel });
             }
             if (user === null) {
                 message = "Tài khoản không tồn tại";
-                return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app });
+                return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app, channel: Config.server.channel });
             }
             user.isVerified = true;
             User.findByIdAndUpdate(user._id, user, function (err, user) {
                 if (err) {
                     message = "Đã xảy ra lỗi. Hãy thử lại sau";
-                    return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app });
+                    return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app, channel: Config.server.channel });
                 } else {
                     message = "Chúc mừng, tài khoản đã được xác thực!";
-                    return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app });
+                    return res.render(process.env.NODE_ENV + '/index', { user: null, message: message, app: app, channel: Config.server.channel });
                 }
             })
         })
@@ -122,7 +122,7 @@ exports.resetPage = function (req, res) {
                 image: Config.app.image
             };
             message = "Token để reset password không tồn tại, hoặc đã hết hạn.";
-            return res.render(process.env.NODE_ENV + '/index', { message: message, user: null, app: app });
+            return res.render(process.env.NODE_ENV + '/index', { message: message, user: null, app: app, channel: Config.server.channel });
         }
         return res.redirect('/action/' + req.params.token);
     });

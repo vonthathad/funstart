@@ -32,10 +32,7 @@ module.exports = function (router) {
         .put(games.updateGame)
         .delete(games.deleteGame);
 
-    router.route('/tracking')
-        .put(games.trackUser);
-
-    router.post('/uploadresult/:game', uploads.uploadResult);
+    // router.post('/uploadresult/:game', uploads.uploadResult);
     router.post('/shooting/:gameId', uploads.captureResult);
     router.param('gameId', games.gameByID);
     router.route('/activities')

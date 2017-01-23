@@ -94,29 +94,6 @@ exports.loadGames = function(req,res){
             }
         );
     }
-
-    // Game.find()
-    //     .skip(skip)
-    //     .limit(paging+1)
-    //     .exec(function(err,games){
-    //         if (err) {
-    //             return res.status(400).send({
-    //                 message: 'Error'
-    //             });
-    //         } else {
-    //             var isNext = false;
-    //             if(games.length==(paging+1)){
-    //                 isNext = true;
-    //                 games.pop();
-    //             };
-    //             resdata = {
-    //                 data: games,
-    //                 isNext: isNext
-    //             };
-    //             console.log(resdata);
-    //             res.json(resdata);
-    //         }
-    //     })
 };
 exports.createGame = function (req,res,next) {
     var newGame = new Game(req.body);
@@ -131,8 +108,8 @@ exports.loadGame = function(req,res,next){
 exports.renderGame = function(req,res){
     var title = req.game.title;
     var des = req.game.des;
-    var url = 'https://www.funstart.net/game/' + req.game._id;
-    var thumb = 'https://www.funstart.net/' + req.game.thumbAds;
+    var url = Config.server.host + '/game/' + req.game._id;
+    var thumb = Config.server.host + '/' + req.game.thumbAds;
     if(req.query.ref == 'share'){
         url = url + '?ref=share';
         if(req.query.rs_image) {
@@ -161,49 +138,9 @@ exports.renderGame = function(req,res){
         // user._doc.created = parseInt(user._doc.created.getTime());
         // user._doc.active = parseInt(user._doc.active.getTime());
     }
-    res.render(process.env.NODE_ENV + '/index', {app : app, message: null, user: user});
+    res.render(process.env.NODE_ENV + '/index', {app : app, message: null, user: user, channel: Config.server.channel});
 };
-exports.renderTest = function(req,res){
-    console.log('here');
-    if(req.params.key == 'ylinkee'){
-        var title = 'Funstart';
-        var des = 'Phá đảo thế giới ảo!';
-        var thumb = 'https://www.funstart.net/sources/ads.jpg';
-        var url = 'https://www.funstart.net/test/' + req.params.key + '/' + req.params.game;
-        if(req.query.ref == 'share'){
-            url = url + '?ref=share';
-            if(req.query.rs_image) {
-                thumb = req.query.rs_image;
-                url = url + '&rs_image=' + thumb;
-            }
-            if(req.query.rs_title) {
-                title = req.query.rs_title;
-                url = url + '&rs_title=' + title;
-            }
-            if(req.query.rs_des) {
-                des = req.query.rs_des;
-                url = url + '&rs_des=' + des;
-            }
-        }
-        var app = {
-            id: Config.app.id,
-            name: title,
-            description: des,
-            url: url,
-            image: thumb
-        };
-        var user = null;
-        if(req.user){
-            user = req.user;
-            // user._doc.created = parseInt(user._doc.created.getTime());
-            // user._doc.active = parseInt(user._doc.active.getTime());
-        }
-        res.render(process.env.NODE_ENV + '/index', {app : app, message: null, user: user});
-    } else {
-        res.status(401).send();
-    }
 
-}
 
 exports.updateGame = function(req,res,next){
     req.game.update(req.body,function(){
@@ -234,34 +171,34 @@ exports.loadTopics = function(req,res){
         return res.json({data:data});
     })
 }
-exports.trackUser = function(req,res){
-    console.log(req.body);
-    if(req.body.source && req.body.game && req.user._id){
-        var tmp = req.user.trackData;
-        req.user.trackData = {};
-        switch (req.body.source){
-            case 'start': tmp.lastPlay = req.body.game; break;
-            case 'visit':
-                tmp.lastVisit = req.body.game;
-                tmp.hourlySession = (tmp.hourlySession)?(tmp.hourlySession+1):1;
-                tmp.dailySession = (tmp.dailySession)?(tmp.dailySession+1):1;
-                break;
-            case 'share':
-                tmp.share = req.body.game;
-                Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: {shares: 1}},function(){});break;
-        }
-        req.user.trackData = tmp;
-        req.user.save(function(err){
-            console.log(err);
-        });
-        res.status(200).send();
-    } else {
-        if(req.body.source === 'share'){
-            Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: {shares: 1}},function(){});
-            res.status(200).send();
-        } else {
-            res.status(401).send();
-        }
-
-    }
-}
+// exports.trackUser = function(req,res){
+//     console.log(req.body);
+//     if(req.body.source && req.body.game && req.user._id){
+//         var tmp = req.user.trackData;
+//         req.user.trackData = {};
+//         switch (req.body.source){
+//             case 'start': tmp.lastPlay = req.body.game; break;
+//             case 'visit':
+//                 tmp.lastVisit = req.body.game;
+//                 tmp.hourlySession = (tmp.hourlySession)?(tmp.hourlySession+1):1;
+//                 tmp.dailySession = (tmp.dailySession)?(tmp.dailySession+1):1;
+//                 break;
+//             case 'share':
+//                 tmp.share = req.body.game;
+//                 Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: {shares: 1}},function(){});break;
+//         }
+//         req.user.trackData = tmp;
+//         req.user.save(function(err){
+//             console.log(err);
+//         });
+//         res.status(200).send();
+//     } else {
+//         if(req.body.source === 'share'){
+//             Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: {shares: 1}},function(){});
+//             res.status(200).send();
+//         } else {
+//             res.status(401).send();
+//         }
+//
+//     }
+// }

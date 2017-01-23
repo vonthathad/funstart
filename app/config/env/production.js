@@ -29,14 +29,15 @@ module.exports = {
         resetPasswordUrl: "action/reset"
     },
     server: {
-        host: 'http://www.funstart.net',
-        port: 8236
+        host: process.env.PROTOCOL+'://'+process.env.CHANNEL+'.'+process.env.DOMAIN,
+        port: process.env.PORT,
+        channel: process.env.CHANNEL
     },
     app: {
         id: '170584416691811',
-        name: 'Fun Start - Phá đảo thế giới ảo',
-        description: 'Mini Webgame đối kháng số 1 Việt Nam!',
-        url: 'https://www.funstart.net',
-        image: 'https://www.funstart.net/sources/ads.jpg'
+        name: 'Hot Game',
+        description: 'Phá đảo thế giới ảo!',
+        url: process.env.PROTOCOL+'://'+process.env.CHANNEL+'.'+process.env.DOMAIN,
+        image: process.env.PROTOCOL+'://'+process.env.CHANNEL+'.'+process.env.DOMAIN+'/sources/ads.jpg'
     }
 }
