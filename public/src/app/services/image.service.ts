@@ -9,19 +9,21 @@ import { Rest } from './rest';
 
 @Injectable()
 export class ImageService {
+
     private rest: Rest;
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+        this.rest = new Rest(http);
+    }
     createImage(gameId, obj): Observable<any> {
-        alert("1245");
         var token = this.rest.getToken();
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'Authorization': `Bearer CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My`
+            'Authorization': `Bearer ${token}`
         });
 
         return this.rest.post({
             body: obj,
-            url: `api/createPicture`,
+            url: `api/shooting/${gameId}`,
             headers: headers
         });
     }

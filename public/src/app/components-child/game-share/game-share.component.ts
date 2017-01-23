@@ -11,7 +11,8 @@ import { UserService } from '../../services/user.service'
 })
 export class GameShareComponent implements OnInit {
   private visible: boolean;
-  private shareDisable: boolean;
+  private shareDisable: boolean = false;
+  private imageData: number;
   @Input() private result: Object;
   @Input() private game: Game;
   @Output() continueGame = new EventEmitter();
@@ -28,8 +29,12 @@ export class GameShareComponent implements OnInit {
   _continueGame() {
     this.continueGame.emit();
   }
+  setScreenShotData(imageData){
+    this.imageData = imageData;
+  }
   updateResult(result) {
     this.result = JSON.parse(result);
+
 
     // if (this.userService.checkUser()) {
     //   this.shareDisable = true;
@@ -46,15 +51,30 @@ export class GameShareComponent implements OnInit {
     //         this.shareDisable = false;
     //       })
 
-    //     },
-    //     err => {
-    //       // Log errors if any
-    //       console.log(err);
-    //     });
-    // }
+    if (this.userService.checkUser()) {
+      this.shareDisable = true;
+      // THERE IS AN USER
+      this.imageService.createImage(this.game._id, this.result).subscribe(
+        res => {
+          this.userService.postActivity({
+            score: this.result["score"],
+            game: this.game._id,
+            pictureUrl: res.data
+          }).subscribe(() => {
+            this.shareService.setInfo({ pictureUrl: res.data });
+            this.shareDisable = false;
+          })
+
+        },
+        err => {
+          // Log errors if any
+          console.log(err);
+        });
+    }
 
   }
   shareFacebook() {
+
     // if (!this.userService.checkUser()) {
     //   // THERE IS NO USER
     //   this.imageService.createImage(32, this.result).subscribe(
@@ -75,6 +95,28 @@ export class GameShareComponent implements OnInit {
     //     console.log('done share');
     //   });
     // }
+
+    if (!this.userService.checkUser()) {
+      this.shareDisable = true;
+      // THERE IS NO USER
+      this.imageService.createImage(32, this.result).subscribe(
+        res => {
+          this.shareService.setInfo({ pictureUrl: res.data });
+          this.shareService.shareFacebook(function () {
+            console.log('done share');
+          });
+          this.shareDisable = false;
+        },
+        err => {
+          // Log errors if any
+          console.log(err);
+        });
+    } else {
+      this.shareService.shareFacebook(function () {
+        console.log('done share');
+      });
+    }
+
   }
   shareTwitter() {
     alert("NOT DONE");
