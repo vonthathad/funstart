@@ -49,6 +49,8 @@ export class GameComponent implements OnInit {
     this.gameShareComponent.setVisible(false);
   }
   handleUpdateResult(result) {
+    var imageData = this.iframeGameComponent.getScreenShotData();
+    this.gameShareComponent.setScreenShotData(imageData);
     this.gameShareComponent.updateResult(result);
     this.gameShareComponent.setVisible(true);
     this.iframeGameComponent.setVisible(false);

@@ -29,6 +29,7 @@ export class IframeGameComponent implements OnInit {
       pause: (func) => { this.pause = func },
       resume: (func) => { this.resume = func },
       continue: (func) => { this.continue = func },
+      getScreenShotData: (func) => { this.getScreenShotData = func },
       preloadDone: () => this.preloadDone(),
       updateResult: (result) => { this.updateResult.emit(result); },
       component: this
@@ -60,7 +61,8 @@ export class IframeGameComponent implements OnInit {
   resume() { };
   pause() { };
   continue() { };
-
+  getScreenShotData(){};
+  
   preloadDone() {
     console.log("done preload");
     this._preload = true;

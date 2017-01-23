@@ -34,19 +34,25 @@ export class HeaderComponent implements OnInit {
       .getGames({ order: "random", paging: 5 })
       .subscribe((res: any) => this.renderGames(res['data']));
 
-    // get token from localstorage if there is one
-    let token = localStorage.getItem("token");
-    if (!(token == undefined)) {
-      this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
-    }
+    let token;
+
     // get  token if there is one in url
     this.route.queryParams.subscribe(queryParam => {
       token = queryParam['token'];
-      localStorage.setItem("token", token);
       console.log("TOKEN " + token);
       // if there is one, take user in db and render to user
-      if (token) this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
+      if (token) {
+        localStorage.setItem("token", token);
+        this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
+      }
     });
+
+    // get token from localstorage if there is one
+    token = localStorage.getItem("token");
+    console.log("TOKEN HERE" + token);
+    if (token != "undefined") {
+      this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
+    }
   }
   renderGames(games) {
     this.games = games;

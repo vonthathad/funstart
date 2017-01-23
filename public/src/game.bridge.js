@@ -13,19 +13,6 @@ function Share(share) {
             case "0.0.2":
                 this.getDescr(result, function (result) {
                     var i;
-                    // fsGame.gameOver({score: data.score});
-                    // var obj = {
-                    //     title: data.title,
-                    //     descr: data.descr,
-                    //     image: fsGame.user.avatar
-                    // };
-                    // fsGame.setResultObj(obj, false);
-                    // fsGame.createShare({
-                    //     share: false,
-                    //     title: data.title,
-                    //     descr: data.descr,
-                    //     capture: true
-                    // });
                     console.log("Score " + result.score);
                     console.log("Descr " + result.descr);
                     console.log("Title " + result.title);
@@ -236,7 +223,7 @@ function _Phaser(phaser) {
             window.angularComponentRef.startPreload(func)
         });
     }
-     this.state.preloadDone = function () {
+    this.state.preloadDone = function () {
         window.angularComponentRef.zone.run(function () {
             window.angularComponentRef.preloadDone()
         });
@@ -276,6 +263,54 @@ function _Phaser(phaser) {
             window.angularComponentRef.continue(func);
         });
     }
+
+    this._cropCanvas = function (originCanvas, cropX, cropY, cropWidth, cropHeight) {
+        // create a temporary canvas sized to the cropped size
+        var cropCanvas = document.createElement("canvas");
+        var cropContext = cropCanvas.getContext("2d");
+        cropCanvas.width = cropWidth;
+        cropCanvas.height = cropHeight;
+        // use the extended from of drawImage to draw the
+        // cropped area to the temp canvas
+        cropContext.drawImage(originCanvas, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+        // return canvas
+        return cropCanvas;
+    }
+
+    this._resizeCanvas = function (originCanvas, resizeWidth, resizeHeight) {
+
+        var originHeight = originCanvas.height;
+        var originWeight = originCanvas.weight;
+        // create a temporary canvas sized to the resize size
+        var resizedCanvas = document.createElement("canvas");
+        var resizedContext = resizedCanvas.getContext("2d");
+        resizedCanvas.width = resizeWidth;
+        resizedCanvas.height = resizeHeight;
+        resizedContext.drawImage(originCanvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
+
+        return resizedCanvas;
+    }
+
+    this.getScreenShotDataFrom = function (game, PIXI) {
+        var _this = this;
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.getScreenShotData(function () {
+                if (game.renderer instanceof PIXI.CanvasRenderer) {
+                    var originCanvas = game.canvas;
+                    var top = Math.round(originCanvas.height / 2 - 150);
+                    var cropCanvas = _this._cropCanvas(game.canvas, 0, 0, 480, 800);
+                    var resizeCanvas = _this._resizeCanvas(cropCanvas, Math.round(480 / 800 * 300), 300);
+                    return resizeCanvas.toDataURL();
+                } else if (game.renderer instanceof PIXI.WebGLRenderer) {
+                    var gl = game.renderer.gl;
+                    var buf = new Uint8Array(game.width * game.height * 4);
+                    gl.readPixels(0, 0, game.width, game.height, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+                    console.log(buf);
+                }
+            });
+        });
+    }
+
     // HELPING WITH SIZE ISSUE
     this.setSize = function (_this) {
         var height = this.height,
