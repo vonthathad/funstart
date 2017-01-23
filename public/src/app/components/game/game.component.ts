@@ -56,7 +56,7 @@ export class GameComponent implements OnInit {
     setTimeout(function(){
       self.iframeAdsComponent._showAds({channelId: '123'});
     });
-  }
+  } 
   handleCloseAds() {
     
   }

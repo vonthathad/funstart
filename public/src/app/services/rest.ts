@@ -7,7 +7,9 @@ import 'rxjs/Rx';
 
 export class Rest {
     // set base url of api backend
-    static BASE_URL: string = 'http://localhost:8235/';
+    // static BASE_URL: string = 'http://localhost:8235/';
+    static BASE_URL: string = '/';
+    static DEFAULT_TOKEN: string = 'CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My';
     constructor(private http: Http) { }
 
     //////////////////////////////////////////////////
@@ -56,5 +58,15 @@ export class Rest {
         options.method = RequestMethod.Get;
         return this.request(options);
     }
-    
+     //////////////////////////////////////////////////
+    ////GET TOKEN
+    //////////////////////////////////////////////////
+    getToken(): string{
+        var user = JSON.parse(localStorage.getItem("user"));
+        if(user){
+            return user.token;
+        }else {
+            return Rest.DEFAULT_TOKEN;
+        }
+    }
 }

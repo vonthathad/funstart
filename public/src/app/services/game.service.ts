@@ -14,10 +14,12 @@ export class GameService {
     }
 
     getGames(queryArgs?: Object): Observable<any[]> {
+        var token = this.rest.getToken();
         let headers = new Headers({
-            'Authorization': 'Bearer CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My',
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         });
+
         return this.rest.get({
             queryArgs: queryArgs,
             url: `api/games`,
@@ -25,8 +27,9 @@ export class GameService {
         });
     }
     getGame(id: string): Observable<any[]> {
+        var token = this.rest.getToken();
         let headers = new Headers({
-            'Authorization': 'Bearer CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My',
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         });
         return this.rest.get({

@@ -70,7 +70,7 @@ export class IframeGameComponent implements OnInit {
 
   }
   _playGame() {
-    alert("done playGame");
+    // alert("done playGame");
     this.playGame = true;
     if (this.loadOnce && this._preload) {
       this.startMenu();

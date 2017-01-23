@@ -29,11 +29,14 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    // load games for autocomplete
+    // load games for menu
     this.gameService
       .getGames({ order: "random", paging: 5 })
       .subscribe((res: any) => this.renderGames(res['data']));
     
+    // get user from localstorage if there is one
+    if(localStorage.getItem("user")) this.user = JSON.parse(localStorage.getItem("user"));
+
     // get user token if there is one in url
     this.route.queryParams.subscribe(queryParam => {
       let token = queryParam['token'];
@@ -50,6 +53,7 @@ export class HeaderComponent implements OnInit {
     this.user.token = user.token;
     this.user.displayName = user.displayName;
     this.user.avatar = user.avatar;
+    localStorage.setItem("user", JSON.stringify(this.user));
   }
   openDialog() {
     this.modal.open(AccountDialogComponent, overlayConfigFactory({ num1: 2, num2: 3,isBlocking: false},BSModalContext));
@@ -59,7 +63,8 @@ export class HeaderComponent implements OnInit {
     // });
   }
   logout() {
-    this.userService.logout(this.user.token);
+    this.userService.logout(this.user.token).subscribe(()=> localStorage.removeItem("user"));
+    
     delete this.user;
     // .subscribe((res: any) => this.renderUser(res.user));
     // window.location.href = `http://localhost:8235/logout`;
