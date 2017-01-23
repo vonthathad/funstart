@@ -10,6 +10,7 @@ import { User } from '../classes/user';
 @Injectable()
 export class UserService {
     private rest: Rest;
+    private user: User;
     public loggedUserSource = new Subject<User>();
     public loggedUser$ = this.loggedUserSource.asObservable();
 
@@ -28,7 +29,7 @@ export class UserService {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
-         return this.rest.post({
+        return this.rest.post({
             body: user,
             url: `auth/signin`,
             headers: headers
@@ -51,6 +52,22 @@ export class UserService {
         });
         return this.rest.get({
             url: `api/token`,
+            headers: headers
+        });
+    }
+    checkUser(): boolean {
+        if (localStorage.getItem("user")) return true;
+        return false;
+    }
+    postActivity(obj): Observable<any[]> {
+        let token = this.rest.getToken();
+        let headers = new Headers({
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        });
+        return this.rest.post({
+            url: `api/activities`,
+            body: obj,
             headers: headers
         });
     }

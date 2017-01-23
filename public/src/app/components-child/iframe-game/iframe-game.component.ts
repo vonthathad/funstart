@@ -89,4 +89,5 @@ export class IframeGameComponent implements OnInit {
   setVisible(visible) {
     this.visible = visible;
   }
+ 
 }

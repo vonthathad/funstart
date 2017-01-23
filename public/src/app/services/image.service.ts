@@ -16,7 +16,7 @@ export class ImageService {
         var token = this.rest.getToken();
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My`
         });
 
         return this.rest.post({
