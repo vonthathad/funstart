@@ -6,7 +6,8 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class RestService {
-    static BASE_URL: string = 'http://localhost:8235/api/';
+    static BASE_URL: string = '/api/';
+    // static BASE_URL: string = 'http://localhost:8235/api/';
     constructor(public http: Http) { }
     get(document: string, params?: Array<string>): Observable<any[]> {
         let url: string = `${RestService.BASE_URL}${document}`;

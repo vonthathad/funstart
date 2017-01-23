@@ -49,32 +49,44 @@ var Config = require('../config/config');
 //     });
 //
 // }
+
 exports.captureResult = function(req,res){
     var shotOptions = {
         siteType:'html',
         screenSize: { width: 960, height: 500 },
         shotSize: { width: 960, height: 500 }
     };
+    var uploadDir = __dirname + '/../../public/' + dir;
+
+    if(req.user._id) {
+        var Finder = require('fs-finder');
+        var files = Finder.from(uploadDir).findFiles(req.user._id + '_'+req.game._id+'_<[0-9]{13}>.png');
+        files.forEach(function(e){
+            fs.unlink(e);
+        });
+    }
     if(req.body.image){
         var domHTML = '<div style="position: absolute;top: 0;left: 0">';
         domHTML +=
             '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/thumb/'+req.game.thumbResult+'"/>'+
-            '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 20px;left:0;width: 100%;height: 100%;font-size: 1.5em;color: #fff;text-transform: uppercase;font-size: 2em;font-weight: bold;text-align: center;">'+
+            '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 20px;left:0;width: 100%;height: 100%;color: #fff;text-transform: uppercase;font-size: 2em;font-weight: bold;text-align: center;">'+
             req.body.score +
             '</div></div>';
     } else {
         var domHTML = '<div style="position: absolute;top: 0;left: 0">';
         domHTML +=
             '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/thumb/'+req.game.thumbResult+'"/>'+
-            '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 20px;left:0;width: 100%;height: 100%;font-size: 1.5em;color: #fff;text-transform: uppercase;font-size: 2em;font-weight: bold;text-align: center;">'+
+            '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 20px;left:0;width: 100%;height: 100%;color: #fff;text-transform: uppercase;font-size: 2em;font-weight: bold;text-align: center;">'+
             req.body.score +
             '</div></div>';
     }
-    var uploadDir = __dirname + '/../../public/' + dir;
     var path;
     // if(req.user == 'guest'){
-    path = Date.now() + '_' + req.game._id + '.png';
-    console.log(path);
+    if(req.user._id){
+        path = req.user._id + '_'+req.game._id+'_' + Date.now() + '.png';;
+    } else {
+        path = 'guest/' + Date.now() + '_' + req.game._id + '.png';
+    };
     // } else {
     //     path = req.user._id + '_' + req.game._id + '.jpg';
     // }

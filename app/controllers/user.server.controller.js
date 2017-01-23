@@ -73,6 +73,7 @@ exports.authSignup = function (req, res) {
         return res.redirect('/');
     }
 };
+
 exports.verifyEmail = function (req, res, next) {
     var token = req.params.token;
     var app = {
