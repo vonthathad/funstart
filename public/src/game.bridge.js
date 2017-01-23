@@ -222,7 +222,7 @@ function _Phaser(phaser) {
         //     alert(2134);
         // }, false);
 
-
+        // this.setSize(this.game);
 
         callback(this.game);
     };
@@ -284,7 +284,8 @@ function _Phaser(phaser) {
             height: height,
             width: width
         }
-        _this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        // _this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        _this.game.scale.scaleMode = 2;
         // set setSize function
         var _calculateSize = this.calculateSize;
         var calculateSize = function () {
@@ -321,8 +322,8 @@ function _Phaser(phaser) {
         }
     }
     this.calculateSize = function (_this, size) {
-        var containerWidth = $('.game-area').get(0).clientWidth,
-            containerHeight = $('.game-area').get(0).clientHeight,
+        var containerWidth = document.getElementById('iframe-game').clientWidth - 16,
+            containerHeight = document.getElementById('iframe-game').clientHeight - 16,
             height = size.height,
             width = size.width,
             matchedHorizon = width / height > containerWidth / containerHeight;
