@@ -38,6 +38,8 @@ module.exports = function () {
     }));
 
     app.use(express.static('./public'));
+    app.use(express.static('./public/dist'));
+    app.use(express.static('./public/uploaded'));
     app.use(passport.initialize());
     app.use(passport.session());
 
