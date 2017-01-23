@@ -1,18 +1,18 @@
 <!--<md-tab-group>-->
   <!--<md-tab label="New Games" (onCentering)="getGames('created')">-->
     <!--<div *ngFor="let game of games">-->
-     <!--<app-game-card-detail [game]="game"></app-game-card-detail>-->
+     <!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
     <!--</div>-->
     <!---->
   <!--</md-tab>-->
   <!--<md-tab label="Hot Games"  (onCentering)="getGames('hot')">-->
       <!--<div *ngFor="let game of games">-->
-      <!--<app-game-card-detail [game]="game"></app-game-card-detail>-->
+      <!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
     <!--</div>-->
   <!--</md-tab>-->
   <!--<md-tab label="Top Games"  (onCentering)="getGames('top')">-->
     <!--<div *ngFor="let game of games">-->
-     <!--<app-game-card-detail [game]="game"></app-game-card-detail>-->
+     <!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
     <!--</div>-->
   <!--</md-tab>-->
 <!--</md-tab-group>-->
@@ -48,7 +48,7 @@
                                  [infiniteScrollThrottle]="500"
                                  (scrolled)="onScroll()">
                                 <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
-                                    <app-game-card-detail [game]="game"></app-game-card-detail>
+                                    <app-game-card-vertical [game]="game"></app-game-card-vertical>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                  [infiniteScrollThrottle]="500"
                                  (scrolled)="onScroll()">
                                 <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
-                                    <app-game-card-detail [game]="game"></app-game-card-detail>
+                                    <app-game-card-vertical [game]="game"></app-game-card-vertical>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                  [infiniteScrollThrottle]="500"
                                  (scrolled)="onScroll()">
                                 <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
-                                    <app-game-card-detail [game]="game"></app-game-card-detail>
+                                    <app-game-card-vertical [game]="game"></app-game-card-vertical>
                                 </div>
                             </div>
                         </div>

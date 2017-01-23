@@ -1,0 +1,45 @@
+<div class="game-item">
+    <a href="#">
+        <div class="row">
+            <div class="col-xs-3">
+                <a [routerLink]="['/game', game._id]">
+                    <img class="img img-circle img-raised game-thumb-sm" [src]="game.thumb">
+                </a>
+            </div>
+            <div class="col-xs-9">
+                <p class="game-heading-sm">
+                    <a [routerLink]="['/game', game._id]">
+                        {{game.title}}
+                    </a>
+                </p>
+                <p class="game-desc-sm">{{game.des}}</p>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+<!--<div class="card card-product" data-count="3">
+    <div class="card-image" data-header-animation="true">
+        <a [routerLink]="['/game', game._id]">
+            <img class="img" [src]="game.thumb">
+        </a>
+        <div class="ripple-container"></div>
+    </div>
+    <div class="card-content">
+        <div class="card-actions">
+            <i class="ion-play"></i> {{game.plays}} plays
+        </div>
+        <p class="card-title">
+            <a [routerLink]="['/game', game._id]">
+                {{game.title}}
+            </a>
+        </p>
+        <div class="card-description">
+            {{game.des}}
+        </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary btn-md" [routerLink]="['/game', game._id]"> <i class="ion-flash"></i> PLAY NOW</a>
+    </div>
+</div>-->

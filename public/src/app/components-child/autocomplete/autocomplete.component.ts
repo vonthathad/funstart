@@ -21,7 +21,8 @@ export class AutocompleteComponent implements OnInit {
 
   ngOnInit() {
     this.gameService
-      .getGames({ paging: 100 })
+      // .getGames({ paging: 100 })
+      .getGames()
       .subscribe((res: any) => this.renderGames(res.data));
   }
   renderGames(games) {
@@ -46,6 +47,7 @@ export class AutocompleteComponent implements OnInit {
       this.filteredList = this.games.filter(function (el) {
         return el.title.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
       }.bind(this));
+      this.filteredList = this.filteredList.slice(0,4);
     } else {
       this.filteredList = [];
     }
