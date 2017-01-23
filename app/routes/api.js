@@ -34,7 +34,6 @@ module.exports = function (router) {
 
     // router.post('/uploadresult/:game', uploads.uploadResult);
     router.post('/shooting/:gameId', uploads.captureResult);
-    router.get('/removing', uploads.removing);
     router.param('gameId', games.gameByID);
     router.route('/activities')
         .get(activities.loadActivities)

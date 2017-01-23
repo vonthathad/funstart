@@ -100,7 +100,7 @@ exports.loadActivities = function(req,res){
 };
 exports.createActivity = function (req,res,next) {
     console.log('activity',req.body);
-    if(req.user._id && req.body.game && req.body.score && req.body.image){
+    if(req.user._id && req.body.game != null && req.body.score != null && req.body.pictureUrl != null){
         Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: { plays: 1}},function(err,game){
             Activity.findOne({user: req.user._id,game: parseInt(req.body.game)})
                 .sort({created : -1})
@@ -117,7 +117,7 @@ exports.createActivity = function (req,res,next) {
                             game: parseInt(req.body.game),
                             user: req.user._id,
                             score: req.body.score,
-                            image : req.body.image
+                            image : req.body.pictureUrl
                         });
                         newActivity.save();
                     }

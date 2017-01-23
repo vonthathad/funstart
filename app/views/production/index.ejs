@@ -24,13 +24,17 @@
   <link href="./assets/css/custom.css" rel="stylesheet"/>
   <link href="styles.090fd76b8120d108b7a030a1e5f9c34d.bundle.css" rel="stylesheet"></head>
 <body>
-<script>window.channel = "<%- channel || 'null' %>";</script>
 <app-root>Loading...</app-root>
 <script src="./assets/js/jquery.min.js" type="text/javascript"></script>
 <script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="./assets/js/material.min.js"></script>
 <script src="./assets/js/material-kit.js"></script>
+<script async type="text/javascript" src="./game.bridge.js"></script>
+<script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
 <script defer type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-<script type="text/javascript" src="inline.d41d8cd98f00b204e980.bundle.js"></script><script type="text/javascript" src="styles.b2328beb0372c051d06d.bundle.js"></script><script type="text/javascript" src="main.b449f9c0c44e4a33c465.bundle.js"></script></body>
+<script>
+  window.channel = "<%- channel || 'null' %>";
+  window.local = false;
+</script>
+<script type="text/javascript" src="inline.d41d8cd98f00b204e980.bundle.js"></script><script type="text/javascript" src="styles.b2328beb0372c051d06d.bundle.js"></script><script type="text/javascript" src="main.d433e4871609f5dc43e9.bundle.js"></script></body>
 </html>
-

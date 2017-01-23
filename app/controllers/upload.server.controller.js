@@ -51,6 +51,7 @@ var Config = require('../config/config');
 // }
 
 exports.captureResult = function(req,res){
+    console.log(req.user);
     var shotOptions = {
         siteType:'html',
         screenSize: { width: 960, height: 500 },
@@ -83,7 +84,7 @@ exports.captureResult = function(req,res){
     var path;
     // if(req.user == 'guest'){
     if(req.user._id){
-        path = req.user._id + '_'+req.game._id+'_' + Date.now() + '.png';;
+        path = req.user._id + '_'+req.game._id+'_' + Date.now() + '.png';
     } else {
         path = 'guest/' + Date.now() + '_' + req.game._id + '.png';
     };
