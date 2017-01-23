@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, Input, Output, EventEmitter } from '@angular/core';
-import {Game} from '../../classes/game';
+import { Game } from '../../classes/game';
 
 @Component({
   selector: 'app-iframe-game',
@@ -25,15 +25,15 @@ export class IframeGameComponent implements OnInit {
       startLevel: (func) => { this.startLevel = func },
       startGame: (func) => { this.startGame = func },
       startHelp: (func) => { this.startHelp = func },
-     startCredit: (func) => { this.startCredit = func },
-      ause: (func) => { this.pause = func },
+      startCredit: (func) => { this.startCredit = func },
+      pause: (func) => { this.pause = func },
       resume: (func) => { this.resume = func },
       continue: (func) => { this.continue = func },
       preloadDone: () => this.preloadDone(),
       updateResult: (result) => { this.updateResult.emit(result); },
       component: this
     };
-    
+
   }
   ngOnInit() {
     this.src = "http://localhost:4200/sources/games/" + this._game._id + "/index.html";

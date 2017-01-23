@@ -49,7 +49,6 @@ export class GameComponent implements OnInit {
     this.gameShareComponent.setVisible(false);
   }
   handleUpdateResult(result) {
-
     this.gameShareComponent.updateResult(result);
     this.gameShareComponent.setVisible(true);
     this.iframeGameComponent.setVisible(false);
