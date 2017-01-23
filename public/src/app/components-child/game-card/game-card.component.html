@@ -26,19 +26,19 @@
 
 <div class="card card-product" data-count="3">
     <div class="card-image" data-header-animation="false">
-        <a href="#pablo">
-            <img class="img" src="../assets/img/thumb/19_thumb.svg">
+        <a [routerLink]="['/game', game._id]">
+            <img class="img" [src]="game.thumb">
         </a>
         <div class="ripple-container"></div>
     </div>
     <div class="card-content">
         <p class="card-title">
-            <a href="#pablo">
-                Pariatur sint amet
+            <a [routerLink]="['/game', game._id]">
+                {{game.title}}
             </a>
         </p>
         <div class="card-plays">
-            <i class="ion-play"></i> 5000 plays
+            <i class="ion-play"></i> {{game.plays}} plays
         </div>
     </div>
     <div class="card-footer">
