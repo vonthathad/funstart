@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../classes/user';
+import { Error } from '../../classes/error';
 @Component({
   selector: 'app-form-login',
   templateUrl: './form-login.component.html',
@@ -8,14 +9,17 @@ import { User } from '../../classes/user';
 })
 export class FormLoginComponent implements OnInit {
   private user: User;
+  private error: Error;
   private location: string;
   constructor(private service: UserService) {
-    this.user = new User();
+    
    }
 
   ngOnInit() {
     this.location = window.location.href;
     console.log("Location: " + this.location);
+    this.user = new User();
+    this.error = new Error();
   }
   loginFacebook() {
     window.location.href = `http://localhost:8235/oauth/facebook?redirect=${this.location}`;

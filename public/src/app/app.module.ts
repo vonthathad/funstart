@@ -33,7 +33,7 @@ import { UserComponent } from './components/user/user.component';
 import { SidebarComponent } from './components-shared/sidebar/sidebar.component';
 import { GameCardComponent } from './components-child/game-card/game-card.component';
 import { GameCollectionComponent } from './components-child/game-collection/game-collection.component';
-import { GameCardDetailComponent } from './components-child/game-card-detail/game-card-detail.component';
+import { GameCardHorizontalComponent } from './components-child/game-card-horizontal/game-card-horizontal.component';
 import { AutocompleteComponent } from './components-child/autocomplete/autocomplete.component';
 import { AccountDialogComponent } from './components-child/account-dialog/account-dialog.component';
 import { FormLoginComponent } from './components-child/form-login/form-login.component';
@@ -44,6 +44,9 @@ import { IframeGameComponent } from './components-child/iframe-game/iframe-game.
 import { IframeAdsComponent } from './components-child/iframe-ads/iframe-ads.component';
 import { GameIntroComponent } from './components-child/game-intro/game-intro.component';
 import { GameShareComponent } from './components-child/game-share/game-share.component';
+import { GameRecommendBottomComponent } from './components-child/game-recommend-bottom/game-recommend-bottom.component';
+import { GameRecommendRightComponent } from './components-child/game-recommend-right/game-recommend-right.component';
+import { GameCardVerticalComponent } from './components-child/game-card-vertical/game-card-vertical.component';
 
 
 
@@ -60,7 +63,7 @@ import { GameShareComponent } from './components-child/game-share/game-share.com
     GameCardComponent,
     SidebarComponent,
     GameCollectionComponent,
-    GameCardDetailComponent,
+    GameCardHorizontalComponent,
     AutocompleteComponent,
     AccountDialogComponent,
     FormLoginComponent,
@@ -70,7 +73,10 @@ import { GameShareComponent } from './components-child/game-share/game-share.com
     IframeGameComponent,
     IframeAdsComponent,
     GameIntroComponent,
-    GameShareComponent
+    GameShareComponent,
+    GameRecommendBottomComponent,
+    GameRecommendRightComponent,
+    GameCardVerticalComponent
 
   ],
   entryComponents: [AccountDialogComponent],

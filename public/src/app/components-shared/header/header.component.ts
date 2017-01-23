@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     // load games for autocomplete
     this.gameService
-      .getGames({ order: "random", paging: 6 })
+      .getGames({ order: "random", paging: 5 })
       .subscribe((res: any) => this.renderGames(res['data']));
     
     // get user token if there is one in url
