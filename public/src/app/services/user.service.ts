@@ -71,6 +71,12 @@ export class UserService {
             headers: headers
         });
     }
+    _setUser(user): void{
+        this.user = user;
+    }
+    _getUser(): User{
+        return this.user;
+    }
 }
 
 export var USER_PROVIDER: Array<any> = [

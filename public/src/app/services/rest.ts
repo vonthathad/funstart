@@ -61,9 +61,10 @@ export class Rest {
     ////GET TOKEN
     //////////////////////////////////////////////////
     getToken(): string{
-        var user = JSON.parse(localStorage.getItem("user"));
-        if(user){
-            return user.token;
+        var token = localStorage.getItem("token");
+        if(token == undefined){
+            console.log("TOKKKKEN" + token);
+            return token;
         }else {
             return Rest.DEFAULT_TOKEN;
         }

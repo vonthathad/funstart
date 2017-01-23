@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   private games: Game[];
   private user: User;
 
-  constructor(private gameService: GameService, private userService: UserService, private route: ActivatedRoute,private modal: Modal) {
+  constructor(private gameService: GameService, private userService: UserService, private route: ActivatedRoute, private modal: Modal) {
     // listening for registered user, if there is one, render to user
     this.userService.loggedUser$.subscribe(user => this.renderUser(user));
   }
@@ -33,13 +33,17 @@ export class HeaderComponent implements OnInit {
     this.gameService
       .getGames({ order: "random", paging: 5 })
       .subscribe((res: any) => this.renderGames(res['data']));
-    
-    // get user from localstorage if there is one
-    if(localStorage.getItem("user")) this.user = JSON.parse(localStorage.getItem("user"));
 
-    // get user token if there is one in url
+    // get token from localstorage if there is one
+    let token = localStorage.getItem("token");
+    if (!(token == undefined)) {
+      this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
+    }
+    // get  token if there is one in url
     this.route.queryParams.subscribe(queryParam => {
-      let token = queryParam['token'];
+      token = queryParam['token'];
+      localStorage.setItem("token", token);
+      console.log("TOKEN " + token);
       // if there is one, take user in db and render to user
       if (token) this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
     });
@@ -48,25 +52,21 @@ export class HeaderComponent implements OnInit {
     this.games = games;
   }
   renderUser(user) {
-    console.log("USER " + JSON.stringify(user));
     this.user = new User();
-    this.user.token = user.token;
+    this.user.token = user.accessToken;
     this.user.displayName = user.displayName;
     this.user.avatar = user.avatar;
-    localStorage.setItem("user", JSON.stringify(this.user));
+
+    this.userService._setUser(this.user);
   }
   openDialog() {
-    this.modal.open(AccountDialogComponent, overlayConfigFactory({ num1: 2, num2: 3,isBlocking: false},BSModalContext));
-    // let dialogRef = this.dialog.open(AccountDialogComponent, {
-    //   height: '300px',
-    //   width: '600px'
-    // });
+    this.modal.open(AccountDialogComponent, overlayConfigFactory({ num1: 2, num2: 3, isBlocking: false }, BSModalContext));
   }
   logout() {
-    this.userService.logout(this.user.token).subscribe(()=> localStorage.removeItem("user"));
-    
+    // this.userService.logout(this.user.token).subscribe(() => {
+    localStorage.removeItem("token");
+    this.userService._setUser(null);
     delete this.user;
-    // .subscribe((res: any) => this.renderUser(res.user));
-    // window.location.href = `http://localhost:8235/logout`;
+    // });
   }
 }

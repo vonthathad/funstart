@@ -18,11 +18,11 @@ export class GameShareComponent implements OnInit {
   constructor(private imageService: ImageService, private shareService: ShareService, private userService: UserService) { }
 
   ngOnInit() {
-    this.shareService.setInfo({
-      title: "abc",
-      des: "you win",
-      shareUrl: "https://www.solome.co/games/32"
-    });
+    // this.shareService.setInfo({
+    //   title: "abc",
+    //   des: "you win",
+    //   shareUrl: "https://www.solome.co/games/32"
+    // });
 
   }
   _continueGame() {
@@ -31,53 +31,50 @@ export class GameShareComponent implements OnInit {
   updateResult(result) {
     this.result = JSON.parse(result);
 
-    if (this.userService.checkUser()) {
-      this.shareDisable = true;
-      // THERE IS AN USER
-      this.imageService.createImage(this.game._id, this.result).subscribe(
-        pictureUrl => {
-          console.log(pictureUrl);
-          this.userService.postActivity({
-            score: this.result["score"],
-            game: this.game._id,
-            pictureUrl: pictureUrl
-          }).subscribe(() => {
-            this.shareService.setInfo({ pictureUrl: pictureUrl });
-            this.shareDisable = false;
-          })
+    // if (this.userService.checkUser()) {
+    //   this.shareDisable = true;
+    //   // THERE IS AN USER
+    //   this.imageService.createImage(this.game._id, this.result).subscribe(
+    //     pictureUrl => {
+    //       console.log(pictureUrl);
+    //       this.userService.postActivity({
+    //         score: this.result["score"],
+    //         game: this.game._id,
+    //         pictureUrl: pictureUrl
+    //       }).subscribe(() => {
+    //         this.shareService.setInfo({ pictureUrl: pictureUrl });
+    //         this.shareDisable = false;
+    //       })
 
-        },
-        err => {
-          // Log errors if any
-          console.log(err);
-        });
-    }
+    //     },
+    //     err => {
+    //       // Log errors if any
+    //       console.log(err);
+    //     });
+    // }
 
-  }
-  share() {
-    this.imageService.createImage
   }
   shareFacebook() {
-    if (!this.userService.checkUser()) {
-      // THERE IS NO USER
-      this.imageService.createImage(32, this.result).subscribe(
-        pictureUrl => {
-          console.log(pictureUrl);
-          this.shareService.setInfo({ pictureUrl: pictureUrl });
-          this.shareService.shareFacebook(function () {
-            console.log('done share');
-          });
-          this.shareDisable = false;
-        },
-        err => {
-          // Log errors if any
-          console.log(err);
-        });
-    } else {
-      this.shareService.shareFacebook(function () {
-        console.log('done share');
-      });
-    }
+    // if (!this.userService.checkUser()) {
+    //   // THERE IS NO USER
+    //   this.imageService.createImage(32, this.result).subscribe(
+    //     pictureUrl => {
+    //       console.log(pictureUrl);
+    //       this.shareService.setInfo({ pictureUrl: pictureUrl });
+    //       this.shareService.shareFacebook(function () {
+    //         console.log('done share');
+    //       });
+    //       this.shareDisable = false;
+    //     },
+    //     err => {
+    //       // Log errors if any
+    //       console.log(err);
+    //     });
+    // } else {
+    //   this.shareService.shareFacebook(function () {
+    //     console.log('done share');
+    //   });
+    // }
   }
   shareTwitter() {
     alert("NOT DONE");
