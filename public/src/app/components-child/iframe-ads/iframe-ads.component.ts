@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter,ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,ElementRef, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-iframe-ads',
@@ -16,13 +16,14 @@ export class IframeAdsComponent implements OnInit {
   videoContent: any;
   @Input() private showAds: boolean;
   @Output() private closeAds = new EventEmitter();
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef,private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.showAds = true
   }
   _showAds(obj) {
     this.showAds = true;
+    this.cd.markForCheck();
     this.callAds();
   }
   _closeAds() {
