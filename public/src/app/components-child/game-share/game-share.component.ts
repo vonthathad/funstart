@@ -22,7 +22,7 @@ export class GameShareComponent implements OnInit {
     this.shareService.setInfo({
       title: this.game.title,
       des: this.game.des,
-      url: location.protocol + '//' + location.hostname + "/game/"+this.game._id});
+      shareUrl: location.protocol + '//' + location.hostname + "/game/"+this.game._id});
     // this.shareService.setInfo({
     //   title: "abc",
     //   des: "you win",
