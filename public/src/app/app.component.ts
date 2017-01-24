@@ -18,9 +18,9 @@ export class AppComponent {
   //////////////////////////
 
     let facebookInitParams: FacebookInitParams = {
-      appId: '1743828749275715',
+      appId: '170584416691811',
       xfbml: true,
-      version: 'v2.8'
+      version: 'v2.7'
     };
     facebookService.init(facebookInitParams);
   }
