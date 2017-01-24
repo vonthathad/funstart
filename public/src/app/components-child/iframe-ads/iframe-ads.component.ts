@@ -15,7 +15,7 @@ export class IframeAdsComponent implements OnInit {
   intervalTimer: any;
   videoContent: any;
   @Input() private showAds: boolean;
-  @Output() private closeAds = new EventEmitter();
+  // @Output() private closeAds = new EventEmitter();
   constructor(private el: ElementRef) { }
 
   ngOnInit() {
@@ -23,11 +23,15 @@ export class IframeAdsComponent implements OnInit {
   }
   _showAds(obj) {
     this.showAds = true;
-    this.callAds();
+    let self = this;
+    setTimeout(function () {
+      self.callAds();
+    })
+
   }
   _closeAds() {
     this.showAds = false;
-    this.closeAds.emit();
+    // this.closeAds.emit();
   }
 
 

@@ -1,4 +1,4 @@
-<div class="adsContainer" *ngIf="showAds">
+<div class="adsContainer" [hidden]="!showAds">
   <div id="contentElement" >
     <div id="adContainer"></div>
   </div>
