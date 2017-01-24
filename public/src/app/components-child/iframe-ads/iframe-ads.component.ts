@@ -23,8 +23,9 @@ export class IframeAdsComponent implements OnInit {
   }
   _showAds(obj) {
     this.showAds = true;
+    let self = this;
     setTimeout(function () {
-      this.callAds();
+      self.callAds();
     })
 
   }
