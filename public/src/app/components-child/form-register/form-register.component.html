@@ -11,8 +11,8 @@
                 <label class="control-label" for="email">Email</label>
             </div>
         </div>
-        <!--<div [hidden]="email.valid || email.pristine" class="alert">Email not correct</div>-->
         
+        <!--<div [hidden]="email.valid || email.pristine" class="alert">Email not correct</div>-->
         <div [hidden]="email.valid || email.untouched">
             <div *ngIf="email.errors && email.errors.required">
                 Email is required
@@ -29,12 +29,19 @@
             <i class="ion-person"></i>
         </span>
             <div class="form-group label-floating is-empty">
-                <input type="text" class="form-control" required [(ngModel)]="user.username" name="username" #username="ngModel" id="username">
+                <input type="text" class="form-control" required [(ngModel)]="user.username" name="username" #username="ngModel" id="username" pattern="^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$">
                 <span class="material-input"></span>
                 <label class="control-label" for="username">Username</label>
             </div>
         </div>
-        <div [hidden]="username.valid || username.pristine" class="alert">Username not correct</div>
+        <div [hidden]="username.valid || username.untouched">
+            <div *ngIf="username.errors && username.errors.required">
+                Username is required
+            </div>
+            <div *ngIf="username.errors && username.errors.pattern">
+                Username is invalid
+            </div>
+        </div>
 
         <!--PASSWORD-->
         <div class="input-group">
