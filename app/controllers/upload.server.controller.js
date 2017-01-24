@@ -76,7 +76,7 @@ exports.captureResult = function(req,res){
     } else {
         var domHTML = '<div style="position: absolute;top: 0;left: 0">';
         domHTML +=
-            '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/thumb/'+req.game.thumbResult+'"/>'+
+            '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/sources/thumb/'+req.game.thumbResult+'"/>'+
             '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 20px;left:0;width: 100%;height: 100%;color: #fff;text-transform: uppercase;font-size: 2em;font-weight: bold;text-align: center;">'+
             req.body.score +
             '</div></div>';
