@@ -19,6 +19,10 @@ export class GameShareComponent implements OnInit {
   constructor(private imageService: ImageService, private shareService: ShareService, private userService: UserService) { }
 
   ngOnInit() {
+    this.shareService.setInfo({
+      title: this.game.title,
+      des: this.game.des,
+      url: location.protocol + '//' + location.hostname + "/game/"+this.game._id});
     // this.shareService.setInfo({
     //   title: "abc",
     //   des: "you win",
