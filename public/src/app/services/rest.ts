@@ -7,8 +7,8 @@ import 'rxjs/Rx';
 
 export class Rest {
     // set base url of api backend
-    static BASE_URL: string = '/';
-    // static BASE_URL: string = 'http://localhost:8235/';
+    // static BASE_URL: string = '/';
+    static BASE_URL: string = 'http://localhost:8235/';
     static DEFAULT_TOKEN: string = 'CRv1o8FaogFa2SYU4F6Z9DzytqL1l4My';
     constructor(private http: Http) {
     }
@@ -64,8 +64,7 @@ export class Rest {
     //////////////////////////////////////////////////
     getToken(): string {
         var token = localStorage.getItem("token");
-        // console.log("TOKKKKEN" + token + typeof token);
-        if (token != "undefined") {
+        if (token != "undefined" && token != null) {
            return token;
         } else {
             return Rest.DEFAULT_TOKEN;

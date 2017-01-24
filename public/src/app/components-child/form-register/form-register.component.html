@@ -1,60 +1,55 @@
-<!--<div>-->
-  <!--<md-input-container>-->
-    <!--<input md-input placeholder="Email" [required]=true focused [(ngModel)]="user.email">-->
-  <!--</md-input-container>-->
-  <!--<div *ngIf="error.email" class="alert">{{error.email}}</div>-->
-<!--</div>-->
-<!--<div>-->
-  <!--<md-input-container>-->
-    <!--<input md-input placeholder="Username" [required]=true focused [(ngModel)]="user.username">-->
-  <!--</md-input-container>-->
-  <!--<div *ngIf="error.username" class="alert">{{error.username}}</div>-->
-<!--</div>-->
-<!--<div>-->
-  <!--<md-input-container>-->
-    <!--<input md-input placeholder="Password" [required]=true [(ngModel)]="user.password">-->
-  <!--</md-input-container>-->
-  <!--<div *ngIf="error.password" class="alert">{{error.password}}</div>-->
-<!--</div>-->
-<!--<div>-->
-  <!--<button md-button (click)="register()">REGISTER</button>-->
-<!--</div>-->
-<div class="content">
-
-
-    <div class="input-group">
-        <span class="input-group-addon">
-            <i class="ion-at"></i>
-        </span>
-        <div class="form-group label-floating is-empty">
-            <input type="text" class="form-control" [required]=true focused [(ngModel)]="user.email"><span class="material-input"></span>
-            <label class="control-label">Email</label>
+<form #userForm="ngForm" (ngSubmit)="register()">
+    <div class="content">
+        <!--EMAIL-->
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="ion-at"></i>
+            </span>
+            <div class="form-group label-floating is-empty">
+                <input type="text" class="form-control" required focused [(ngModel)]="user.email" id="email" name="email" #email="ngModel"
+                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"><span class="material-input"></span>
+                <label class="control-label" for="email">Email</label>
+            </div>
+        </div>
+        <!--<div [hidden]="email.valid || email.pristine" class="alert">Email not correct</div>-->
+        
+        <div [hidden]="email.valid || email.untouched">
+            <div *ngIf="email.errors && email.errors.required">
+                Email is required
+            </div>
+            <div *ngIf="email.errors && email.errors.pattern">
+                Email is invalid
+            </div>
         </div>
         <div *ngIf="error.email" class="alert">{{error.email}}</div>
-    </div>
 
-    <div class="input-group">
-        <span class="input-group-addon">
+        <!--USERNAME-->
+        <div class="input-group">
+            <span class="input-group-addon">
             <i class="ion-person"></i>
         </span>
-        <div class="form-group label-floating is-empty">
-            <input type="text" class="form-control" [required]=true [(ngModel)]="user.username"><span class="material-input"></span>
-            <label class="control-label">Username</label>
+            <div class="form-group label-floating is-empty">
+                <input type="text" class="form-control" required [(ngModel)]="user.username" name="username" #username="ngModel" id="username">
+                <span class="material-input"></span>
+                <label class="control-label" for="username">Username</label>
+            </div>
         </div>
-        <div *ngIf="error.username" class="alert">{{error.email}}</div>
-    </div>
+        <div [hidden]="username.valid || username.pristine" class="alert">Username not correct</div>
 
-    <div class="input-group">
-        <span class="input-group-addon">
+        <!--PASSWORD-->
+        <div class="input-group">
+            <span class="input-group-addon">
             <i class="ion-locked"></i>
         </span>
-        <div class="form-group label-floating is-empty">
-            <input type="password" class="form-control" [required]=true [(ngModel)]="user.password"><span class="material-input"></span>
-            <label class="control-label">Password</label>
+            <div class="form-group label-floating is-empty">
+                <input type="password" class="form-control" required [(ngModel)]="user.password" name="password" #password="ngModel" id="password">
+                <span class="material-input"></span>
+                <label class="control-label" for="password">Password</label>
+            </div>
         </div>
-        <div *ngIf="error.password" class="alert">{{error.email}}</div>
+        <div [hidden]="password.valid || password.pristine" class="alert">Password not correct</div>
     </div>
-</div>
-<div class="footer text-center">
-    <a (click)="register()" class="btn btn-primary">Register</a>
-</div>
+    <div class="footer text-center">
+        <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-primary">Register</button>
+    </div>
+</form>

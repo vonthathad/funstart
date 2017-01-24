@@ -16,7 +16,6 @@ import { SafePipe } from './pipes/safe.pipe';
 
 import { USER_PROVIDER } from './services/user.service';
 import { GAME_PROVIDER } from './services/game.service';
-import { REST_PROVIDER } from './services/rest.service';
 import { CONSTANT_SERVICE } from './services/constant.service';
 import { SHARE_PROVIDER } from './services/share.service';
 import { IMAGE_PROVIDER } from './services/image.service';
@@ -97,7 +96,6 @@ import { GameCardVerticalComponent } from './components-child/game-card-vertical
   providers: [
     USER_PROVIDER,
     GAME_PROVIDER,
-    REST_PROVIDER,
     CONSTANT_SERVICE,
     SHARE_PROVIDER,
     IMAGE_PROVIDER,

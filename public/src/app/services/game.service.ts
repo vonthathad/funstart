@@ -33,7 +33,7 @@ export class GameService {
             'Content-Type': 'application/json'
         });
         return this.rest.get({
-            url: `games/${id}`,
+            url: `api/games/${id}`,
             headers: headers
         });
     }
