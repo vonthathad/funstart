@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { GameService } from '../../services/game.service'
-import { RestService } from '../../services/rest.service'
-
 
 import { IframeGameComponent } from './../../components-child/iframe-game/iframe-game.component';
 import { IframeAdsComponent } from './../../components-child/iframe-ads/iframe-ads.component';
@@ -25,10 +23,9 @@ export class GameComponent implements OnInit {
   @ViewChild(GameIntroComponent) private gameIntroComponent: GameIntroComponent;
   @ViewChild(GameShareComponent) private gameShareComponent: GameShareComponent;
 
-  constructor(private route: ActivatedRoute, private gameService: RestService) {
+  constructor(private route: ActivatedRoute, private gameService: GameService) {
     route.params.subscribe(params => {
       this.gameService.getGame(params['id']).subscribe((res: any) => this.renderGame(res.data));
-
     });
 
   }

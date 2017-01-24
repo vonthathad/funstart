@@ -20,13 +20,13 @@ export class FormRegisterComponent implements OnInit {
   ngOnInit() {
   }
   register() {
-    this.user.email = "sirdat1993@gmail.com";
-    this.user.username = "thanhdatvo";
-    this.user.password = "123456";
+    // this.user.email = "sirdat1993@gmail.com";
+    // this.user.username = "thanhdatvo";
+    // this.user.password = "123456";
     console.log(JSON.stringify(this.user));
     this.service
       .register(this.user)
-      .subscribe(data => this.succeed(data["user"]), error => this.fail(error), () => console.log("Complete"));
+      .subscribe(data => this.succeed(data["user"]), error => this.fail(error._body), () => console.log("Complete"));
   }
   succeed(user: User) {
     alert("Add user successful");
@@ -34,7 +34,7 @@ export class FormRegisterComponent implements OnInit {
     this.service.loggedUserSource.next(user);
   }
   fail(e) {
-    this.error.email = (JSON.parse(e._body)).message;
-    console.error("Error " + e);
+    this.error.email = (JSON.parse(e)).message;
+    console.error("Error " + JSON.parse(e).message);
   }
 }
