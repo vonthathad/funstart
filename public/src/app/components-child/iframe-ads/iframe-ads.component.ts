@@ -31,6 +31,7 @@ export class IframeAdsComponent implements OnInit {
   }
   _closeAds() {
     this.showAds = false;
+    this.element.innerHTML = '';
     // this.closeAds.emit();
   }
 
