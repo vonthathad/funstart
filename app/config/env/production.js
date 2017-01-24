@@ -36,7 +36,7 @@ module.exports = {
     app: {
         id: '170584416691811',
         name: 'Hot Game',
-        description: 'Phá đảo thế giới ảo!',
+        description: 'Burn them all!',
         url: process.env.PROTOCOL+'://'+process.env.CHANNEL+'.'+process.env.DOMAIN,
         image: process.env.PROTOCOL+'://'+process.env.CHANNEL+'.'+process.env.DOMAIN+'/sources/ads.jpg'
     }
