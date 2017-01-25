@@ -2,24 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../classes/user';
 import { Error } from '../../classes/error';
+
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-form-login',
   templateUrl: './form-login.component.html',
   styleUrls: ['./form-login.component.scss']
 })
 export class FormLoginComponent implements OnInit {
-  private user: User;
   private error: Error;
   private location: string;
+  private loginForm: FormGroup;
   constructor(private service: UserService) {
-    
-   }
+
+  }
 
   ngOnInit() {
     this.location = window.location.href;
     console.log("Location: " + this.location);
-    this.user = new User();
     this.error = new Error();
+
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+      password: new FormControl('', [Validators.required, Validators.minLength(5)])
+    });
   }
   loginFacebook() {
     // window.location.href = `/oauth/facebook?redirect=${this.location}`;
@@ -28,16 +35,18 @@ export class FormLoginComponent implements OnInit {
   loginTwitter() {
     window.location.href = `/oauth/twitter?redirect=${this.location}`;
   }
-  loginLocal(){
-    this.user.username = "sirdat1993@gmail.com";
-    this.user.password = "123456";
-    this.service
-      .login(this.user)
-       .subscribe(data => this.succeed(data["user"]), error => this.fail(error), () => console.log("Complete"));
-    // this.service.loggedUserSource.next(this.user);
+  loginLocal({ value, valid }: { value: User, valid: boolean }) {
+    console.log("VELI " + JSON.stringify(value) + valid);
+    if (valid) {
+      let user: any = new Object();
+      user.username = value.email;
+      user.password = value.password;
+      this.service
+        .login(user)
+        .subscribe(data => this.succeed(data["user"]), error => this.fail(error), () => console.log("Complete"));
+    }
   }
-   succeed(user: User) {
-    alert("Add user successful");
+  succeed(user: User) {
     // update user
     this.service.loggedUserSource.next(user);
   }

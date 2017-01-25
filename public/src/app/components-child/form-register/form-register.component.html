@@ -1,70 +1,115 @@
-<form #userForm="ngForm" (ngSubmit)="register()">
+<form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
     <div class="content">
-        <!--EMAIL-->
+
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="ion-at"></i>
             </span>
             <div class="form-group label-floating is-empty">
-                <input type="text" class="form-control" required focused [(ngModel)]="user.email" id="email" name="email" #email="ngModel"
-                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"><span class="material-input"></span>
+                <input required type="text" class="form-control" formControlName="email"><span class="material-input"></span>
                 <label class="control-label" for="email">Email</label>
             </div>
         </div>
-        
-        <!--<div [hidden]="email.valid || email.pristine" class="alert">Email not correct</div>-->
-        <div [hidden]="email.valid || email.untouched">
-            <div *ngIf="email.errors && email.errors.required">
-                Email is required
+        <div [hidden]="registerForm.get('email').untouched &&  registerForm.get('email').hasError('required')">
+            <div class="error" *ngIf="registerForm.get('email').untouched && registerForm.get('email').hasError('required')">
+                * Email is required!
             </div>
-            <div *ngIf="email.errors && email.errors.pattern">
-                Email is invalid
+            <div class="error" *ngIf="registerForm.get('email').untouched && registerForm.get('email').hasError('pattern')">
+                * Invalid email!
+            </div>
+
+            <div [hidden]="registerForm.get('email').valid || registerForm.get('email').untouched">
+                <div *ngIf="registerForm.get('email').hasError('required')">
+                    * Email is required!x
+                </div>
+                <div *ngIf="registerForm.get('email').hasError('pattern')">
+                    * Invalid email!x
+                </div>
             </div>
         </div>
+
         <div *ngIf="error.email" class="alert">{{error.email}}</div>
 
-        <!--USERNAME-->
+
+
+
         <div class="input-group">
             <span class="input-group-addon">
             <i class="ion-person"></i>
         </span>
             <div class="form-group label-floating is-empty">
-                <input type="text" class="form-control" required [(ngModel)]="user.username" name="username" #username="ngModel" id="username" pattern="^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$">
+                <input required type="text" class="form-control" formControlName="username">
                 <span class="material-input"></span>
                 <label class="control-label" for="username">Username</label>
             </div>
         </div>
-        <div [hidden]="username.valid || username.untouched">
-            <div *ngIf="username.errors && username.errors.required">
-                Username is required
+        <div [hidden]="registerForm.get('username').untouched &&  registerForm.get('username').hasError('required')">
+            <div class="error" *ngIf="registerForm.get('username').untouched && registerForm.get('username').hasError('required')">
+                * Username is required!
             </div>
-            <div *ngIf="username.errors && username.errors.pattern">
-                Username is invalid
+            <div class="error" *ngIf="registerForm.get('username').untouched && registerForm.get('username').hasError('pattern')">
+                * Invalid username!
+            </div>
+            <div class="error" *ngIf="registerForm.get('username').untouched && registerForm.get('username').hasError('minlength') && !registerForm.get('username').hasError('pattern')">
+                * Username must be at least 3 character!
+            </div>
+            <div class="error" *ngIf="registerForm.get('username').untouched && registerForm.get('username').hasError('maxlength')">
+                * Username must not be more than 15 character!
+            </div>
+
+            <div [hidden]="registerForm.get('username').valid || registerForm.get('username').untouched">
+                <div *ngIf="registerForm.get('username').hasError('required')">
+                    * Username is required!
+                </div>
+                <div *ngIf="registerForm.get('username').hasError('pattern')">
+                    * Invalid username!
+                </div>
+                <div *ngIf="registerForm.get('username').hasError('minlength')">
+                    * Username must be at least 3 character!
+                </div>
+                <div *ngIf="registerForm.get('username').hasError('maxlength')">
+                    * Username must not be more than 15 character!
+                </div>
             </div>
         </div>
 
-        <!--PASSWORD-->
+
+
         <div class="input-group">
             <span class="input-group-addon">
             <i class="ion-locked"></i>
         </span>
             <div class="form-group label-floating is-empty">
-                <input type="password" class="form-control" required min=6 [(ngModel)]="user.password" name="password" #password="ngModel" id="password">
+                <input required type="password" class="form-control" formControlName="password">
                 <span class="material-input"></span>
                 <label class="control-label" for="password">Password</label>
             </div>
         </div>
-        <div [hidden]="password.valid || password.untouched">
-            <div *ngIf="password.errors && password.errors.required">
-                Password is required
+        <div [hidden]="registerForm.get('password').untouched &&  registerForm.get('password').hasError('required')">
+            <div class="error" *ngIf="registerForm.get('password').untouched && registerForm.get('password').hasError('required')">
+                * Password is required!
             </div>
-            <div *ngIf="password.errors && password.errors.minLength">
-                Password is invalid
+            <div class="error" *ngIf="registerForm.get('password').untouched && registerForm.get('password').hasError('pattern')">
+                * Invalid password!
+            </div>
+            <div class="error" *ngIf="registerForm.get('password').untouched && registerForm.get('password').hasError('minlength')">
+                * Password must be at least 5 character!
+            </div>
+            <div [hidden]="registerForm.get('password').valid || registerForm.get('password').untouched">
+                <div *ngIf="registerForm.get('password').hasError('required')">
+                    * Password is required!
+                </div>
+                <div *ngIf="registerForm.get('password').hasError('pattern')">
+                    * Invalid password!
+                </div>
+                <div *ngIf="registerForm.get('password').hasError('minlength')">
+                    * Password must be at least 5 character!
+                </div>
             </div>
         </div>
-        <!--<div [hidden]="password.valid || password.pristine" class="alert">Password not correct</div>-->
+
     </div>
     <div class="footer text-center">
-        <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-primary">Register</button>
+        <button type="submit" [disabled]="registerForm.valid" class="btn btn-primary">Register</button>
     </div>
 </form>

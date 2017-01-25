@@ -7,7 +7,7 @@ module.exports = function() {
         User.findOne({
             email: email
         }, function(err, user) {
-            console.log(err);
+            console.log(err + "USER " + JSON.stringify(user));
             if (err) {
                 return done(err);
             }
