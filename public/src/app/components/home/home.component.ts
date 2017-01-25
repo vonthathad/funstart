@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
   }
   renderGames(games: Game[],isNew,isNext) {
     console.log(isNext);
+    console.log('games',games);
     // console.log(JSON.stringify(games));
     // this.gamesCollections.push({ topic: topic, games: games }); // set to views
     if(isNew){
@@ -56,6 +57,7 @@ export class HomeComponent implements OnInit {
     } else {
       this.games = this.games.concat(games);
     }
+    console.log('thisgames',this.games);
     this.hasMore = isNext;
     this.isLoading = false;
   }
