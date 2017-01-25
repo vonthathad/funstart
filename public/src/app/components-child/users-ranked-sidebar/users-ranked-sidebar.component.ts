@@ -16,7 +16,7 @@ export class UsersRankedSidebarComponent implements OnInit {
   setGame(game) {
     this.game = game;
     this.userService
-      .getRankedUsers({ game: this.game._id, user:this.userService._getUser()._id })
+      .getRankedUsers({ game: this.game._id, user: this.userService._getUser()._id })
       .subscribe(rankedUsers => this.renderRankedUser(rankedUsers["data"]));
 
   }
@@ -32,7 +32,11 @@ export class UsersRankedSidebarComponent implements OnInit {
         rankedUser.avatar = rankedUserData.user.avatar;
         rankedUser.score = rankedUserData.score;
         rankedUser.rank = i;
-        rankedUser.isCurrentUser = this.userService._getUser()._id == rankedUserData.user._id;
+        rankedUser.isCurrentUser = false;
+        if (this.userService._getUser()._id == rankedUserData.user._id) {
+          rankedUser.isCurrentUser = true;
+          this.userService._getUser().score = rankedUserData.score;
+        }
         this.rankedUsers.push(rankedUser);
       } else {
         let rankedUserData = rankedUsersData[i];
@@ -43,6 +47,7 @@ export class UsersRankedSidebarComponent implements OnInit {
           rankedUser.score = rankedUserData.score;
           rankedUser.rank = i;
           rankedUser.isCurrentUser = true;
+          this.userService._getUser().score = rankedUserData.score;
           this.rankedUsers.push(rankedUser);
         };
       }
