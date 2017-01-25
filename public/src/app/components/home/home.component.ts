@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.hasMore = true;
     this.gameService
-        .getGames({ paging: this.paging,page: this.page})
+        .getGames({ paging: this.paging,page: this.page,order: 'created'})
         .subscribe((res: any) => this.renderGames(res.data,true,res.isNext));
   }
   onScroll(){
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
       this.isLoading = true;
       this.page++;
       this.gameService
-          .getGames({ paging: this.paging,page: this.page})
+          .getGames({ paging: this.paging,page: this.page,order: 'created'})
           .subscribe((res: any) => this.renderGames(res.data,false,res.isNext));
     }
   }

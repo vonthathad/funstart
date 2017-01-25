@@ -14,6 +14,6 @@ push:
 	git add . ; git commit -m "up new code to server" ; git push origin master
 .PHONY: push
 
-pull:
-	git pull origin master
-.PHONY: pull
+pullserver:
+	git pull origin master ; pm2 restart 7
+.PHONY: pullserver
