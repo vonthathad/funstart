@@ -10,6 +10,10 @@ build:
 	cd public ; ng build --prod ; cp -R src/sources uploaded/ ; cp src/game.bridge.js dist/
 .PHONY: build
 
-git:
+push:
 	git add . ; git commit -m "up new code to server" ; git push origin master
-.PHONY: git
+.PHONY: push
+
+pull:
+	git pull origin master
+.PHONY: pull
