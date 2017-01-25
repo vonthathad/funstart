@@ -42,18 +42,6 @@ var GameSchema = new Schema({
         type: Number,
         default: 0
     },
-    time: Number,
-    multi: {
-        type: Number,
-        enum: [0,1,2]
-    },
-    max: Number,
-    min: Number,
-    type: {
-        type: Number,
-        enum: [0,1]
-        //0: score, 1: turn base
-    },
     top: Number,
     hot: Number,
     created: {
