@@ -50,8 +50,6 @@ import { UsersRankedSidebarComponent } from './components-child/users-ranked-sid
 import { FacebookCommentComponent } from './components-child/facebook-comment/facebook-comment.component';
 
 
-
-
 @NgModule({
   declarations: [
     SafePipe,
@@ -79,11 +77,8 @@ import { FacebookCommentComponent } from './components-child/facebook-comment/fa
     GameRecommendBottomComponent,
     GameRecommendRightComponent,
     GameCardVerticalComponent,
-<<<<<<< HEAD
-    UsersRankedSidebarComponent
-=======
+    UsersRankedSidebarComponent,
     FacebookCommentComponent
->>>>>>> 4d2a598611b73fbde28bbaa5b9670999c5d688cb
 
   ],
   entryComponents: [AccountDialogComponent],
