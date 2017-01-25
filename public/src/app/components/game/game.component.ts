@@ -36,7 +36,7 @@ export class GameComponent implements OnInit {
   }
   renderGame(game) {
     this.game = game;
-    this.iframeAdsComponent._showAds({channelId: '123'});
+    this.iframeAdsComponent._showAds();
     console.log("GAME " + JSON.stringify(game));
   }
   handleContinueGame(show) {
@@ -53,7 +53,7 @@ export class GameComponent implements OnInit {
     this.iframeGameComponent.setVisible(false);
     let self = this;
     setTimeout(function(){
-      self.iframeAdsComponent._showAds({channelId: '123'});
+      self.iframeAdsComponent._showAds({channelID: '9629683846'});
     });
   } 
   handleCloseAds() {

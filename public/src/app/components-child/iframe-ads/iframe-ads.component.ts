@@ -14,6 +14,7 @@ export class IframeAdsComponent implements OnInit {
   adDisplayContainer: any;
   intervalTimer: any;
   videoContent: any;
+  channelID: string;
   @Input() private showAds: boolean;
   // @Output() private closeAds = new EventEmitter();
   constructor(private el: ElementRef) { }
@@ -21,7 +22,12 @@ export class IframeAdsComponent implements OnInit {
   ngOnInit() {
     this.showAds = true
   }
-  _showAds(obj) {
+  _showAds(obj?:any) {
+    if(obj.channelID){
+      this.channelID = obj.channelID;
+    } else {
+      this.channelID = '8152950647';
+    }
     this.showAds = true;
     let self = this;
     setTimeout(function () {
@@ -205,9 +211,8 @@ export class IframeAdsComponent implements OnInit {
   requestAds(){
     // Request video ads.
     let adsRequest = new google.ima.AdsRequest();
-    let channel_id = '8788971041'; //channel ads main
     let href_ads = location.href;
-    let url_ads = "https://googleads.g.doubleclick.net/pagead/ads?ad_type=video_image_text_flash&client=ca-games-pub-8167045239596974&description_url="+href_ads+"&channel="+channel_id+"&videoad_start_delay=0&hl=en&max_ad_duration=30000";
+    let url_ads = "https://googleads.g.doubleclick.net/pagead/ads?ad_type=video_image_text_flash&client=ca-games-pub-8167045239596974&description_url="+href_ads+"&channel="+this.channelID+"&videoad_start_delay=0&hl=en&max_ad_duration=30000";
     this.width_ads = this.element.clientWidth;
     this.height_ads = this.element.clientHeight;
     //adsRequest.adTagUrl = "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_image_flash&client=ca-games-pub-5477307030870200&description_url=http://www.topnhe.com/317/10-ly-do-khong-nen-song-o-da-nang&videoad_start_delay=0&hl=vi&max_ad_duration=30000";
