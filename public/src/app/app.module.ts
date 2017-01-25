@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
@@ -46,6 +46,7 @@ import { GameShareComponent } from './components-child/game-share/game-share.com
 import { GameRecommendBottomComponent } from './components-child/game-recommend-bottom/game-recommend-bottom.component';
 import { GameRecommendRightComponent } from './components-child/game-recommend-right/game-recommend-right.component';
 import { GameCardVerticalComponent } from './components-child/game-card-vertical/game-card-vertical.component';
+import { UsersRankedSidebarComponent } from './components-child/users-ranked-sidebar/users-ranked-sidebar.component';
 
 
 
@@ -75,7 +76,8 @@ import { GameCardVerticalComponent } from './components-child/game-card-vertical
     GameShareComponent,
     GameRecommendBottomComponent,
     GameRecommendRightComponent,
-    GameCardVerticalComponent
+    GameCardVerticalComponent,
+    UsersRankedSidebarComponent
 
   ],
   entryComponents: [AccountDialogComponent],
@@ -85,6 +87,7 @@ import { GameCardVerticalComponent } from './components-child/game-card-vertical
     BootstrapModalModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     InfiniteScrollModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,

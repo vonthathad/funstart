@@ -22,7 +22,8 @@ export class FormLoginComponent implements OnInit {
     this.error = new Error();
   }
   loginFacebook() {
-    window.location.href = `/oauth/facebook?redirect=${this.location}`;
+    // window.location.href = `/oauth/facebook?redirect=${this.location}`;
+    window.location.href = `http://localhost:8235/oauth/facebook?redirect=${this.location}`;
   }
   loginTwitter() {
     window.location.href = `/oauth/twitter?redirect=${this.location}`;

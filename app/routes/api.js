@@ -38,6 +38,8 @@ module.exports = function (router) {
     router.route('/activities')
         .get(activities.loadActivities)
         .post(activities.createActivity);
+    router.route('/ranks')
+        .get(activities.loadRanks);
     router.route('/users')
         .get(users.loadUsers);
     router.route('/users/:username')

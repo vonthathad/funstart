@@ -7,6 +7,7 @@ import { IframeGameComponent } from './../../components-child/iframe-game/iframe
 import { IframeAdsComponent } from './../../components-child/iframe-ads/iframe-ads.component';
 import { GameIntroComponent } from './../../components-child/game-intro/game-intro.component';
 import { GameShareComponent } from './../../components-child/game-share/game-share.component';
+import { UsersRankedSidebarComponent } from './../../components-child/users-ranked-sidebar/users-ranked-sidebar.component';
 import { Game } from '../../classes/game';
 @Component({
   selector: 'app-game',
@@ -22,6 +23,7 @@ export class GameComponent implements OnInit {
   @ViewChild(IframeAdsComponent) private iframeAdsComponent: IframeAdsComponent;
   @ViewChild(GameIntroComponent) private gameIntroComponent: GameIntroComponent;
   @ViewChild(GameShareComponent) private gameShareComponent: GameShareComponent;
+  @ViewChild(UsersRankedSidebarComponent) private usersRankedSidebarComponent: UsersRankedSidebarComponent;
 
   constructor(private route: ActivatedRoute, private gameService: GameService) {
     route.params.subscribe(params => {
@@ -37,7 +39,8 @@ export class GameComponent implements OnInit {
   renderGame(game) {
     this.game = game;
     this.iframeAdsComponent._showAds({channelId: '123'});
-    console.log("GAME " + JSON.stringify(game));
+    // console.log("GAME " + JSON.stringify(game));
+    this.usersRankedSidebarComponent.setGame(game);
   }
   handleContinueGame(show) {
     this.iframeGameComponent._continue();

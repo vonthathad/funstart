@@ -49,12 +49,20 @@
             <i class="ion-locked"></i>
         </span>
             <div class="form-group label-floating is-empty">
-                <input type="password" class="form-control" required [(ngModel)]="user.password" name="password" #password="ngModel" id="password">
+                <input type="password" class="form-control" required min=6 [(ngModel)]="user.password" name="password" #password="ngModel" id="password">
                 <span class="material-input"></span>
                 <label class="control-label" for="password">Password</label>
             </div>
         </div>
-        <div [hidden]="password.valid || password.pristine" class="alert">Password not correct</div>
+        <div [hidden]="password.valid || password.untouched">
+            <div *ngIf="password.errors && password.errors.required">
+                Password is required
+            </div>
+            <div *ngIf="password.errors && password.errors.minLength">
+                Password is invalid
+            </div>
+        </div>
+        <!--<div [hidden]="password.valid || password.pristine" class="alert">Password not correct</div>-->
     </div>
     <div class="footer text-center">
         <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-primary">Register</button>

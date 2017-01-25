@@ -71,6 +71,18 @@ export class UserService {
             headers: headers
         });
     }
+    getRankedUsers(queryArgs): Observable<any[]>{
+        let token = this.rest.getToken();
+        let headers = new Headers({
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        });
+        return this.rest.get({
+            queryArgs: queryArgs,
+            url: `api/ranks`,
+            headers :headers
+        });
+    }
     _setUser(user): void{
         this.user = user;
     }
