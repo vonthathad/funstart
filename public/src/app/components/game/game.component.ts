@@ -38,9 +38,14 @@ export class GameComponent implements OnInit {
   }
   renderGame(game) {
     this.game = game;
+<<<<<<< HEAD
     this.iframeAdsComponent._showAds({channelId: '123'});
     // console.log("GAME " + JSON.stringify(game));
     this.usersRankedSidebarComponent.setGame(game);
+=======
+    this.iframeAdsComponent._showAds();
+    console.log("GAME " + JSON.stringify(game));
+>>>>>>> 4d2a598611b73fbde28bbaa5b9670999c5d688cb
   }
   handleContinueGame(show) {
     this.iframeGameComponent._continue();
@@ -56,7 +61,7 @@ export class GameComponent implements OnInit {
     this.iframeGameComponent.setVisible(false);
     let self = this;
     setTimeout(function(){
-      self.iframeAdsComponent._showAds({channelId: '123'});
+      self.iframeAdsComponent._showAds({channelID: '9629683846'});
     });
   } 
   handleCloseAds() {

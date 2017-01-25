@@ -35,18 +35,21 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.hasMore = true;
     this.gameService
-        .getGames({ paging: this.paging,page: this.page, order: {create:-1}})
+        .getGames({ paging: this.paging,page: this.page,order: 'created'})
         .subscribe((res: any) => this.renderGames(res.data,true,res.isNext));
   }
   onScroll(){
     if(this.hasMore && !this.isLoading){
+      this.isLoading = true;
+      this.page++;
       this.gameService
-          .getGames({ paging: this.paging,page: this.page, order: {create:-1}})
+          .getGames({ paging: this.paging,page: this.page,order: 'created'})
           .subscribe((res: any) => this.renderGames(res.data,false,res.isNext));
     }
   }
   renderGames(games: Game[],isNew,isNext) {
     console.log(isNext);
+    console.log('games',games);
     // console.log(JSON.stringify(games));
     // this.gamesCollections.push({ topic: topic, games: games }); // set to views
     if(isNew){
@@ -54,8 +57,8 @@ export class HomeComponent implements OnInit {
     } else {
       this.games = this.games.concat(games);
     }
+    console.log('thisgames',this.games);
     this.hasMore = isNext;
-    this.page++;
     this.isLoading = false;
   }
   goUser() {

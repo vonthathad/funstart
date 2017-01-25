@@ -39,7 +39,10 @@ export class TopicComponent implements OnInit {
     this.gameService.getGames({ topic: this.topicId, order: this.order, paging: this.paging, page: this.page }).subscribe((res: any) => this.renderGames(res.data,true,res.isNext))
   }
   onScroll(){
+
     if(this.hasMore && !this.isLoading){
+      this.isLoading = true;
+      this.page++;
       this.gameService
           .getGames({ topic: this.topicId, order: this.order, paging: this.paging, page: this.page})
           .subscribe((res: any) => this.renderGames(res.data,false,res.isNext));
@@ -52,7 +55,6 @@ export class TopicComponent implements OnInit {
       this.games = this.games.concat(games);
     }
     this.hasMore = isNext;
-    this.page++;
     this.isLoading = false;
   }
 }

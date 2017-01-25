@@ -109,7 +109,7 @@ export class GameShareComponent implements OnInit {
     if (!this.userService.checkUser()) {
       this.shareDisable = true;
       // THERE IS NO USER
-      this.imageService.createImage(32, this.result).subscribe(
+      this.imageService.createImage(this.game._id, this.result).subscribe(
         res => {
           this.shareService.setInfo({ pictureUrl: res.data });
           this.shareService.shareFacebook(function () {

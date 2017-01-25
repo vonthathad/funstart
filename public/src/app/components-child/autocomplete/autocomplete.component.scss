@@ -33,7 +33,17 @@ input, select, textarea{
   padding: 6px;
   border-radius: 6px;
 }
-
+@media (max-width: 767px) {
+  .dropdown-search{
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    background: #fff;
+    padding: 6px;
+    border-radius: 6px;
+  }
+}
 .dropdown-search {
   border: 0;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);

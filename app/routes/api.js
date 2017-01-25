@@ -11,14 +11,6 @@ var passport = require('passport');
 module.exports = function (router) {
     router.use(passport.authenticate('bearer', { session: false }));
     router.get('/topics', games.loadTopics);
-
-
-     router.post('/createPicture/:id', function (req, res) {
-        // TO-DO CREATE IMAGE
-        // res.json({ pictureUrl: 'https://www.solome.co/results/'});
-        res.json({ pictureUrl: 'https://screenshots.en.sftcdn.net/en/scrn/69690000/69690936/game-assistant-07-535x535.png'});
-    });
-
     //////////////////////////////////////////////////
     ////GET USER DATA, Header Authorization By Token
     //////////////////////////////////////////////////

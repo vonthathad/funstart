@@ -7,7 +7,13 @@ dev:
 .PHONY: dev
 
 build:
-	cd public ; ng build --prod ; cp -R src/sources uploaded/ ; cp src/game.bridge.js dist/
+	cd public ; ng build --prod ; cp -R src/sources uploaded/ ; cp src/game.bridge.js dist/ ; mv dist/index.html dist/main.html
 .PHONY: build
 
+push:
+	git add . ; git commit -m "up new code to server" ; git push origin master
+.PHONY: push
 
+pullserver:
+	git pull origin master ; pm2 restart 7
+.PHONY: pullserver

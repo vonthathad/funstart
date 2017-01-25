@@ -76,18 +76,29 @@ exports.loadGames = function(req,res){
                     console.log(err);
                     return res.status(400).send();
                 } else{
-                    Topic.populate(results, 'topic', function(){
-                        var isNext = false;
-                        if(results.length==(paging+1)){
-                            isNext = true;
-                            results.pop();
-                        }
-                        resdata = {
-                            data: results,
-                            isNext: isNext
-                        };
-                        return res.json(resdata);
-                    });
+                    console.log(results);
+                    var isNext = false;
+                    if(results.length==(paging+1)){
+                        isNext = true;
+                        results.pop();
+                    }
+                    resdata = {
+                        data: results,
+                        isNext: isNext
+                    };
+                    return res.json(resdata);
+                    // Topic.populate(results, 'topic', function(){
+                    //     var isNext = false;
+                    //     if(results.length==(paging+1)){
+                    //         isNext = true;
+                    //         results.pop();
+                    //     }
+                    //     resdata = {
+                    //         data: results,
+                    //         isNext: isNext
+                    //     };
+                    //     return res.json(resdata);
+                    // });
 
                 }
 

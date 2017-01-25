@@ -47,6 +47,8 @@ import { GameRecommendBottomComponent } from './components-child/game-recommend-
 import { GameRecommendRightComponent } from './components-child/game-recommend-right/game-recommend-right.component';
 import { GameCardVerticalComponent } from './components-child/game-card-vertical/game-card-vertical.component';
 import { UsersRankedSidebarComponent } from './components-child/users-ranked-sidebar/users-ranked-sidebar.component';
+import { FacebookCommentComponent } from './components-child/facebook-comment/facebook-comment.component';
+
 
 
 
@@ -77,7 +79,11 @@ import { UsersRankedSidebarComponent } from './components-child/users-ranked-sid
     GameRecommendBottomComponent,
     GameRecommendRightComponent,
     GameCardVerticalComponent,
+<<<<<<< HEAD
     UsersRankedSidebarComponent
+=======
+    FacebookCommentComponent
+>>>>>>> 4d2a598611b73fbde28bbaa5b9670999c5d688cb
 
   ],
   entryComponents: [AccountDialogComponent],
