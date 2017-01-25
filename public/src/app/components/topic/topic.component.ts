@@ -39,6 +39,7 @@ export class TopicComponent implements OnInit {
     this.gameService.getGames({ topic: this.topicId, order: this.order, paging: this.paging, page: this.page }).subscribe((res: any) => this.renderGames(res.data,true,res.isNext))
   }
   onScroll(){
+    this.isLoading = true;
     if(this.hasMore && !this.isLoading){
       this.gameService
           .getGames({ topic: this.topicId, order: this.order, paging: this.paging, page: this.page})
