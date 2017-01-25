@@ -2071,15 +2071,15 @@ legend {
   }
   .navbar .navbar-nav .open .dropdown-menu > li > a:hover, .navbar .navbar-nav .open .dropdown-menu > li > a:focus {
     color: inherit;
-    background-color: transparent;
+    background-color: rgba(255,255,255,0.1);
   }
   .navbar .navbar-nav .open .dropdown-menu > .active > a, .navbar .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: inherit;
-    background-color: transparent;
+    background-color: rgba(255,255,255,0.1);
   }
   .navbar .navbar-nav .open .dropdown-menu > .disabled > a, .navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: inherit;
-    background-color: transparent;
+    background-color: rgba(255,255,255,0.1);
   }
 }
 .navbar.navbar-default .logo-container .brand {
