@@ -39,8 +39,9 @@ export class HomeComponent implements OnInit {
         .subscribe((res: any) => this.renderGames(res.data,true,res.isNext));
   }
   onScroll(){
-    this.isLoading = true;
+
     if(this.hasMore && !this.isLoading){
+      this.isLoading = true;
       this.gameService
           .getGames({ paging: this.paging,page: this.page, order: {create:-1}})
           .subscribe((res: any) => this.renderGames(res.data,false,res.isNext));
