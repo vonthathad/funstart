@@ -110,6 +110,6 @@
 
     </div>
     <div class="footer text-center">
-        <button type="submit" [disabled]="registerForm.valid" class="btn btn-primary">Register</button>
+        <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary">Register</button>
     </div>
 </form>

@@ -3,7 +3,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../classes/user';
 import { Error } from '../../classes/error';
 
-import {  FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-register',
@@ -13,7 +13,7 @@ import {  FormGroup, Validators, FormControl } from '@angular/forms';
 export class FormRegisterComponent implements OnInit {
   private error: Error;
   private registerForm: FormGroup;
-  constructor(private service: UserService) {
+  constructor(private userService: UserService) {
     this.error = new Error();
   }
 
@@ -29,15 +29,16 @@ export class FormRegisterComponent implements OnInit {
   register({ value, valid }: { value: User, valid: boolean }) {
     console.log(value, valid);
     if (valid) {
-      this.service
+      this.userService
         .register(value)
         .subscribe(data => this.succeed(data["user"]), error => this.fail(error._body), () => console.log("Complete"));
     }
   }
   succeed(user: User) {
-    alert("Add user successful");
+    alert("Register successful");
     // update user
-    this.service.loggedUserSource.next(user);
+    this.userService.loggedUserSource.next(user);
+    this.userService.closeUserDialog();
   }
   fail(e) {
     this.error.email = (JSON.parse(e)).message;

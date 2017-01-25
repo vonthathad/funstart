@@ -14,7 +14,7 @@ export class FormLoginComponent implements OnInit {
   private error: Error;
   private location: string;
   private loginForm: FormGroup;
-  constructor(private service: UserService) {
+  constructor(private userService: UserService) {
 
   }
 
@@ -41,14 +41,15 @@ export class FormLoginComponent implements OnInit {
       let user: any = new Object();
       user.username = value.email;
       user.password = value.password;
-      this.service
+      this.userService
         .login(user)
         .subscribe(data => this.succeed(data["user"]), error => this.fail(error), () => console.log("Complete"));
     }
   }
   succeed(user: User) {
-    // update user
-    this.service.loggedUserSource.next(user);
+    alert("Login successful");
+    this.userService.loggedUserSource.next(user);
+    this.userService.closeUserDialog();
   }
   fail(e) {
     // this.error.email = (JSON.parse(e._body)).message;

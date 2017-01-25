@@ -68,7 +68,10 @@ export class HeaderComponent implements OnInit {
     this.userService._setUser(this.user);
   }
   openDialog() {
-    this.modal.open(AccountDialogComponent, overlayConfigFactory({ num1: 2, num2: 3, isBlocking: false }, BSModalContext));
+    this.modal
+      .open(AccountDialogComponent, overlayConfigFactory({ num1: 2, num2: 3, isBlocking: false }, BSModalContext))
+      .then(dialog => this.userService.setUserDialog(dialog));
+    // .close(true)
   }
   logout() {
     // this.userService.logout(this.user.token).subscribe(() => {
