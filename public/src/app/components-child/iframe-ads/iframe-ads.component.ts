@@ -23,7 +23,7 @@ export class IframeAdsComponent implements OnInit {
     this.showAds = true
   }
   _showAds(obj?:any) {
-    if(obj.channelID){
+    if(obj && obj.channelID){
       this.channelID = obj.channelID;
     } else {
       this.channelID = '8152950647';
