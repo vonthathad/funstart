@@ -99,7 +99,7 @@ exports.loadActivities = function(req,res){
         })
 };
 exports.createActivity = function (req,res,next) {
-    console.log('activity',req.body);
+    console.log('activity',JSON.stringify(req.body) + "ff" + req.user._id);
     if(req.user._id && req.body.game != null && req.body.score != null && req.body.pictureUrl != null){
         Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: { plays: 1}},function(err,game){
             Activity.findOne({user: req.user._id,game: parseInt(req.body.game)})

@@ -16,17 +16,15 @@ export class UsersRankedSidebarComponent implements OnInit {
   setGame(game) {
     this.game = game;
     this.userService
-      .getRankedUsers({ game: this.game._id })
+      .getRankedUsers({ game: this.game._id, user:this.userService._getUser()._id })
       .subscribe(rankedUsers => this.renderRankedUser(rankedUsers["data"]));
 
   }
   renderRankedUser(rankedUsersData) {
     this.rankedUsers = [];
-    rankedUsersData.sort(this.compareRankedUsersData);
     console.log("rankedUsersData " + JSON.stringify(rankedUsersData));
     var i;
     for (i = 0; i < rankedUsersData.length; i++) {
-
       if (i < 3) {
         let rankedUser: any = new Object();
         let rankedUserData = rankedUsersData[i];
@@ -55,12 +53,5 @@ export class UsersRankedSidebarComponent implements OnInit {
     //   rankedUser.name = name;
     //   rankedUser.score = name;
     // });
-  }
-  compareRankedUsersData(a, b) {
-    if (a.score > b.score)
-      return -1;
-    if (a.score < b.score)
-      return 1;
-    return 0;
   }
 }

@@ -15,13 +15,13 @@
             </tr>
           </thead>
           <tbody *ngIf="rankedUsers">
-            <tr *ngFor="let i of [0, 1, 2]" [ngClass]="{danger: rankedUsers[i].isCurrentUser}">
-              <td>#{{i + 1}}</td>
-              <td >
-                <img [src]="rankedUsers[i].avatar" alt="rankedUsers[i].name" class="img-circle img-raised avatar">
-                <span class="rank-name">{{rankedUsers[i].name}}</span>
+            <tr *ngFor="let rankedUser of rankedUsers | slice:0:3; let rank = index" [ngClass]="{danger:  rankedUser.isCurrentUser}">
+              <td>#{{rank + 1}}</td>
+              <td>
+                <img [src]="rankedUser.avatar" alt="rankedUser.name" class="img-circle img-raised avatar">
+                <span class="rank-name">{{rankedUser.name}}</span>
               </td>
-              <td class="text-primary">{{rankedUsers[i].score}}</td>
+              <td class="text-primary">{{rankedUser.score}}</td>
             </tr>
 
             <tr *ngIf="rankedUsers[3]">
@@ -30,7 +30,7 @@
               <td class="text-primary">---</td>
             </tr>
             <tr class="danger" *ngIf="rankedUsers[3]">
-              <td>#{{rankedUsers[3].rank}}</td>
+              <td>#n</td>
               <td>
                 <img [src]="rankedUsers[3].avatar" alt="rankedUsers[3].name" class="img-circle img-raised avatar">
                 <span class="rank-name">{{rankedUsers[3].name}}</span>

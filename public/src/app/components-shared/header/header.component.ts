@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
   }
   renderUser(user) {
     this.user = new User();
-    // console.log("USER" + JSON.stringify(user));
+    console.log("USER" + JSON.stringify(user));
     this.user._id = user._id;
     this.user.token = user.accessToken;
     this.user.displayName = user.displayName;
