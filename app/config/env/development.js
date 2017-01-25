@@ -4,7 +4,7 @@
 module.exports = {
     // db: 'mongodb://admin:funbegin@127.0.0.1:61511/funstart',
     // db: 'mongodb://dat:1@localhost:27017/auth',
-    db: 'mongodb://admin:funbegin@23.88.239.10:61511/funstart',
+    db: 'mongodb://admin:funbegin@23.88.239.10:61511/enfunstart',
     sessionSecret: 'PDLDHAHQTVTD',
     key: {
         privateKey: 'CaS4mWZDOVghh122',
