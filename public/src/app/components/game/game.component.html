@@ -5,7 +5,7 @@
             <!--<app-game-card [game]="game"></app-game-card>-->
                 <app-game-intro *ngIf="game" [game]="game" (playGame)="handlePlayGame($event)"></app-game-intro>
                 <app-iframe-game *ngIf="game" [_game]="game" (updateResult)="handleUpdateResult($event)"></app-iframe-game>
-                <app-game-share *ngIf="game" class="ads-frame" *ngIf="game" [game]="game" (continueGame)="handleContinueGame($event)"></app-game-share>
+                <app-game-share class="ads-frame" *ngIf="game" [game]="game" (continueGame)="handleContinueGame($event)"></app-game-share>
                 <app-iframe-ads (closeAds)="handleCloseAds($event)"></app-iframe-ads>
             </div>
             <div class="devider"></div>
@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-md-8">
                     <h4 class="section-heading">Facebook Comments</h4>
-                    <app-facebook-comment></app-facebook-comment>
+                    <app-facebook-comment *ngIf="game" ></app-facebook-comment>
                 </div>
             </div>
         </div>
