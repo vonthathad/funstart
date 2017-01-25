@@ -46,6 +46,7 @@ import { GameShareComponent } from './components-child/game-share/game-share.com
 import { GameRecommendBottomComponent } from './components-child/game-recommend-bottom/game-recommend-bottom.component';
 import { GameRecommendRightComponent } from './components-child/game-recommend-right/game-recommend-right.component';
 import { GameCardVerticalComponent } from './components-child/game-card-vertical/game-card-vertical.component';
+import { FacebookCommentComponent } from './components-child/facebook-comment/facebook-comment.component';
 
 
 
@@ -75,7 +76,8 @@ import { GameCardVerticalComponent } from './components-child/game-card-vertical
     GameShareComponent,
     GameRecommendBottomComponent,
     GameRecommendRightComponent,
-    GameCardVerticalComponent
+    GameCardVerticalComponent,
+    FacebookCommentComponent
 
   ],
   entryComponents: [AccountDialogComponent],
