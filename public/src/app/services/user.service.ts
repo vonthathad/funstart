@@ -57,7 +57,7 @@ export class UserService {
         });
     }
     checkUser(): boolean {
-        if (localStorage.getItem("user")) return true;
+        if (this.user) return true;
         return false;
     }
     postActivity(obj): Observable<any[]> {
