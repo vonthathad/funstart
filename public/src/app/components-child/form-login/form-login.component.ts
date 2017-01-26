@@ -50,6 +50,7 @@ export class FormLoginComponent implements OnInit {
     alert("Login successful");
     this.userService.loggedUserSource.next(user);
     this.userService.closeUserDialog();
+    location.reload();
   }
   fail(e) {
     // this.error.email = (JSON.parse(e._body)).message;

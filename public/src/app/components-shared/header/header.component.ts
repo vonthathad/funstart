@@ -79,6 +79,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("token");
     this.userService._setUser(null);
     delete this.user;
+    location.reload();
     // });
   }
 }
