@@ -63,7 +63,7 @@ export class GameShareComponent implements OnInit {
       // adding new score
       this.userService._getUser().score += this.result["score"];
 
-      alert(this.userService._getUser().score);
+      console.log(this.userService.checkUser());
 
       if (this.userService.checkUser()) {
         this.shareDisable = true;
