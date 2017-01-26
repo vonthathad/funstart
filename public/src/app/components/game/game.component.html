@@ -4,7 +4,7 @@
             <div class="game-frame">
             <!--<app-game-card [game]="game"></app-game-card>-->
                 <app-game-intro *ngIf="game" [game]="game" (playGame)="handlePlayGame($event)"></app-game-intro>
-                <app-iframe-game *ngIf="game" [_game]="game" (updateResult)="handleUpdateResult($event)"></app-iframe-game>
+                <app-iframe-game [hidden]="game==undefined" (updateResult)="handleUpdateResult($event)"></app-iframe-game>
                 <app-game-share class="ads-frame" *ngIf="game" [game]="game" (continueGame)="handleContinueGame($event)"></app-game-share>
                 <app-iframe-ads (closeAds)="handleCloseAds($event)"></app-iframe-ads>
             </div>

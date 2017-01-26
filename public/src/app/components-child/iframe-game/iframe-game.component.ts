@@ -37,6 +37,13 @@ export class IframeGameComponent implements OnInit {
 
   }
   ngOnInit() {
+  }
+  setGame(game) {
+    console.log("game " + JSON.stringify(this._game));
+    this._game = game;
+    this.setIframeSrc();
+  }
+  setIframeSrc() {
     this.src = "/sources/games/" + this._game._id + "/index.html";
     this.loadOnce = true;
   }
@@ -61,8 +68,8 @@ export class IframeGameComponent implements OnInit {
   resume() { };
   pause() { };
   continue() { };
-  getScreenShotData(){};
-  
+  getScreenShotData() { };
+
   preloadDone() {
     console.log("done preload");
     this._preload = true;
@@ -91,5 +98,5 @@ export class IframeGameComponent implements OnInit {
   setVisible(visible) {
     this.visible = visible;
   }
- 
+
 }

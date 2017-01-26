@@ -38,7 +38,7 @@ export class GameComponent implements OnInit {
   }
   renderGame(game) {
     this.game = game;
-
+    this.iframeGameComponent.setGame(game);
     this.iframeAdsComponent._showAds({channelId: '123'});
     // console.log("GAME " + JSON.stringify(game));
     this.usersRankedSidebarComponent.setGame(game);
