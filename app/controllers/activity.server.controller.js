@@ -110,7 +110,7 @@ exports.createActivity = function (req,res,next) {
                     if(data){
                         data.score = req.body.score;
                         data.created = Date.now();
-                        data.image = req.body.image;
+                        data.image = req.body.pictureUrl;
                         data.save();
                     } else {
                         var newActivity = new Activity({

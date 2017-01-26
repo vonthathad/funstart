@@ -74,7 +74,7 @@ export class GameShareComponent implements OnInit {
             this.userService.postActivity({
               score: this.userService._getUser().score,
               game: this.game._id,
-              image: res.data
+              pictureUrl: res.data
             }).subscribe(() => {
               this.shareService.setInfo({ pictureUrl: res.data });
               this.shareDisable = false;
