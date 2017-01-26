@@ -22,7 +22,8 @@ export class GameShareComponent implements OnInit {
     this.shareService.setInfo({
       title: this.game.title,
       des: this.game.des,
-      shareUrl: location.protocol + '//' + location.hostname + "/game/"+this.game._id});
+      shareUrl: location.protocol + '//' + location.hostname + "/game/" + this.game._id
+    });
     // this.shareService.setInfo({
     //   title: "abc",
     //   des: "you win",
@@ -33,7 +34,7 @@ export class GameShareComponent implements OnInit {
   _continueGame() {
     this.continueGame.emit();
   }
-  setScreenShotData(imageData){
+  setScreenShotData(imageData) {
     this.imageData = imageData;
   }
   updateResult(result) {
@@ -55,33 +56,36 @@ export class GameShareComponent implements OnInit {
     //         this.shareDisable = false;
     //       })
 
-    // check if user has played this game or not, it not, give him 0 init score
-    if(this.userService._getUser().score == undefined) this.userService._getUser().score = 0;
-    // adding new score
-    this.userService._getUser().score += this.result["score"];
-    alert(this.userService._getUser().score);
+    
+    if (this.userService._getUser()) {
+      // check if user has played this game or not, it not, give him 0 init score
+      if (this.userService._getUser().score == undefined) this.userService._getUser().score = 0;
+      // adding new score
+      this.userService._getUser().score += this.result["score"];
 
-    if (this.userService.checkUser()) {
-      this.shareDisable = true;
-      // THERE IS AN USER
-      this.imageService.createImage(this.game._id, this.result).subscribe(
-        res => {
-          console.log("IMAGE SERVICE " + JSON.stringify(res.data));
-          this.userService.postActivity({
-            score: this.userService._getUser().score,
-            game: this.game._id,
-            pictureUrl: res.data
-          }).subscribe(() => {
-            this.shareService.setInfo({ pictureUrl: res.data });
-            this.shareDisable = false;
-          })
-        },
-        err => {
-          // Log errors if any
-          console.log(err);
-        });
+      alert(this.userService._getUser().score);
+
+      if (this.userService.checkUser()) {
+        this.shareDisable = true;
+        // THERE IS AN USER
+        this.imageService.createImage(this.game._id, this.result).subscribe(
+          res => {
+            console.log("IMAGE SERVICE " + JSON.stringify(res.data));
+            this.userService.postActivity({
+              score: this.userService._getUser().score,
+              game: this.game._id,
+              pictureUrl: res.data
+            }).subscribe(() => {
+              this.shareService.setInfo({ pictureUrl: res.data });
+              this.shareDisable = false;
+            })
+          },
+          err => {
+            // Log errors if any
+            console.log(err);
+          });
+      }
     }
-
   }
   shareFacebook() {
 

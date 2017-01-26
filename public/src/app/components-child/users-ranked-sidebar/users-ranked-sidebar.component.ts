@@ -24,8 +24,9 @@ export class UsersRankedSidebarComponent implements OnInit {
     this.rankedUsers = [];
     console.log("rankedUsersData " + JSON.stringify(rankedUsersData));
     var i;
+    var userOnTop = false;
     for (i = 0; i < rankedUsersData.length; i++) {
-      if (i < 3) {
+      if (i < rankedUsersData.length - 1) {
         let rankedUser: any = new Object();
         let rankedUserData = rankedUsersData[i];
         rankedUser.name = rankedUserData.user.username;
@@ -36,9 +37,10 @@ export class UsersRankedSidebarComponent implements OnInit {
         if (this.userService._getUser()._id == rankedUserData.user._id) {
           rankedUser.isCurrentUser = true;
           this.userService._getUser().score = rankedUserData.score;
+          userOnTop = true;
         }
         this.rankedUsers.push(rankedUser);
-      } else {
+      } else if(i == rankedUsersData.length - 1 && !userOnTop){
         let rankedUserData = rankedUsersData[i];
         if (this.userService._getUser()._id == rankedUserData.user._id) {
           let rankedUser: any = new Object();
