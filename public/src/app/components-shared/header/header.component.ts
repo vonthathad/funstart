@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
       console.log("TOKEN " + token);
       // if there is one, take user in db and render to user
       if (token) {
+        console.log("1234");
         localStorage.setItem("token", token);
         this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
       }
@@ -50,7 +51,7 @@ export class HeaderComponent implements OnInit {
     // get token from localstorage if there is one
     token = localStorage.getItem("token");
     console.log("TOKEN HERE" + token);
-    if (token != "undefined") {
+    if (token && token != "undefined") {
       this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
     }
   }
