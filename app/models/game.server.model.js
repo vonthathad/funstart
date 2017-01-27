@@ -23,6 +23,7 @@ var GameSchema = new Schema({
         trim: true,
         required: 'Thumb game is required'
     },
+    thumbVideo: String,
     thumbAds: String,
     thumbResult: String,
     link: {

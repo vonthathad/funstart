@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { GameService } from '../../services/game.service';
@@ -11,6 +11,7 @@ import { Game } from '../../classes/game';
 })
 export class GameRecommendBottomComponent implements OnInit {
   private games: Game[];
+  
   constructor(private router: Router, private gameService: GameService) { }
 
   ngOnInit() {
@@ -21,4 +22,6 @@ export class GameRecommendBottomComponent implements OnInit {
   renderGames(games: Game[]) {
     this.games = games;
   }
+  
+
 }

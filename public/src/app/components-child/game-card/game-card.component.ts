@@ -1,44 +1,71 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Game } from '../../classes/game';
-import { VideoPlayerComponent } from '../video-player/video-player.component';
-
+// import { VideoPlayerComponent } from '../video-player/video-player.component';
 @Component({
   selector: 'app-game-card',
   templateUrl: './game-card.component.html',
   styleUrls: ['./game-card.component.scss'],
 })
 export class GameCardComponent implements OnInit {
-  isThumbDisplay: boolean;
-
+  // isThumbDisplay: boolean;
+  private checkView: boolean = false;
+  private isDisplay: boolean = false;
   @Input('game') game: Game;
-  @ViewChild(VideoPlayerComponent) videoplayer: VideoPlayerComponent;
-  
+  @ViewChild('videoPlayer') videoplayer: any;
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    let element = this.el.nativeElement;
+    if(this.checkView != this.elementInViewport(element)){
+      this.checkView = this.elementInViewport(element);
+      if(this.checkView){
+        this.isDisplay = true;
+        this.videoplayer.nativeElement.play();
+      } else {
+        this.isDisplay = false;
+        this.videoplayer.nativeElement.pause();
+      }
+    }
+
+  }
   constructor(private el: ElementRef) {
-    this.isThumbDisplay = true;
+    // this.isThumbDisplay = true;
   }
+  elementInViewport(el) {
+    const rec = el.getBoundingClientRect();
 
-  showGameInfo() {
-    console.log("Show Info");
-    this.videoplayer.isDisplay = true;
-    this.videoplayer.playVideo();
-  }
+    const vp = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+    return rec.top >= 0 && rec.top < vp.height && rec.bottom > 0 && rec.bottom <= vp.height;
 
-  over() {
-    this.isThumbDisplay = false;
-    // console.log('hide the thumb + hidden is  ' + this.isThumbDisplay );
-    this.videoplayer.isDisplay = true;
-    this.videoplayer.playVideo();
   }
-
-  leave() {
-    this.isThumbDisplay = true;
-    // console.log('show the thumb + hidden is  ' + this.isThumbDisplay  );
-    this.videoplayer.isDisplay = false;
-    this.videoplayer.stopVideo();
-  }
+  //
+  // showGameInfo() {
+  //   console.log("Show Info");
+  //   this.videoplayer.isDisplay = true;
+  //   this.videoplayer.playVideo();
+  // }
+  //
+  // over() {
+  //   this.isThumbDisplay = false;
+  //   // console.log('hide the thumb + hidden is  ' + this.isThumbDisplay );
+  //   this.videoplayer.isDisplay = true;
+  //   this.videoplayer.playVideo();
+  // }
+  //
+  // leave() {
+  //   this.isThumbDisplay = true;
+  //   // console.log('show the thumb + hidden is  ' + this.isThumbDisplay  );
+  //   this.videoplayer.isDisplay = false;
+  //   this.videoplayer.stopVideo();
+  // }
 
   ngOnInit() {
+
     // console.log(this.game);
   }
+
+
 
 }
