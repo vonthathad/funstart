@@ -185,6 +185,60 @@ function Share(share) {
     }
 }
 
+function Other(){
+
+   this.startBoot = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.startBoot(func)
+        });
+    }
+    this.startPreload = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.startPreload(func)
+        });
+    }
+    this.preloadDone = function () {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.preloadDone()
+        });
+    }
+    this.startMenu = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.startMenu(func)
+        });
+    }
+    this.startGame = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.startGame(func)
+        });
+    }
+    this.startHelp = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.startHelp(func)
+        });
+    }
+    this.startCredit = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.startCredit(func)
+        });
+    }
+    this.resume = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.resume(func);
+        });
+    }
+    this.pause = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.pause(func);
+        });
+    }
+    this.continue = function (func) {
+        window.angularComponentRef.zone.run(function () {
+            window.angularComponentRef.continue(func);
+        });
+    }
+}
+
 /////////////////////////////////////
 //////////// PHASER HELPER
 /////////////////////////////////////
@@ -199,20 +253,13 @@ function _Phaser(phaser) {
     // CREATE PHASER GAME
     this.init = function (game, callback) {
         this.game = game;
-        // console.log(JSON.stringify(game));
         var i;
         for (i = 0; i < this.state.length; i++) {
             this.game.state.add(this.state[i][0], this.state[i][1]);
         }
-
-        // window.addEventListener("hashchange", function () {
-        //     alert(2134);
-        // }, false);
-
-        // this.setSize(this.game);
-
         callback(this.game);
     };
+
     this.state.startBoot = function (func) {
         window.angularComponentRef.zone.run(function () {
             window.angularComponentRef.startBoot(func)
@@ -409,6 +456,9 @@ function Game() {
             this.share = new Share(info.share);
         } else {
             console.error("No game share");
+        }
+        if(info.other){
+            this.other = new Other();
         }
         callback();
     }

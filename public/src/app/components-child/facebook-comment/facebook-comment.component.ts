@@ -1,35 +1,31 @@
-import { Component, OnInit, ElementRef, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, OnChanges } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
+import {Game} from "../../classes/game";
 @Component({
   selector: 'app-facebook-comment',
   templateUrl: 'facebook-comment.component.html',
   styleUrls: ['facebook-comment.component.scss']
 })
-export class FacebookCommentComponent implements OnInit,OnDestroy {
-  // @Input() url: string;
+export class FacebookCommentComponent implements OnInit,OnChanges {
+  @Input() game: Game;
+  disable: boolean;
   constructor(private route: Router, private el: ElementRef) { }
-
   ngOnInit() {
-      this.route.events.subscribe(event => {
-          if (event instanceof NavigationStart) {
-              console.log('change url',event.url);
-              let commentsDom = (<HTMLElement>this.el.nativeElement).querySelector('#fb-comments') as HTMLElement;
-              commentsDom.innerHTML = '';
-              setTimeout(function(){
-                  commentsDom.innerHTML = '<div class="fb-comments" ' +
-                      'data-href="' + event.url + '" ' +
-                      'data-width="' + commentsDom.clientWidth + '" ' +
-                      'data-numposts="5" ' +
-                      '</div>';
-              });
-
-
-          }
-      });
+      this.createDOM();
   };
-    ngOnDestroy(){
-        let commentsDom = (<HTMLElement>this.el.nativeElement).querySelector('#fb-comments') as HTMLElement;
-        commentsDom.innerHTML = '';
+    createDOM(){
+        let commentsDom = (<HTMLElement>this.el.nativeElement).querySelector('#fb-cmts') as HTMLElement;
+        commentsDom.innerHTML = '<div class="fb-comments" ' +
+            'data-href="' + location.href.split('?')[0] + '" ' +
+            'data-width="' + commentsDom.clientWidth + '" ' +
+            'data-numposts="5" ' +
+            '</div>';
+        setTimeout(function(){
+            window.FB.XFBML.parse(commentsDom);
+        });
+    }
+    ngOnChanges(){
+        this.createDOM();
     }
 
 }

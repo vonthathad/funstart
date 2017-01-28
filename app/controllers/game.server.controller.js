@@ -58,6 +58,7 @@ exports.loadGames = function(req,res){
                         created: 1,
                         title: 1,
                         des: 1,
+                        thumbVideo: 1,
                         thumb: 1,
                         link: 1,
                         plays: 1,

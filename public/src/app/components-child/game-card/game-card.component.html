@@ -24,10 +24,15 @@
 <!--</md-card>-->
 
 
-<div class="card card-product" data-count="3">
+<div class="card card-product" data-count="3" >
     <div class="card-image" data-header-animation="false">
         <a [routerLink]="['/game', game._id]">
             <img class="img" [src]="game.thumb">
+            <div [hidden]="!isDisplay" class="video">
+                <video class="videoPlayer" width="100%" height="100%" muted loop #videoPlayer>
+                    <source [src]="game.thumbVideo" type="video/mp4">
+                </video>
+            </div>
         </a>
         <div class="ripple-container"></div>
     </div>
