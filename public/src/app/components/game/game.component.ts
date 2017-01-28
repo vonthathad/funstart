@@ -27,23 +27,27 @@ export class GameComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private gameService: GameService) {
     route.params.subscribe(params => {
-      this.gameService.getGame(params['id']).subscribe((res: any) => this.renderGame(res.data));
+      gameService.getGame(params['id']).subscribe((res: any) => {
+        // console.log("IN PUT " + JSON.stringify(res.data));
+        gameService.gameSource.next(res.data);
+        this.game = res.data;
+        this.iframeAdsComponent._showAds({ channelId: '123' });
+      });
     });
 
   }
-  
+
   ngOnInit() {
     // this.show = "intro";
-
   }
-  renderGame(game) {
-    this.game = game;
-    this.iframeGameComponent.setGame(game);
-    this.iframeAdsComponent._showAds({channelId: '123'});
+  // renderGame(game) {
+    // this.game = game;
+    // this.iframeGameComponent.setGame(game);
+    
     // console.log("GAME " + JSON.stringify(game));
-    this.usersRankedSidebarComponent.setGame(game);
+    // this.usersRankedSidebarComponent.setGame(game);
 
-  }
+  // }
   handleContinueGame(show) {
     this.iframeGameComponent._continue();
     this.iframeAdsComponent._closeAds();
@@ -57,12 +61,12 @@ export class GameComponent implements OnInit {
     this.gameShareComponent.setVisible(true);
     this.iframeGameComponent.setVisible(false);
     let self = this;
-    setTimeout(function(){
-      self.iframeAdsComponent._showAds({channelID: '9629683846'});
+    setTimeout(function () {
+      self.iframeAdsComponent._showAds({ channelID: '9629683846' });
     });
-  } 
+  }
   handleCloseAds() {
-    
+
   }
   handlePlayGame() {
     this.iframeGameComponent._playGame();

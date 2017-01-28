@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { overlayConfigFactory } from "angular2-modal";
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
-
 import { GameService } from '../../services/game.service'
 import { UserService } from '../../services/user.service'
 import { ConstantService } from '../../services/constant.service';
@@ -25,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private gameService: GameService, private userService: UserService, private route: ActivatedRoute, private modal: Modal) {
     // listening for registered user, if there is one, render to user
-    this.userService.loggedUser$.subscribe(user => this.renderUser(user, { from: "change" }));
+    userService.loggedUser$.subscribe(user => {this.renderUser(user, { from: "change" })});
   }
 
   ngOnInit() {
@@ -70,7 +69,9 @@ export class HeaderComponent implements OnInit {
         // this.userService.loggedUserSource.next(this.user);
       // }
        this.userService.loggedUserSource.next(this.user);
-    } 
+    }  else {
+      this.user = user;
+    }
   }
   openDialog() {
     this.modal

@@ -1,4 +1,4 @@
-<div class="text-center result-panel" [hidden]="!visible">
+<div *ngIf="game" class="text-center result-panel" [hidden]="!visible">
   <div class="result-image">
     <!--<img [src]="imageData" style="width:180px;height:300px;position: absolute; top: 6px;-->
     <!--left: 6px;-->

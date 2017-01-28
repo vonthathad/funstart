@@ -1,4 +1,4 @@
-<div class="text-center intro-frame" [hidden]="!visible">
+<div *ngIf="game" class="text-center intro-frame" [hidden]="!visible">
     <div class="card-image" data-header-animation="false">
         <img class="img img-responsive" [src]="game.thumb">
         <div class="ripple-container"></div>

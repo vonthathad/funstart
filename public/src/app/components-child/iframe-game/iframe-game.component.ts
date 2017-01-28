@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone, Input, Output, EventEmitter } from '@angular/core';
 import { Game } from '../../classes/game';
-
+import { GameService } from '../../services/game.service'
 @Component({
   selector: 'app-iframe-game',
   templateUrl: './iframe-game.component.html',
@@ -11,12 +11,11 @@ export class IframeGameComponent implements OnInit {
   private _preload: boolean;
   private loadOnce: boolean;
   private visible: boolean;
-  @Input() private _game: Game;
   @Input() private src: string;
   @Input() private playGame: boolean;
   @Output() updateResult = new EventEmitter();
 
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, private gameService: GameService) {
     (<any>window).angularComponentRef = {
       zone: this.zone,
       startBoot: (func) => { this.startBoot = func },
@@ -31,20 +30,21 @@ export class IframeGameComponent implements OnInit {
       continue: (func) => { this.continue = func },
       getScreenShotData: (func) => { this.getScreenShotData = func },
       preloadDone: () => this.preloadDone(),
-      updateResult: (result) => { this.updateResult.emit(result); },
+      updateResult: (result) => { 
+        this.updateResult.emit(result);  
+        // result.imageData = getScreenShotData()  ;  
+      },
       component: this
     };
 
+
+    if (gameService.game) { this.setIframeSrc(gameService.game); };
+    gameService.game$.subscribe(game => this.setIframeSrc(game));
   }
   ngOnInit() {
   }
-  setGame(game) {
-    console.log("game " + JSON.stringify(this._game));
-    this._game = game;
-    this.setIframeSrc();
-  }
-  setIframeSrc() {
-    this.src = "/sources/games/" + this._game._id + "/index.html";
+  setIframeSrc(game) {
+    this.src = "/sources/games/" + game._id + "/index.html";
     this.loadOnce = true;
   }
   onLoad() {

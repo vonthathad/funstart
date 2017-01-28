@@ -6,28 +6,34 @@ import { Game } from '../../classes/game';
 import { User } from '../../classes/user';
 
 import { UserService } from '../../services/user.service'
+import { GameService } from '../../services/game.service'
 @Component({
   selector: 'app-users-ranked-sidebar',
   templateUrl: './users-ranked-sidebar.component.html',
   styleUrls: ['./users-ranked-sidebar.component.scss']
 })
 export class UsersRankedSidebarComponent implements OnInit {
-  @Input() private game: Game;
+  private game: Game;
+  private gameResult: Object;
   private rankedUsers: any;
   private user: User;
   private subscription: Subscription;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private gameService: GameService) {
+    this.user = this.userService.user;
+    userService.loggedUser$.subscribe(user => this.user = user);
+
+    this.game = gameService.game;
+    gameService.game$.subscribe(game => {this.game = game; this.setGame()});
+
+    gameService.gameResult$.subscribe(whatever => this.setGame());
+    
+  }
 
   ngOnInit() {
-    this.user = null;
-    this.subscription = this.userService.loggedUser$.subscribe(
-      user => {
-        this.user = user;
-      })
+
   }
-  setGame(game) {
-    this.game = game;
-    // alert(this.user._id);
+  setGame() {
+    
     if (this.user) {
       console.log("ID " + this.user._id);
       this.userService

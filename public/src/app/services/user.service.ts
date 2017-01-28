@@ -10,13 +10,14 @@ import { User } from '../classes/user';
 @Injectable()
 export class UserService {
     private rest: Rest;
-    private user: User;
+    public user: User;
     private userDialog: any;
     public loggedUserSource = new Subject<User>();
     public loggedUser$ = this.loggedUserSource.asObservable();
 
     constructor(private http: Http) {
         this.rest = new Rest(http);
+        this.loggedUser$.subscribe(user => {this.user = user;});
     }
     // register by email, username and password
     register(user): Observable<any[]> {
@@ -72,7 +73,7 @@ export class UserService {
             headers: headers
         });
     }
-    getRankedUsers(queryArgs): Observable<any[]>{
+    getRankedUsers(queryArgs): Observable<any[]> {
         let token = this.rest.getToken();
         let headers = new Headers({
             'Authorization': `Bearer ${token}`,
@@ -81,7 +82,7 @@ export class UserService {
         return this.rest.get({
             queryArgs: queryArgs,
             url: `api/ranks`,
-            headers :headers
+            headers: headers
         });
     }
     // _setUser(user): void{
@@ -90,10 +91,10 @@ export class UserService {
     // _getUser(): User{
     //     return this.user;
     // }
-    setUserDialog(dialog){
+    setUserDialog(dialog) {
         this.userDialog = dialog;
     }
-    closeUserDialog(){
+    closeUserDialog() {
         this.userDialog.close(true);
         delete this.userDialog;
     }

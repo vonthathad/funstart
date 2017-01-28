@@ -9,11 +9,18 @@ import { Game } from '../classes/game';
 @Injectable()
 export class GameService {
     private rest: Rest;
-    // public gameChangeSource = new Subject<Game>();
-    // public gameChange$ = this.gameChangeSource.asObservable();
+    public game: Game;
+    public gameSource = new Subject<Game>();
+    public game$ = this.gameSource.asObservable();
+
+    public gameResult: any;
+    public gameResultSource = new Subject<Object>();
+    public gameResult$ = this.gameResultSource.asObservable();
 
     constructor(private http: Http) {
         this.rest = new Rest(http);
+        this.game$.subscribe(game => { this.game = game; console.log("game service " + JSON.stringify(game)) });
+        this.gameResult$.subscribe(gameResult => { this.gameResult = gameResult; console.log("game result service " + JSON.stringify(gameResult)) });
     }
 
     getGames(queryArgs?: Object): Observable<any[]> {
