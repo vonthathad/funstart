@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
+
+import { Subscription } from 'rxjs/Subscription';
+
 import { Game } from '../../classes/game';
+import { User } from '../../classes/user';
+
 import { UserService } from '../../services/user.service'
 @Component({
   selector: 'app-users-ranked-sidebar',
@@ -9,17 +14,24 @@ import { UserService } from '../../services/user.service'
 export class UsersRankedSidebarComponent implements OnInit {
   @Input() private game: Game;
   private rankedUsers: any;
+  private user: User;
+  private subscription: Subscription;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.user = null;
+    this.subscription = this.userService.loggedUser$.subscribe(
+      user => {
+        this.user = user;
+      })
   }
   setGame(game) {
     this.game = game;
-    // alert(this.userService._getUser()._id);
-    if (this.userService._getUser()) {
-      console.log("ID " + this.userService._getUser()._id);
+    // alert(this.user._id);
+    if (this.user) {
+      console.log("ID " + this.user._id);
       this.userService
-        .getRankedUsers({ game: this.game._id, user: this.userService._getUser()._id })
+        .getRankedUsers({ game: this.game._id, user: this.user._id })
         .subscribe(rankedUsers => this.renderRankedUser(rankedUsers["data"]));
     } else {
       this.userService
@@ -32,7 +44,7 @@ export class UsersRankedSidebarComponent implements OnInit {
     this.rankedUsers = [];
     console.log("rankedUsersData " + JSON.stringify(rankedUsersData));
     var i;
-    if (this.userService._getUser()) {
+    if (this.user) {
       var userOnTop = false;
       for (i = 0; i < rankedUsersData.length; i++) {
         if (i < rankedUsersData.length - 1) {
@@ -43,22 +55,22 @@ export class UsersRankedSidebarComponent implements OnInit {
           rankedUser.score = rankedUserData.score;
           rankedUser.rank = i;
           rankedUser.isCurrentUser = false;
-          if (this.userService._getUser() && this.userService._getUser()._id == rankedUserData.user._id) {
+          if (this.user && this.user._id == rankedUserData.user._id) {
             rankedUser.isCurrentUser = true;
-            this.userService._getUser().score = rankedUserData.score;
+            this.user.score = rankedUserData.score;
             userOnTop = true;
           }
           this.rankedUsers.push(rankedUser);
         } else if (i == rankedUsersData.length - 1 && !userOnTop) {
           let rankedUserData = rankedUsersData[i];
-          if (this.userService._getUser()._id == rankedUserData.user._id) {
+          if (this.user._id == rankedUserData.user._id) {
             let rankedUser: any = new Object();
             rankedUser.name = rankedUserData.user.username;
             rankedUser.avatar = rankedUserData.user.avatar;
             rankedUser.score = rankedUserData.score;
             rankedUser.rank = i;
             rankedUser.isCurrentUser = true;
-            this.userService._getUser().score = rankedUserData.score;
+            this.user.score = rankedUserData.score;
             this.rankedUsers.push(rankedUser);
           };
         }

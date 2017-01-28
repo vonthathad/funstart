@@ -84,12 +84,12 @@ export class UserService {
             headers :headers
         });
     }
-    _setUser(user): void{
-        this.user = user;
-    }
-    _getUser(): User{
-        return this.user;
-    }
+    // _setUser(user): void{
+    //     this.user = user;
+    // }
+    // _getUser(): User{
+    //     return this.user;
+    // }
     setUserDialog(dialog){
         this.userDialog = dialog;
     }

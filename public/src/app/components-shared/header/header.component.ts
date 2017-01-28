@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private gameService: GameService, private userService: UserService, private route: ActivatedRoute, private modal: Modal) {
     // listening for registered user, if there is one, render to user
-    this.userService.loggedUser$.subscribe(user => this.renderUser(user));
+    this.userService.loggedUser$.subscribe(user => this.renderUser(user, { from: "change" }));
   }
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
       if (token) {
         console.log("1234");
         localStorage.setItem("token", token);
-        this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
+        this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user, { from: "queryParam" }));
       }
     });
 
@@ -52,21 +52,25 @@ export class HeaderComponent implements OnInit {
     token = localStorage.getItem("token");
     console.log("TOKEN HERE" + token);
     if (token && token != "undefined") {
-      this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user));
+      this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user, { from: "localStorage" }));
     }
   }
   renderGames(games) {
     this.games = games;
   }
-  renderUser(user) {
-    this.user = new User();
-    console.log("USER" + JSON.stringify(user));
-    this.user._id = user._id;
-    this.user.token = user.accessToken;
-    this.user.displayName = user.displayName;
-    this.user.avatar = user.avatar;
-
-    this.userService._setUser(this.user);
+  renderUser(user, obj) {
+    if (obj.from == "queryParam" || obj.from == "localStorage") {
+      this.user = new User();
+      console.log("USER" + JSON.stringify(user));
+      this.user._id = user._id;
+      this.user.token = user.accessToken;
+      this.user.displayName = user.displayName;
+      this.user.avatar = user.avatar;
+      // if (obj.from == "queryParam" || obj.from == "localStorage") {
+        // this.userService.loggedUserSource.next(this.user);
+      // }
+       this.userService.loggedUserSource.next(this.user);
+    } 
   }
   openDialog() {
     this.modal
@@ -77,9 +81,10 @@ export class HeaderComponent implements OnInit {
   logout() {
     // this.userService.logout(this.user.token).subscribe(() => {
     localStorage.removeItem("token");
-    this.userService._setUser(null);
-    delete this.user;
-    location.reload();
+    this.userService.loggedUserSource.next(null);
+    this.user = null;
+    // delete this.user;
+    // location.reload();
     // });
   }
 }

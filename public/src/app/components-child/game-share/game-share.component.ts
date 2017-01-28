@@ -1,8 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { Subscription} from 'rxjs/Subscription';
+
+
 import { Game } from '../../classes/game';
+import { User } from '../../classes/user';
+
 import { ImageService } from '../../services/image.service'
 import { ShareService } from '../../services/share.service'
 import { UserService } from '../../services/user.service'
+
 
 @Component({
   selector: 'app-game-share',
@@ -13,6 +20,8 @@ export class GameShareComponent implements OnInit {
   private visible: boolean;
   private shareDisable: boolean = false;
   private imageData: number;
+  private user: User;
+  private subscription: Subscription;
   @Input() private result: Object;
   @Input() private game: Game;
   @Output() continueGame = new EventEmitter();
@@ -29,7 +38,12 @@ export class GameShareComponent implements OnInit {
     //   des: "you win",
     //   shareUrl: "https://www.solome.co/games/32"
     // });
-
+    this.user = null;
+    this.subscription = this.userService.loggedUser$.subscribe(
+      user => {
+        this.user = user;
+      }
+    )
   }
   _continueGame() {
     this.continueGame.emit();
@@ -57,13 +71,13 @@ export class GameShareComponent implements OnInit {
     //       })
 
     
-    if (this.userService._getUser()) {
+    if (this.user) {
       // check if user has played this game or not, it not, give him 0 init score
-      if (this.userService._getUser().score == undefined) this.userService._getUser().score = 0;
+      if (this.user.score == undefined) this.user.score = 0;
       // adding new score
-      this.userService._getUser().score += this.result["score"];
+      this.user.score += this.result["score"];
 
-      alert(this.userService._getUser().score);
+      alert(this.user.score);
 
       if (this.userService.checkUser()) {
         this.shareDisable = true;
@@ -72,7 +86,7 @@ export class GameShareComponent implements OnInit {
           res => {
             console.log("IMAGE SERVICE " + JSON.stringify(res.data));
             this.userService.postActivity({
-              score: this.userService._getUser().score,
+              score: this.user.score,
               game: this.game._id,
               pictureUrl: res.data
             }).subscribe(() => {

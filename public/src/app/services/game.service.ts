@@ -5,9 +5,12 @@ import { Observable } from 'rxjs/Observable';
 
 import { Rest } from './rest';
 
+import { Game } from '../classes/game';
 @Injectable()
 export class GameService {
     private rest: Rest;
+    // public gameChangeSource = new Subject<Game>();
+    // public gameChange$ = this.gameChangeSource.asObservable();
 
     constructor(private http: Http) {
         this.rest = new Rest(http);

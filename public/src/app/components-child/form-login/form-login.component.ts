@@ -48,6 +48,7 @@ export class FormLoginComponent implements OnInit {
   }
   succeed(user: User) {
     alert("Login successful");
+    localStorage.setItem("token", user.token);
     this.userService.loggedUserSource.next(user);
     this.userService.closeUserDialog();
     // location.reload();

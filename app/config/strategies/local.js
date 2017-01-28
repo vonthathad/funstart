@@ -7,7 +7,6 @@ module.exports = function() {
         User.findOne({
             email: email
         }, function(err, user) {
-            console.log(err + "USER " + JSON.stringify(user));
             if (err) {
                 return done(err);
             }
@@ -18,6 +17,7 @@ module.exports = function() {
             if (!user.authenticate(password)) {
                 return done(null, false);
             }
+            console.log(err + "USER " + JSON.stringify(user));
             return done(null, user);
         });
     }));
