@@ -20,7 +20,7 @@ export class GameComponent implements OnInit {
   private game: Game;
   private show: string;
   private share: string;
-
+  private facebookCommentShowed: boolean;
   @ViewChild(IframeGameComponent) private iframeGameComponent: IframeGameComponent;
   @ViewChild(IframeAdsComponent) private iframeAdsComponent: IframeAdsComponent;
   @ViewChild(GameIntroComponent) private gameIntroComponent: GameIntroComponent;
@@ -43,6 +43,8 @@ export class GameComponent implements OnInit {
         this.iframeGameComponent.setVisible(false);
         this.gameRecommendBottomComponent.loadRecommendGame();
         this.gameRecommendRightComponent.loadRecommendGame();
+        this.facebookCommentShowed = false;
+        this.facebookCommentShowed = true;
       });
     });
   }

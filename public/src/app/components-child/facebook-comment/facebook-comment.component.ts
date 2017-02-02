@@ -14,10 +14,11 @@ export class FacebookCommentComponent implements OnInit, OnChanges {
     disable: boolean;
     constructor(private route: Router, private el: ElementRef, private gameService: GameService) {
         this.game = gameService.game;
-        gameService.game$.subscribe(game => this.game = game);
+        gameService.game$.subscribe(game => {
+            this.game = game
+            this.createDOM();
+        });
     }
-
-
 
     ngOnInit() {
         this.createDOM();
