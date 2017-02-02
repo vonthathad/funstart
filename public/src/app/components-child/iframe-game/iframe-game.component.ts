@@ -46,6 +46,8 @@ export class IframeGameComponent implements OnInit {
   setIframeSrc(game) {
     this.src = "/sources/games/" + game._id + "/index.html";
     this.loadOnce = true;
+      this.playGame = false;
+    this._preload   = false;
   }
   onLoad() {
     var iframe = document.getElementById('iframe-game');
@@ -53,8 +55,6 @@ export class IframeGameComponent implements OnInit {
     (<any>win).angularComponentRef = this.angularComponentRef;
     console.log('Load from parent');
     (<any>win).game = (<any>window).game;
-    this.playGame = false;
-    this._preload   = false;
   }
   ngOnDestroy() {
     this.angularComponentRef = null;
@@ -73,8 +73,10 @@ export class IframeGameComponent implements OnInit {
   getScreenShotData() { };
 
   preloadDone() {
-
+    
     console.log("done preload");
+    console.log('playGame ' + this.playGame);
+    console.log('_preload ' + this._preload);
     this._preload = true;
     // this.pause();
     if (!this.playGame) this.pause();
@@ -82,7 +84,7 @@ export class IframeGameComponent implements OnInit {
 
   }
   _playGame() {
-    // alert("done playGame");
+     console.log("done playGame");
     this.playGame = true;
     if (this.loadOnce && this._preload) {
       this.startMenu();
