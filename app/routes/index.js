@@ -93,7 +93,7 @@ module.exports = function (app) {
   app.get('/game/:gameId', games.renderGame);
   app.param('gameId', games.gameByID);
   app.get('*', function (req, res, next) {
-    if (req.url.indexOf('sources') < 0 && req.url.indexOf('api') < 0 && req.url.indexOf('uploaded') < 0) {
+    if (req.url.indexOf('sources') < 0 && req.url.indexOf('api') < 0 && req.url.indexOf('results') < 0) {
       console.log(req.url);
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

@@ -108,10 +108,12 @@ exports.createActivity = function (req,res,next) {
                 .exec(function(err,data){
                     if(err) return res.status(400).send();
                     if(data){
-                        data.score = req.body.score;
-                        data.created = Date.now();
-                        data.image = req.body.pictureUrl;
-                        data.save();
+                        if(data.score < req.body.score){
+                            data.score = req.body.score;
+                            data.created = Date.now();
+                            data.image = req.body.pictureUrl;
+                            data.save();
+                        };
                     } else {
                         var newActivity = new Activity({
                             game: parseInt(req.body.game),
