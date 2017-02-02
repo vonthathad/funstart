@@ -39,6 +39,6 @@ module.exports = function (router) {
         .put(users.followUser);
     router.route('/user')
         .put(users.updateUser);
+    
     router.param('username', users.userByUsername);
-
 };  
