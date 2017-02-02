@@ -1,4 +1,3 @@
-
 /////////////////////////////////////
 //////////// GAME SHARE
 /////////////////////////////////////
@@ -7,26 +6,26 @@ function Share(share) {
     this.sheetId = share.sheetId;
     this.descr = {};
 
-    this.updateResult = function (result) {
+    this.updateResult = function(result) {
         switch (this.version) {
             case "0.0.1":
             case "0.0.2":
-                this.getDescr(result, function (result) {
+                this.getDescr(result, function(result) {
                     var i;
                     console.log("Score " + result.score);
                     console.log("Descr " + result.descr);
                     console.log("Title " + result.title);
-                    window.angularComponentRef.zone.run(function () {
+                    window.angularComponentRef.zone.run(function() {
                         window.angularComponentRef.updateResult(JSON.stringify(result))
                     });
                 });
                 break;
         }
     }
-    this.getDescr = function (result, callback) {
+    this.getDescr = function(result, callback) {
         // console.log("game Over" + JSON.stringify(result) + this.sheetId + this.version);
         var version = this.version;
-        this.pourDescrFromSheet(result, function (result) {
+        this.pourDescrFromSheet(result, function(result) {
             switch (version) {
                 case "0.0.1":
                     // setTimeout(function () {
@@ -55,7 +54,7 @@ function Share(share) {
     }
 
 
-    this.pourDescrFromSheet = function (data, callback) {
+    this.pourDescrFromSheet = function(data, callback) {
         var getRandomChild = this.getRandomChild;
         var descr = this.descr;
         //  console.log(JSON.stringify(descr));
@@ -64,7 +63,7 @@ function Share(share) {
         switch (this.version) {
             case "0.0.1":
                 // console.log("DES" + _descr);
-                Object.keys(descr).forEach(function (scoreRange) {
+                Object.keys(descr).forEach(function(scoreRange) {
                     // console.log("Score" + scoreRange);
                     var scores = scoreRange.split("-");
                     var minScore = parseInt(scores[0]);
@@ -79,7 +78,7 @@ function Share(share) {
                 var getRandomChild = this.getRandomChild;
                 var score;
                 console.log("STATUS" + data.status);
-                Object.keys(descr).forEach(function (levelRange) {
+                Object.keys(descr).forEach(function(levelRange) {
                     console.log("Level" + levelRange);
                     var levels = levelRange.split("-");
                     var minLevel = parseInt(levels[0]);
@@ -100,15 +99,15 @@ function Share(share) {
     }
 
     ////////// GET DES FROM GOOGLE SHEET
-    this.getDescrFromSheet = function () {
+    this.getDescrFromSheet = function() {
         var _this = this;
-        this.getJSON("https://spreadsheets.google.com/feeds/list/" + this.sheetId + "/od6/public/values?alt=json&gid=154710158", function (data) {
+        this.getJSON("https://spreadsheets.google.com/feeds/list/" + this.sheetId + "/od6/public/values?alt=json&gid=154710158", function(data) {
             // console.log(JSON.stringify(data));
             switch (_this.version) {
                 case "0.0.1":
                     var scoresDescr = {}
-                    // console.log("Descr" + JSON.stringify(data.feed.entry));
-                    data.feed.entry.forEach(function (row) {
+                        // console.log("Descr" + JSON.stringify(data.feed.entry));
+                    data.feed.entry.forEach(function(row) {
                         // console.log("row" + JSON.stringify(row));
                         var scores = row.gsx$scores.$t;
                         var congratulation = row.gsx$congratulations.$t;
@@ -127,7 +126,7 @@ function Share(share) {
                     break;
                 case "0.0.2":
                     var levelsDescr = {};
-                    data.feed.entry.forEach(function (row) {
+                    data.feed.entry.forEach(function(row) {
                         var congratulation = row.gsx$congratulations.$t;
                         var encouragement = row.gsx$encouragements.$t;
                         var score = row.gsx$scores.$t;
@@ -156,16 +155,17 @@ function Share(share) {
                     _this.descr = levelsDescr;
                     // callback(levelsDescr);
                     break;
-                default: console.log("No share version");
+                default:
+                    console.log("No share version");
             }
 
         });
     }
-    this.getJSON = function (url, callback) {
+    this.getJSON = function(url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open("get", url, true);
         xhr.responseType = "json";
-        xhr.onload = function () {
+        xhr.onload = function() {
             var status = xhr.status;
             // console.log(JSON.stringify(xhr.response));
             if (status == 200) {
@@ -178,62 +178,62 @@ function Share(share) {
         xhr.send();
     };
 
-    this.getRandomChild = function (array) {
+    this.getRandomChild = function(array) {
         var r = Math.floor(Math.random() * array.length);
         console.log(array.length + " " + r);
         return array[r];
     }
 }
 
-function Other(){
+function Other() {
 
-   this.startBoot = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.startBoot = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startBoot(func)
         });
     }
-    this.startPreload = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.startPreload = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startPreload(func)
         });
     }
-    this.preloadDone = function () {
-        window.angularComponentRef.zone.run(function () {
+    this.preloadDone = function() {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.preloadDone()
         });
     }
-    this.startMenu = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.startMenu = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startMenu(func)
         });
     }
-    this.startGame = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.startGame = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startGame(func)
         });
     }
-    this.startHelp = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.startHelp = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startHelp(func)
         });
     }
-    this.startCredit = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.startCredit = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startCredit(func)
         });
     }
-    this.resume = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.resume = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.resume(func);
         });
     }
-    this.pause = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.pause = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.pause(func);
         });
     }
-    this.continue = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.continue = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.continue(func);
         });
     }
@@ -251,7 +251,7 @@ function _Phaser(phaser) {
 
     this.game = {};
     // CREATE PHASER GAME
-    this.init = function (game, callback) {
+    this.init = function(game, callback) {
         this.game = game;
         var i;
         for (i = 0; i < this.state.length; i++) {
@@ -260,58 +260,58 @@ function _Phaser(phaser) {
         callback(this.game);
     };
 
-    this.state.startBoot = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.startBoot = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startBoot(func)
         });
     }
-    this.state.startPreload = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.startPreload = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startPreload(func)
         });
     }
-    this.state.preloadDone = function () {
-        window.angularComponentRef.zone.run(function () {
+    this.state.preloadDone = function() {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.preloadDone()
         });
     }
-    this.state.startMenu = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.startMenu = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startMenu(func)
         });
     }
-    this.state.startGame = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.startGame = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startGame(func)
         });
     }
-    this.state.startHelp = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.startHelp = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startHelp(func)
         });
     }
-    this.state.startCredit = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.startCredit = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startCredit(func)
         });
     }
-    this.state.resume = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.resume = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.resume(func);
         });
     }
-    this.state.pause = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.pause = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.pause(func);
         });
     }
-    this.state.continue = function (func) {
-        window.angularComponentRef.zone.run(function () {
+    this.state.continue = function(func) {
+        window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.continue(func);
         });
     }
 
-    this._cropCanvas = function (originCanvas, cropX, cropY, cropWidth, cropHeight) {
+    this._cropCanvas = function(originCanvas, cropX, cropY, cropWidth, cropHeight) {
         // create a temporary canvas sized to the cropped size
         var cropCanvas = document.createElement("canvas");
         var cropContext = cropCanvas.getContext("2d");
@@ -324,7 +324,7 @@ function _Phaser(phaser) {
         return cropCanvas;
     }
 
-    this._resizeCanvas = function (originCanvas, resizeWidth, resizeHeight) {
+    this._resizeCanvas = function(originCanvas, resizeWidth, resizeHeight) {
 
         var originHeight = originCanvas.height;
         var originWeight = originCanvas.weight;
@@ -338,10 +338,10 @@ function _Phaser(phaser) {
         return resizedCanvas;
     }
 
-    this.getScreenShotDataFrom = function (game, PIXI) {
+    this.getScreenShotDataFrom = function(game, PIXI) {
         var _this = this;
-        window.angularComponentRef.zone.run(function () {
-            window.angularComponentRef.getScreenShotData(function () {
+        window.angularComponentRef.zone.run(function() {
+            window.angularComponentRef.getScreenShotData(function() {
                 if (game.renderer instanceof PIXI.CanvasRenderer) {
                     var originCanvas = game.canvas;
                     var top = Math.round(originCanvas.height / 2 - 150);
@@ -359,18 +359,18 @@ function _Phaser(phaser) {
     }
 
     // HELPING WITH SIZE ISSUE
-    this.setSize = function (_this) {
+    this.setSize = function(_this) {
         var height = this.height,
             width = this.width;
         var size = {
-            height: height,
-            width: width
-        }
-        // _this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+                height: height,
+                width: width
+            }
+            // _this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         _this.game.scale.scaleMode = 2;
         // set setSize function
         var _calculateSize = this.calculateSize;
-        var calculateSize = function () {
+        var calculateSize = function() {
             _calculateSize(_this, size);
         }
         calculateSize();
@@ -380,11 +380,11 @@ function _Phaser(phaser) {
         _this.scale.refresh();
 
         if (_this.scale.setResizeCallback) {
-            _this.scale.setResizeCallback(function () {
+            _this.scale.setResizeCallback(function() {
                 calculateSize();
             }, this);
         } else if (_this.scale.hasResized) {
-            _this.scale.hasResized.add(function () {
+            _this.scale.hasResized.add(function() {
                 calculateSize();
             }, this);
         }
@@ -395,15 +395,15 @@ function _Phaser(phaser) {
             var leaveIncorrectOrientation = this.leaveIncorrectOrientation;
 
             _this.game.scale.forceOrientation(isLandscape, !isLandscape);
-            _this.game.scale.enterIncorrectOrientation.add(function () {
+            _this.game.scale.enterIncorrectOrientation.add(function() {
                 enterIncorrectOrientation(_this, calculateSize);
             }, this);
-            _this.game.scale.leaveIncorrectOrientation.add(function () {
+            _this.game.scale.leaveIncorrectOrientation.add(function() {
                 leaveIncorrectOrientation(_this, calculateSize)
             }, this);
         }
     }
-    this.calculateSize = function (_this, size) {
+    this.calculateSize = function(_this, size) {
         var containerWidth = document.getElementById('iframe-game').clientWidth - 16,
             containerHeight = document.getElementById('iframe-game').clientHeight - 16,
             height = size.height,
@@ -421,22 +421,23 @@ function _Phaser(phaser) {
             _this.game.scale.maxHeight = containerHeight;
         }
     }
-    this.leaveIncorrectOrientation = function (_this, setSize) {
+    this.leaveIncorrectOrientation = function(_this, setSize) {
         _this.orientated = true;
         _this.game.paused = false;
         document.getElementById("orientation").style.display = "none"
         setSize();
     }
-    this.enterIncorrectOrientation = function (_this, setSize) {
+    this.enterIncorrectOrientation = function(_this, setSize) {
         _this.orientated = false;
         _this.game.paused = true;
         document.getElementById("orientation").style.display = "block"
         setSize();
     }
 }
+
 function Game() {
     console.log("href " + window.location.href);
-    this.init = function (info, callback) {
+    this.init = function(info, callback) {
         //set absolute url
         this.prelink = '/sources/games/' + window.location.href.split("game/")[1] + '/';
         // this.type = game.type;
@@ -457,7 +458,7 @@ function Game() {
         } else {
             console.error("No game share");
         }
-        if(info.other){
+        if (info.other) {
             this.other = new Other();
         }
         callback();
