@@ -80,12 +80,12 @@ export class GameShareComponent implements OnInit {
       // check if user has played this game or not, it not, give him 0 init score
       if (this.user.score == undefined) this.user.score = 0;
       // adding new score
-      this.user.score += this.result["score"];
+      this.user.score = this.result["score"];
       let score = this.user.score;
       // alert(this.user.score);
 
       // console.log(this.userService.checkUser());
-       console.log("USER " + this.user.score + " result " + this.result["score"] + " gameid " + this.game._id);
+      //  console.log("USER " + this.user.score + " result " + this.result["score"] + " gameid " + this.game._id);
       if (this.userService.checkUser()) {
         this.shareDisable = true;
         // THERE IS AN USER

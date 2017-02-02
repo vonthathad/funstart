@@ -15,13 +15,15 @@ export class GameRecommendBottomComponent implements OnInit {
   constructor(private router: Router, private gameService: GameService) { }
 
   ngOnInit() {
-    this.gameService
-      .getGames({ order: "random", paging: 3 })
-      .subscribe((res: any) => this.renderGames(res.data));
+    this.loadRecommendGame();
   }
   renderGames(games: Game[]) {
     this.games = games;
   }
-  
+  loadRecommendGame(){
+    this.gameService
+      .getGames({ order: "random", paging: 3 })
+      .subscribe((res: any) => this.renderGames(res.data));
+  }
 
 }

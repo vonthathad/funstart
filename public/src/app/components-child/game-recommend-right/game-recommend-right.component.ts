@@ -11,16 +11,19 @@ import { Game } from '../../classes/game';
   styleUrls: ['./game-recommend-right.component.scss']
 })
 export class GameRecommendRightComponent implements OnInit {
- private games: Game[];
+  private games: Game[];
   constructor(private router: Router, private gameService: GameService) { }
 
   ngOnInit() {
-    this.gameService
-      .getGames({ order: "random", paging: 4 })
-      .subscribe((res: any) => this.renderGames(res.data));
+    this.loadRecommendGame();
   }
   renderGames(games: Game[]) {
     this.games = games;
+  }
+  loadRecommendGame() {
+    this.gameService
+      .getGames({ order: "random", paging: 4 })
+      .subscribe((res: any) => this.renderGames(res.data));
   }
 
 }

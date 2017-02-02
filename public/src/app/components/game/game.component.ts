@@ -7,6 +7,8 @@ import { IframeGameComponent } from './../../components-child/iframe-game/iframe
 import { IframeAdsComponent } from './../../components-child/iframe-ads/iframe-ads.component';
 import { GameIntroComponent } from './../../components-child/game-intro/game-intro.component';
 import { GameShareComponent } from './../../components-child/game-share/game-share.component';
+import { GameRecommendRightComponent } from './../../components-child/game-recommend-right/game-recommend-right.component';
+import { GameRecommendBottomComponent } from './../../components-child/game-recommend-bottom/game-recommend-bottom.component';
 import { UsersRankedSidebarComponent } from './../../components-child/users-ranked-sidebar/users-ranked-sidebar.component';
 import { Game } from '../../classes/game';
 @Component({
@@ -23,29 +25,33 @@ export class GameComponent implements OnInit {
   @ViewChild(IframeAdsComponent) private iframeAdsComponent: IframeAdsComponent;
   @ViewChild(GameIntroComponent) private gameIntroComponent: GameIntroComponent;
   @ViewChild(GameShareComponent) private gameShareComponent: GameShareComponent;
+  @ViewChild(GameRecommendBottomComponent) private gameRecommendBottomComponent: GameRecommendBottomComponent;
+  @ViewChild(GameRecommendRightComponent) private gameRecommendRightComponent: GameRecommendRightComponent;
   @ViewChild(UsersRankedSidebarComponent) private usersRankedSidebarComponent: UsersRankedSidebarComponent;
 
-  constructor(private route: ActivatedRoute, private gameService: GameService) {
-    route.params.subscribe(params => {
-      gameService.getGame(params['id']).subscribe((res: any) => {
-        // console.log("IN PUT " + JSON.stringify(res.data));
-        gameService.gameSource.next(res.data);
-        this.game = res.data;
-        this.iframeAdsComponent._showAds({ channelId: '123' });
-      });
-    });
-
-  }
+  constructor(private route: ActivatedRoute, private gameService: GameService) { }
 
   ngOnInit() {
     // this.show = "intro";
+    this.route.params.subscribe(params => {
+      this.gameService.getGame(params['id']).subscribe((res: any) => {
+        // console.log("IN PUT " + JSON.stringify(res.data));
+        this.gameService.gameSource.next(res.data);
+        this.game = res.data;
+        this.iframeAdsComponent._showAds({ channelId: '123' });
+        this.gameIntroComponent.setVisible(true);
+        this.iframeGameComponent.setVisible(false);
+        this.gameRecommendBottomComponent.loadRecommendGame();
+        this.gameRecommendRightComponent.loadRecommendGame();
+      });
+    });
   }
   // renderGame(game) {
-    // this.game = game;
-    // this.iframeGameComponent.setGame(game);
-    
-    // console.log("GAME " + JSON.stringify(game));
-    // this.usersRankedSidebarComponent.setGame(game);
+  // this.game = game;
+  // this.iframeGameComponent.setGame(game);
+
+  // console.log("GAME " + JSON.stringify(game));
+  // this.usersRankedSidebarComponent.setGame(game);
 
   // }
   handleContinueGame(show) {
