@@ -82,6 +82,7 @@ export class IframeGameComponent implements OnInit {
     if (!this.playGame) {
       this.pause();
     } else {
+      console.log("done preload startMenu");
       this.startMenu();
       this.resume();
     }
@@ -91,10 +92,12 @@ export class IframeGameComponent implements OnInit {
     console.log("done playGame");
     this.playGame = true;
     if (this.loadOnce && this._preload) {
-      console.log("startMenu ");
+      console.log("done playGame startMenu ");
       this.startMenu();
       this.loadOnce = false;
-    } 
+    } else {
+      this.resume();
+    }
   }
   _continue() {
     console.log("continue");
