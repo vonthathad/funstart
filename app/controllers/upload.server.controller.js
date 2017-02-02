@@ -8,6 +8,7 @@ var fs = require('fs');
 var webshot = require('webshot');
 var Game = require('mongoose').model('Game');
 var Config = require('../config/config');
+var Activity = require('mongoose').model('Activity');
 // exports.uploadResult = function(req,res){
 //     Game.findByIdAndUpdate(parseInt(req.params.game),{$inc: {shares: 1}},function(){
 //     });
@@ -52,68 +53,80 @@ var Config = require('../config/config');
 
 exports.captureResult = function(req,res){
     console.log(req.user);
-    var shotOptions = {
-        siteType:'html',
-        screenSize: { width: 960, height: 500 },
-        shotSize: { width: 960, height: 500 }
-    };
-    var uploadDir = __dirname + '/../../public/' + dir;
+    Activity.findOne({user: req.user._id,game: parseInt(req.body.game)})
+        .sort({created : -1})
+        .limit(1)
+        .exec(function(err,data){
+            if(err || !data) return res.status(400).send();
+            if(data.score < req.body.score){
+                var shotOptions = {
+                    siteType:'html',
+                    screenSize: { width: 960, height: 500 },
+                    shotSize: { width: 960, height: 500 }
+                };
+                var uploadDir = __dirname + '/../../public/' + dir;
 
-    if(req.user._id) {
-        var Finder = require('fs-finder');
-        var files = Finder.from(uploadDir).findFiles(req.user._id + '_'+req.game._id+'_<[0-9]{13}>.png');
-        files.forEach(function(e){
-            fs.unlink(e);
-        });
-    }
-    if(req.body.image){
-        var domHTML = '<div style="position: absolute;top: 0;left: 0">';
-        domHTML +=
-            '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/'+req.game.thumbResult+'"/>'+
-            '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 10px 0;left:0;width: 100%;color: #fff;text-transform: uppercase;font-size: 5em;font-weight: bold;text-align: center;">'+
-            req.body.score +
-            '</div></div>';
-    } else {
-        var domHTML = '<div style="position: absolute;top: 0;left: 0">';
-        domHTML +=
-            '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/'+req.game.thumbResult+'"/>'+
-            '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 10px 0;left:0;width: 100%;color: #fff;text-transform: uppercase;font-size: 5em;font-weight: bold;text-align: center;">'+
-            req.body.score +
-            '</div></div>';
-    }
-    var path;
-    // if(req.user == 'guest'){
-    if(req.user._id){
-        path = req.user._id + '_'+req.game._id+'_' + Date.now() + '.png';
-    } else {
-        path = 'guest/' + Date.now() + '_' + req.game._id + '.png';
-    };
-    // } else {
-    //     path = req.user._id + '_' + req.game._id + '.jpg';
-    // }
-    // var domHTML2 = ;
-    webshot(domHTML,uploadDir + '/' + path,shotOptions, function(err) {
-            if(err){
-                console.log(err);
-                res.status(400).send();
+                if(req.user._id) {
+                    var Finder = require('fs-finder');
+                    var files = Finder.from(uploadDir).findFiles(req.user._id + '_'+req.game._id+'_<[0-9]{13}>.png');
+                    files.forEach(function(e){
+                        fs.unlink(e);
+                    });
+                }
+                if(req.body.image){
+                    var domHTML = '<div style="position: absolute;top: 0;left: 0">';
+                    domHTML +=
+                        '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/'+req.game.thumbResult+'"/>'+
+                        '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 10px 0;left:0;width: 100%;color: #fff;text-transform: uppercase;font-size: 5em;font-weight: bold;text-align: center;">'+
+                        req.body.score +
+                        '</div></div>';
+                } else {
+                    var domHTML = '<div style="position: absolute;top: 0;left: 0">';
+                    domHTML +=
+                        '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/'+req.game.thumbResult+'"/>'+
+                        '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 10px 0;left:0;width: 100%;color: #fff;text-transform: uppercase;font-size: 5em;font-weight: bold;text-align: center;">'+
+                        req.body.score +
+                        '</div></div>';
+                }
+                var path;
+                // if(req.user == 'guest'){
+                if(req.user._id){
+                    path = req.user._id + '_'+req.game._id+'_' + Date.now() + '.png';
+                } else {
+                    path = 'guest/' + Date.now() + '_' + req.game._id + '.png';
+                };
+                // } else {
+                //     path = req.user._id + '_' + req.game._id + '.jpg';
+                // }
+                // var domHTML2 = ;
+                webshot(domHTML,uploadDir + '/' + path,shotOptions, function(err) {
+                    if(err){
+                        console.log(err);
+                        res.status(400).send();
+                    } else {
+                        console.log(Date.now());
+                        res.json({data: Config.server.host + '/results/' + path});
+                    }
+                });
+                // phantom.create(function(ph) {
+                //     ph.createPage(function(page) {
+                //         page.setContent(domHTML);
+                //         page.set("viewportSize", {
+                //             width: 960,
+                //             height: 500
+                //         });
+                //         page.set('onLoadFinished', function() {
+                //             page.render(uploadDir + '/' + path,function(){
+                //                 return res.json({data: 'http://www.funstart.net/uploaded/results/' + path});
+                //             });
+                //             ph.exit();
+                //         });
+                //     });
+                // });
             } else {
-                console.log(Date.now());
-                res.json({data: Config.server.host + '/results/' + path});
+                return res.json({data: data.image});
             }
+
         });
-    // phantom.create(function(ph) {
-    //     ph.createPage(function(page) {
-    //         page.setContent(domHTML);
-    //         page.set("viewportSize", {
-    //             width: 960,
-    //             height: 500
-    //         });
-    //         page.set('onLoadFinished', function() {
-    //             page.render(uploadDir + '/' + path,function(){
-    //                 return res.json({data: 'http://www.funstart.net/uploaded/results/' + path});
-    //             });
-    //             ph.exit();
-    //         });
-    //     });
-    // });
+
 }
