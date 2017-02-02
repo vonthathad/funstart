@@ -29,11 +29,19 @@ export class FormLoginComponent implements OnInit {
     });
   }
   loginFacebook() {
-    // window.location.href = `/oauth/facebook?redirect=${this.location}`;
-    window.location.href = `http://localhost:8235/oauth/facebook?redirect=${this.location}`;
+    if (this.location.indexOf('localhost') > -1) {
+      window.location.href = `http://localhost:8235/oauth/facebook?redirect=${this.location}`;
+    } else {
+      window.location.href = `/oauth/facebook?redirect=${this.location}`;
+    }
   }
   loginTwitter() {
-    window.location.href = `/oauth/twitter?redirect=${this.location}`;
+    if (this.location.indexOf('localhost') > -1) {
+      window.location.href = `http://localhost:8235/oauth/twitter?redirect=${this.location}`;
+    } else {
+      window.location.href = `/oauth/twitter?redirect=${this.location}`;
+    }
+
   }
   loginLocal({ value, valid }: { value: User, valid: boolean }) {
     console.log("VELI " + JSON.stringify(value) + valid);
