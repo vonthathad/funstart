@@ -53,12 +53,12 @@ var Activity = require('mongoose').model('Activity');
 
 exports.captureResult = function(req,res){
     console.log(req.user);
-    Activity.findOne({user: req.user._id,game: parseInt(req.body.game)})
+    Activity.findOne({user: req.user._id,game: parseInt(req.game._id)})
         .sort({created : -1})
         .limit(1)
         .exec(function(err,data){
-            if(err || !data) return res.status(400).send();
-            if(data.score < req.body.score){
+            if(err) return res.status(400).send();
+            if(!data || data.score < req.body.score){
                 var shotOptions = {
                     siteType:'html',
                     screenSize: { width: 960, height: 500 },
