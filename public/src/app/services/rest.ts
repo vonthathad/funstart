@@ -20,9 +20,9 @@ export class Rest {
         let base_url = '';
         let location = window.location.href;
         if (location.indexOf('localhost') > -1) {
-            base_url = `http://localhost:8235/oauth/facebook?redirect=${location}`;
+            base_url = `http://localhost:8235/`;
         } else {
-            base_url = `/oauth/facebook?redirect=${location}`;
+            base_url = `/`;
         }
 
         // set partial url to full url
