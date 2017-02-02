@@ -8,7 +8,10 @@
             </div>
             <div class="col-xs-9">
                 <p class="game-heading-sm">
-                    <a [routerLink]="['/game', game._id]">
+                    <!--<a [routerLink]="['/game', game._id]">
+                        {{game.title}}
+                    </a>-->
+                    <a href="game/{{game._id}}">
                         {{game.title}}
                     </a>
                 </p>
