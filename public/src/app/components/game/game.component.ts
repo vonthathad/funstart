@@ -41,6 +41,7 @@ export class GameComponent implements OnInit {
         this.iframeAdsComponent._showAds({ channelId: '123' });
         this.gameIntroComponent.setVisible(true);
         this.iframeGameComponent.setVisible(false);
+        this.gameShareComponent.setVisible(false);
         this.gameRecommendBottomComponent.loadRecommendGame();
         this.gameRecommendRightComponent.loadRecommendGame();
         this.facebookCommentShowed = false;
