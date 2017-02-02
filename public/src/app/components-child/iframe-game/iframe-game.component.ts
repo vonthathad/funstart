@@ -53,6 +53,8 @@ export class IframeGameComponent implements OnInit {
     (<any>win).angularComponentRef = this.angularComponentRef;
     console.log('Load from parent');
     (<any>win).game = (<any>window).game;
+    this.playGame = false;
+    this._preload = false;
   }
   ngOnDestroy() {
     this.angularComponentRef = null;
@@ -71,6 +73,7 @@ export class IframeGameComponent implements OnInit {
   getScreenShotData() { };
 
   preloadDone() {
+
     console.log("done preload");
     this._preload = true;
     // this.pause();
