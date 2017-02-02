@@ -30,8 +30,8 @@ export class IframeGameComponent implements OnInit {
       continue: (func) => { this.continue = func },
       getScreenShotData: (func) => { this.getScreenShotData = func },
       preloadDone: () => this.preloadDone(),
-      updateResult: (result) => { 
-        this.updateResult.emit(result);  
+      updateResult: (result) => {
+        this.updateResult.emit(result);
         // result.imageData = getScreenShotData()  ;  
       },
       component: this
@@ -46,8 +46,8 @@ export class IframeGameComponent implements OnInit {
   setIframeSrc(game) {
     this.src = "/sources/games/" + game._id + "/index.html";
     this.loadOnce = true;
-      this.playGame = false;
-    this._preload   = false;
+    this.playGame = false;
+    this._preload = false;
   }
   onLoad() {
     var iframe = document.getElementById('iframe-game');
@@ -73,25 +73,28 @@ export class IframeGameComponent implements OnInit {
   getScreenShotData() { };
 
   preloadDone() {
-    
+
     console.log("done preload");
     console.log('playGame ' + this.playGame);
     console.log('_preload ' + this._preload);
     this._preload = true;
     // this.pause();
-    if (!this.playGame) this.pause();
-    else this.startMenu();
+    if (!this.playGame) {
+      this.pause();
+    } else {
+      this.startMenu();
+      this.resume();
+    }
 
   }
   _playGame() {
-     console.log("done playGame");
+    console.log("done playGame");
     this.playGame = true;
     if (this.loadOnce && this._preload) {
       console.log("startMenu ");
       this.startMenu();
       this.loadOnce = false;
-    }
-
+    } 
   }
   _continue() {
     console.log("continue");
