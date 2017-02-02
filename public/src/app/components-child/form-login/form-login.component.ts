@@ -29,11 +29,12 @@ export class FormLoginComponent implements OnInit {
     });
   }
   loginFacebook() {
+
     if (this.location.indexOf('localhost') > -1) {
       window.location.href = `http://localhost:8235/oauth/facebook?redirect=${this.location}`;
     } else {
       window.location.href = `/oauth/facebook?redirect=${this.location}`;
-    }
+  }
   }
   loginTwitter() {
     if (this.location.indexOf('localhost') > -1) {
