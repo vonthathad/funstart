@@ -87,6 +87,7 @@ export class IframeGameComponent implements OnInit {
      console.log("done playGame");
     this.playGame = true;
     if (this.loadOnce && this._preload) {
+      console.log("startMenu ");
       this.startMenu();
       this.loadOnce = false;
     }
