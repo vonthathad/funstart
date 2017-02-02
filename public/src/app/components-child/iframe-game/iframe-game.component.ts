@@ -74,32 +74,31 @@ export class IframeGameComponent implements OnInit {
 
   preloadDone() {
 
-    console.log("done preload");
-    console.log('playGame ' + this.playGame);
-    console.log('_preload ' + this._preload);
+    console.log("preload done");
     this._preload = true;
     // this.pause();
     if (!this.playGame) {
       this.pause();
-      this.cd.markForCheck();
+      // this.cd.markForCheck();
     } else {
-      console.log("done preload startMenu");
+      console.log("startMenu from preload");
       this.startMenu();
       this.resume();
-      this.cd.markForCheck();
+      // this.cd.markForCheck();
     }
 
   }
   _playGame() {
-    console.log("done playGame");
+    console.log("playGame click");
     this.playGame = true;
     if (this.loadOnce && this._preload) {
-      console.log("done playGame startMenu ");
+      console.log("startMenu from playGame click");
       this.startMenu();
       this.loadOnce = false;
-    } else {
-      this.resume();
     }
+    //  else {
+    //   this.resume();
+    // }
   }
   _continue() {
     console.log("continue");
