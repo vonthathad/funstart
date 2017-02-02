@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, NgZone, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Game } from '../../classes/game';
 import { GameService } from '../../services/game.service'
 @Component({
@@ -15,7 +15,7 @@ export class IframeGameComponent implements OnInit {
   @Input() private playGame: boolean;
   @Output() updateResult = new EventEmitter();
 
-  constructor(private zone: NgZone, private gameService: GameService) {
+  constructor(private zone: NgZone, private gameService: GameService,private cd: ChangeDetectorRef) {
     (<any>window).angularComponentRef = {
       zone: this.zone,
       startBoot: (func) => { this.startBoot = func },
@@ -81,10 +81,12 @@ export class IframeGameComponent implements OnInit {
     // this.pause();
     if (!this.playGame) {
       this.pause();
+      this.cd.markForCheck();
     } else {
       console.log("done preload startMenu");
       this.startMenu();
       this.resume();
+      this.cd.markForCheck();
     }
 
   }
