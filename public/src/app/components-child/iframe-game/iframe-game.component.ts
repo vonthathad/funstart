@@ -77,10 +77,13 @@ export class IframeGameComponent implements OnInit {
     console.log("preload done");
     this._preload = true;
     // this.pause();
+    console.log(this.playGame);
     if (!this.playGame) {
       this.pause();
+      console.log(1);
       // this.cd.markForCheck();
     } else {
+      console.log(2);
       console.log("startMenu from preload");
       this.startMenu();
       this.resume();
@@ -91,6 +94,7 @@ export class IframeGameComponent implements OnInit {
   _playGame() {
     console.log("playGame click");
     this.playGame = true;
+  
     if (this.loadOnce && this._preload) {
       console.log("startMenu from playGame click");
       this.startMenu();
