@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 
 import { GameService } from '../../services/game.service';
 
@@ -12,7 +12,7 @@ import { Game } from '../../classes/game';
   },
 })
 export class AutocompleteComponent implements OnInit {
-
+  @ViewChild("input") private input;
   private query = '';
   private games: Game[];
   private filteredList = [];
@@ -56,5 +56,8 @@ export class AutocompleteComponent implements OnInit {
   select(title) {
     this.query = title;
     this.filteredList = [];
+  }
+  onInputClick(){
+    this.input.nativeElement.select();
   }
 }

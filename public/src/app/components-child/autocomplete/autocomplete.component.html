@@ -1,6 +1,6 @@
 <div class="search-panel">
     <div class="form-group">
-        <input type="text" class="form-control" [(ngModel)]=query (keyup)=filter() placeholder="{{ 'HOME.SEARCHGAME' | translate }}">
+        <input type="text" class="form-control" #input (click)="onInputClick()"[(ngModel)]=query (keyup)=filter() placeholder="{{ 'HOME.SEARCHGAME' | translate }}">
         <div class="search-btn-group">
             <button type="button" class="btn btn-fab btn-fab-mini btn-round btn-danger search-btn">
                 <i class="ion-android-search"></i>
