@@ -100,9 +100,9 @@ export class IframeGameComponent implements OnInit {
       this.startMenu();
       this.loadOnce = false;
     }
-    //  else {
-    //   this.resume();
-    // }
+     else {
+      this.resume();
+    }
   }
   _continue() {
     console.log("continue");
