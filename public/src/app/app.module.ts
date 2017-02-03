@@ -11,6 +11,7 @@ import { APP_BASE_HREF } from '@angular/common';
 
 import { FacebookService } from 'ng2-facebook-sdk';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { SafePipe } from './pipes/safe.pipe';
 
@@ -95,6 +96,7 @@ import { FacebookCommentComponent } from './components-child/facebook-comment/fa
       useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
       deps: [Http]
     }),
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     routing
   ],
   providers: [

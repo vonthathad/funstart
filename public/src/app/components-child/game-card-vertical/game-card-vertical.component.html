@@ -15,8 +15,8 @@
             <i class="ion-play"></i> {{game.plays}} plays
         </div>
         <p class="card-title">
-            <!--<a [routerLink]="['/game', game._id]">-->
-                <a href="game/{{game._id}}">
+            <a [routerLink]="['/game', game._id]">
+                <!--<a href="game/{{game._id}}">-->
                 {{game.title}}
             </a>
         </p>
@@ -25,6 +25,6 @@
         </div>
     </div>
     <div class="card-footer">
-        <a class="btn btn-primary btn-md"  href="game/{{game._id}}"> <i class="ion-flash"></i> PLAY NOW</a>
+        <a class="btn btn-primary btn-md" [routerLink]="['/game', game._id]"> <i class="ion-flash"></i> PLAY NOW</a>
     </div>
 </div>
