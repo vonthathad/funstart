@@ -9,7 +9,6 @@
     </div>
     <div class="dropdown-search" *ngIf="filteredList.length > 0">
       <li *ngFor="let game of filteredList">
-
         <!--<a (click)="select(game.title)" [routerLink]="['/game', game._id]">-->
         <a (click)="select(game.title)" href="game/{{game._id}}">
           <img src="{{game.thumb}}" alt="{{game.title}}" width="30" height="30"> {{game.title}}
