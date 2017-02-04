@@ -4,7 +4,7 @@
             <div class="game-frame">
             <!--<app-game-card [game]="game"></app-game-card>-->
                 <app-game-intro  (playGame)="handlePlayGame($event)"></app-game-intro>
-                <app-iframe-game [hidden]="game==undefined" (updateResult)="handleUpdateResult($event)" (_preloadDone)="handleGamePreloadDone()"></app-iframe-game>
+                <app-iframe-game [hidden]="game==undefined" (updateResult)="handleUpdateResult($event)" (librariesLoadDone)="handleLibrariesLoadDoneDone()"></app-iframe-game>
                 <app-game-share class="ads-frame"  (continueGame)="handleContinueGame($event)"></app-game-share>
                 <app-iframe-ads (closeAds)="handleCloseAds($event)"></app-iframe-ads>
             </div>

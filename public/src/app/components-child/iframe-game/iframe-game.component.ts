@@ -14,7 +14,7 @@ export class IframeGameComponent implements OnInit {
   @Input() private src: string;
   @Input() private playGame: boolean;
   @Output() updateResult = new EventEmitter();
-  @Output() _preloadDone = new EventEmitter();
+  @Output() librariesLoadDone = new EventEmitter();
   constructor(private zone: NgZone, private gameService: GameService,private cd: ChangeDetectorRef) {
     (<any>window).angularComponentRef = {
       zone: this.zone,
@@ -30,9 +30,10 @@ export class IframeGameComponent implements OnInit {
       continue: (func) => { this.continue = func },
       getScreenShotData: (func) => { this.getScreenShotData = func },
       preloadDone: () => this.preloadDone(),
+      librariesLoadDone: () => this.librariesLoadDone.emit(),
       updateResult: (result) => {
         this.updateResult.emit(result);
-        // result.imageData = getScreenShotData()  ;  
+        // result.imageData = getScreenShotData()  ;
       },
       component: this
     };
@@ -73,7 +74,6 @@ export class IframeGameComponent implements OnInit {
   getScreenShotData() { };
 
   preloadDone() {
-    this._preloadDone.emit();
     console.log("preload done");
     this._preload = true;
     // this.pause();
@@ -108,7 +108,7 @@ export class IframeGameComponent implements OnInit {
     // console.log(typeof this.level);
     // console.log(typeof this.game);
     // if (this.level) this.level();
-    // else 
+    // else
     this.continue();
   }
   setVisible(visible) {

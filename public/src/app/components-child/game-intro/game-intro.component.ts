@@ -11,11 +11,11 @@ import {Game} from '../../classes/game';
 export class GameIntroComponent implements OnInit {
   private visible: boolean;
   private game: Game;
-  private gamePreloadDone: boolean;
+  private librariesPreloadDone: boolean;
   @Output() playGame = new EventEmitter();
   constructor(private gameService: GameService) {
     this.game = gameService.game;
-    gameService.game$.subscribe(game => {this.game = game; this.gamePreloadDone=false;});
+    gameService.game$.subscribe(game => {this.game = game; this.librariesPreloadDone=false;});
    }
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class GameIntroComponent implements OnInit {
   setVisible(visible){
     this.visible = visible;
   }
-  setGamePreloadDone(preloadDone){
-    this.gamePreloadDone = preloadDone;
+  setLibrariesPreloadDone(preloadDone){
+    this.librariesPreloadDone = preloadDone;
   }
 }

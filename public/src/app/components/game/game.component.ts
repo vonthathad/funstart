@@ -42,7 +42,7 @@ export class GameComponent implements OnInit {
         this.gameIntroComponent.setVisible(true);
         this.iframeGameComponent.setVisible(false);
         this.gameShareComponent.setVisible(false);
-        this.gameIntroComponent.setGamePreloadDone(false);
+        this.gameIntroComponent.setLibrariesPreloadDone(false);
         this.gameRecommendBottomComponent.loadRecommendGame();
         this.gameRecommendRightComponent.loadRecommendGame();
         this.facebookCommentShowed = false;
@@ -58,8 +58,8 @@ export class GameComponent implements OnInit {
   // this.usersRankedSidebarComponent.setGame(game);
 
   // }
-  handleGamePreloadDone(){
-    this.gameIntroComponent.setGamePreloadDone(true);
+  handleLibrariesLoadDoneDone(){
+    this.gameIntroComponent.setLibrariesPreloadDone(true);
   }
   handleContinueGame(show) {
     this.iframeGameComponent._continue();
