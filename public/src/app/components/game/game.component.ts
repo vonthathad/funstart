@@ -59,7 +59,6 @@ export class GameComponent implements OnInit {
 
   // }
   handleGamePreloadDone(){
-    alert(1234);
     this.gameIntroComponent.setGamePreloadDone(true);
   }
   handleContinueGame(show) {
