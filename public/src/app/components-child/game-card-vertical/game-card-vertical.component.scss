@@ -24,3 +24,8 @@
 .card-actions{
   font-size: 0.85em;
 }
+@media screen and (max-width: 500px) and (min-width: 321px){
+  .card-footer{
+    margin: 0px auto 10px;
+  }
+}
