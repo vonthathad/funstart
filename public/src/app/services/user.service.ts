@@ -67,6 +67,7 @@ export class UserService {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         });
+        console.log(JSON.stringify(obj) + token);
         return this.rest.post({
             url: `api/activities`,
             body: obj,
