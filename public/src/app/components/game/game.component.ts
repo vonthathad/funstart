@@ -38,7 +38,6 @@ export class GameComponent implements OnInit {
         // console.log("IN PUT " + JSON.stringify(res.data));
         this.gameService.gameSource.next(res.data);
         this.game = res.data;
-        this.iframeAdsComponent._showAds({ channelId: '123' });
         this.gameIntroComponent.setVisible(true);
         this.iframeGameComponent.setVisible(false);
         this.gameShareComponent.setVisible(false);
@@ -59,6 +58,7 @@ export class GameComponent implements OnInit {
 
   // }
   handleLibrariesLoadDoneDone(){
+    this.iframeAdsComponent._showAds();
     this.gameIntroComponent.setLibrariesPreloadDone(true);
   }
   handleContinueGame(show) {
