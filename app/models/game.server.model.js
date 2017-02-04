@@ -49,7 +49,7 @@ var GameSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    public: {
+    publish: {
         type: Boolean,
         default: false
     }

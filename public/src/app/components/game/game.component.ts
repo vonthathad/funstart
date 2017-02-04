@@ -75,8 +75,18 @@ export class GameComponent implements OnInit {
     this.iframeGameComponent.setVisible(false);
     let self = this;
     setTimeout(function () {
-      self.iframeAdsComponent._showAds({ channelID: '9629683846' });
+      if(self.game.publish){
+        // $scope.time = Date.now();
+        if(self.game.long && self.game.long > 2){
+          self.iframeAdsComponent._showAds({ channelID: '9629683846' });
+        } else {
+          if(Math.floor(Math.random()*3)==1) self.iframeAdsComponent._showAds({ channelID: '9629683846' });
+        }
+
+      }
     });
+
+
   }
   handleCloseAds() {
 

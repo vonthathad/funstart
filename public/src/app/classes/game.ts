@@ -7,6 +7,8 @@ export class Game{
         public des: string,
         public thumb: string,
         public clip?: string,
-        public plays?: number
+        public plays?: number,
+        public publish?: boolean,
+        public long?: number
     ){}
 }
