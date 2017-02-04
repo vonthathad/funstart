@@ -100,53 +100,54 @@ exports.loadActivities = function(req,res){
 };
 exports.createActivity = function (req,res,next) {
     // console.log('activity',JSON.stringify(req.body) + "ff" + req.user._id);
+    Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: { plays: 1}},function(err,game){
+    });
     if(req.user._id && req.body.game != null && req.body.score != null && req.body.pictureUrl != null){
-        Game.findByIdAndUpdate(parseInt(req.body.game),{$inc: { plays: 1}},function(err,game){
-            Activity.findOne({user: req.user._id,game: parseInt(req.body.game)})
-                .sort({created : -1})
-                .limit(1)
-                .exec(function(err,data){
-                    if(err) return res.status(400).send();
-                    if(data){
-                        if(data.score < req.body.score){
-                            data.score = req.body.score;
-                            data.created = Date.now();
-                            data.image = req.body.pictureUrl;
-                            data.save();
-                        };
-                    } else {
-                        var newActivity = new Activity({
-                            game: parseInt(req.body.game),
-                            user: req.user._id,
-                            score: req.body.score,
-                            image : req.body.pictureUrl
-                        });
-                        newActivity.save();
-                    }
-                });
-            var isPlayGame = false;
-            req.user.gameList.forEach(function(e){
-                if(e == parseInt(req.body.game)){
-                    isPlayGame = true;
-                    return true;
+        Activity.findOne({user: req.user._id,game: parseInt(req.body.game)})
+            .sort({created : -1})
+            .limit(1)
+            .exec(function(err,data){
+                if(err) return res.status(400).send();
+                if(data){
+                    if(data.score < req.body.score){
+                        data.score = req.body.score;
+                        data.created = Date.now();
+                        data.image = req.body.pictureUrl;
+                        data.save();
+                    };
+                } else {
+                    var newActivity = new Activity({
+                        game: parseInt(req.body.game),
+                        user: req.user._id,
+                        score: req.body.score,
+                        image : req.body.pictureUrl
+                    });
+                    newActivity.save();
                 }
             });
-            if(!isPlayGame) req.user.gameList.push(parseInt(req.body.game));
-            req.user.exp += parseInt(req.body.score/100);
-            req.user.games++;
-            req.user.active = Date.now();
-            req.user.save(function(err,user){
-                if(err) return res.status(400).send();
-                return res.json({data:user});
-                // User.find({exp : {$gt : user.exp}}).count(function (err,count){
-                //     if(err) return res.json({data:user});
-                //     var rank = 0;
-                //     if(!err) rank = count + 1;
-                //     user.rank = rank;
-                //     return res.json({data:user});
-                // });
-            });
+        var isPlayGame = false;
+        req.user.gameList.forEach(function(e){
+            if(e == parseInt(req.body.game)){
+                isPlayGame = true;
+                return true;
+            }
         });
+        if(!isPlayGame) req.user.gameList.push(parseInt(req.body.game));
+        req.user.exp += parseInt(req.body.score/100);
+        req.user.games++;
+        req.user.active = Date.now();
+        req.user.save(function(err,user){
+            if(err) return res.status(400).send();
+            return res.json({data:user});
+            // User.find({exp : {$gt : user.exp}}).count(function (err,count){
+            //     if(err) return res.json({data:user});
+            //     var rank = 0;
+            //     if(!err) rank = count + 1;
+            //     user.rank = rank;
+            //     return res.json({data:user});
+            // });
+        });
+
 
     } else {
         return res.status(400).send();
