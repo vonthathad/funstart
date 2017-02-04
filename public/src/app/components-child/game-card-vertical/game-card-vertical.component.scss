@@ -26,6 +26,7 @@
 }
 @media screen and (max-width: 500px) and (min-width: 321px){
   .card-footer{
-    margin: 0px auto 10px;
+    margin: 0px auto 10px!important;
+    padding: 0!important;
   }
 }
