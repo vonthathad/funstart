@@ -424,13 +424,13 @@ function _Phaser(phaser) {
     this.leaveIncorrectOrientation = function(_this, setSize) {
         _this.orientated = true;
         _this.game.paused = false;
-        document.getElementById("orientation").style.display = "none"
+       document.getElementById('iframe-game').contentWindow.document.getElementById("orientation").style.display = "none"
         setSize();
     }
     this.enterIncorrectOrientation = function(_this, setSize) {
         _this.orientated = false;
         _this.game.paused = true;
-        document.getElementById("orientation").style.display = "block"
+       document.getElementById('iframe-game').contentWindow.document.getElementById("orientation").style.display = "block"
         setSize();
     }
 }
