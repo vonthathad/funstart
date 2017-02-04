@@ -22,7 +22,7 @@ exports.loadGames = function(req,res){
         skip = page > 0 ? ((page - 1) * paging) : 0;
     var conds = [];
     var match = {};
-    conds.push({public: true});
+    conds.push({publish: true});
     if(req.query.topic) conds.push({topic : parseInt(req.query.topic)});
     if(req.query.text) {
         conds.push({$or:[
