@@ -21,4 +21,7 @@ export class GameCardVerticalComponent implements OnInit {
     this.isDisplay = false;
     this.videoplayer.nativeElement.pause();
   }
+  scrollTop(){
+    window.scrollTo(0,0);
+  }
 }

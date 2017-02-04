@@ -46,6 +46,7 @@ export class GameComponent implements OnInit {
         this.gameRecommendRightComponent.loadRecommendGame();
         this.facebookCommentShowed = false;
         this.facebookCommentShowed = true;
+        this.iframeAdsComponent._closeAds();
       });
     });
   }
