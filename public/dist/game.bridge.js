@@ -202,6 +202,11 @@ function Other() {
             window.angularComponentRef.preloadDone()
         });
     }
+    this.librariesLoadDone = function() {
+        window.angularComponentRef.zone.run(function() {
+            window.angularComponentRef.librariesLoadDone()
+        });
+    }
     this.startMenu = function(func) {
         window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startMenu(func)
@@ -275,6 +280,11 @@ function _Phaser(phaser) {
             window.angularComponentRef.preloadDone()
         });
     }
+   this.state.librariesLoadDone = function() {
+      window.angularComponentRef.zone.run(function() {
+         window.angularComponentRef.librariesLoadDone()
+      });
+   }
     this.state.startMenu = function(func) {
         window.angularComponentRef.zone.run(function() {
             window.angularComponentRef.startMenu(func)
