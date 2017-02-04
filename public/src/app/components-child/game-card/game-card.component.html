@@ -38,7 +38,7 @@
     </div>
     <div class="card-content">
         <p class="card-title">
-            <a [routerLink]="['/game', game._id]">
+            <a [routerLink]="['/game', game._id]" (click)="scrollTop()">
                 {{game.title}}
             </a>
         </p>
@@ -47,6 +47,6 @@
         </div>
     </div>
     <div class="card-footer">
-        <a class="btn btn-primary btn-md" [routerLink]="['/game', game._id]"> <i class="ion-flash"></i> PLAY</a>
+        <a class="btn btn-primary btn-md" [routerLink]="['/game', game._id]" (click)="scrollTop()"> <i class="ion-flash"></i> PLAY</a>
     </div>
 </div>

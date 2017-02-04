@@ -65,7 +65,9 @@ export class GameCardComponent implements OnInit {
 
     // console.log(this.game);
   }
-
+  scrollTop(){
+    window.scrollTo(0,0);
+  }
 
 
 }
