@@ -1,4 +1,5 @@
 <div *ngIf="game" class="text-center intro-frame" [hidden]="!visible">
+
     <div class="card-image" data-header-animation="false">
         <img class="img img-responsive" [src]="game.thumb">
         <div class="ripple-container"></div>
@@ -12,6 +13,7 @@
         </div>
     </div>
     <div class="card-footer">
-        <a class="btn btn-primary btn-md" (click)="_playGame()"> <i class="ion-flash"></i> PLAY</a>
+       <md-spinner *ngIf="!gamePreloadDone" color="primary"></md-spinner>
+      <a *ngIf="gamePreloadDone" class="btn btn-primary btn-md" (click)="_playGame()"> <i class="ion-flash"></i> PLAY</a>
     </div>
 </div>

@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { APP_BASE_HREF } from '@angular/common';
+import {MdProgressCircleModule} from '@angular2-material/progress-circle';
 
 import { FacebookService } from 'ng2-facebook-sdk';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
@@ -91,6 +92,7 @@ import { FacebookCommentComponent } from './components-child/facebook-comment/fa
     FormsModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
+    MdProgressCircleModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),

@@ -14,7 +14,7 @@ export class IframeGameComponent implements OnInit {
   @Input() private src: string;
   @Input() private playGame: boolean;
   @Output() updateResult = new EventEmitter();
-
+  @Output() _preloadDone = new EventEmitter();
   constructor(private zone: NgZone, private gameService: GameService,private cd: ChangeDetectorRef) {
     (<any>window).angularComponentRef = {
       zone: this.zone,
@@ -73,7 +73,7 @@ export class IframeGameComponent implements OnInit {
   getScreenShotData() { };
 
   preloadDone() {
-
+    this._preloadDone.emit();
     console.log("preload done");
     this._preload = true;
     // this.pause();
@@ -94,7 +94,6 @@ export class IframeGameComponent implements OnInit {
   _playGame() {
     console.log("playGame click");
     this.playGame = true;
-  
     if (this.loadOnce && this._preload) {
       console.log("startMenu from playGame click");
       this.startMenu();
