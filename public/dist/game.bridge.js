@@ -400,6 +400,7 @@ function _Phaser(phaser) {
         }
 
         if (!_this.game.device.desktop) {
+            console.log(123);
             var isLandscape = width > height;
             var enterIncorrectOrientation = this.enterIncorrectOrientation;
             var leaveIncorrectOrientation = this.leaveIncorrectOrientation;
@@ -432,15 +433,17 @@ function _Phaser(phaser) {
         }
     }
     this.leaveIncorrectOrientation = function(_this, setSize) {
+        console.log("leaveIncorrectOrientation");
         _this.orientated = true;
         _this.game.paused = false;
-       document.getElementById('iframe-game').contentWindow.document.getElementById("orientation").style.display = "none"
+       document.getElementById('iframe-game').contentWindow.document.getElementById("orientation").style.display = "none";
         setSize();
     }
     this.enterIncorrectOrientation = function(_this, setSize) {
+       console.log("enterIncorrectOrientation");
         _this.orientated = false;
         _this.game.paused = true;
-       document.getElementById('iframe-game').contentWindow.document.getElementById("orientation").style.display = "block"
+       document.getElementById('iframe-game').contentWindow.document.getElementById("orientation").style.display = "block";
         setSize();
     }
 }
