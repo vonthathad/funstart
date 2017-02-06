@@ -50,6 +50,7 @@ import { GameRecommendRightComponent } from './components-child/game-recommend-r
 import { GameCardVerticalComponent } from './components-child/game-card-vertical/game-card-vertical.component';
 import { UsersRankedSidebarComponent } from './components-child/users-ranked-sidebar/users-ranked-sidebar.component';
 import { FacebookCommentComponent } from './components-child/facebook-comment/facebook-comment.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { FacebookCommentComponent } from './components-child/facebook-comment/fa
     GameRecommendRightComponent,
     GameCardVerticalComponent,
     UsersRankedSidebarComponent,
-    FacebookCommentComponent
+    FacebookCommentComponent,
+    SignupComponent
 
   ],
   entryComponents: [AccountDialogComponent],

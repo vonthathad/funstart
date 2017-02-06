@@ -68,11 +68,15 @@ export class UserService {
             'Content-Type': 'application/json'
         });
         console.log(JSON.stringify(obj) + token);
+        try{
         return this.rest.post({
             url: `api/activities`,
             body: obj,
             headers: headers
         });
+        } catch(e){
+            return null;
+        }
     }
     getRankedUsers(queryArgs): Observable<any[]> {
         let token = this.rest.getToken();

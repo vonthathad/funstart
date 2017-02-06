@@ -1,0 +1,84 @@
+<form [formGroup]="loginForm" (ngSubmit)="loginLocal(loginForm)">
+   <div class="content">
+      <div class="input-group">
+            <span class="input-group-addon">
+                <i class="ion-at"></i>
+            </span>
+         <div class="form-group label-floating is-empty">
+            <input type="text" id="email" class="form-control" formControlName="email"><span
+            class="material-input"></span>
+            <label class="control-label" for="email">Email</label>
+         </div>
+      </div>
+      <div [hidden]="loginForm.get('email').untouched &&  loginForm.get('email').hasError('required')">
+         <div class="error" *ngIf="loginForm.get('email').untouched && loginForm.get('email').hasError('required')">
+            * Email is required!
+         </div>
+         <div class="error" *ngIf="loginForm.get('email').untouched && loginForm.get('email').hasError('pattern')">
+            * Invalid email!
+         </div>
+
+         <div [hidden]="loginForm.get('email').valid || loginForm.get('email').untouched">
+            <div *ngIf="loginForm.get('email').hasError('required')">
+               * Email is required!x
+            </div>
+            <div *ngIf="loginForm.get('email').hasError('pattern')">
+               * Invalid email!x
+            </div>
+         </div>
+      </div>
+
+      <div *ngIf="error.email" class="alert">{{error.email}}</div>
+
+
+      <div class="input-group">
+            <span class="input-group-addon">
+            <i class="ion-locked"></i>
+        </span>
+         <div class="form-group label-floating is-empty">
+            <input type="password" id="password" class="form-control" formControlName="password">
+            <span class="material-input"></span>
+            <label class="control-label" for="password">Password</label>
+         </div>
+      </div>
+      <div [hidden]="loginForm.get('password').untouched &&  loginForm.get('password').hasError('required')">
+         <div class="error"
+              *ngIf="loginForm.get('password').untouched && loginForm.get('password').hasError('required')">
+            * Password is required!
+         </div>
+         <div class="error"
+              *ngIf="loginForm.get('password').untouched && loginForm.get('password').hasError('pattern')">
+            * Invalid password!
+         </div>
+         <div class="error"
+              *ngIf="loginForm.get('password').untouched && loginForm.get('password').hasError('minlength')">
+            * Password must be at least 5 character!
+         </div>
+         <div [hidden]="loginForm.get('password').valid || loginForm.get('password').untouched">
+            <div *ngIf="loginForm.get('password').hasError('required')">
+               * Password is required!
+            </div>
+            <div *ngIf="loginForm.get('password').hasError('pattern')">
+               * Invalid password!
+            </div>
+            <div *ngIf="loginForm.get('password').hasError('minlength')">
+               * Password must be at least 5 character!
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="text-center">
+      <div>
+         <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary btn-social">Login</button>
+      </div>
+   </div>
+</form>
+<div class="text-center footer ">
+   <div>
+      or simple way
+   </div>
+   <div>
+      <button class="btn btn-primary btn-social btn-facebook" (click)="loginFacebook()">LOGIN BY FACEBOOK</button>
+      <button class="btn btn-primary btn-social btn-twitter" (click)="loginTwitter()">LOGIN BY TWITTER</button>
+   </div>
+</div>

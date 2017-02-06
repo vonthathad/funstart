@@ -1,0 +1,19 @@
+<div *ngIf="game" class="text-center intro-frame" [hidden]="!visible">
+
+    <div class="card-image" data-header-animation="false">
+        <img class="img img-responsive" [src]="game.thumb">
+        <div class="ripple-container"></div>
+    </div>
+    <div class="card-content">
+        <h4 class="card-title">
+                {{game.title}}
+        </h4>
+        <div class="card-description">
+            {{game.des}}
+        </div>
+    </div>
+    <div class="card-footer">
+       <md-spinner style="width: 50px;" *ngIf="!librariesPreloadDone" color="warn" color="primary"></md-spinner>
+      <a *ngIf="librariesPreloadDone" class="btn btn-primary btn-md" (click)="_playGame()"> <i class="ion-flash"></i> PLAY</a>
+    </div>
+</div>

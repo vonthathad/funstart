@@ -28,10 +28,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
     // load games for menu
     this.gameService
       .getGames({ order: "random", paging: 5 })
-      .subscribe((res: any) => this.renderGames(res['data']));
+      .subscribe((res: any) => this.renderGames(res['data']),(err)=>this.processError(err));
 
     let token;
 
@@ -52,6 +53,12 @@ export class HeaderComponent implements OnInit {
     console.log("TOKEN HERE" + token);
     if (token && token != "undefined") {
       this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user, { from: "localStorage" }));
+    }
+  }
+  processError(err){
+    if(err.status == 401){
+      localStorage.removeItem('token');
+      window.location.href = '/';
     }
   }
   renderGames(games) {

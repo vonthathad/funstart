@@ -1,0 +1,30 @@
+<div class="topic-nav col-xs-12">
+    <ul class="nav nav-pills nav-pills-primary nav-pills-icons" role="tablist">
+        <li class="active">
+            <a href="#login" role="tab" data-toggle="tab" aria-expanded="true">
+                LOGIN
+            </a>
+        </li>
+        <li class="">
+            <a href="#register" role="tab" data-toggle="tab" aria-expanded="false">
+                REGISTER
+            </a>
+        </li>
+        <li class="">
+            <a href="#password-reset" role="tab" data-toggle="tab" aria-expanded="false">
+                PASSWORD RESET
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="login">
+        <app-form-login></app-form-login>
+    </div>
+    <div class="tab-pane" id="register">
+        <app-form-register></app-form-register>
+    </div>
+    <div class="tab-pane" id="password-reset">
+        <app-form-password-reset></app-form-password-reset>
+    </div>
+</div>
