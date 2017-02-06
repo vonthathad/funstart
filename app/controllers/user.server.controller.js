@@ -10,12 +10,12 @@ var User = require('mongoose').model('User'),
     crypto = require('crypto'),
     paging = 7;
 var getErrorMessage = function (err) {
-    var message = 'An error occur. Please try again';
+    var message = 'Xảy ra lỗi. Vui lòng thử lại sau';
     if (err.code) {
         switch (err.code) {
             case 11000:
             case 11001:
-                message = 'Email or username is exist';
+                message = 'Email đã tồn tại';
                 break;
         }
     }
