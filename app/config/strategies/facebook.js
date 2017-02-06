@@ -37,7 +37,7 @@ var saveOAuthUserProfile = function(req, profile, done) {
                         user.save(function(err,user) {
                             console.log(err);
                             if (err) {
-                                return req.res.redirect('/signup');
+                                return req.res.redirect('http://localhost:4200/signup');
                             }
                             return done(err, user.toObject({ virtuals: true }));
                         });

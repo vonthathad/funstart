@@ -73,16 +73,21 @@ exports.captureResult = function(req,res){
                         fs.unlink(e);
                     });
                 }
-                var domHTML = '<div style="position: absolute;top: 0;left: 0">';
-                domHTML +=
-                    '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/'+req.game.thumbResult+'"/>'+
-                    '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 10px 0;left:0;width: 100%;color: #fff;text-transform: uppercase;font-size: 5em;font-weight: bold;text-align: center;">'+
-                    req.body.score +
-                    '</div>'
-                if(req.user._id){
-                    domHTML += '<img style="position: absolute; left: 390px;bottom: 200px; width: 180px; border-radius: 50%" src="' + req.user.avatar + '">'
+                if(req.body.image){
+                    var domHTML = '<div style="position: absolute;top: 0;left: 0">';
+                    domHTML +=
+                        '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/'+req.game.thumbResult+'"/>'+
+                        '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 10px 0;left:0;width: 100%;color: #fff;text-transform: uppercase;font-size: 5em;font-weight: bold;text-align: center;">'+
+                        req.body.score +
+                        '</div></div>';
+                } else {
+                    var domHTML = '<div style="position: absolute;top: 0;left: 0">';
+                    domHTML +=
+                        '<img style="width: 100%;height: 100%" src="'+Config.server.host+'/'+req.game.thumbResult+'"/>'+
+                        '<div style="font-family:sans-serif;position:absolute;bottom:0;padding: 10px 0;left:0;width: 100%;color: #fff;text-transform: uppercase;font-size: 5em;font-weight: bold;text-align: center;">'+
+                        req.body.score +
+                        '</div></div>';
                 }
-                domHTML += '</div>';
                 var path;
                 // if(req.user == 'guest'){
                 if(req.user._id){
