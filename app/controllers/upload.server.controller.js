@@ -80,7 +80,7 @@ exports.captureResult = function(req,res){
                     req.body.score +
                     '</div>'
                 if(req.user._id){
-                    domHTML += '<img style="position: absolute; left: 450px;bottom: 150px; width: 150px; border-radius: 50%" src="' + req.user.avatar + '">'
+                    domHTML += '<img style="position: absolute; left: 390px;bottom: 200px; width: 180px; border-radius: 50%" src="' + req.user.avatar + '">'
                 }
                 domHTML += '</div>';
                 var path;
