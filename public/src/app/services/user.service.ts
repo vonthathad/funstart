@@ -7,6 +7,8 @@ import { Subject } from 'rxjs/Subject';
 import { Rest } from './rest';
 
 import { User } from '../classes/user';
+import { Activity } from '../classes/activity';
+
 @Injectable()
 export class UserService {
     private rest: Rest;
@@ -14,6 +16,9 @@ export class UserService {
     private userDialog: any;
     public loggedUserSource = new Subject<User>();
     public loggedUser$ = this.loggedUserSource.asObservable();
+
+    public rankedUserSource = new Subject<Activity[]>();
+    public rankedUser$ = this.rankedUserSource.asObservable();
 
     constructor(private http: Http) {
         this.rest = new Rest(http);

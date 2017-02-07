@@ -5,7 +5,7 @@
     <!--border-radius: 6px;" >-->
 <!--<img [src]="['/'game.thumbResult]">-->
 <img [src]="[game.thumbResult]">
-<div *ngIf="result" class="result-text">{{result.score}}</div>
+<div *ngIf="result" class="result-text">{{bestScore}}</div>
 </div>
 <div>
   <button class="btn btn-primary btn-social btn-danger" (click)="_continueGame()"><i class="ion-play"></i> Continue</button>

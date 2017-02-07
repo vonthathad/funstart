@@ -6,6 +6,6 @@ export class Activity {
         public user: User,
         public game: Game,
         public created: Date,
-        public score: Number
+        public score: number
     ) { }
 }

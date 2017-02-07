@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Game } from '../../classes/game';
 import { User } from '../../classes/user';
+import { Activity } from '../../classes/activity';
 
 import { ImageService } from '../../services/image.service'
 import { ShareService } from '../../services/share.service'
@@ -20,34 +21,41 @@ export class GameShareComponent implements OnInit {
       private user: User;
       private result: Object;
       private game: Game;
+      private bestScore: number;
       @Output() continueGame = new EventEmitter();
 
       constructor(private imageService: ImageService, private shareService: ShareService, private userService: UserService, private gameService: GameService) {
-            this.game = gameService.game;
+      }
+
+      ngOnInit() {
+
+            this.game = this.gameService.game;
             if (this.game) {
                   this.setInfoShareService();
             }
-            gameService.game$.subscribe(game => {
+            this.gameService.game$.subscribe(game => {
                   this.game = game;
                   this.setInfoShareService();
             });
             // gameService.gameResult$.subscribe(gameResult => {this.updateResult(gameResult)});
 
-      }
-
-      ngOnInit() {
-
-            // this.shareService.setInfo({
-            //   title: "abc",
-            //   des: "you win",
-            //   shareUrl: "https://www.solome.co/games/32"
-            // });
             this.user = this.userService.user;
             this.userService.loggedUser$.subscribe(
                   user => {
                         this.user = user;
                   }
             )
+
+            this.userService.rankedUser$.subscribe((rankedUsers:Activity[]) =>{
+                  // console.log(rankedUsers, this.user);
+                  let i = 0;
+                  for (i=0; i < rankedUsers.length; i++){
+                        if(this.user._id == rankedUsers[i].user._id){
+                              this.bestScore = rankedUsers[i].score;
+                              break;
+                        }
+                  }
+            });
       }
 
       setInfoShareService() {
@@ -91,7 +99,11 @@ export class GameShareComponent implements OnInit {
                   // adding new score
                   this.user.score = this.result["score"];
                   let score = this.user.score;
-                  // alert(this.user.score);
+                  // console.log(this.user.score);
+
+                  console.log("Score " + score)
+                  if(this.bestScore) console.log("Best score " + this.bestScore)
+                  if(this.bestScore && score < this.bestScore) score = this.bestScore;
 
                   // console.log(this.userService.checkUser());
                   //  console.log("USER " + this.user.score + " result " + this.result["score"] + " gameid " + this.game._id);
