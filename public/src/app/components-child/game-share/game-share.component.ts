@@ -108,9 +108,21 @@ export class GameShareComponent implements OnInit {
                                           game: this.game._id,
                                           pictureUrl: res.data
                                     }).subscribe(() => {
-                                          this.shareService.setInfo({ pictureUrl: res.data });
+                                          // this.shareService.setInfo({ pictureUrl: res.data });
+                                          // this.shareDisable = false;
+                                          // this.gameService.gameResultSource.next(result);
+
+
+                                          this.result['pictureUrl'] = res.data;
+                                          this.result['des'] = this.result['descr'];
+                                          console.log(this.result);
+                                          this.shareService.setInfo(this.result);
+                                          this.shareService.shareFacebook(function () {
+                                                console.log('done share');
+                                          });
                                           this.shareDisable = false;
                                           this.gameService.gameResultSource.next(result);
+
                                     }, err => console.log(2))
                               },
                               err => {
