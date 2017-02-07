@@ -71,7 +71,7 @@ export class UsersRankedSidebarComponent implements OnInit {
           let rankedUserData = rankedUsersData[i];
           if (this.user._id == rankedUserData.user._id) {
             let rankedUser: any = new Object();
-            rankedUser.name = rankedUserData.user.username;
+            rankedUser.name = rankedUserData.user.displayName;
             rankedUser.avatar = rankedUserData.user.avatar;
             rankedUser.score = rankedUserData.score;
             rankedUser.rank = i;
@@ -85,7 +85,7 @@ export class UsersRankedSidebarComponent implements OnInit {
       for (i = 0; i < rankedUsersData.length; i++) {
         let rankedUser: any = new Object();
         let rankedUserData = rankedUsersData[i];
-        rankedUser.name = rankedUserData.user.username;
+        rankedUser.name = rankedUserData.user.displayName;
         rankedUser.avatar = rankedUserData.user.avatar;
         rankedUser.score = rankedUserData.score;
         rankedUser.rank = i;
