@@ -115,6 +115,7 @@ export class GameShareComponent implements OnInit {
 
                                           this.result['pictureUrl'] = res.data;
                                           this.result['des'] = this.result['descr'];
+                                          this.result['title'] = `If you beat my score [${this.result['score']}] in this Game, you're a GENIUS!`;
                                           console.log(this.result);
                                           this.shareService.setInfo(this.result);
                                           this.shareService.shareFacebook(function () {
@@ -169,6 +170,7 @@ export class GameShareComponent implements OnInit {
                         res => {
                               this.result['pictureUrl'] = res.data;
                               this.result['des'] = this.result['descr'];
+                              this.result['title'] = `If you beat my score [${this.result['score']}] in this Game, you're a GENIUS!`;
                                console.log(this.result);
                               this.shareService.setInfo(this.result);
                               this.shareService.shareFacebook(function () {

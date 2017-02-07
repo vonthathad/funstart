@@ -33,6 +33,7 @@ module.exports = function (app) {
     if (req.query.mid) req.session.mid = req.query.mid;
     next();
   }, passport.authenticate('facebook', { scope: ['user_friends', 'email', 'public_profile'] }));
+
   app.get('/oauth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
     // if(req.session.mid){
     //     req.user.mid = req.session.mid;

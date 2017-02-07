@@ -52,7 +52,7 @@
          </div>
          <div class="error"
               *ngIf="loginForm.get('password').untouched && loginForm.get('password').hasError('minlength')">
-            * Password must be at least 5 character!
+            * Password must be at least 6 character!
          </div>
          <div [hidden]="loginForm.get('password').valid || loginForm.get('password').untouched">
             <div *ngIf="loginForm.get('password').hasError('required')">
@@ -62,7 +62,7 @@
                * Invalid password!
             </div>
             <div *ngIf="loginForm.get('password').hasError('minlength')">
-               * Password must be at least 5 character!
+               * Password must be at least 6 character!
             </div>
          </div>
       </div>
