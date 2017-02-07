@@ -56,7 +56,7 @@ export class UsersRankedSidebarComponent implements OnInit {
         if (i < rankedUsersData.length - 1) {
           let rankedUser: any = new Object();
           let rankedUserData = rankedUsersData[i];
-          rankedUser.name = rankedUserData.user.username;
+          rankedUser.name = rankedUserData.user.displayName;
           rankedUser.avatar = rankedUserData.user.avatar;
           rankedUser.score = rankedUserData.score;
           rankedUser.rank = i;
