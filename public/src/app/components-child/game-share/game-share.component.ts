@@ -50,7 +50,7 @@ export class GameShareComponent implements OnInit {
                   // console.log(rankedUsers, this.user);
                   let i = 0;
                   for (i=0; i < rankedUsers.length; i++){
-                        if(this.user._id == rankedUsers[i].user._id){
+                        if(this.user && this.user._id == rankedUsers[i].user._id){
                               this.bestScore = rankedUsers[i].score;
                               break;
                         }
