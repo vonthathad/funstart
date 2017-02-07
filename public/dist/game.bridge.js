@@ -248,7 +248,6 @@ function Other() {
 //////////// PHASER HELPER
 /////////////////////////////////////
 function _Phaser(phaser) {
-    this.version = phaser.version;
     this.width = phaser.width;
     this.height = phaser.height;
 
