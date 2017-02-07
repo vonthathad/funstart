@@ -187,7 +187,7 @@ export class GameShareComponent implements OnInit {
             }
 
       }
-
+      // TODO nothing
       shareTwitter() {
             alert("NOT DONE");
       }
