@@ -83,7 +83,7 @@ export class IframeGameComponent implements OnInit {
   getScreenShotData() { };
 
   preloadDone() {
-    console.log("preload done");
+    // console.log("preload done");
     this._preload = true;
     // this.pause();
     console.log(this.playGame);
