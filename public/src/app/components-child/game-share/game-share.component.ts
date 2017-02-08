@@ -146,11 +146,15 @@ export class GameShareComponent implements OnInit {
                               });
                   }
             } else {
-                  // this.userService.postActivity({
-                  //       game: this.game._id
-                  // }).subscribe(() => {
-                        this.gameService.gameResultSource.next(result);
-                  // }, (err) => console.error(err));
+               // post activity to add play turn
+                  this.userService.postActivity({
+                        game: this.game._id
+                  }).subscribe(() => {
+                  }, (err) => console.error(err));
+                  // update result to share facebook
+               this.gameService.gameResultSource.next(result);
+               this.result = result;
+               console.log(result)
             }
       }
 

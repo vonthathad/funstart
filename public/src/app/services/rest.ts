@@ -43,7 +43,7 @@ export class Rest {
             // connect array componet with '&' then connect with full url
             options.url = `${options.url}?${queryArgsArray.join('&')}`;
         }
-        console.log("URL " + options.url);
+        // console.log("URL " + options.url);
         // console.log(JSON.stringify(options))
         // create request object
         let reqOptions = new RequestOptions(options);
