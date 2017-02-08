@@ -126,6 +126,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/img\/rec-thumb.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.06452e+06,
+		"inputAbbreviatedPath": "\/assets\/img\/rec-thumb.jpg",
+		"outputAbbreviatedPath": "\/assets\/img\/rec-thumb.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/img\/right_sidebar.png": {
 		"fileType": 32768,
 		"ignore": 0,

@@ -16,6 +16,8 @@
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="assets/css/material-kit.css" rel="stylesheet" />
 	<link href="assets/css/custom.css" rel="stylesheet" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+	<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 </head>
 
 <body>
@@ -66,307 +68,281 @@
 	</nav>
 	<!-- end navbar -->
 	<div class="wrapper">
-		<div class="header">
-			<div id="feature-game" class="">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6 col-md-6">
-							<div class="feature-image">
-								<a href="topic.html" target="_blank">
-									<img class="" src="assets/img/thumb/10_thumb.svg" alt="Feature Game">
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-5 col-md-offset-1">
-							<div class="action-area">
-								<div class="text-left">
-									<h1 class="feature-name">Test IQ</h1>
-									<h6 class="tagline">
-										Test IQ nhanh qua 11 câu hỏi.
-									</h6>
-									<p>
-										Qui esse ex proident laborum quis cillum nostrud dolor tempor minim dolore do ut esse.
-									</p>
-									<button class="btn btn-primary btn-lg"> <i class="material-icons">flash_on</i> PLAY NOW</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<!-- you can use the class main-raised if you want the main area to be as a page with shadows -->
-		<div class="main game-list">
+		<div class="main game-score-list">
 			<div class="container">
 				<!-- here you can add your content -->
-				<h2 class="text-info bold">Hành động</h2>
-				<div class="row">
-					<div class="col-md-3">
-						<div class="card card-product" data-count="3">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/19_thumb.svg">
-								</a>
-								<div class="ripple-container"></div>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
+				<div class="card">
+					<div class="card-header card-header-icon" data-background-color="rose">
+						<i class="material-icons">face</i>
+					</div>
+					<div class="card-content">
+						<h4 class="card-title">
+							Tony Nguyen
+						</h4>
+						<div class="row">
+
+							<div class="col-md-4 col-xs-12 visible-xs visible-sm">
+								<div class="card card-profile">
+									<div class="card-avatar">
+										<a href="#pablo">
+											<img class="img" src="assets/img/tony.jpg">
+										</a>
+									</div>
+									<div class="card-content">
+										<h6 class="category text-gray">Pro Gamer - LV 21</h6>
+										<h4 class="card-title">Tony Nguyen</h4>
+									</div>
 								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Pariatur sint amet
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
+							</div>
+
+							<div class="col-md-9 col-xs-12 pull-down">
+								<div class="topic-nav col-xs-12">
+									<ul class="nav nav-pills nav-pills-primary nav-pills-icons" role="tablist">
+										<li class="active">
+											<a href="#new-games" role="tab" data-toggle="tab" aria-expanded="true">
+												<i class="material-icons">grid_on</i> ALL GAMES
+											</a>
+										</li>
+										<li class="">
+											<a href="#new-games" role="tab" data-toggle="tab" aria-expanded="true">
+												<i class="material-icons">fiber_new</i> NEW GAMES
+											</a>
+										</li>
+										<li class="">
+											<a href="#hot-games" role="tab" data-toggle="tab" aria-expanded="false">
+												<i class="material-icons">whatshot</i> HOT GAMES
+											</a>
+										</li>
+										<li class="">
+											<a href="#top-games" role="tab" data-toggle="tab" aria-expanded="false">
+												<i class="material-icons">show_chart</i> TOP GAMES
+											</a>
+										</li>
+									</ul>
 								</div>
 							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+							
+							<div class="col-md-3 col-xs-12 hidden-xs hidden-sm">
+								<div class="card card-profile">
+									<div class="card-avatar">
+										<a href="#pablo">
+											<img class="img" src="assets/img/tony.jpg" width="120" height="120">
+										</a>
+									</div>
+									<div class="card-content">
+										<h6 class="category text-gray">Pro Gamer - LV 21</h6>
+										<h4 class="card-title">Tony Nguyen</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 col-xs-12">
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/19_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/18_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/1_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/16_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/2_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/4_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/5_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/6_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/7_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="card card-product" data-count="3">
+										<div class="card-image" data-header-animation="false">
+											<a href="#pablo">
+												<img class="img" src="../assets/img/thumb/10_thumb.svg">
+											</a>
+											<div class="ripple-container"></div>
+										</div>
+										<div class="card-content">
+											<h4 class="card-title">
+												<a href="#pablo">
+												Pariatur sint amet
+												</a>
+											</h4>
+											<p class="text-center">
+												<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
+											</p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="card card-product" data-count="4">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/5_thumb.svg">
-								</a>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Non esse consequat 
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-product" data-count="3">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/6_thumb.svg">
-								</a>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Exercitation est officia 
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-product" data-count="3">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/7_thumb.svg">
-								</a>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Exercitation est officia 
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-product" data-count="3">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/10_thumb.svg">
-								</a>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Exercitation est officia 
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<hr />
-				<h2 class="text-info bold">Trí Tuệ</h2>
-				<div class="row">
-					<div class="col-md-3">
-						<div class="card card-product" data-count="3">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/27_thumb.svg">
-								</a>
-								<div class="ripple-container"></div>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Pariatur sint amet
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-product" data-count="4">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/28_thumb.svg">
-								</a>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Non esse consequat 
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-product" data-count="3">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/10_thumb.svg">
-								</a>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Exercitation est officia 
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-product" data-count="3">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/2_thumb.svg">
-								</a>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Exercitation est officia 
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-product" data-count="3">
-							<div class="card-image" data-header-animation="true">
-								<a href="#pablo">
-									<img class="img" src="../assets/img/thumb/1_thumb.svg">
-								</a>
-							</div>
-							<div class="card-content">
-								<div class="card-actions">
-									<i class="material-icons">games</i> 300,235 plays
-								</div>
-								<h4 class="card-title">
-									<a href="#pablo">
-                                        Exercitation est officia 
-                                    </a>
-								</h4>
-								<div class="card-description">
-									In minim amet amet esse duis non esse consequat. Pariatur sint amet dolore nulla eu veniam aliqua do exercitation consequat
-									ut amet.
-								</div>
-							</div>
-							<div class="card-footer">
-								<a class="btn btn-primary btn-md"> <i class="material-icons">flash_on</i> PLAY NOW</a>
-							</div>
-						</div>
-					</div>
+					<div class="clearfix"></div>
 				</div>
 			</div>
 		</div>
@@ -382,5 +358,13 @@
 <script src="assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
 <script src="assets/js/material-kit.js" type="text/javascript"></script>
+
+<script>
+	$('.pull-down').each(function() {
+		var $this = $(this);
+		$this.css('margin-top', $this.parent().height() - $this.height())
+		});
+
+</script>
 
 </html>
