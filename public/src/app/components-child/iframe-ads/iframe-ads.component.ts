@@ -22,14 +22,16 @@ export class IframeAdsComponent implements OnInit {
 
   ngOnInit() {
     this.showAds = true;
-    this.angulartics2.eventTrack.next({ action: 'showAds1', properties: { category: 'gamePlay' }});
+
   }
   _showAds(obj?:any) {
-    this.angulartics2.eventTrack.next({ action: 'showAds2', properties: { category: 'gamePlay' }});
+
     if(obj && obj.channelID){
       this.channelID = obj.channelID;
+      this.angulartics2.eventTrack.next({ action: 'showAds2', properties: { category: 'gamePlay' }});
     } else {
       this.channelID = '8152950647';
+      this.angulartics2.eventTrack.next({ action: 'showAds1', properties: { category: 'gamePlay' }});
     }
     this.showAds = true;
     let self = this;
@@ -140,6 +142,7 @@ export class IframeAdsComponent implements OnInit {
         // This event indicates the ad has finished - the video player
         // can perform appropriate UI actions, such as removing the timer for
         // remaining time detection.
+        self.angulartics2.eventTrack.next({ action: 'adsComplete', properties: { category: 'Adsense' }});
         self._closeAds();
         if (ad.isLinear()) {
           clearInterval(self.intervalTimer);
@@ -149,6 +152,7 @@ export class IframeAdsComponent implements OnInit {
       case google.ima.AdEvent.Type.CLICK:
         //when user click this ads
         // eventAdsense.click();
+        self.angulartics2.eventTrack.next({ action: 'adsClick', properties: { category: 'Adsense' }});
         self._closeAds();
         break;
 
@@ -156,6 +160,7 @@ export class IframeAdsComponent implements OnInit {
       case google.ima.AdEvent.Type.USER_CLOSE:
         //when user click this ads
         // eventAdsense.close();
+        self.angulartics2.eventTrack.next({ action: 'adsClose', properties: { category: 'Adsense' }});
         self._closeAds();
         break;
     }
@@ -182,6 +187,7 @@ export class IframeAdsComponent implements OnInit {
 
   onAdError(adErrorEvent){
     console.log(adErrorEvent.getError());
+    this.angulartics2.eventTrack.next({ action: 'adsError', properties: { category: 'Adsense' }});
     this._closeAds();
   }
   addEventListenerAds(){
