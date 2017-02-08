@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { GameService } from '../../services/game.service'
 
 import { IframeGameComponent } from './../../components-child/iframe-game/iframe-game.component';

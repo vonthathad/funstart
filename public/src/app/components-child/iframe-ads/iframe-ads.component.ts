@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter,ElementRef } from '@angular/core';
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'app-iframe-ads',
@@ -17,12 +18,14 @@ export class IframeAdsComponent implements OnInit {
   channelID: string;
   @Input() private showAds: boolean;
   // @Output() private closeAds = new EventEmitter();
-  constructor(private el: ElementRef) { }
+  constructor(private angulartics2: Angulartics2, private el: ElementRef) { }
 
   ngOnInit() {
-    this.showAds = true
+    this.showAds = true;
+    this.angulartics2.eventTrack.next({ action: 'showAds1', properties: { category: 'gamePlay' }});
   }
   _showAds(obj?:any) {
+    this.angulartics2.eventTrack.next({ action: 'showAds2', properties: { category: 'gamePlay' }});
     if(obj && obj.channelID){
       this.channelID = obj.channelID;
     } else {
@@ -39,6 +42,7 @@ export class IframeAdsComponent implements OnInit {
     this.showAds = false;
     if(this.element) this.element.innerHTML = '';
     // this.closeAds.emit();
+
   }
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Angulartics2 } from 'angulartics2';
 import { Game } from '../../classes/game';
 import { GameService } from '../../services/game.service'
 @Component({
@@ -15,7 +16,7 @@ export class IframeGameComponent implements OnInit {
   @Input() private playGame: boolean;
   @Output() updateResult = new EventEmitter();
   @Output() librariesLoadDone = new EventEmitter();
-  constructor(private zone: NgZone, private gameService: GameService,private cd: ChangeDetectorRef) {
+  constructor(private angulartics2: Angulartics2, private zone: NgZone, private gameService: GameService,private cd: ChangeDetectorRef) {
     (<any>window).angularComponentRef = {
       zone: this.zone,
       startBoot: (func) => { this.startBoot = func },
@@ -49,6 +50,7 @@ export class IframeGameComponent implements OnInit {
     });
   }
   setIframeSrc(game) {
+
     // set timeout to load after onLoad()
     // setTimeout(()=>{
       this.src = "/sources/games/" + game._id + "/index.html";
@@ -96,7 +98,6 @@ export class IframeGameComponent implements OnInit {
       this.resume();
       // this.cd.markForCheck();
     }
-
   }
   _playGame() {
     console.log("playGame click");
@@ -111,6 +112,7 @@ export class IframeGameComponent implements OnInit {
     }
   }
   _continue() {
+    this.angulartics2.eventTrack.next({ action: 'continueButtonClick', properties: { category: 'gamePlay' }});
     console.log("continue");
     // console.log(typeof this.level);
     // console.log(typeof this.game);
