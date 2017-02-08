@@ -62,7 +62,10 @@ export class GameComponent implements OnInit {
   // }
   handleLibrariesLoadDoneDone(){
     this.iframeAdsComponent._showAds();
-    this.gameIntroComponent.setLibrariesPreloadDone(true);
+    setTimeout(()=>{
+      this.gameIntroComponent.setLibrariesPreloadDone(true);
+    },360);
+
   }
   handleContinueGame(show) {
     this.iframeGameComponent._continue();

@@ -1,6 +1,6 @@
 .intro-frame{
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%,-50%);
   -webkit-transform: translate(-50%,-50%);
@@ -14,6 +14,7 @@
 .card-image img{
   border-radius: 6px;
 }
-md-spinner{
+.md-spinner-load{
   margin: auto;
+  width: 50px;
 }
