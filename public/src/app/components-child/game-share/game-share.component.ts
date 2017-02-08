@@ -92,7 +92,9 @@ export class GameShareComponent implements OnInit {
             //         this.shareService.setInfo({ pictureUrl: pictureUrl });
             //         this.shareDisable = false;
             //       })
-
+            if(this.bestScore && this.result["score"] < this.bestScore){
+                  this.result["score"] = this.bestScore;
+            }
             if (this.user) {
                   // check if user has played this game or not, it not, give him 0 init score
                   if (this.user.score == undefined) this.user.score = 0;
@@ -102,10 +104,6 @@ export class GameShareComponent implements OnInit {
                   // console.log(this.user.score);
 
                   console.log("Score " + score)
-                  if(this.bestScore) console.log("Best score " + this.bestScore)
-                  if(this.bestScore && score < this.bestScore) {
-                        score = this.bestScore;
-                  }
 
                   // console.log(this.userService.checkUser());
                   //  console.log("USER " + this.user.score + " result " + this.result["score"] + " gameid " + this.game._id);
@@ -150,7 +148,9 @@ export class GameShareComponent implements OnInit {
                   this.userService.postActivity({
                         game: this.game._id
                   }).subscribe(() => {
-                  }, (err) => console.error(err));
+                  }
+                  // , err => console.error(err)
+                  );
                   // update result to share facebook
                this.gameService.gameResultSource.next(result);
                this.result = result;
@@ -188,9 +188,6 @@ export class GameShareComponent implements OnInit {
                         res => {
                               this.result['pictureUrl'] = res.data;
                               this.result['des'] = this.result['descr'];
-                           if(this.bestScore && this.result["score"] < this.bestScore) {
-                              this.result["score"] = this.bestScore;
-                           }
                               this.result['title'] = `If you beat my score [${this.result['score']}] in this Game, you're a GENIUS!`;
                                console.log(this.result);
                               this.shareService.setInfo(this.result);
