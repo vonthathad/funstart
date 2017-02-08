@@ -132,9 +132,9 @@ export class GameShareComponent implements OnInit {
                                           this.result['title'] = `If you beat my score [${this.result['score']}] in this Game, you're a GENIUS!`;
                                           console.log(this.result);
                                           this.shareService.setInfo(this.result);
-                                          this.shareService.shareFacebook(function () {
-                                                console.log('done share');
-                                          });
+                                          // this.shareService.shareFacebook(function () {
+                                          //       console.log('done share');
+                                          // });
                                           this.shareDisable = false;
                                           this.gameService.gameResultSource.next(result);
 
@@ -184,11 +184,11 @@ export class GameShareComponent implements OnInit {
                         res => {
                               this.result['pictureUrl'] = res.data;
                               this.result['des'] = this.result['descr'];
+                           if(this.bestScore && this.result["score"] < this.bestScore) {
+                              this.result["score"] = this.bestScore;
+                           }
                               this.result['title'] = `If you beat my score [${this.result['score']}] in this Game, you're a GENIUS!`;
                                console.log(this.result);
-                              if(this.bestScore && this.result["score"] < this.bestScore) {
-                                    this.result["score"] = this.bestScore;
-                              }
                               this.shareService.setInfo(this.result);
                               this.shareService.shareFacebook(function () {
                                     console.log('done share');
