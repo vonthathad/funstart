@@ -103,7 +103,10 @@ export class GameShareComponent implements OnInit {
 
                   console.log("Score " + score)
                   if(this.bestScore) console.log("Best score " + this.bestScore)
-                  if(this.bestScore && score < this.bestScore) score = this.bestScore;
+                  if(this.bestScore && score < this.bestScore) {
+                        score = this.bestScore;
+                        // this.user.score = this.bestScore;
+                  }
 
                   // console.log(this.userService.checkUser());
                   //  console.log("USER " + this.user.score + " result " + this.result["score"] + " gameid " + this.game._id);

@@ -19,7 +19,9 @@ export class GameService {
 
     constructor(private http: Http) {
         this.rest = new Rest(http);
-        this.game$.subscribe(game => { this.game = game; console.log("game service " + JSON.stringify(game)) });
+        this.game$.subscribe(game => { this.game = game;
+        // console.log("game service " + JSON.stringify(game))
+        });
         this.gameResult$.subscribe(gameResult => { this.gameResult = gameResult; console.log("game result service " + JSON.stringify(gameResult)) });
     }
 

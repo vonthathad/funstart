@@ -37,7 +37,7 @@ export class UsersRankedSidebarComponent implements OnInit {
    setGame() {
 
       if (this.user) {
-         console.log("ID " + this.user._id);
+         // console.log("ID " + this.user._id);
          this.userService
             .getRankedUsers({game: this.game._id, user: this.user._id})
             .subscribe(rankedUsers => {
@@ -57,7 +57,7 @@ export class UsersRankedSidebarComponent implements OnInit {
 
    renderRankedUser(rankedUsersData) {
       this.rankedUsers = [];
-      console.log("rankedUsersData " + JSON.stringify(rankedUsersData));
+      // console.log("rankedUsersData " + JSON.stringify(rankedUsersData));
       var i;
       if (this.user) {
          var userOnTop = false;
@@ -103,7 +103,7 @@ export class UsersRankedSidebarComponent implements OnInit {
             this.rankedUsers.push(rankedUser);
          }
       }
-      console.log("rankedUsers " + JSON.stringify(this.rankedUsers));
+      // console.log("rankedUsers " + JSON.stringify(this.rankedUsers));
       // rankedUsersData.forEach(function () {
       //   let rankedUser : any;
       //   rankedUser.name = name;
