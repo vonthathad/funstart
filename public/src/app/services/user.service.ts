@@ -32,7 +32,7 @@ export class UserService {
         });
     }
     login(user): Observable<any[]> {
-        console.log(JSON.stringify(user));
+        // console.log(JSON.stringify(user));
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -43,7 +43,7 @@ export class UserService {
         });
     }
     logout(token) {
-        console.log("Token " + token)
+        // console.log("Token " + token)
         let headers = new Headers({
             'Authorization': `Bearer ${token}`
         });

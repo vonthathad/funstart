@@ -138,19 +138,19 @@ export class GameShareComponent implements OnInit {
                                           this.shareDisable = false;
                                           this.gameService.gameResultSource.next(result);
 
-                                    }, err => console.log(2))
+                                    }, err => console.error(err))
                               },
                               err => {
                                     // Log errors if any
-                                    console.log(err);
+                                    console.error(err);
                               });
                   }
             } else {
-                  this.userService.postActivity({
-                        game: this.game._id
-                  }).subscribe(() => {
+                  // this.userService.postActivity({
+                  //       game: this.game._id
+                  // }).subscribe(() => {
                         this.gameService.gameResultSource.next(result);
-                  }, (err) => console.log(2));
+                  // }, (err) => console.error(err));
             }
       }
 

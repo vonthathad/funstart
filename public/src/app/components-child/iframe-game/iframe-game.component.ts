@@ -54,7 +54,7 @@ export class IframeGameComponent implements OnInit {
     var iframe = document.getElementById('iframe-game');
     var win = (<HTMLIFrameElement>iframe).contentWindow;
     (<any>win).angularComponentRef = this.angularComponentRef;
-    console.log('Load from parent');
+    // console.log('Load from parent');
     (<any>win).game = (<any>window).game;
   }
   ngOnDestroy() {
