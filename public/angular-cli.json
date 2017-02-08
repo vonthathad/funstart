@@ -18,10 +18,17 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
+        "assets/css/bootstrap.min.css",
+        "assets/css/material-kit.css",
+        "assets/css/custom.css",
         "styles.scss"
       ],
       "scripts": [
-       
+       "./assets/js/jquery.min.js",
+       "./assets/js/bootstrap.min.js",
+       "./assets/js/material.min.js",
+       "./assets/js/material-kit.min.js",
+        "./game.bridge.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
