@@ -75,6 +75,7 @@ export class GameShareComponent implements OnInit {
       }
 
       updateResult(result) {
+            console.log(1);
             this.result = JSON.parse(result);
 
 
@@ -147,14 +148,14 @@ export class GameShareComponent implements OnInit {
                // post activity to add play turn
                   this.userService.postActivity({
                         game: this.game._id
-                  }).subscribe(() => {
-                  }
-                  // , err => console.error(err)
-                  );
+                  })
+                  //    .subscribe(() => {
+                  // },
+                  //       err => console.error(err)
+                  // );
                   // update result to share facebook
-               this.gameService.gameResultSource.next(result);
-               this.result = result;
-               console.log(result)
+                  console.log(JSON.stringify(this.result));
+               this.gameService.gameResultSource.next(this.result);
             }
       }
 
