@@ -22,7 +22,6 @@ export class GameCardComponent implements OnInit {
         this.videoplayer.nativeElement.play();
       } else {
         this.isDisplay = false;
-        this.videoplayer.nativeElement.pause();
       }
     }
 

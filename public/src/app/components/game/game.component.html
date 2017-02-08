@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div class="row">
-        <div class="col-sm-8 col-md-8">
+        <div class="col-md-8">
             <div class="game-frame">
             <!--<app-game-card [game]="game"></app-game-card>-->
                 <app-game-intro  (playGame)="handlePlayGame($event)"></app-game-intro>
@@ -11,15 +11,20 @@
             <div class="devider"></div>
             <div class="row">
                 <div class="col-md-4">
+                    <app-game-recommend-left></app-game-recommend-left>
+                </div>
+                <div class="col-md-8">
+                    <div *ngIf="facebookCommentShowed">
+                        <h4 class="section-heading">Facebook Comments</h4>
+                        <app-facebook-comment ></app-facebook-comment>
+
+                    </div>
                     <app-game-recommend-bottom></app-game-recommend-bottom>
                 </div>
-                <div *ngIf="facebookCommentShowed" class="col-md-8">
-                    <h4 class="section-heading">Facebook Comments</h4>
-                    <app-facebook-comment ></app-facebook-comment>
-                </div>
+
             </div>
         </div>
-        <div class="col-sm-4 col-md-4">
+        <div class="col-md-4">
             <div class="action-area">
 
             </div>

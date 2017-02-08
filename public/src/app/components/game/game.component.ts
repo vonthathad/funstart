@@ -8,6 +8,7 @@ import { IframeAdsComponent } from './../../components-child/iframe-ads/iframe-a
 import { GameIntroComponent } from './../../components-child/game-intro/game-intro.component';
 import { GameShareComponent } from './../../components-child/game-share/game-share.component';
 import { GameRecommendRightComponent } from './../../components-child/game-recommend-right/game-recommend-right.component';
+import { GameRecommendLeftComponent } from './../../components-child/game-recommend-left/game-recommend-left.component';
 import { GameRecommendBottomComponent } from './../../components-child/game-recommend-bottom/game-recommend-bottom.component';
 import { UsersRankedSidebarComponent } from './../../components-child/users-ranked-sidebar/users-ranked-sidebar.component';
 import { Game } from '../../classes/game';
@@ -27,6 +28,7 @@ export class GameComponent implements OnInit {
   @ViewChild(GameShareComponent) private gameShareComponent: GameShareComponent;
   @ViewChild(GameRecommendBottomComponent) private gameRecommendBottomComponent: GameRecommendBottomComponent;
   @ViewChild(GameRecommendRightComponent) private gameRecommendRightComponent: GameRecommendRightComponent;
+  @ViewChild(GameRecommendLeftComponent) private gameRecommendLeftComponent: GameRecommendLeftComponent;
   @ViewChild(UsersRankedSidebarComponent) private usersRankedSidebarComponent: UsersRankedSidebarComponent;
 
   constructor(private route: ActivatedRoute, private gameService: GameService) { }
@@ -43,6 +45,7 @@ export class GameComponent implements OnInit {
         this.gameShareComponent.setVisible(false);
         this.gameIntroComponent.setLibrariesPreloadDone(false);
         this.gameRecommendBottomComponent.loadRecommendGame();
+        this.gameRecommendLeftComponent.loadRecommendGame();
         this.gameRecommendRightComponent.loadRecommendGame();
         this.facebookCommentShowed = false;
         this.facebookCommentShowed = true;

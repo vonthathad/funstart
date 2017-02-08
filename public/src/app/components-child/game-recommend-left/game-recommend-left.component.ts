@@ -5,11 +5,11 @@ import { GameService } from '../../services/game.service';
 
 import { Game } from '../../classes/game';
 @Component({
-  selector: 'app-game-recommend-bottom',
-  templateUrl: './game-recommend-bottom.component.html',
-  styleUrls: ['./game-recommend-bottom.component.scss']
+  selector: 'app-game-recommend-left',
+  templateUrl: './game-recommend-left.component.html',
+  styleUrls: ['./game-recommend-left.component.scss']
 })
-export class GameRecommendBottomComponent implements OnInit {
+export class GameRecommendLeftComponent implements OnInit {
   private games: Game[];
   
   constructor(private router: Router, private gameService: GameService) { }
