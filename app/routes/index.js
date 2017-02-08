@@ -44,7 +44,7 @@ module.exports = function (app) {
     // } else {
     //     res.redirect(req.session.redirect || '/');
     // }
-     res.redirect(req.session.redirect + "?token=" + req.user.token);
+     res.redirect(req.session.redirect.split('?')[0] + "?token=" + req.user.token);
     // var tmp = req.user.trackData;
     // req.user.trackData = {};
     // tmp.hourlySession = 0;
@@ -71,7 +71,7 @@ module.exports = function (app) {
     // } else {
     // res.redirect(req.session.redirect || '/');
     // }
-    res.redirect(req.session.redirect + "?token=" + req.user.token);
+    res.redirect(req.session.redirect.split('?')[0] + "?token=" + req.user.token);
 
     // var tmp = req.user.trackData;
     // req.user.trackData = {};
