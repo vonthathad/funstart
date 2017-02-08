@@ -50,17 +50,20 @@ export class IframeGameComponent implements OnInit {
 
   }
   setIframeSrc(game) {
-    this.src = "/sources/games/" + game._id + "/index.html";
+    // set timeout to load after onLoad()
+    setTimeout(()=>{
+      this.src = "/sources/games/" + game._id + "/index.html";
+    }, 200);
     this.loadOnce = true;
     this.playGame = false;
     this._preload = false;
   }
   onLoad() {
-    var iframe = document.getElementById('iframe-game');
-    var win = (<HTMLIFrameElement>iframe).contentWindow;
-    (<any>win).angularComponentRef = this.angularComponentRef;
-    // console.log('Load from parent');
-    (<any>win).game = (<any>window).game;
+      var iframe = document.getElementById('iframe-game');
+      var win = (<HTMLIFrameElement>iframe).contentWindow;
+      (<any>win).angularComponentRef = this.angularComponentRef;
+      // console.log('Load from parent');
+      (<any>win).game = (<any>window).game;
   }
   ngOnDestroy() {
     this.angularComponentRef = null;

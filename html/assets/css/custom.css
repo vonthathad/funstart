@@ -534,7 +534,8 @@
 
 .card-profile,
 .card-testimonial {
-	margin-top: 30px;
+	margin-top: 0px;
+	margin-bottom: 0px;
 	text-align: center;
 }
 
@@ -546,17 +547,17 @@
 
 .card-profile .card-avatar,
 .card-testimonial .card-avatar {
-	max-width: 130px;
-	max-height: 130px;
-	margin: -50px auto 0;
+	max-width: 80px;
+	max-height: 80px;
+	margin: -20px auto 0;
 	border-radius: 50%;
 	overflow: hidden;
-	box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
 .card-profile .card-avatar+.card-content,
 .card-testimonial .card-avatar+.card-content {
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 .card-profile.card-plain .card-avatar,
@@ -893,5 +894,24 @@
 
 .game-list .card .card-footer a:first-child, 
 .topic-list .card .card-footer a:first-child{
+	left: 0px;
+}
+
+
+.game-score-list{
+	display: bold;
+	margin-bottom: 60px;
+}
+
+.card-game-score .card-image::after{
+	content: "";
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #91a9cb));
+    background-image: -webkit-linear-gradient(#ffffff,#91a9cb);
+
+
+	width: 100%;
+	height: 200px;
+	position: absolute;
+	top:0px;
 	left: 0px;
 }
