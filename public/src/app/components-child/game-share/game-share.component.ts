@@ -105,7 +105,6 @@ export class GameShareComponent implements OnInit {
                   if(this.bestScore) console.log("Best score " + this.bestScore)
                   if(this.bestScore && score < this.bestScore) {
                         score = this.bestScore;
-                        // this.user.score = this.bestScore;
                   }
 
                   // console.log(this.userService.checkUser());
@@ -187,6 +186,9 @@ export class GameShareComponent implements OnInit {
                               this.result['des'] = this.result['descr'];
                               this.result['title'] = `If you beat my score [${this.result['score']}] in this Game, you're a GENIUS!`;
                                console.log(this.result);
+                              if(this.bestScore && this.result["score"] < this.bestScore) {
+                                    this.result["score"] = this.bestScore;
+                              }
                               this.shareService.setInfo(this.result);
                               this.shareService.shareFacebook(function () {
                                     console.log('done share');
