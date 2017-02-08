@@ -22,7 +22,7 @@ export class GameRecommendBottomComponent implements OnInit {
   }
   loadRecommendGame(){
     this.gameService
-      .getGames({ order: "random", paging: 3 })
+      .getGames({ order: "random", paging: 2 })
       .subscribe((res: any) => this.renderGames(res.data));
   }
 
