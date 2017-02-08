@@ -37,7 +37,8 @@
                         <div class="ripple-container"></div></a>
                     <ul class="dropdown-menu">
 
-                        <li *ngFor="let game of games"><a [routerLink]="['/game', game._id]">
+                        <li *ngFor="let game of games">
+                            <a [routerLink]="['/game', game._id]" [queryParams]="{utm_campaign:'tracking',utm_source:'explore',utm_medium:'card'}">
                             <img class="submenu-thumb" src="{{game.thumb}}" alt="{{game.title}}">
                             {{game.title}}
                             </a>

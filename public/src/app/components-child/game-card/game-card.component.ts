@@ -11,6 +11,7 @@ export class GameCardComponent implements OnInit {
   private checkView: boolean = false;
   private isDisplay: boolean = false;
   @Input('game') game: Game;
+  @Input('link') link: string;
   @ViewChild('videoPlayer') videoplayer: any;
   @HostListener("window:scroll", [])
   onWindowScroll() {
