@@ -7,6 +7,7 @@ import { Game } from '../../classes/game';
 })
 export class GameCardHorizontalComponent implements OnInit {
    @Input('game') game: Game;
+   @Input('link') link: string;
   constructor() { }
 
   ngOnInit() {

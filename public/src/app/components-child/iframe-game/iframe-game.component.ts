@@ -39,10 +39,15 @@ export class IframeGameComponent implements OnInit {
     };
 
 
-    if (gameService.game) { this.setIframeSrc(gameService.game); };
-    gameService.game$.subscribe(game => this.setIframeSrc(game));
+    // if (gameService.game) { this.setIframeSrc(gameService.game); };
+    gameService.game$.subscribe(game => {
+      if(game["_id"]){
+        this.setIframeSrc(game);
+      };
+    });
   }
   ngOnInit() {
+
   }
   setIframeSrc(game) {
     this.src = "/sources/games/" + game._id + "/index.html";

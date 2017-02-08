@@ -7,6 +7,7 @@ import { Game } from '../../classes/game';
 })
 export class GameCardVerticalComponent implements OnInit {
    @Input('game') game: Game;
+   @Input('link') link: string;
   @ViewChild('videoPlayer') videoplayer: any;
   private isDisplay: boolean = false;
   constructor() { }
