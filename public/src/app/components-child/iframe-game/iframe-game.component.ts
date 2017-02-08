@@ -52,9 +52,9 @@ export class IframeGameComponent implements OnInit {
   setIframeSrc(game) {
 
     // set timeout to load after onLoad()
-    // setTimeout(()=>{
+    setTimeout(()=>{
       this.src = "/sources/games/" + game._id + "/index.html";
-    // }, 200);
+    }, 200);
     this.loadOnce = true;
     this.playGame = false;
     this._preload = false;
