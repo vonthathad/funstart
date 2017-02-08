@@ -12,9 +12,9 @@ function Share(share) {
             case "0.0.2":
                 this.getDescr(result, function(result) {
                     var i;
-                    console.log("Score " + result.score);
-                    console.log("Descr " + result.descr);
-                    console.log("Title " + result.title);
+                    // console.log("Score " + result.score);
+                    // console.log("Descr " + result.descr);
+                    // console.log("Title " + result.title);
                     window.angularComponentRef.zone.run(function() {
                         window.angularComponentRef.updateResult(JSON.stringify(result))
                     });
@@ -40,7 +40,7 @@ function Share(share) {
                     // setTimeout(function () {
                     //     $('.recommend-btn:eq(0) > span').text(status == "won" ? ' Tiếp tục' : ' Chơi lại');
                     // }, 100);
-                    console.log("status" + status);
+                    // console.log("status" + status);
                     var title = (status == "won" ? "Hoành thành" + " level " : "Dừng lại" + " ở level ") + level;
                     if (status == "lost") score = 0;
                     result.score = score;
@@ -77,9 +77,9 @@ function Share(share) {
             case "0.0.2":
                 var getRandomChild = this.getRandomChild;
                 var score;
-                console.log("STATUS" + data.status);
+                // console.log("STATUS" + data.status);
                 Object.keys(descr).forEach(function(levelRange) {
-                    console.log("Level" + levelRange);
+                    // console.log("Level" + levelRange);
                     var levels = levelRange.split("-");
                     var minLevel = parseInt(levels[0]);
                     var maxLevel = parseInt(levels[1]);
@@ -180,7 +180,7 @@ function Share(share) {
 
     this.getRandomChild = function(array) {
         var r = Math.floor(Math.random() * array.length);
-        console.log(array.length + " " + r);
+        // console.log(array.length + " " + r);
         return array[r];
     }
 }
@@ -361,7 +361,7 @@ function _Phaser(phaser) {
                     var gl = game.renderer.gl;
                     var buf = new Uint8Array(game.width * game.height * 4);
                     gl.readPixels(0, 0, game.width, game.height, gl.RGBA, gl.UNSIGNED_BYTE, buf);
-                    console.log(buf);
+                    // console.log(buf);
                 }
             });
         });
@@ -399,7 +399,7 @@ function _Phaser(phaser) {
         }
 
         if (!_this.game.device.desktop) {
-            console.log(123);
+            // console.log(123);
             var isLandscape = width > height;
             var enterIncorrectOrientation = this.enterIncorrectOrientation;
             var leaveIncorrectOrientation = this.leaveIncorrectOrientation;
@@ -432,14 +432,14 @@ function _Phaser(phaser) {
         }
     }
     this.leaveIncorrectOrientation = function(_this, setSize) {
-        console.log("leaveIncorrectOrientation");
+        // console.log("leaveIncorrectOrientation");
         _this.orientated = true;
         _this.game.paused = false;
        document.getElementById('iframe-game').contentWindow.document.getElementById("orientation").style.display = "none";
         setSize();
     }
     this.enterIncorrectOrientation = function(_this, setSize) {
-       console.log("enterIncorrectOrientation");
+       // console.log("enterIncorrectOrientation");
         _this.orientated = false;
         _this.game.paused = true;
        document.getElementById('iframe-game').contentWindow.document.getElementById("orientation").style.display = "block";
@@ -448,7 +448,7 @@ function _Phaser(phaser) {
 }
 
 function Game() {
-    console.log("href " + window.location.href);
+    // console.log("href " + window.location.href);
     this.init = function(info, callback) {
         //set absolute url
         this.prelink = '/sources/games/' + window.location.href.split("game/")[1] + '/';
@@ -459,7 +459,7 @@ function Game() {
         }
         // console.log(JSON.stringify( window.location.href.split("game/")))
         // this.prelink = this.prelink.split("?")[0];
-        console.log("prelink " + this.prelink);
+        // console.log("prelink " + this.prelink);
         this.game = {};
         if (info.phaser) {
             this._phaser = new _Phaser(info.phaser);
