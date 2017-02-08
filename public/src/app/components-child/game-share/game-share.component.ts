@@ -150,7 +150,7 @@ export class GameShareComponent implements OnInit {
                   this.userService.postActivity({
                         game: this.game._id
                   }).subscribe(() => {
-                  }, (err) => console.error(err));
+                  }, err => console.error(err));
                   // update result to share facebook
                this.gameService.gameResultSource.next(result);
                this.result = result;
