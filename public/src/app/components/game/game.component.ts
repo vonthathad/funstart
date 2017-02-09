@@ -30,14 +30,11 @@ export class GameComponent implements OnInit {
   @ViewChild(GameRecommendLeftComponent) private gameRecommendLeftComponent: GameRecommendLeftComponent;
   @ViewChild(UsersRankedSidebarComponent) private usersRankedSidebarComponent: UsersRankedSidebarComponent;
 
-  constructor(private route: ActivatedRoute, private gameService: GameService) { }
-
-  ngOnInit() {
-    // this.show = "intro";
-    this.route.params.subscribe(params => {
-      this.gameService.getGame(params['id']).subscribe((res: any) => {
+  constructor(private route: ActivatedRoute, private gameService: GameService) {
+    route.params.subscribe(params => {
+      gameService.getGame(params['id']).subscribe((res: any) => {
         // console.log("IN PUT " + JSON.stringify(res.data));
-        this.gameService.gameSource.next(res.data);
+        gameService.gameSource.next(res.data);
         this.game = res.data;
         this.gameIntroComponent.setVisible(true);
         this.iframeGameComponent.setVisible(false);
@@ -52,6 +49,11 @@ export class GameComponent implements OnInit {
       });
     });
   }
+
+  ngOnInit() {
+    this.show = "intro";
+
+  }
   // renderGame(game) {
   // this.game = game;
   // this.iframeGameComponent.setGame(game);
@@ -61,10 +63,10 @@ export class GameComponent implements OnInit {
 
   // }
   handleLibrariesLoadDoneDone(){
-    this.iframeAdsComponent._showAds();
-    setTimeout(()=>{
+    this.iframeAdsComponent._showAds({},()=>{
       this.gameIntroComponent.setLibrariesPreloadDone(true);
-    },360);
+    });
+
 
   }
   handleContinueGame(show) {

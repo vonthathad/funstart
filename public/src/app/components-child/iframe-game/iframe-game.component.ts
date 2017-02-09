@@ -38,23 +38,19 @@ export class IframeGameComponent implements OnInit {
       },
       component: this
     };
-
-  }
-  ngOnInit() {
-    if (this.gameService.game) { this.setIframeSrc(this.gameService.game); };
-    this.gameService.game$.subscribe(game => {
-      if(game["id"]){
-        this.setIframeSrc(game);
-      }
-      console.log("FFF " + game);
+    gameService.game$.subscribe(game => {
+      // console.log(game);
+      this.setIframeSrc(game);
     });
   }
+  ngOnInit() {
+    // if (this.gameService.game) { this.setIframeSrc(this.gameService.game); };
+    // this.
+  }
   setIframeSrc(game) {
-
+    console.log('set src');
     // set timeout to load after onLoad()
-    setTimeout(()=>{
-      this.src = "/sources/games/" + game._id + "/index.html";
-    }, 200);
+    this.src = "/sources/games/" + game._id + "/index.html";
     this.loadOnce = true;
     this.playGame = false;
     this._preload = false;

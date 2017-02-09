@@ -50,7 +50,7 @@ export class Rest {
         var req = new Request(reqOptions);
         // send request and return observable
         return this.http.request(req)
-            .map((res: Response) => res.json())
+            .map((res: Response) => res.json());
             // .catch((error: any) => {return Observable.throw(error || 'Server error')});
     }
 

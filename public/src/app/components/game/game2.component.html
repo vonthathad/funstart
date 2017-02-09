@@ -1,0 +1,80 @@
+<!--<md-tab-group>-->
+<!--<md-tab label="New Games" (onCentering)="getGames('created')">-->
+<!--<div *ngFor="let game of games">-->
+<!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
+<!--</div>-->
+<!---->
+<!--</md-tab>-->
+<!--<md-tab label="Hot Games"  (onCentering)="getGames('hot')">-->
+<!--<div *ngFor="let game of games">-->
+<!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
+<!--</div>-->
+<!--</md-tab>-->
+<!--<md-tab label="Top Games"  (onCentering)="getGames('top')">-->
+<!--<div *ngFor="let game of games">-->
+<!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
+<!--</div>-->
+<!--</md-tab>-->
+<!--</md-tab-group>-->
+
+<div class="wrapper">
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="main topic-list col-md-12">
+                    <div class="topic-nav col-xs-12">
+                        <ul class="nav nav-pills nav-pills-primary nav-pills-icons" role="tablist">
+                            <li class="active">
+                                <a href="#new-games" role="tab" data-toggle="tab" aria-expanded="true" (click)="getGames('created')">
+                                    <i class="ion-flash"></i> NEW GAMES
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#hot-games" role="tab" data-toggle="tab" aria-expanded="false" (click)="getGames('hot')">
+                                    <i class="ion-arrow-graph-up-right"></i> HOT GAMES
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#top-games" role="tab" data-toggle="tab" aria-expanded="false" (click)="getGames('top')">
+                                    <i class="ion-ios-star"></i> TOP GAMES
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="new-games">
+                            <div class="row" infinite-scroll
+                                 [infiniteScrollDistance]="1"
+                                 [infiniteScrollThrottle]="500"
+                                 (scrolled)="onScroll()">
+                                <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
+                                    <app-game-card-vertical [game]="game" [link]="'topic'"></app-game-card-vertical>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="hot-games">
+                            <div class="row" infinite-scroll
+                                 [infiniteScrollDistance]="1"
+                                 [infiniteScrollThrottle]="500"
+                                 (scrolled)="onScroll()">
+                                <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
+                                    <app-game-card-vertical [game]="game" [link]="'topic'"></app-game-card-vertical>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="top-games">
+                            <div class="row" infinite-scroll
+                                 [infiniteScrollDistance]="1"
+                                 [infiniteScrollThrottle]="500"
+                                 (scrolled)="onScroll()">
+                                <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
+                                    <app-game-card-vertical [game]="game" [link]="'topic'"></app-game-card-vertical>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

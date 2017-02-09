@@ -9,5 +9,5 @@
     <button (click)="credit()">Credit</button>
     <button (click)="resume()">Resume</button>
     <button (click)="pause()">Pause</button>-->
-    <iframe tabindex=1 id="iframe-game" width="100%" height="100%" [src]="this.src | safe" (load)="onLoad()"></iframe>
+    <iframe *ngIf="this.src" id="iframe-game" width="100%" height="100%" [src]="this.src | safe" (load)="onLoad()"></iframe>
 </div>
