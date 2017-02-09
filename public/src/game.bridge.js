@@ -1,39 +1,20 @@
-setTimeout(function () {
+var keys = {};
+window.addEventListener("keydown",
+   function(e){
+      keys[e.keyCode] = true;
+      switch(e.keyCode){
+         case 37: case 39: case 38:  case 40: // Arrow keys
+         case 32: e.preventDefault(); break; // Space
+         default: break; // do not block other keys
+      }
+   },
+   false);
+window.addEventListener('keyup',
+   function(e){
+      keys[e.keyCode] = false;
+   },
+   false);
 
-var iframeGame = document.getElementById('iframe-game');
-iframeGame.tabIndex = 1;
-iframeGame.addEventListener('keydown', function(e){
-   move = false;
-   x = false;
-   y = false;
-   var keycode;
-   if (window.event) keycode = window.event.keyCode;
-   else if (e) keycode = e.which;
-   switch(keycode){
-      case 37:
-         move = true;
-         x = 'negative';
-         break;
-      case 38:
-         move = true;
-         y = 'negative'
-         break;
-      case 39:
-         move = true;
-         x = 'positive'
-         break;
-      case 40:
-         move = true;
-         y = 'positive'
-         break;
-   }
-   //if(move){
-   //    animation.move(x,y);
-   //}
-   e.preventDefault();
-   return false;
-});
-},3000)
 
 /////////////////////////////////////
 //////////// GAME SHARE

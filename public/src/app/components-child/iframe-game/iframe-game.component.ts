@@ -69,18 +69,39 @@ export class IframeGameComponent implements OnInit {
 
     iframe.addEventListener('mouseenter', function() {
       s.insideIframe = true;
-      s.scrollX = window.scrollX;
-      s.scrollY = window.scrollY;
+      // s.scrollX = window.scrollX;
+      // s.scrollY = window.scrollY;
     });
 
     iframe.addEventListener('mouseleave', function() {
       s.insideIframe = false;
     });
-
-    document.addEventListener('scroll', function() {
-      if (s.insideIframe)
-        window.scrollTo(s.scrollX, s.scrollY);
+    //
+    // document.addEventListener('scroll', function() {
+    //   if (s.insideIframe)
+    //     window.scrollTo(s.scrollX, s.scrollY);
+    // });
+    window.addEventListener('keydown', function(e) {
+      if(s.insideIframe)
+        e.preventDefault();
     });
+    window.addEventListener('keyup', function(e) {
+      if(s.insideIframe)
+        e.preventDefault();
+    });
+    (<any>iframe).contentWindow.document.addEventListener('keydown', function(e) {
+      if(s.insideIframe)
+        e.preventDefault();
+    });
+    (<any>iframe).contentWindow.document.addEventListener('keyup', function(e) {
+      if(s.insideIframe)
+        e.preventDefault();
+    });
+    // window.onkeydown = function(e) {
+    //   if(s.insideIframe)
+    //     e.preventDefault();
+    // };
+
   }
   ngOnDestroy() {
     this.angularComponentRef = null;
