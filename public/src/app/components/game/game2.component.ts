@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from '../../services/game.service'
 
@@ -17,10 +17,10 @@ export class Game2Component implements OnInit {
   private show: string;
   private share: string;
   private facebookCommentShowed: boolean;
-  @ViewChild(GameRecommendBottomComponent) private gameRecommendBottomComponent: GameRecommendBottomComponent;
-  @ViewChild(GameRecommendRightComponent) private gameRecommendRightComponent: GameRecommendRightComponent;
-  @ViewChild(GameRecommendLeftComponent) private gameRecommendLeftComponent: GameRecommendLeftComponent;
-  @ViewChild(UsersRankedSidebarComponent) private usersRankedSidebarComponent: UsersRankedSidebarComponent;
+  // @ViewChild(GameRecommendBottomComponent) private gameRecommendBottomComponent: GameRecommendBottomComponent;
+  // @ViewChild(GameRecommendRightComponent) private gameRecommendRightComponent: GameRecommendRightComponent;
+  // @ViewChild(GameRecommendLeftComponent) private gameRecommendLeftComponent: GameRecommendLeftComponent;
+  // @ViewChild(UsersRankedSidebarComponent) private usersRankedSidebarComponent: UsersRankedSidebarComponent;
 
   constructor(private route: ActivatedRoute, private gameService: GameService) { }
 
@@ -28,9 +28,9 @@ export class Game2Component implements OnInit {
 
     this.show = "intro";
     this.route.params.subscribe(params => {
-      this.gameRecommendBottomComponent.loadRecommendGame();
-      this.gameRecommendLeftComponent.loadRecommendGame();
-      this.gameRecommendRightComponent.loadRecommendGame();
+      // this.gameRecommendBottomComponent.loadRecommendGame();
+      // this.gameRecommendLeftComponent.loadRecommendGame();
+      // this.gameRecommendRightComponent.loadRecommendGame();
       this.gameService.getGame(params['id']).subscribe((res: any) => {
         // console.log("IN PUT " + JSON.stringify(res.data));
         this.gameService.gameSource.next(res.data);
