@@ -29,6 +29,7 @@ import { HeaderComponent } from './components-shared/header/header.component';
 import { FooterComponent } from './components-shared/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { GameComponent } from './components/game/game.component';
+import { Game2Component } from './components/game/game2.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { UserComponent } from './components/user/user.component';
 import { SidebarComponent } from './components-shared/sidebar/sidebar.component';
@@ -62,6 +63,7 @@ import { SignupComponent } from './components/signup/signup.component';
     FooterComponent,
     HomeComponent,
     GameComponent,
+    Game2Component,
     TopicComponent,
     UserComponent,
     GameCardComponent,

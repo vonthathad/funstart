@@ -90,6 +90,7 @@ module.exports = function (app) {
     .get(users.resetPage)
     .post(users.resetDone);
   app.get('/game/:gameId', games.renderGame);
+  app.get('/test/:gameId', games.renderGame);
   app.param('gameId', games.gameByID);
   app.get('*', function (req, res, next) {
     if (req.url.indexOf('sources') < 0 && req.url.indexOf('api') < 0 && req.url.indexOf('results') < 0) {
