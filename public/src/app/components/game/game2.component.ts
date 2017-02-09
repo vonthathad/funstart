@@ -33,8 +33,12 @@ export class Game2Component implements OnInit {
   constructor(private route: ActivatedRoute, private gameService: GameService) { }
 
   ngOnInit() {
+
     this.show = "intro";
     this.route.params.subscribe(params => {
+      this.gameRecommendBottomComponent.loadRecommendGame();
+      this.gameRecommendLeftComponent.loadRecommendGame();
+      this.gameRecommendRightComponent.loadRecommendGame();
       this.gameService.getGame(params['id']).subscribe((res: any) => {
         // console.log("IN PUT " + JSON.stringify(res.data));
         this.gameService.gameSource.next(res.data);
@@ -43,9 +47,7 @@ export class Game2Component implements OnInit {
         // this.iframeGameComponent.setVisible(false);
         // this.gameShareComponent.setVisible(false);
         // this.gameIntroComponent.setLibrariesPreloadDone(false);
-        this.gameRecommendBottomComponent.loadRecommendGame();
-        this.gameRecommendLeftComponent.loadRecommendGame();
-        this.gameRecommendRightComponent.loadRecommendGame();
+
         this.facebookCommentShowed = false;
         this.facebookCommentShowed = true;
         // this.iframeAdsComponent._closeAds();
