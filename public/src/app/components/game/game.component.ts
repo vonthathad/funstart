@@ -33,7 +33,7 @@ export class GameComponent implements OnInit {
   constructor(private route: ActivatedRoute, private gameService: GameService) { }
 
   ngOnInit() {
-    // this.show = "intro";
+    this.show = "intro";
     this.route.params.subscribe(params => {
       this.gameService.getGame(params['id']).subscribe((res: any) => {
         // console.log("IN PUT " + JSON.stringify(res.data));
@@ -61,10 +61,10 @@ export class GameComponent implements OnInit {
 
   // }
   handleLibrariesLoadDoneDone(){
-    this.iframeAdsComponent._showAds();
-    setTimeout(()=>{
+    this.iframeAdsComponent._showAds({},()=>{
       this.gameIntroComponent.setLibrariesPreloadDone(true);
-    },360);
+    });
+
 
   }
   handleContinueGame(show) {

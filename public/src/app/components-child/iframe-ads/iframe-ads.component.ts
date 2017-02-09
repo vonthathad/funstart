@@ -16,6 +16,7 @@ export class IframeAdsComponent implements OnInit {
   intervalTimer: any;
   videoContent: any;
   channelID: string;
+  callback: any;
   @Input() private showAds: boolean;
   // @Output() private closeAds = new EventEmitter();
   constructor(private angulartics2: Angulartics2, private el: ElementRef) { }
@@ -24,7 +25,7 @@ export class IframeAdsComponent implements OnInit {
     this.showAds = true;
 
   }
-  _showAds(obj?:any) {
+  _showAds(obj?:any,callback?:any) {
 
     if(obj && obj.channelID){
       this.channelID = obj.channelID;
@@ -33,6 +34,7 @@ export class IframeAdsComponent implements OnInit {
       this.channelID = '8152950647';
       this.angulartics2.eventTrack.next({ action: 'showAds1', properties: { category: 'gamePlay' }});
     }
+    this.callback = callback;
     this.showAds = true;
     let self = this;
     setTimeout(function () {
@@ -102,10 +104,16 @@ export class IframeAdsComponent implements OnInit {
       // Call play to start showing the ad. Single video and overlay ads will
       // start at this time; the call will be ignored for ad rules.
       this.adsManager.start();
+      if(this.callback) {
+        this.callback();
+      }
     } catch (adError) {
       // An error may be thrown if there was a problem with the VAST response.
       //videoContent.play();
       console.log(adError);
+      if(this.callback) {
+        this.callback();
+      }
       // eventAdsense.skipAds()
     }
   }
