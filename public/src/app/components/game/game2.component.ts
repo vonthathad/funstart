@@ -9,7 +9,7 @@ import { Game } from '../../classes/game';
   templateUrl: './game2.component.html',
   styleUrls: ['./game.component.scss'],
 })
-export class TopicComponent implements OnInit {
+export class Game2Component implements OnInit {
   private topicId: string;
   private games: Game[];
   private paging: number;
