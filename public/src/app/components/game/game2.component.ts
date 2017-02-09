@@ -11,22 +11,16 @@ import { Game } from '../../classes/game';
 })
 export class Game2Component implements OnInit {
   private game: Game;
-  private show: string;
-  private share: string;
-  
 
-  constructor(private route: ActivatedRoute, private gameService: GameService) { }
 
-  ngOnInit() {
-
-    this.show = "intro";
-    this.route.params.subscribe(params => {
+  constructor(private route: ActivatedRoute, private gameService: GameService) {
+    route.params.subscribe(params => {
       // this.gameRecommendBottomComponent.loadRecommendGame();
       // this.gameRecommendLeftComponent.loadRecommendGame();
       // this.gameRecommendRightComponent.loadRecommendGame();
-      this.gameService.getGame(params['id']).subscribe((res: any) => {
+      gameService.getGame(params['id']).subscribe((res: any) => {
         // console.log("IN PUT " + JSON.stringify(res.data));
-        this.gameService.gameSource.next(res.data);
+        gameService.gameSource.next(res.data);
         this.game = res.data;
         // this.gameIntroComponent.setVisible(true);
         // this.iframeGameComponent.setVisible(false);
@@ -38,6 +32,11 @@ export class Game2Component implements OnInit {
         // this.iframeAdsComponent._closeAds();
       });
     });
+  }
+
+  ngOnInit() {
+
+
   }
 
 }
