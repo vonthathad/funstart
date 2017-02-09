@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter,ElementRef } from '@angular/core';
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'app-iframe-ads',
@@ -17,16 +18,20 @@ export class IframeAdsComponent implements OnInit {
   channelID: string;
   @Input() private showAds: boolean;
   // @Output() private closeAds = new EventEmitter();
-  constructor(private el: ElementRef) { }
+  constructor(private angulartics2: Angulartics2, private el: ElementRef) { }
 
   ngOnInit() {
-    this.showAds = true
+    this.showAds = true;
+
   }
   _showAds(obj?:any) {
+
     if(obj && obj.channelID){
       this.channelID = obj.channelID;
+      this.angulartics2.eventTrack.next({ action: 'showAds2', properties: { category: 'gamePlay' }});
     } else {
       this.channelID = '8152950647';
+      this.angulartics2.eventTrack.next({ action: 'showAds1', properties: { category: 'gamePlay' }});
     }
     this.showAds = true;
     let self = this;
@@ -39,6 +44,7 @@ export class IframeAdsComponent implements OnInit {
     this.showAds = false;
     if(this.element) this.element.innerHTML = '';
     // this.closeAds.emit();
+
   }
 
 
@@ -136,6 +142,7 @@ export class IframeAdsComponent implements OnInit {
         // This event indicates the ad has finished - the video player
         // can perform appropriate UI actions, such as removing the timer for
         // remaining time detection.
+        self.angulartics2.eventTrack.next({ action: 'adsComplete', properties: { category: 'Adsense' }});
         self._closeAds();
         if (ad.isLinear()) {
           clearInterval(self.intervalTimer);
@@ -145,6 +152,7 @@ export class IframeAdsComponent implements OnInit {
       case google.ima.AdEvent.Type.CLICK:
         //when user click this ads
         // eventAdsense.click();
+        self.angulartics2.eventTrack.next({ action: 'adsClick', properties: { category: 'Adsense' }});
         self._closeAds();
         break;
 
@@ -152,6 +160,7 @@ export class IframeAdsComponent implements OnInit {
       case google.ima.AdEvent.Type.USER_CLOSE:
         //when user click this ads
         // eventAdsense.close();
+        self.angulartics2.eventTrack.next({ action: 'adsClose', properties: { category: 'Adsense' }});
         self._closeAds();
         break;
     }
@@ -178,6 +187,7 @@ export class IframeAdsComponent implements OnInit {
 
   onAdError(adErrorEvent){
     console.log(adErrorEvent.getError());
+    this.angulartics2.eventTrack.next({ action: 'adsError', properties: { category: 'Adsense' }});
     this._closeAds();
   }
   addEventListenerAds(){

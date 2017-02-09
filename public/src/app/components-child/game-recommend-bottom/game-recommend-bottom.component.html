@@ -1,5 +1,5 @@
 <div class="row" id="list-recommend">
   <div class="col-md-6 col-sm-4 col-xs-6"  *ngFor="let game of games;let index = index" [ngClass]="{'visible-sm': index == 2}">
-     <app-game-card [game]="game"></app-game-card>
+     <app-game-card [game]="game" [link]="'rcmbottom'"></app-game-card>
   </div>
 </div>

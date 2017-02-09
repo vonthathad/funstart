@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Angulartics2 } from 'angulartics2';
 
 import { Game } from '../../classes/game';
 import { User } from '../../classes/user';
@@ -24,7 +25,7 @@ export class GameShareComponent implements OnInit {
       private bestScore: number;
       @Output() continueGame = new EventEmitter();
 
-      constructor(private imageService: ImageService, private shareService: ShareService, private userService: UserService, private gameService: GameService) {
+      constructor(private angulartics2: Angulartics2, private imageService: ImageService, private shareService: ShareService, private userService: UserService, private gameService: GameService) {
       }
 
       ngOnInit() {
@@ -160,7 +161,7 @@ export class GameShareComponent implements OnInit {
       }
 
       shareFacebook() {
-
+            this.angulartics2.eventTrack.next({ action: 'shareButtonClick', properties: { category: 'gamePlay' }});
             // if (!this.userService.checkUser()) {
             //   // THERE IS NO USER
             //   this.imageService.createImage(32, this.result).subscribe(

@@ -1,14 +1,14 @@
 <div class="game-item">
-    <a href="#">
+    <a [routerLink]="['/game', game._id]" [queryParams]="{utm_campaign:'tracking',utm_source:link,utm_medium:'card'}" (click)="scrollTop()">
         <div class="row">
             <div class="col-xs-3">
-                <a [routerLink]="['/game', game._id]" (click)="scrollTop()">
+                <a [routerLink]="['/game', game._id]" (click)="scrollTop()"  [queryParams]="{utm_campaign:'tracking',utm_source:link,utm_medium:'thumb'}">
                     <img class="img img-circle img-raised game-thumb-sm" [src]="game.thumb">
                 </a>
             </div>
             <div class="col-xs-9">
                 <p class="game-heading-sm">
-                    <a [routerLink]="['/game', game._id]" (click)="scrollTop()">
+                    <a [routerLink]="['/game', game._id]" [queryParams]="{utm_campaign:'tracking',utm_source:link,utm_medium:'title'}" (click)="scrollTop()">
                         {{game.title}}
                     </a>
                     <!--<a href="game/{{game._id}}">

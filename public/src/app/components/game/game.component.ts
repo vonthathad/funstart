@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { GameService } from '../../services/game.service'
 
 import { IframeGameComponent } from './../../components-child/iframe-game/iframe-game.component';
@@ -63,7 +62,10 @@ export class GameComponent implements OnInit {
   // }
   handleLibrariesLoadDoneDone(){
     this.iframeAdsComponent._showAds();
-    this.gameIntroComponent.setLibrariesPreloadDone(true);
+    setTimeout(()=>{
+      this.gameIntroComponent.setLibrariesPreloadDone(true);
+    },360);
+
   }
   handleContinueGame(show) {
     this.iframeGameComponent._continue();
