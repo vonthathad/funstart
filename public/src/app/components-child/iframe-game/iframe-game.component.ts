@@ -65,6 +65,26 @@ export class IframeGameComponent implements OnInit {
       (<any>win).angularComponentRef = this.angularComponentRef;
       // console.log('Load from parent');
       (<any>win).game = (<any>window).game;
+      this.disableInput();
+  }
+  disableInput(){
+    let iframe = document.getElementById('iframe-game');
+    var s = { insideIframe: false, scrollX:0, scrollY:0 }
+
+    iframe.addEventListener('mouseenter', function() {
+      s.insideIframe = true;
+      s.scrollX = window.scrollX;
+      s.scrollY = window.scrollY;
+    });
+
+    iframe.addEventListener('mouseleave', function() {
+      s.insideIframe = false;
+    });
+
+    document.addEventListener('scroll', function() {
+      if (s.insideIframe)
+        window.scrollTo(s.scrollX, s.scrollY);
+    });
   }
   ngOnDestroy() {
     this.angularComponentRef = null;

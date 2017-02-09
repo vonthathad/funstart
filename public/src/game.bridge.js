@@ -1,3 +1,40 @@
+setTimeout(function () {
+
+var iframeGame = document.getElementById('iframe-game');
+iframeGame.tabIndex = 1;
+iframeGame.addEventListener('keydown', function(e){
+   move = false;
+   x = false;
+   y = false;
+   var keycode;
+   if (window.event) keycode = window.event.keyCode;
+   else if (e) keycode = e.which;
+   switch(keycode){
+      case 37:
+         move = true;
+         x = 'negative';
+         break;
+      case 38:
+         move = true;
+         y = 'negative'
+         break;
+      case 39:
+         move = true;
+         x = 'positive'
+         break;
+      case 40:
+         move = true;
+         y = 'positive'
+         break;
+   }
+   //if(move){
+   //    animation.move(x,y);
+   //}
+   e.preventDefault();
+   return false;
+});
+},3000)
+
 /////////////////////////////////////
 //////////// GAME SHARE
 /////////////////////////////////////
