@@ -2,6 +2,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="game-frame">
+                <div *ngIf="!game">Loading ...</div>
             <!--<app-game-card [game]="game"></app-game-card>-->
                 <app-game-intro  (playGame)="handlePlayGame($event)"></app-game-intro>
                 <app-iframe-game [hidden]="game==undefined" (updateResult)="handleUpdateResult($event)" (librariesLoadDone)="handleLibrariesLoadDoneDone()"></app-iframe-game>
