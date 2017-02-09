@@ -1,36 +1,80 @@
+<!--<md-tab-group>-->
+<!--<md-tab label="New Games" (onCentering)="getGames('created')">-->
+<!--<div *ngFor="let game of games">-->
+<!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
+<!--</div>-->
+<!---->
+<!--</md-tab>-->
+<!--<md-tab label="Hot Games"  (onCentering)="getGames('hot')">-->
+<!--<div *ngFor="let game of games">-->
+<!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
+<!--</div>-->
+<!--</md-tab>-->
+<!--<md-tab label="Top Games"  (onCentering)="getGames('top')">-->
+<!--<div *ngFor="let game of games">-->
+<!--<app-game-card-vertical [game]="game"></app-game-card-vertical>-->
+<!--</div>-->
+<!--</md-tab>-->
+<!--</md-tab-group>-->
+
 <div class="wrapper">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="game-frame">
-                <div *ngIf="game">{{game | json}}</div>
-            <!--<app-game-card [game]="game"></app-game-card>-->
-                <!--<app-game-intro  (playGame)="handlePlayGame($event)"></app-game-intro>-->
-                <!--<app-iframe-game [hidden]="game==undefined" (updateResult)="handleUpdateResult($event)" (librariesLoadDone)="handleLibrariesLoadDoneDone()"></app-iframe-game>-->
-                <!--<app-game-share class="ads-frame"  (continueGame)="handleContinueGame($event)"></app-game-share>-->
-                <!--<app-iframe-ads (closeAds)="handleCloseAds($event)"></app-iframe-ads>-->
-            </div>
-            <div class="devider"></div>
+    <div class="header">
+        <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <!--<app-game-recommend-left></app-game-recommend-left>-->
-                </div>
-                <div class="col-md-8">
-                    <div *ngIf="facebookCommentShowed">
-                        <h4 class="section-heading">Facebook Comments</h4>
-                        <!--<app-facebook-comment ></app-facebook-comment>-->
-
+                <div class="main topic-list col-md-12">
+                    <div class="topic-nav col-xs-12">
+                        <ul class="nav nav-pills nav-pills-primary nav-pills-icons" role="tablist">
+                            <li class="active">
+                                <a href="#new-games" role="tab" data-toggle="tab" aria-expanded="true" (click)="getGames('created')">
+                                    <i class="ion-flash"></i> NEW GAMES
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#hot-games" role="tab" data-toggle="tab" aria-expanded="false" (click)="getGames('hot')">
+                                    <i class="ion-arrow-graph-up-right"></i> HOT GAMES
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#top-games" role="tab" data-toggle="tab" aria-expanded="false" (click)="getGames('top')">
+                                    <i class="ion-ios-star"></i> TOP GAMES
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                    <!--<app-game-recommend-bottom></app-game-recommend-bottom>-->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="new-games">
+                            <div class="row" infinite-scroll
+                                 [infiniteScrollDistance]="1"
+                                 [infiniteScrollThrottle]="500"
+                                 (scrolled)="onScroll()">
+                                <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
+                                    <app-game-card-vertical [game]="game" [link]="'topic'"></app-game-card-vertical>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="hot-games">
+                            <div class="row" infinite-scroll
+                                 [infiniteScrollDistance]="1"
+                                 [infiniteScrollThrottle]="500"
+                                 (scrolled)="onScroll()">
+                                <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
+                                    <app-game-card-vertical [game]="game" [link]="'topic'"></app-game-card-vertical>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="top-games">
+                            <div class="row" infinite-scroll
+                                 [infiniteScrollDistance]="1"
+                                 [infiniteScrollThrottle]="500"
+                                 (scrolled)="onScroll()">
+                                <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let game of games" >
+                                    <app-game-card-vertical [game]="game" [link]="'topic'"></app-game-card-vertical>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="action-area">
-                Statistics
-            </div>
-            <!--<app-users-ranked-sidebar ></app-users-ranked-sidebar>-->
-            <!--<app-game-recommend-right></app-game-recommend-right>-->
         </div>
     </div>
 </div>
