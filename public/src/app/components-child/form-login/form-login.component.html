@@ -10,20 +10,20 @@
             <label class="control-label" for="email">Email</label>
          </div>
       </div>
-      <div [hidden]="loginForm.get('email').untouched &&  loginForm.get('email').hasError('required')">
-         <div class="error" *ngIf="loginForm.get('email').untouched && loginForm.get('email').hasError('required')">
+      <div class="rd ml17" [hidden]="loginForm.get('email').untouched &&  loginForm.get('email').hasError('required')">
+         <div  *ngIf="loginForm.get('email').untouched && loginForm.get('email').hasError('required')">
             * Email is required!
          </div>
-         <div class="error" *ngIf="loginForm.get('email').untouched && loginForm.get('email').hasError('pattern')">
+         <div  *ngIf="loginForm.get('email').untouched && loginForm.get('email').hasError('pattern')">
             * Invalid email!
          </div>
 
          <div [hidden]="loginForm.get('email').valid || loginForm.get('email').untouched">
-            <div *ngIf="loginForm.get('email').hasError('required')">
-               * Email is required!x
+            <div  *ngIf="loginForm.get('email').hasError('required')">
+               * Email is required!
             </div>
-            <div *ngIf="loginForm.get('email').hasError('pattern')">
-               * Invalid email!x
+            <div  *ngIf="loginForm.get('email').hasError('pattern')">
+               * Invalid email!
             </div>
          </div>
       </div>
@@ -41,27 +41,27 @@
             <label class="control-label" for="password">Password</label>
          </div>
       </div>
-      <div [hidden]="loginForm.get('password').untouched &&  loginForm.get('password').hasError('required')">
-         <div class="error"
+      <div class="rd ml17" [hidden]="loginForm.get('password').untouched &&  loginForm.get('password').hasError('required')">
+         <div 
               *ngIf="loginForm.get('password').untouched && loginForm.get('password').hasError('required')">
             * Password is required!
          </div>
-         <div class="error"
+         <div 
               *ngIf="loginForm.get('password').untouched && loginForm.get('password').hasError('pattern')">
             * Invalid password!
          </div>
-         <div class="error"
+         <div 
               *ngIf="loginForm.get('password').untouched && loginForm.get('password').hasError('minlength')">
             * Password must be at least 6 character!
          </div>
          <div [hidden]="loginForm.get('password').valid || loginForm.get('password').untouched">
-            <div *ngIf="loginForm.get('password').hasError('required')">
+            <div  *ngIf="loginForm.get('password').hasError('required')">
                * Password is required!
             </div>
-            <div *ngIf="loginForm.get('password').hasError('pattern')">
+            <div  *ngIf="loginForm.get('password').hasError('pattern')">
                * Invalid password!
             </div>
-            <div *ngIf="loginForm.get('password').hasError('minlength')">
+            <div  *ngIf="loginForm.get('password').hasError('minlength')">
                * Password must be at least 6 character!
             </div>
          </div>
