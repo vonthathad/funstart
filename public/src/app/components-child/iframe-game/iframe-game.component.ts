@@ -1,22 +1,22 @@
-import { Component, OnInit, NgZone, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,OnChanges, NgZone, Input, Output, EventEmitter } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { Game } from '../../classes/game';
-import { GameService } from '../../services/game.service'
 @Component({
   selector: 'app-iframe-game',
   templateUrl: './iframe-game.component.html',
   styleUrls: ['./iframe-game.component.scss']
 })
-export class IframeGameComponent implements OnInit {
+export class IframeGameComponent implements OnInit, OnChanges{
   private angularComponentRef: any;
   private _preload: boolean;
   private loadOnce: boolean;
   private visible: boolean;
   @Input() private src: string;
   @Input() private playGame: boolean;
+  @Input() private id: string;
   @Output() updateResult = new EventEmitter();
   @Output() librariesLoadDone = new EventEmitter();
-  constructor(private angulartics2: Angulartics2, private zone: NgZone, private gameService: GameService,private cd: ChangeDetectorRef) {
+  constructor(private angulartics2: Angulartics2, private zone: NgZone) {
     (<any>window).angularComponentRef = {
       zone: this.zone,
       startBoot: (func) => { this.startBoot = func },
@@ -38,19 +38,17 @@ export class IframeGameComponent implements OnInit {
       },
       component: this
     };
-    gameService.game$.subscribe(game => {
-      // console.log(game);
-      this.setIframeSrc(game);
-    });
+    
   }
   ngOnInit() {
+    this.setIframeSrc(this.id);
     // if (this.gameService.game) { this.setIframeSrc(this.gameService.game); };
     // this.
   }
-  setIframeSrc(game) {
+  setIframeSrc(id) {
     console.log('set src');
     // set timeout to load after onLoad()
-    this.src = "/sources/games/" + game._id + "/index.html";
+    this.src = "/sources/games/" + id + "/index.html";
     this.loadOnce = true;
     this.playGame = false;
     this._preload = false;
@@ -103,6 +101,12 @@ export class IframeGameComponent implements OnInit {
     // };
 
   }
+  ngOnChanges(change){
+    if(parseInt(change.id.previousValue)){
+      this.id = change.id.currentValue;
+      this.setIframeSrc(this.id);
+    }
+  }
   ngOnDestroy() {
     this.angularComponentRef = null;
   }
@@ -123,13 +127,13 @@ export class IframeGameComponent implements OnInit {
     // console.log("preload done");
     this._preload = true;
     // this.pause();
-    console.log(this.playGame);
+    // console.log(this.playGame);
     if (!this.playGame) {
       this.pause();
-      console.log(1);
+      // console.log(1);
       // this.cd.markForCheck();
     } else {
-      console.log(2);
+      // console.log(2);
       console.log("startMenu from preload");
       this.startMenu();
       this.resume();
@@ -160,5 +164,6 @@ export class IframeGameComponent implements OnInit {
   setVisible(visible) {
     this.visible = visible;
   }
+  
 
 }

@@ -1,4 +1,4 @@
-<div [hidden]="!visible">
+<!--<div [hidden]="!visible">-->
     <!--<button (click)="getScreenShotData()">takeScreenShotData</button>-->
     <!--BUTTON FOR TEST, DO NOT DELETE-->
     <!--<button (click)="preload()">Preload</button>
@@ -9,5 +9,6 @@
     <button (click)="credit()">Credit</button>
     <button (click)="resume()">Resume</button>
     <button (click)="pause()">Pause</button>-->
-    <iframe *ngIf="this.src" id="iframe-game" width="100%" height="100%" [src]="this.src | safe" (load)="onLoad()"></iframe>
-</div>
+
+<!--</div>-->
+<iframe *ngIf="this.src" id="iframe-game" width="100%" height="100%" [src]="this.src | safe" (load)="onLoad()"></iframe>

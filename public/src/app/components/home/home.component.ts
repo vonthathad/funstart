@@ -1,20 +1,19 @@
-import { NgModule, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Component, OnInit,OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { GameService } from '../../services/game.service';
-import { ConstantService } from '../../services/constant.service';
-
+import { ParentComponent } from '../../parent.component';
 import { Game } from '../../classes/game';
-import { Topic } from '../../classes/topic';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit {
-  constructor(private router: Router, private gameService: GameService) { }
+export class HomeComponent extends ParentComponent implements OnInit, OnDestroy {
+  constructor(private gameService: GameService,private cd: ChangeDetectorRef) {
+    super();
+  }
 
   // private gamesCollections: any[];
   private games: Game[];
@@ -22,7 +21,6 @@ export class HomeComponent implements OnInit {
   private page: number;
   private hasMore: boolean;
   private isLoading: boolean;
-  private
   ngOnInit() {
     // let _this = this;
     // ConstantService.TOPICS.forEach(function (topic) { // loop through topics
@@ -34,7 +32,7 @@ export class HomeComponent implements OnInit {
     this.page = 1;
     this.isLoading = true;
     this.hasMore = true;
-    this.gameService
+    this.disposable = this.gameService
         .getGames({ paging: this.paging,page: this.page,order: 'created'})
         .subscribe((res: any) => this.renderGames(res.data,true,res.isNext));
   }
@@ -42,7 +40,7 @@ export class HomeComponent implements OnInit {
     if(this.hasMore && !this.isLoading){
       this.isLoading = true;
       this.page++;
-      this.gameService
+      this.disposable = this.gameService
           .getGames({ paging: this.paging,page: this.page,order: 'created'})
           .subscribe((res: any) => this.renderGames(res.data,false,res.isNext));
     }
@@ -60,10 +58,16 @@ export class HomeComponent implements OnInit {
     console.log('thisgames',this.games);
     this.hasMore = isNext;
     this.isLoading = false;
+    this.cd.markForCheck();
   }
-  goUser() {
-    this.router.navigate(['user']);
+
+  ngOnDestroy() {
+    this.disposeSubscriptions();
   }
+
+  // goUser() {
+  //   this.router.navigate(['user']);
+  // }
 }
 
 

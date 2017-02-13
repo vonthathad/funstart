@@ -1,4 +1,4 @@
-<div class="card card-product" data-count="3" on-mouseover='over()' on-mouseleave='leave()'>
+<div @fadeIn class="card card-product" data-count="3" on-mouseover='over()' on-mouseleave='leave()'>
     <div class="card-image" data-header-animation="true">
         <a [routerLink]="['/game', game._id]" [queryParams]="{utm_campaign:'tracking',utm_source:link,utm_medium:'thumb'}">
             <img class="img" [src]="game.thumb">

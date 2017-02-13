@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { GameService } from '../../services/game.service';
 
 import { Game } from '../../classes/game';
+import {ParentComponent} from "../../parent.component";
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
@@ -10,23 +11,27 @@ import { Game } from '../../classes/game';
   host: {
     '(document:click)': 'handleClick($event)',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent extends ParentComponent implements OnInit, OnDestroy {
   @ViewChild("input") private input;
   private query = '';
   private games: Game[];
   private filteredList = [];
 
-  constructor(private elementRef: ElementRef, private gameService: GameService) {}
+  constructor(private elementRef: ElementRef, private gameService: GameService,private cd: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit() {
-    this.gameService
+    this.disposable = this.gameService
       // .getGames({ paging: 100 })
       .getGames()
       .subscribe((res: any) => this.renderGames(res.data));
   }
   renderGames(games) {
     this.games = games;
+    this.cd.markForCheck();
   }
   handleClick(event) {
     var clickedComponent = event.target;
@@ -59,5 +64,8 @@ export class AutocompleteComponent implements OnInit {
   }
   onInputClick(){
     this.input.nativeElement.select();
+  }
+  ngOnDestroy() {
+    this.disposeSubscriptions();
   }
 }

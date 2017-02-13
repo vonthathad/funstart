@@ -21,8 +21,9 @@ export class GameShareComponent implements OnInit {
       private imageData: number;
       private user: User;
       private result: Object;
-      private game: Game;
       private bestScore: number;
+      private game: Game;
+
       @Output() continueGame = new EventEmitter();
 
       constructor(private angulartics2: Angulartics2, private imageService: ImageService, private shareService: ShareService, private userService: UserService, private gameService: GameService) {

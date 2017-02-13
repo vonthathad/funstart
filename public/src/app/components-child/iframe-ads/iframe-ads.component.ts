@@ -15,15 +15,21 @@ export class IframeAdsComponent implements OnInit {
   adDisplayContainer: any;
   intervalTimer: any;
   videoContent: any;
-  channelID: string;
+  @Input() channelID: string;
   callback: any;
-  @Input() private showAds: boolean;
-  // @Output() private closeAds = new EventEmitter();
+  // @Input() showAds: boolean;
+  @Output() private closeAds = new EventEmitter();
   constructor(private angulartics2: Angulartics2, private el: ElementRef) { }
 
   ngOnInit() {
-    this.showAds = true;
-
+    // this.showAds = true;
+    // console.log(this.channelID);
+    if(this.channelID == '8152950647'){
+      this.angulartics2.eventTrack.next({ action: 'showAds1', properties: { category: 'gamePlay' }});
+    } else {
+      this.angulartics2.eventTrack.next({ action: 'showAds2', properties: { category: 'gamePlay' }});
+    }
+    this.callAds();
   }
   _showAds(obj?:any,callback?:any) {
 
@@ -35,7 +41,7 @@ export class IframeAdsComponent implements OnInit {
       this.angulartics2.eventTrack.next({ action: 'showAds1', properties: { category: 'gamePlay' }});
     }
     this.callback = callback;
-    this.showAds = true;
+    // this.showAds = true;
     let self = this;
     setTimeout(function () {
       self.callAds();
@@ -43,9 +49,11 @@ export class IframeAdsComponent implements OnInit {
 
   }
   _closeAds() {
-    this.showAds = false;
+    console.log('close');
     if(this.element) this.element.innerHTML = '';
-    // this.closeAds.emit();
+    // this.showAds = false;
+
+    this.closeAds.emit();
 
   }
 

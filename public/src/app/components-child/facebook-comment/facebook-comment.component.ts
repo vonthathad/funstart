@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef, Input, OnChanges } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
-import { Game } from "../../classes/game";
+// import { Router, NavigationStart } from '@angular/router';
+// import { Game } from "../../classes/game";
 
-import { GameService } from '../../services/game.service'
+// import { GameService } from '../../services/game.service'
 
 @Component({
     selector: 'app-facebook-comment',
@@ -10,14 +10,9 @@ import { GameService } from '../../services/game.service'
     styleUrls: ['facebook-comment.component.scss']
 })
 export class FacebookCommentComponent implements OnInit, OnChanges {
-    @Input() game: Game;
+    @Input() id: string;
     disable: boolean;
-    constructor(private route: Router, private el: ElementRef, private gameService: GameService) {
-        this.game = gameService.game;
-        gameService.game$.subscribe(game => {
-            this.game = game
-            this.createDOM();
-        });
+    constructor(private el: ElementRef) {
     }
 
     ngOnInit() {
@@ -34,8 +29,11 @@ export class FacebookCommentComponent implements OnInit, OnChanges {
             window.FB.XFBML.parse(commentsDom);
         });
     }
-    ngOnChanges() {
-        this.createDOM();
+    ngOnChanges(change) {
+        if(parseInt(change.id.previousValue)){
+            this.createDOM();
+        }
+
     }
 
 }

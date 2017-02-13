@@ -12,3 +12,51 @@
   background: #fff;
   position: relative;
 }
+.intro-frame{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+}
+.card-image{
+  border-radius: 6px;
+  width: 100px;
+  margin: auto;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+.card-image img{
+  border-radius: 6px;
+}
+.md-spinner-load{
+  margin: auto;
+  width: 50px;
+}
+.result-panel{
+  padding: 12px;
+}
+.result-image{
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  margin: auto;
+}
+.result-image img{
+  border-radius: 5px;
+  width: 100%;
+}
+.result-text{
+  position: absolute;
+  padding: 2vw;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 6vw;
+  z-index: 2;
+  color: #fff;
+}
+.btn-facebook{
+  margin-top: 0;
+}

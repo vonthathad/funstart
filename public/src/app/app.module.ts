@@ -32,7 +32,6 @@ import { GameComponent } from './components/game/game.component';
 // import { Game2Component } from './components/game/game2.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { UserComponent } from './components/user/user.component';
-import { SidebarComponent } from './components-shared/sidebar/sidebar.component';
 import { GameCardComponent } from './components-child/game-card/game-card.component';
 import { GameCollectionComponent } from './components-child/game-collection/game-collection.component';
 import { GameCardHorizontalComponent } from './components-child/game-card-horizontal/game-card-horizontal.component';
@@ -44,13 +43,13 @@ import { FormPasswordResetComponent } from './components-child/form-password-res
 import { VideoPlayerComponent } from './components-child/video-player/video-player.component';
 import { IframeGameComponent } from './components-child/iframe-game/iframe-game.component';
 import { IframeAdsComponent } from './components-child/iframe-ads/iframe-ads.component';
-import { GameIntroComponent } from './components-child/game-intro/game-intro.component';
-import { GameShareComponent } from './components-child/game-share/game-share.component';
+// import { GameIntroComponent } from './components-child/game-intro/game-intro.component';
+// import { GameShareComponent } from './components-child/game-share/game-share.component';
 import { GameRecommendBottomComponent } from './components-child/game-recommend-bottom/game-recommend-bottom.component';
 import { GameRecommendRightComponent } from './components-child/game-recommend-right/game-recommend-right.component';
 import { GameRecommendLeftComponent } from './components-child/game-recommend-left/game-recommend-left.component';
 import { GameCardVerticalComponent } from './components-child/game-card-vertical/game-card-vertical.component';
-import { UsersRankedSidebarComponent } from './components-child/users-ranked-sidebar/users-ranked-sidebar.component';
+// import { UsersRankedSidebarComponent } from './components-child/users-ranked-sidebar/users-ranked-sidebar.component';
 import { FacebookCommentComponent } from './components-child/facebook-comment/facebook-comment.component';
 import { SignupComponent } from './components/signup/signup.component';
 
@@ -67,7 +66,6 @@ import { SignupComponent } from './components/signup/signup.component';
     TopicComponent,
     UserComponent,
     GameCardComponent,
-    SidebarComponent,
     GameCollectionComponent,
     GameCardHorizontalComponent,
     AutocompleteComponent,
@@ -78,13 +76,13 @@ import { SignupComponent } from './components/signup/signup.component';
     VideoPlayerComponent,
     IframeGameComponent,
     IframeAdsComponent,
-    GameIntroComponent,
-    GameShareComponent,
+    // GameIntroComponent,
+    // GameShareComponent,
     GameRecommendBottomComponent,
     GameRecommendRightComponent,
     GameRecommendLeftComponent,
     GameCardVerticalComponent,
-    UsersRankedSidebarComponent,
+    // UsersRankedSidebarComponent,
     FacebookCommentComponent,
     SignupComponent
 

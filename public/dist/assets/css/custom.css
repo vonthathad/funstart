@@ -164,13 +164,16 @@
 
 .card .card-header.card-header-icon {
 	float: left;
+	font-size: 1.5em;
+	padding-left: 17px;
+	padding-right: 17px;
 }
 
 .card .card-header.card-header-icon i {
-	width: 33px;
-	height: 33px;
+	width: 25px;
+	height: 25px;
 	text-align: center;
-	line-height: 33px;
+	line-height: 25px;
 }
 
 .card .card-header.card-header-tabs .nav-tabs {
@@ -181,7 +184,7 @@
 .card .card-header.card-header-tabs .nav-tabs-title {
 	float: left;
 	padding: 10px 10px 10px 0;
-	line-height: 24px;
+	line-height: 20px;
 }
 
 .card .card-header.card-header-icon+.card-content .card-title {
@@ -838,11 +841,11 @@
 	border-radius: 10px;
 }
 
-.fb-cmts{
-	background-color: #fff;
-	border-radius: 6px;
-	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-}
+/*.fb-cmts{*/
+	/*background-color: #fff;*/
+	/*border-radius: 6px;*/
+	/*box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);*/
+/*}*/
 
 .section-heading{
 	font-weight: 700;

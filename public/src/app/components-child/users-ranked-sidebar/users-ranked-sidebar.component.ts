@@ -1,61 +1,53 @@
 import {Component, OnInit, Input} from '@angular/core';
 
-import {Subscription} from 'rxjs/Subscription';
-
 import {Game} from '../../classes/game';
 import {User} from '../../classes/user';
 
-import {UserService} from '../../services/user.service'
-import {GameService} from '../../services/game.service'
+import {UserService} from '../../services/user.service';
 @Component({
    selector: 'app-users-ranked-sidebar',
    templateUrl: './users-ranked-sidebar.component.html',
    styleUrls: ['./users-ranked-sidebar.component.scss']
 })
 export class UsersRankedSidebarComponent implements OnInit {
-   private game: Game;
-   private gameResult: Object;
+   @Input() id: String;
    private rankedUsers: any;
-   private user: User;
-   private subscription: Subscription;
-
-   constructor(private userService: UserService, private gameService: GameService) {
+   @Input() user: User;
+   constructor(private userService: UserService) {
    }
 
    ngOnInit() {
-      this.user = this.userService.user;
-      this.userService.loggedUser$.subscribe(user => this.user = user);
-
-      this.game = this.gameService.game;
-      this.gameService.game$.subscribe(game => {
-         this.game = game;
-         this.setGame()
-      });
-      this.gameService.gameResult$.subscribe(whatever => this.setGame());
+      this.setGame();
+      // this.user = this.userService.user;
+      // this.userService.loggedUser$.subscribe(user => this.user = user);
+      //
+      // this.game = this.gameService.game;
+      // this.gameService.game$.subscribe(game => {
+      //    this.game = game;
+      //    this.setGame()
+      // });
+      // this.gameService.gameResult$.subscribe(whatever => this.setGame());
    }
 
    setGame() {
-
       if (this.user) {
          // console.log("ID " + this.user._id);
          this.userService
-            .getRankedUsers({game: this.game._id, user: this.user._id})
+            .getRankedUsers({game: this.id, user: this.user._id})
             .subscribe(rankedUsers => {
                this.renderRankedUser(rankedUsers["data"]);
-               this.userService.rankedUserSource.next(rankedUsers["data"]);
             });
       } else {
          this.userService
-            .getRankedUsers({game: this.game._id})
+            .getRankedUsers({game: this.id})
             .subscribe(rankedUsers =>{
                this.renderRankedUser(rankedUsers["data"]);
-               this.userService.rankedUserSource.next(rankedUsers["data"]);
             });
       }
-
    }
 
    renderRankedUser(rankedUsersData) {
+
       this.rankedUsers = [];
       // console.log("rankedUsersData " + JSON.stringify(rankedUsersData));
       var i;
@@ -109,5 +101,6 @@ export class UsersRankedSidebarComponent implements OnInit {
       //   rankedUser.name = name;
       //   rankedUser.score = name;
       // });
+      console.log(this.rankedUsers);
    }
 }
