@@ -29,6 +29,8 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   private isShowAds: boolean = false;
   private user: User;
   private result: Object;
+  private ruid: number;
+  private initTime: number;
   private bestScore: number;
   private channelID: string;
   private shareDisable: boolean = false;
@@ -42,9 +44,11 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
-    this.angulartics2.eventTrack.next({ action: 'initSite', properties: { category: 'Adsense', label:  Date.now() + 'initSite' }});
+    this.initTime = Date.now();
+    // this.angulartics2.eventTrack.next({ action: 'initSite', properties: { category: 'Adsense', label:  Date.now() + 'initSite' }});
     // this.show = "intro";
     this.route.params.subscribe(params => {
+      this.ruid = Math.floor(Math.random()*1000);
       this.gameService.getGame(params['id']).subscribe((res: any) => {
         this.channelID = '8152950647';
         this.isIntro = true;
@@ -104,7 +108,8 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
     // this.cd.markForCheck();
     setTimeout(()=>{
     this.isLoading = false;
-      this.angulartics2.eventTrack.next({ action: 'playVisible', properties: { category: 'Adsense', label: Date.now() + 'playVisible' }});
+      var time = Date.now() - this.initTime;
+      this.angulartics2.eventTrack.next({ action: 'playVisible', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
       // this.gameIntroComponent.setLibrariesPreloadDone(true);
     },500);
   }
@@ -141,10 +146,10 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
         } 
       }
     }
-    setTimeout(()=>{
-      this.isShowRank = true;
-      this.cd.markForCheck();
-    },2000);
+    // setTimeout(()=>{
+    //   this.isShowRank = true;
+    //   this.cd.markForCheck();
+    // },2000);
   }
 
   offRank(){

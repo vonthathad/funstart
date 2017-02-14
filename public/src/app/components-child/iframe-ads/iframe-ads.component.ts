@@ -16,6 +16,8 @@ export class IframeAdsComponent implements OnInit {
   intervalTimer: any;
   videoContent: any;
   @Input() channelID: string;
+  @Input() ruid: number;
+  @Input() initTime: number;
   callback: any;
   // @Input() showAds: boolean;
   @Output() private closeAds = new EventEmitter();
@@ -132,7 +134,9 @@ export class IframeAdsComponent implements OnInit {
     var ad = adEvent.getAd();
     switch (adEvent.type) {
       case google.ima.AdEvent.Type.LOADED:
-        self.angulartics2.eventTrack.next({ action: 'adsLoaded', properties: { category: 'Adsense', label: Date.now() + 'adsLoaded' }});
+        var time = Date.now() - self.initTime;
+        console.log('load',time);
+        self.angulartics2.eventTrack.next({ action: 'adsLoaded', properties: { category: 'Adsense', label: 'u' + self.ruid + 't' + time + 'adsLoaded' }});
         // This is the first event sent for an ad - it is possible to
         // determine whether the ad is a video ad or an overlay.
         if (!ad.isLinear()) {
@@ -145,7 +149,8 @@ export class IframeAdsComponent implements OnInit {
         // This event indicates the ad has started - the video player
         // can adjust the UI, for example display a pause button and
         // remaining time.
-        self.angulartics2.eventTrack.next({ action: 'adsStart', properties: { category: 'Adsense', label: Date.now() + 'adsStart' }});
+        var time = Date.now() - self.initTime;
+        self.angulartics2.eventTrack.next({ action: 'adsStart', properties: { category: 'Adsense', label: 'u' + self.ruid + 't' + time + 'adsStart' }});
         if (ad.isLinear()) {
           // For a linear ad, a timer can be started to poll for
           // the remaining time.
