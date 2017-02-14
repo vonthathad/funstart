@@ -45,17 +45,19 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     this.initTime = Date.now();
+
     // this.angulartics2.eventTrack.next({ action: 'initSite', properties: { category: 'Adsense', label:  Date.now() + 'initSite' }});
     // this.show = "intro";
     this.route.params.subscribe(params => {
+      this.isShowAds = false;
       this.ruid = Math.floor(Math.random()*1000);
       this.gameService.getGame(params['id']).subscribe((res: any) => {
+        this.isShowAds = true;
         this.channelID = '8152950647';
         this.isIntro = true;
         this.isLoading = true;
         this.isPlay = false;
         this.isEnd = false;
-        this.isShowAds = false;
         this.shareDisable = false;
         this.isShowRank = false;
         // console.log("IN PUT " + JSON.stringify(res.data));
@@ -101,17 +103,18 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   handleLibrariesLoadDoneDone(){
     console.log('done');
 
-    this.isShowAds = true;
+
+    var time = Date.now() - this.initTime;
+    this.angulartics2.eventTrack.next({ action: 'playVisible', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
     // setTimeout(()=> {
       // this.iframeAdsComponent._showAds();
     // });
     // this.cd.markForCheck();
-    setTimeout(()=>{
-    this.isLoading = false;
-      var time = Date.now() - this.initTime;
-      this.angulartics2.eventTrack.next({ action: 'playVisible', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
+    // setTimeout(()=>{
+    // this.isLoading = false;
+
       // this.gameIntroComponent.setLibrariesPreloadDone(true);
-    },500);
+    // },500);
   }
   continueGame() {
     this.angulartics2.eventTrack.next({ action: 'continueGame', properties: { category: 'gamePlay' }});
