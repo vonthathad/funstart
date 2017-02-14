@@ -42,6 +42,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
+    this.angulartics2.eventTrack.next({ action: 'initSite', properties: { category: 'Adsense', label:  Date.now() + 'initSite' }});
     // this.show = "intro";
     this.route.params.subscribe(params => {
       this.gameService.getGame(params['id']).subscribe((res: any) => {
@@ -103,6 +104,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
     // this.cd.markForCheck();
     setTimeout(()=>{
     this.isLoading = false;
+      this.angulartics2.eventTrack.next({ action: 'playVisible', properties: { category: 'Adsense', label: Date.now() + 'playVisible' }});
       // this.gameIntroComponent.setLibrariesPreloadDone(true);
     },500);
   }
