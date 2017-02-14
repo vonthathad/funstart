@@ -106,6 +106,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
 
     var time = Date.now() - this.initTime;
     this.angulartics2.eventTrack.next({ action: 'playVisible', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
+    this.isLoading = false;
     // setTimeout(()=> {
       // this.iframeAdsComponent._showAds();
     // });
