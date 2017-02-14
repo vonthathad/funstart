@@ -130,7 +130,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
         this.isShowAds = true;
         
       } else {
-        if(Math.floor(Math.random()*3)==1) {
+        if(Math.floor(Math.random()*2)==1) {
           this.isShowAds = true;
          
           // setTimeout(()=> {

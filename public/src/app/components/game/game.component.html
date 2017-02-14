@@ -27,7 +27,7 @@
                 <app-iframe-game *ngIf="game" [id]="game._id" [hidden]="isIntro || isEnd" (updateResult)="handleUpdateResult($event)" (librariesLoadDone)="handleLibrariesLoadDoneDone()"></app-iframe-game>
                 <!--<app-game-share *ngIf="isEnd" class="ads-frame"  (continueGame)="handleContinueGame($event)"></app-game-share>-->
                 <!--GAMERESULT-->
-                <div *ngIf="game && isEnd" class="ads-frame text-center result-panel">
+                <div *ngIf="game" [hidden]="!isEnd" class="ads-frame text-center result-panel">
                     <div class="result-image">
                         <!--<img [src]="imageData" style="width:180px;height:300px;position: absolute; top: 6px;-->
                         <!--left: 6px;-->
