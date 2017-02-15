@@ -61,12 +61,15 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
     // this.angulartics2.eventTrack.next({ action: 'initSite', properties: { category: 'Adsense', label:  Date.now() + 'initSite' }});
     // this.show = "intro";
     this.route.params.subscribe(params => {
+      this.initTime = Date.now();
       this.isShowAds = false;
       this.isInit = false;
       this.isLoading = true;
       this.ruid = Math.floor(Math.random()*1000);
       this.gameService.getGame(params['id']).subscribe((res: any) => {
         this.isShowAds = true;
+        var time = Date.now() - this.initTime;
+        this.angulartics2.eventTrack.next({ action: 'loadDone', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
         this.isInit = true;
         this.channelID = '8152950647';
         this.isIntro = true;
@@ -117,8 +120,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   // }
   handleLibrariesLoadDoneDone(){
     console.log('done');
-    var time = Date.now() - this.initTime;
-    this.angulartics2.eventTrack.next({ action: 'loadDone', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
+
     this.isLoading = false;
     if(!this.isInit){
       this.angulartics2.eventTrack.next({ action: 'startGame', properties: { category: 'gamePlay' }});
