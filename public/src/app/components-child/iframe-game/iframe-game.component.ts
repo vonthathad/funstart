@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { ElementRef, ViewChild, Component, OnInit, NgZone, Renderer, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { Game } from '../../classes/game';
 import { GameService } from '../../services/game.service'
@@ -16,7 +16,9 @@ export class IframeGameComponent implements OnInit {
   @Input() private playGame: boolean;
   @Output() updateResult = new EventEmitter();
   @Output() librariesLoadDone = new EventEmitter();
-  constructor(private angulartics2: Angulartics2, private zone: NgZone, private gameService: GameService,private cd: ChangeDetectorRef) {
+  @ViewChild('iframe') iframe: ElementRef;
+  private myFunction: any;
+  constructor(private renderer:Renderer, private angulartics2: Angulartics2, private zone: NgZone, private gameService: GameService,private cd: ChangeDetectorRef) {
     (<any>window).angularComponentRef = {
       zone: this.zone,
       startBoot: (func) => { this.startBoot = func },
@@ -62,45 +64,45 @@ export class IframeGameComponent implements OnInit {
       // console.log('Load from parent');
       (<any>win).game = (<any>window).game;
       this.disableInput();
+
   }
   disableInput(){
     let iframe = document.getElementById('iframe-game');
-    var s = { insideIframe: false, scrollX:0, scrollY:0 }
-
+    let insideIframe;
+      console.log((<any>iframe).contentWindow.document.getElementById('container'));
     iframe.addEventListener('mouseenter', function() {
-      s.insideIframe = true;
+      insideIframe = true;
       // s.scrollX = window.scrollX;
       // s.scrollY = window.scrollY;
     });
 
     iframe.addEventListener('mouseleave', function() {
-      s.insideIframe = false;
+      insideIframe = false;
     });
-    //
-    // document.addEventListener('scroll', function() {
-    //   if (s.insideIframe)
-    //     window.scrollTo(s.scrollX, s.scrollY);
-    // });
-    window.addEventListener('keydown', function(e) {
-      if(s.insideIframe)
-        e.preventDefault();
-    });
-    window.addEventListener('keyup', function(e) {
-      if(s.insideIframe)
-        e.preventDefault();
-    });
-    (<any>iframe).contentWindow.document.addEventListener('keydown', function(e) {
-      if(s.insideIframe)
-        e.preventDefault();
-    });
-    (<any>iframe).contentWindow.document.addEventListener('keyup', function(e) {
-      if(s.insideIframe)
-        e.preventDefault();
-    });
-    // window.onkeydown = function(e) {
-    //   if(s.insideIframe)
-    //     e.preventDefault();
-    // };
+   this.myFunction = function(e) {
+      if(insideIframe)
+         e.preventDefault();
+      (<any>iframe).contentWindow.document.body.click();
+      console.log(1);
+   };
+    // window.addEventListener('keydown',this.myFunction );
+    // window.addEventListener('keyup', this.myFunction);
+     window.addEventListener('keydown', function(e){
+        if(insideIframe){
+           // console.log(1);
+           e.preventDefault();
+        }
+        (<any>iframe).contentWindow.document.getElementById('container').click();
+     } );
+     window.addEventListener('keyup', function(e){
+        if(insideIframe){
+           // console.log(1);
+           e.preventDefault();
+        }
+        (<any>iframe).contentWindow.document.getElementById('container').click();
+     } );
+    (<any>iframe).contentWindow.document.addEventListener('keydown', this.myFunction);
+    (<any>iframe).contentWindow.document.addEventListener('keyup', this.myFunction);
 
   }
   ngOnDestroy() {
@@ -155,10 +157,19 @@ export class IframeGameComponent implements OnInit {
     // console.log(typeof this.game);
     // if (this.level) this.level();
     // else
+
+
+     let iframe = document.getElementById('iframe-game');
+     // (<any>iframe).contentWindow.document.removeEventListener('keydown', this.myFunction)
+     // (<any>iframe).contentWindow.document.removeEventListener('keyup', this.myFunction);
+   this.triggerClick();
     this.continue();
   }
   setVisible(visible) {
     this.visible = visible;
   }
-
+   triggerClick(){
+      let iframe = document.getElementById('iframe-game');
+      (<any>iframe).contentWindow.document.body.click()
+   }
 }
