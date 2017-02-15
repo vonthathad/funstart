@@ -35,6 +35,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   private rightrcmGames: Game[];
   private isIntro: boolean = true;
   private isInit: boolean = false;
+  private isWait: boolean = false;
   private isLoading: boolean = true;
   private isPlay: boolean = false;
   private isEnd: boolean = false;
@@ -70,30 +71,29 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
         this.isShowAds = true;
         var time = Date.now() - this.initTime;
         this.angulartics2.eventTrack.next({ action: 'loadDone', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
-        setTimeout(()=>{
-          if(!this.isInit){
-            this.isInit = true;
-          }
-        },3000);
         this.channelID = '8152950647';
         this.isIntro = true;
         this.isLoading = true;
         this.isPlay = false;
         this.isEnd = false;
+        this.isWait = false;
         this.shareDisable = false;
         this.isShowRank = false;
         // console.log("IN PUT " + JSON.stringify(res.data));
         this.gameService.gameSource.next(res.data);
         this.game = res.data;
         this.setInfoShareService();
-        setTimeout(()=>{
+        // setTimeout(()=>{
           // this.iframeGameComponent.setVisible(false);
           // this.iframeAdsComponent._closeAds();
-          this.cd.markForCheck();
-        });
+          // this.cd.markForCheck();
+        // });
         this.loadRecommendGame(1);
         this.facebookCommentShowed = false;
         this.facebookCommentShowed = true;
+        setTimeout(()=>{
+          this.isInit = true;
+        },2000);
         this.cd.markForCheck();
       });
     });
@@ -126,7 +126,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
     console.log('done');
 
     this.isLoading = false;
-    if(!this.isInit){
+    if(this.isWait){
       this.angulartics2.eventTrack.next({ action: 'startGame', properties: { category: 'gamePlay' }});
       this.isIntro = false;
       this.isPlay = true;
@@ -144,7 +144,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   }
   playGame() {
     if(this.isLoading){
-      this.isInit = false;
+      this.isWait = true;
     } else {
       this.angulartics2.eventTrack.next({ action: 'startGame', properties: { category: 'gamePlay' }});
       this.isIntro = false;
@@ -165,11 +165,6 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
 
     // this.iframeGameComponent.setVisible(true);
     // this.gameShareComponent.setVisible(false);
-  }
-  handleLoadAds(){
-    if(!this.isInit){
-      this.isInit = true;
-    }
   }
   handleUpdateResult(result) {
     this.angulartics2.eventTrack.next({ action: 'endGame', properties: { category: 'gamePlay' }});

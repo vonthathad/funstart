@@ -20,7 +20,7 @@
                     </div>
                     <div class="card-footer">
                         <md-spinner class="md-spinner-load" *ngIf="!isInit && isLoading" color="warn" color="primary"></md-spinner>
-                        <a *ngIf="isInit" class="btn btn-lg btn-primary btn-md" (click)="playGame()"> <i class="ion-flash"></i> PLAY NOW</a>
+                        <a *ngIf="isInit && !isWait" class="btn btn-lg btn-primary btn-md" (click)="playGame()"> <i class="ion-flash"></i> PLAY NOW</a>
                     </div>
                 </div>
                 <!--GAMEINTRO-->
@@ -52,7 +52,7 @@
                     <!--<button (click)="shareTwitter()">Share Twitter</button>-->
                 </div>
                 <!--GAMERESULT-->
-                <app-iframe-ads *ngIf="isShowAds" [initTime]="initTime" [ruid]="ruid" [channelID]="channelID" (loadAdsDone)="handleLoadAds($event)" (closeAds)="handleCloseAds($event)"></app-iframe-ads>
+                <app-iframe-ads *ngIf="isShowAds" [initTime]="initTime" [ruid]="ruid" [channelID]="channelID" (closeAds)="handleCloseAds($event)"></app-iframe-ads>
             </div>
             <div class="devider"></div>
             <div class="row">

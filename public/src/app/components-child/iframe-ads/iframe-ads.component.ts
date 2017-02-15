@@ -21,7 +21,6 @@ export class IframeAdsComponent implements OnInit {
   callback: any;
   // @Input() showAds: boolean;
   @Output() private closeAds = new EventEmitter();
-  @Output() private loadAdsDone = new EventEmitter();
   constructor(private angulartics2: Angulartics2, private el: ElementRef) { }
 
   ngOnInit() {
@@ -150,7 +149,6 @@ export class IframeAdsComponent implements OnInit {
         // This event indicates the ad has started - the video player
         // can adjust the UI, for example display a pause button and
         // remaining time.
-        self.loadAdsDone.emit();
         var time = Date.now() - self.initTime;
         self.angulartics2.eventTrack.next({ action: 'adsStart', properties: { category: 'Adsense', label: 'u' + self.ruid + 't' + time + 'adsStart' }});
         if (ad.isLinear()) {
