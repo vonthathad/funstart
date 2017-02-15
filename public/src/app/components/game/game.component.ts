@@ -10,11 +10,22 @@ import {ParentComponent} from "../../parent.component";
 import { Angulartics2 } from 'angulartics2';
 import {User} from "../../classes/user";
 import {Activity} from "../../classes/activity";
+import {style, animate, transition, state, trigger} from '@angular/core';
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('fadeIn', [
+      state('*', style({opacity: 1})),
+      transition('void => *', [
+        style({opacity: 0}),
+        animate(200)
+      ]),
+      transition('* => void', animate(0, style({opacity: 0})))
+    ])
+  ]
 })
 export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   private game: Game;
@@ -23,6 +34,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   private leftrcmGames: Game[];
   private rightrcmGames: Game[];
   private isIntro: boolean = true;
+  private isInit: boolean = false;
   private isLoading: boolean = true;
   private isPlay: boolean = false;
   private isEnd: boolean = false;
@@ -50,9 +62,12 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
     // this.show = "intro";
     this.route.params.subscribe(params => {
       this.isShowAds = false;
+      this.isInit = false;
+      this.isLoading = true;
       this.ruid = Math.floor(Math.random()*1000);
       this.gameService.getGame(params['id']).subscribe((res: any) => {
         this.isShowAds = true;
+        this.isInit = true;
         this.channelID = '8152950647';
         this.isIntro = true;
         this.isLoading = true;
@@ -102,11 +117,15 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   // }
   handleLibrariesLoadDoneDone(){
     console.log('done');
-
-
     var time = Date.now() - this.initTime;
-    this.angulartics2.eventTrack.next({ action: 'playVisible', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
+    this.angulartics2.eventTrack.next({ action: 'loadDone', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
     this.isLoading = false;
+    if(!this.isInit){
+      this.angulartics2.eventTrack.next({ action: 'startGame', properties: { category: 'gamePlay' }});
+      this.isIntro = false;
+      this.isPlay = true;
+      this.iframeGameComponent._playGame();
+    }
     // setTimeout(()=> {
       // this.iframeAdsComponent._showAds();
     // });
@@ -116,6 +135,19 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
 
       // this.gameIntroComponent.setLibrariesPreloadDone(true);
     // },500);
+  }
+  playGame() {
+    if(this.isLoading){
+      this.isInit = false;
+    } else {
+      this.angulartics2.eventTrack.next({ action: 'startGame', properties: { category: 'gamePlay' }});
+      this.isIntro = false;
+      this.isPlay = true;
+      this.iframeGameComponent._playGame();
+    }
+
+    // this.gameIntroComponent.setVisible(false);
+    // this.iframeGameComponent.setVisible(true);
   }
   continueGame() {
     this.angulartics2.eventTrack.next({ action: 'continueGame', properties: { category: 'gamePlay' }});
@@ -184,14 +216,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   handleCloseAds() {
     this.isShowAds = false;
   }
-  playGame() {
-    this.angulartics2.eventTrack.next({ action: 'startGame', properties: { category: 'gamePlay' }});
-    this.isIntro = false;
-    this.isPlay = true;
-    this.iframeGameComponent._playGame();
-    // this.gameIntroComponent.setVisible(false);
-    // this.iframeGameComponent.setVisible(true);
-  }
+
 
   // setScreenShotData(imageData) {
   //   this.imageData = imageData;

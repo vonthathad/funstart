@@ -10,7 +10,7 @@
     <div class="dropdown-search" *ngIf="filteredList.length > 0">
       <li *ngFor="let game of filteredList">
         <a (click)="select(game.title)" [routerLink]="['/game', game._id]" [queryParams]="{utm_campaign:'tracking',utm_source:'search',utm_medium:'anchor'}">
-          <img src="{{game.thumb}}" alt="{{game.title}}" width="30" height="30"> {{game.title}}
+          <img src="{{game.thumb}}" alt="{{game.title}}" width="30" height="30" class=" img-raised img-circle "> {{game.title}}
         </a>
       </li>
     </div>

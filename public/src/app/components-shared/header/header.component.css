@@ -8,7 +8,6 @@
     margin-right: 5px;
     width: 30px;
     height: 30px;
-    border-radius: 50%;
 }
 .avatar{
     width: 30px;
@@ -19,4 +18,23 @@
 .dropdown-user{
     padding-top: 5px!important;
     padding-bottom: 5px!important;
+}
+.branding{
+    padding-top: 5px!important;
+    padding-bottom: 5px!important;
+}
+.branding>img{
+    height: 25px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.navbar-right{
+    margin-right: 0;
+}
+@media (max-width: 767px){
+    .nav-logo{
+        width: 120px;
+        margin-left: 15px;
+    }
 }

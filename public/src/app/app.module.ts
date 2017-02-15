@@ -29,7 +29,6 @@ import { HeaderComponent } from './components-shared/header/header.component';
 import { FooterComponent } from './components-shared/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { GameComponent } from './components/game/game.component';
-// import { Game2Component } from './components/game/game2.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { UserComponent } from './components/user/user.component';
 import { GameCardComponent } from './components-child/game-card/game-card.component';
@@ -43,16 +42,16 @@ import { FormPasswordResetComponent } from './components-child/form-password-res
 import { VideoPlayerComponent } from './components-child/video-player/video-player.component';
 import { IframeGameComponent } from './components-child/iframe-game/iframe-game.component';
 import { IframeAdsComponent } from './components-child/iframe-ads/iframe-ads.component';
-// import { GameIntroComponent } from './components-child/game-intro/game-intro.component';
-// import { GameShareComponent } from './components-child/game-share/game-share.component';
 import { GameRecommendBottomComponent } from './components-child/game-recommend-bottom/game-recommend-bottom.component';
 import { GameRecommendRightComponent } from './components-child/game-recommend-right/game-recommend-right.component';
 import { GameRecommendLeftComponent } from './components-child/game-recommend-left/game-recommend-left.component';
 import { GameCardVerticalComponent } from './components-child/game-card-vertical/game-card-vertical.component';
-// import { UsersRankedSidebarComponent } from './components-child/users-ranked-sidebar/users-ranked-sidebar.component';
 import { FacebookCommentComponent } from './components-child/facebook-comment/facebook-comment.component';
 import { SignupComponent } from './components/signup/signup.component';
 
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -76,19 +75,17 @@ import { SignupComponent } from './components/signup/signup.component';
     VideoPlayerComponent,
     IframeGameComponent,
     IframeAdsComponent,
-    // GameIntroComponent,
-    // GameShareComponent,
     GameRecommendBottomComponent,
     GameRecommendRightComponent,
     GameRecommendLeftComponent,
     GameCardVerticalComponent,
-    // UsersRankedSidebarComponent,
     FacebookCommentComponent,
     SignupComponent
 
   ],
   entryComponents: [AccountDialogComponent],
   imports: [
+
     BrowserModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
@@ -99,7 +96,7 @@ import { SignupComponent } from './components/signup/signup.component';
     MdProgressCircleModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
-      useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
+      useFactory: (createTranslateLoader),
       deps: [Http]
     }),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),

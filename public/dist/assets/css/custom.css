@@ -1,3 +1,1343 @@
+body {
+	background-color: #CCCCCC;
+}
+body.inverse {
+	background: #333333;
+}
+body.inverse, body.inverse .form-control {
+	color: #ffffff;
+}
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	font-weight: 300;
+	line-height: 1.5em;
+}
+a, a:hover, a:focus {
+	color: #2b2e7b;
+}
+a .material-icons, a:hover .material-icons, a:focus .material-icons {
+	vertical-align: middle;
+}
+.btn,
+.navbar .navbar-nav > li > a.btn {
+	border: none;
+	border-radius: 3px;
+	position: relative;
+	padding: 12px 30px;
+	margin: 10px 1px;
+	font-size: 12px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0;
+	will-change: box-shadow, transform;
+	transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn::-moz-focus-inner,
+.navbar .navbar-nav > li > a.btn::-moz-focus-inner {
+	border: 0;
+}
+.btn, .btn.btn-default,
+.navbar .navbar-nav > li > a.btn,
+.navbar .navbar-nav > li > a.btn.btn-default {
+	box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
+}
+.btn, .btn:hover, .btn:focus, .btn:active, .btn.active, .btn:active:focus, .btn:active:hover, .btn.active:focus, .btn.active:hover, .open > .btn.dropdown-toggle, .open > .btn.dropdown-toggle:focus, .open > .btn.dropdown-toggle:hover, .btn.btn-default, .btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default.active, .btn.btn-default:active:focus, .btn.btn-default:active:hover, .btn.btn-default.active:focus, .btn.btn-default.active:hover, .open > .btn.btn-default.dropdown-toggle, .open > .btn.btn-default.dropdown-toggle:focus, .open > .btn.btn-default.dropdown-toggle:hover,
+.navbar .navbar-nav > li > a.btn,
+.navbar .navbar-nav > li > a.btn:hover,
+.navbar .navbar-nav > li > a.btn:focus,
+.navbar .navbar-nav > li > a.btn:active,
+.navbar .navbar-nav > li > a.btn.active,
+.navbar .navbar-nav > li > a.btn:active:focus,
+.navbar .navbar-nav > li > a.btn:active:hover,
+.navbar .navbar-nav > li > a.btn.active:focus,
+.navbar .navbar-nav > li > a.btn.active:hover, .open >
+.navbar .navbar-nav > li > a.btn.dropdown-toggle, .open >
+.navbar .navbar-nav > li > a.btn.dropdown-toggle:focus, .open >
+.navbar .navbar-nav > li > a.btn.dropdown-toggle:hover,
+.navbar .navbar-nav > li > a.btn.btn-default,
+.navbar .navbar-nav > li > a.btn.btn-default:hover,
+.navbar .navbar-nav > li > a.btn.btn-default:focus,
+.navbar .navbar-nav > li > a.btn.btn-default:active,
+.navbar .navbar-nav > li > a.btn.btn-default.active,
+.navbar .navbar-nav > li > a.btn.btn-default:active:focus,
+.navbar .navbar-nav > li > a.btn.btn-default:active:hover,
+.navbar .navbar-nav > li > a.btn.btn-default.active:focus,
+.navbar .navbar-nav > li > a.btn.btn-default.active:hover, .open >
+.navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle, .open >
+.navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle:focus, .open >
+.navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle:hover {
+	background-color: #999999;
+	color: #FFFFFF;
+}
+.btn:focus, .btn:active, .btn:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default:hover,
+.navbar .navbar-nav > li > a.btn:focus,
+.navbar .navbar-nav > li > a.btn:active,
+.navbar .navbar-nav > li > a.btn:hover,
+.navbar .navbar-nav > li > a.btn.btn-default:focus,
+.navbar .navbar-nav > li > a.btn.btn-default:active,
+.navbar .navbar-nav > li > a.btn.btn-default:hover {
+	box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2);
+}
+.btn.disabled, .btn.disabled:hover, .btn.disabled:focus, .btn.disabled.focus, .btn.disabled:active, .btn.disabled.active, .btn:disabled, .btn:disabled:hover, .btn:disabled:focus, .btn:disabled.focus, .btn:disabled:active, .btn:disabled.active, .btn[disabled], .btn[disabled]:hover, .btn[disabled]:focus, .btn[disabled].focus, .btn[disabled]:active, .btn[disabled].active, fieldset[disabled] .btn, fieldset[disabled] .btn:hover, fieldset[disabled] .btn:focus, fieldset[disabled] .btn.focus, fieldset[disabled] .btn:active, fieldset[disabled] .btn.active, .btn.btn-default.disabled, .btn.btn-default.disabled:hover, .btn.btn-default.disabled:focus, .btn.btn-default.disabled.focus, .btn.btn-default.disabled:active, .btn.btn-default.disabled.active, .btn.btn-default:disabled, .btn.btn-default:disabled:hover, .btn.btn-default:disabled:focus, .btn.btn-default:disabled.focus, .btn.btn-default:disabled:active, .btn.btn-default:disabled.active, .btn.btn-default[disabled], .btn.btn-default[disabled]:hover, .btn.btn-default[disabled]:focus, .btn.btn-default[disabled].focus, .btn.btn-default[disabled]:active, .btn.btn-default[disabled].active, fieldset[disabled] .btn.btn-default, fieldset[disabled] .btn.btn-default:hover, fieldset[disabled] .btn.btn-default:focus, fieldset[disabled] .btn.btn-default.focus, fieldset[disabled] .btn.btn-default:active, fieldset[disabled] .btn.btn-default.active,
+.navbar .navbar-nav > li > a.btn.disabled,
+.navbar .navbar-nav > li > a.btn.disabled:hover,
+.navbar .navbar-nav > li > a.btn.disabled:focus,
+.navbar .navbar-nav > li > a.btn.disabled.focus,
+.navbar .navbar-nav > li > a.btn.disabled:active,
+.navbar .navbar-nav > li > a.btn.disabled.active,
+.navbar .navbar-nav > li > a.btn:disabled,
+.navbar .navbar-nav > li > a.btn:disabled:hover,
+.navbar .navbar-nav > li > a.btn:disabled:focus,
+.navbar .navbar-nav > li > a.btn:disabled.focus,
+.navbar .navbar-nav > li > a.btn:disabled:active,
+.navbar .navbar-nav > li > a.btn:disabled.active,
+.navbar .navbar-nav > li > a.btn[disabled],
+.navbar .navbar-nav > li > a.btn[disabled]:hover,
+.navbar .navbar-nav > li > a.btn[disabled]:focus,
+.navbar .navbar-nav > li > a.btn[disabled].focus,
+.navbar .navbar-nav > li > a.btn[disabled]:active,
+.navbar .navbar-nav > li > a.btn[disabled].active, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn:hover, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn:focus, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.focus, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn:active, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.active,
+.navbar .navbar-nav > li > a.btn.btn-default.disabled,
+.navbar .navbar-nav > li > a.btn.btn-default.disabled:hover,
+.navbar .navbar-nav > li > a.btn.btn-default.disabled:focus,
+.navbar .navbar-nav > li > a.btn.btn-default.disabled.focus,
+.navbar .navbar-nav > li > a.btn.btn-default.disabled:active,
+.navbar .navbar-nav > li > a.btn.btn-default.disabled.active,
+.navbar .navbar-nav > li > a.btn.btn-default:disabled,
+.navbar .navbar-nav > li > a.btn.btn-default:disabled:hover,
+.navbar .navbar-nav > li > a.btn.btn-default:disabled:focus,
+.navbar .navbar-nav > li > a.btn.btn-default:disabled.focus,
+.navbar .navbar-nav > li > a.btn.btn-default:disabled:active,
+.navbar .navbar-nav > li > a.btn.btn-default:disabled.active,
+.navbar .navbar-nav > li > a.btn.btn-default[disabled],
+.navbar .navbar-nav > li > a.btn.btn-default[disabled]:hover,
+.navbar .navbar-nav > li > a.btn.btn-default[disabled]:focus,
+.navbar .navbar-nav > li > a.btn.btn-default[disabled].focus,
+.navbar .navbar-nav > li > a.btn.btn-default[disabled]:active,
+.navbar .navbar-nav > li > a.btn.btn-default[disabled].active, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-default, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-default:hover, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-default:focus, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-default.focus, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-default:active, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-default.active {
+	box-shadow: none;
+}
+.btn.btn-simple, .btn.btn-default.btn-simple,
+.navbar .navbar-nav > li > a.btn.btn-simple,
+.navbar .navbar-nav > li > a.btn.btn-default.btn-simple {
+	background-color: transparent;
+	color: #999999;
+	box-shadow: none;
+}
+.btn.btn-simple:hover, .btn.btn-simple:focus, .btn.btn-simple:active, .btn.btn-default.btn-simple:hover, .btn.btn-default.btn-simple:focus, .btn.btn-default.btn-simple:active,
+.navbar .navbar-nav > li > a.btn.btn-simple:hover,
+.navbar .navbar-nav > li > a.btn.btn-simple:focus,
+.navbar .navbar-nav > li > a.btn.btn-simple:active,
+.navbar .navbar-nav > li > a.btn.btn-default.btn-simple:hover,
+.navbar .navbar-nav > li > a.btn.btn-default.btn-simple:focus,
+.navbar .navbar-nav > li > a.btn.btn-default.btn-simple:active {
+	background-color: transparent;
+	color: #999999;
+}
+.btn.btn-primary,
+.navbar .navbar-nav > li > a.btn.btn-primary {
+	box-shadow: 0 2px 2px 0 rgba(43, 46, 123, 0.14), 0 3px 1px -2px rgba(43, 46, 123, 0.2), 0 1px 5px 0 rgba(43, 46, 123, 0.12);
+}
+.btn.btn-primary, .btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary:active, .btn.btn-primary.active, .btn.btn-primary:active:focus, .btn.btn-primary:active:hover, .btn.btn-primary.active:focus, .btn.btn-primary.active:hover, .open > .btn.btn-primary.dropdown-toggle, .open > .btn.btn-primary.dropdown-toggle:focus, .open > .btn.btn-primary.dropdown-toggle:hover,
+.navbar .navbar-nav > li > a.btn.btn-primary,
+.navbar .navbar-nav > li > a.btn.btn-primary:hover,
+.navbar .navbar-nav > li > a.btn.btn-primary:focus,
+.navbar .navbar-nav > li > a.btn.btn-primary:active,
+.navbar .navbar-nav > li > a.btn.btn-primary.active,
+.navbar .navbar-nav > li > a.btn.btn-primary:active:focus,
+.navbar .navbar-nav > li > a.btn.btn-primary:active:hover,
+.navbar .navbar-nav > li > a.btn.btn-primary.active:focus,
+.navbar .navbar-nav > li > a.btn.btn-primary.active:hover, .open >
+.navbar .navbar-nav > li > a.btn.btn-primary.dropdown-toggle, .open >
+.navbar .navbar-nav > li > a.btn.btn-primary.dropdown-toggle:focus, .open >
+.navbar .navbar-nav > li > a.btn.btn-primary.dropdown-toggle:hover {
+	background-color: #2b2e7b;
+	color: #FFFFFF;
+}
+.btn.btn-primary:focus, .btn.btn-primary:active, .btn.btn-primary:hover,
+.navbar .navbar-nav > li > a.btn.btn-primary:focus,
+.navbar .navbar-nav > li > a.btn.btn-primary:active,
+.navbar .navbar-nav > li > a.btn.btn-primary:hover {
+	box-shadow: 0 14px 26px -12px rgba(43, 46, 123, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(43, 46, 123, 0.2);
+}
+.btn.btn-primary.disabled, .btn.btn-primary.disabled:hover, .btn.btn-primary.disabled:focus, .btn.btn-primary.disabled.focus, .btn.btn-primary.disabled:active, .btn.btn-primary.disabled.active, .btn.btn-primary:disabled, .btn.btn-primary:disabled:hover, .btn.btn-primary:disabled:focus, .btn.btn-primary:disabled.focus, .btn.btn-primary:disabled:active, .btn.btn-primary:disabled.active, .btn.btn-primary[disabled], .btn.btn-primary[disabled]:hover, .btn.btn-primary[disabled]:focus, .btn.btn-primary[disabled].focus, .btn.btn-primary[disabled]:active, .btn.btn-primary[disabled].active, fieldset[disabled] .btn.btn-primary, fieldset[disabled] .btn.btn-primary:hover, fieldset[disabled] .btn.btn-primary:focus, fieldset[disabled] .btn.btn-primary.focus, fieldset[disabled] .btn.btn-primary:active, fieldset[disabled] .btn.btn-primary.active,
+.navbar .navbar-nav > li > a.btn.btn-primary.disabled,
+.navbar .navbar-nav > li > a.btn.btn-primary.disabled:hover,
+.navbar .navbar-nav > li > a.btn.btn-primary.disabled:focus,
+.navbar .navbar-nav > li > a.btn.btn-primary.disabled.focus,
+.navbar .navbar-nav > li > a.btn.btn-primary.disabled:active,
+.navbar .navbar-nav > li > a.btn.btn-primary.disabled.active,
+.navbar .navbar-nav > li > a.btn.btn-primary:disabled,
+.navbar .navbar-nav > li > a.btn.btn-primary:disabled:hover,
+.navbar .navbar-nav > li > a.btn.btn-primary:disabled:focus,
+.navbar .navbar-nav > li > a.btn.btn-primary:disabled.focus,
+.navbar .navbar-nav > li > a.btn.btn-primary:disabled:active,
+.navbar .navbar-nav > li > a.btn.btn-primary:disabled.active,
+.navbar .navbar-nav > li > a.btn.btn-primary[disabled],
+.navbar .navbar-nav > li > a.btn.btn-primary[disabled]:hover,
+.navbar .navbar-nav > li > a.btn.btn-primary[disabled]:focus,
+.navbar .navbar-nav > li > a.btn.btn-primary[disabled].focus,
+.navbar .navbar-nav > li > a.btn.btn-primary[disabled]:active,
+.navbar .navbar-nav > li > a.btn.btn-primary[disabled].active, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-primary, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-primary:hover, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-primary:focus, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-primary.focus, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-primary:active, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-primary.active {
+	box-shadow: none;
+}
+.btn.btn-primary.btn-simple,
+.navbar .navbar-nav > li > a.btn.btn-primary.btn-simple {
+	background-color: transparent;
+	color: #2b2e7b;
+	box-shadow: none;
+}
+.btn.btn-primary.btn-simple:hover, .btn.btn-primary.btn-simple:focus, .btn.btn-primary.btn-simple:active,
+.navbar .navbar-nav > li > a.btn.btn-primary.btn-simple:hover,
+.navbar .navbar-nav > li > a.btn.btn-primary.btn-simple:focus,
+.navbar .navbar-nav > li > a.btn.btn-primary.btn-simple:active {
+	background-color: transparent;
+	color: #2b2e7b;
+}
+.btn.btn-danger, .btn.btn-danger:hover, .btn.btn-danger:focus, .btn.btn-danger:active, .btn.btn-danger.active, .btn.btn-danger:active:focus, .btn.btn-danger:active:hover, .btn.btn-danger.active:focus, .btn.btn-danger.active:hover, .open > .btn.btn-danger.dropdown-toggle, .open > .btn.btn-danger.dropdown-toggle:focus, .open > .btn.btn-danger.dropdown-toggle:hover,
+.navbar .navbar-nav > li > a.btn.btn-danger,
+.navbar .navbar-nav > li > a.btn.btn-danger:hover,
+.navbar .navbar-nav > li > a.btn.btn-danger:focus,
+.navbar .navbar-nav > li > a.btn.btn-danger:active,
+.navbar .navbar-nav > li > a.btn.btn-danger.active,
+.navbar .navbar-nav > li > a.btn.btn-danger:active:focus,
+.navbar .navbar-nav > li > a.btn.btn-danger:active:hover,
+.navbar .navbar-nav > li > a.btn.btn-danger.active:focus,
+.navbar .navbar-nav > li > a.btn.btn-danger.active:hover, .open >
+.navbar .navbar-nav > li > a.btn.btn-danger.dropdown-toggle, .open >
+.navbar .navbar-nav > li > a.btn.btn-danger.dropdown-toggle:focus, .open >
+.navbar .navbar-nav > li > a.btn.btn-danger.dropdown-toggle:hover {
+	background-color: #f1702f;
+	color: #FFFFFF;
+}
+.btn.btn-danger:focus, .btn.btn-danger:active, .btn.btn-danger:hover,
+.navbar .navbar-nav > li > a.btn.btn-danger:focus,
+.navbar .navbar-nav > li > a.btn.btn-danger:active,
+.navbar .navbar-nav > li > a.btn.btn-danger:hover {
+	box-shadow: 0 14px 26px -12px rgba(244, 67, 54, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2);
+}
+.btn.btn-danger.disabled, .btn.btn-danger.disabled:hover, .btn.btn-danger.disabled:focus, .btn.btn-danger.disabled.focus, .btn.btn-danger.disabled:active, .btn.btn-danger.disabled.active, .btn.btn-danger:disabled, .btn.btn-danger:disabled:hover, .btn.btn-danger:disabled:focus, .btn.btn-danger:disabled.focus, .btn.btn-danger:disabled:active, .btn.btn-danger:disabled.active, .btn.btn-danger[disabled], .btn.btn-danger[disabled]:hover, .btn.btn-danger[disabled]:focus, .btn.btn-danger[disabled].focus, .btn.btn-danger[disabled]:active, .btn.btn-danger[disabled].active, fieldset[disabled] .btn.btn-danger, fieldset[disabled] .btn.btn-danger:hover, fieldset[disabled] .btn.btn-danger:focus, fieldset[disabled] .btn.btn-danger.focus, fieldset[disabled] .btn.btn-danger:active, fieldset[disabled] .btn.btn-danger.active,
+.navbar .navbar-nav > li > a.btn.btn-danger.disabled,
+.navbar .navbar-nav > li > a.btn.btn-danger.disabled:hover,
+.navbar .navbar-nav > li > a.btn.btn-danger.disabled:focus,
+.navbar .navbar-nav > li > a.btn.btn-danger.disabled.focus,
+.navbar .navbar-nav > li > a.btn.btn-danger.disabled:active,
+.navbar .navbar-nav > li > a.btn.btn-danger.disabled.active,
+.navbar .navbar-nav > li > a.btn.btn-danger:disabled,
+.navbar .navbar-nav > li > a.btn.btn-danger:disabled:hover,
+.navbar .navbar-nav > li > a.btn.btn-danger:disabled:focus,
+.navbar .navbar-nav > li > a.btn.btn-danger:disabled.focus,
+.navbar .navbar-nav > li > a.btn.btn-danger:disabled:active,
+.navbar .navbar-nav > li > a.btn.btn-danger:disabled.active,
+.navbar .navbar-nav > li > a.btn.btn-danger[disabled],
+.navbar .navbar-nav > li > a.btn.btn-danger[disabled]:hover,
+.navbar .navbar-nav > li > a.btn.btn-danger[disabled]:focus,
+.navbar .navbar-nav > li > a.btn.btn-danger[disabled].focus,
+.navbar .navbar-nav > li > a.btn.btn-danger[disabled]:active,
+.navbar .navbar-nav > li > a.btn.btn-danger[disabled].active, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-danger, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-danger:hover, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-danger:focus, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-danger.focus, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-danger:active, fieldset[disabled]
+.navbar .navbar-nav > li > a.btn.btn-danger.active {
+	box-shadow: none;
+}
+.btn.btn-danger.btn-simple,
+.navbar .navbar-nav > li > a.btn.btn-danger.btn-simple {
+	background-color: transparent;
+	color: #f1702f;
+	box-shadow: none;
+}
+.btn.btn-danger.btn-simple:hover, .btn.btn-danger.btn-simple:focus, .btn.btn-danger.btn-simple:active,
+.navbar .navbar-nav > li > a.btn.btn-danger.btn-simple:hover,
+.navbar .navbar-nav > li > a.btn.btn-danger.btn-simple:focus,
+.navbar .navbar-nav > li > a.btn.btn-danger.btn-simple:active {
+	background-color: transparent;
+	color: #f1702f;
+}
+.btn.btn-white, .btn.btn-white:focus, .btn.btn-white:hover,
+.navbar .navbar-nav > li > a.btn.btn-white,
+.navbar .navbar-nav > li > a.btn.btn-white:focus,
+.navbar .navbar-nav > li > a.btn.btn-white:hover {
+	background-color: #FFFFFF;
+	color: #999999;
+}
+.btn.btn-white.btn-simple,
+.navbar .navbar-nav > li > a.btn.btn-white.btn-simple {
+	color: #FFFFFF;
+	background: transparent;
+	box-shadow: none;
+}
+.btn:focus, .btn:active, .btn:active:focus,
+.navbar .navbar-nav > li > a.btn:focus,
+.navbar .navbar-nav > li > a.btn:active,
+.navbar .navbar-nav > li > a.btn:active:focus {
+	outline: 0;
+}
+.btn.btn-round,
+.navbar .navbar-nav > li > a.btn.btn-round {
+	border-radius: 30px;
+}
+.btn:not(.btn-just-icon):not(.btn-fab) .fa,
+.navbar .navbar-nav > li > a.btn:not(.btn-just-icon):not(.btn-fab) .fa {
+	font-size: 18px;
+	margin-top: -2px;
+	position: relative;
+	top: 2px;
+}
+.btn.btn-fab,
+.navbar .navbar-nav > li > a.btn.btn-fab {
+	border-radius: 50%;
+	font-size: 24px;
+	height: 56px;
+	margin: auto;
+	min-width: 56px;
+	width: 56px;
+	padding: 0;
+	overflow: hidden;
+	position: relative;
+	line-height: normal;
+}
+.btn.btn-fab .ripple-container,
+.navbar .navbar-nav > li > a.btn.btn-fab .ripple-container {
+	border-radius: 50%;
+}
+.btn.btn-fab.btn-fab-mini, .btn-group-sm .btn.btn-fab,
+.navbar .navbar-nav > li > a.btn.btn-fab.btn-fab-mini, .btn-group-sm
+.navbar .navbar-nav > li > a.btn.btn-fab {
+	height: 40px;
+	min-width: 40px;
+	width: 40px;
+}
+.btn.btn-fab.btn-fab-mini.material-icons, .btn-group-sm .btn.btn-fab.material-icons,
+.navbar .navbar-nav > li > a.btn.btn-fab.btn-fab-mini.material-icons, .btn-group-sm
+.navbar .navbar-nav > li > a.btn.btn-fab.material-icons {
+	top: -3.5px;
+	left: -3.5px;
+}
+.btn.btn-fab.btn-fab-mini .material-icons, .btn-group-sm .btn.btn-fab .material-icons,
+.navbar .navbar-nav > li > a.btn.btn-fab.btn-fab-mini .material-icons, .btn-group-sm
+.navbar .navbar-nav > li > a.btn.btn-fab .material-icons {
+	font-size: 17px;
+}
+.btn.btn-fab i.material-icons,
+.navbar .navbar-nav > li > a.btn.btn-fab i.material-icons {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-12px, -12px);
+	line-height: 24px;
+	width: 24px;
+	font-size: 24px;
+}
+.btn.btn-lg, .btn-group-lg .btn,
+.navbar .navbar-nav > li > a.btn.btn-lg, .btn-group-lg
+.navbar .navbar-nav > li > a.btn {
+	font-size: 14px;
+	padding: 18px 36px;
+}
+.btn.btn-sm, .btn-group-sm .btn,
+.navbar .navbar-nav > li > a.btn.btn-sm, .btn-group-sm
+.navbar .navbar-nav > li > a.btn {
+	padding: 5px 20px;
+	font-size: 11px;
+}
+.btn.btn-xs, .btn-group-xs .btn,
+.navbar .navbar-nav > li > a.btn.btn-xs, .btn-group-xs
+.navbar .navbar-nav > li > a.btn {
+	padding: 4px 15px;
+	font-size: 10px;
+}
+.btn.btn-just-icon,
+.navbar .navbar-nav > li > a.btn.btn-just-icon {
+	font-size: 18px;
+	padding: 10px 10px;
+	line-height: 1em;
+}
+.btn.btn-just-icon i,
+.navbar .navbar-nav > li > a.btn.btn-just-icon i {
+	width: 20px;
+}
+.btn.btn-just-icon.btn-lg,
+.navbar .navbar-nav > li > a.btn.btn-just-icon.btn-lg {
+	font-size: 22px;
+	padding: 13px 18px;
+}
+
+.btn .material-icons {
+	vertical-align: middle;
+	font-size: 17px;
+	top: -1px;
+	position: relative;
+}
+
+.navbar .navbar-nav > li > a.btn {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.navbar .navbar-nav > li > a.btn.btn-fab {
+	margin: 5px 2px;
+}
+.navbar .navbar-nav > li > a:not(.btn) .material-icons {
+	margin-top: -3px;
+	top: 0px;
+	position: relative;
+	margin-right: 3px;
+}
+.navbar .navbar-nav > li > .profile-photo {
+	margin: 5px 2px;
+}
+
+.navbar-default:not(.navbar-transparent) .navbar-nav > li > a.btn.btn-white.btn-simple {
+	color: #555555;
+}
+
+.btn-group,
+.btn-group-vertical {
+	position: relative;
+	margin: 10px 1px;
+}
+.btn-group.open > .dropdown-toggle.btn, .btn-group.open > .dropdown-toggle.btn.btn-default,
+.btn-group-vertical.open > .dropdown-toggle.btn,
+.btn-group-vertical.open > .dropdown-toggle.btn.btn-default {
+	background-color: #EEEEEE;
+}
+.btn-group.open > .dropdown-toggle.btn.btn-primary,
+.btn-group-vertical.open > .dropdown-toggle.btn.btn-primary {
+	background-color: #2b2e7b;
+}
+.btn-group.open > .dropdown-toggle.btn.btn-danger,
+.btn-group-vertical.open > .dropdown-toggle.btn.btn-danger {
+	background-color: #f1702f;
+}
+.btn-group .dropdown-menu,
+.btn-group-vertical .dropdown-menu {
+	border-radius: 0 0 3px 3px;
+}
+.btn-group.btn-group-raised,
+.btn-group-vertical.btn-group-raised {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.btn-group .btn + .btn,
+.btn-group .btn,
+.btn-group .btn:active,
+.btn-group .btn-group,
+.btn-group-vertical .btn + .btn,
+.btn-group-vertical .btn,
+.btn-group-vertical .btn:active,
+.btn-group-vertical .btn-group {
+	margin: 0;
+}
+
+.close {
+	font-size: inherit;
+	color: #FFFFFF;
+	opacity: .9;
+	text-shadow: none;
+}
+.close:hover, .close:focus {
+	opacity: 1;
+	color: #FFFFFF;
+}
+.close i {
+	font-size: 20px;
+}
+
+.form-control {
+	height: 36px;
+	padding: 7px 0;
+	font-size: 14px;
+	line-height: 1.42857;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+	input[type="date"].form-control,
+	input[type="time"].form-control,
+	input[type="datetime-local"].form-control,
+	input[type="month"].form-control {
+		line-height: 36px;
+	}
+}
+.radio label,
+.checkbox label {
+	min-height: 20px;
+}
+
+.form-control-static {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	min-height: 34px;
+}
+
+.form-horizontal .radio,
+.form-horizontal .checkbox,
+.form-horizontal .radio-inline,
+.form-horizontal .checkbox-inline {
+	padding-top: 8px;
+}
+.form-horizontal .radio,
+.form-horizontal .checkbox {
+	min-height: 28px;
+}
+@media (min-width: 768px) {
+	.form-horizontal .control-label {
+		padding-top: 8px;
+	}
+}
+.label.label-primary {
+	background-color: #2b2e7b;
+}
+.label.label-danger {
+	background-color: #f1702f;
+}
+.form-control,
+.form-group .form-control {
+	border: 0;
+	background-image: linear-gradient(#2b2e7b, #2b2e7b), linear-gradient(#D2D2D2, #D2D2D2);
+	background-size: 0 2px, 100% 1px;
+	background-repeat: no-repeat;
+	background-position: center bottom, center calc(100% - 1px);
+	background-color: transparent;
+	transition: background 0s ease-out;
+	float: none;
+	box-shadow: none;
+	border-radius: 0;
+	font-weight: 400;
+}
+.form-control::-moz-placeholder,
+.form-group .form-control::-moz-placeholder {
+	color: #AAAAAA;
+	font-weight: 400;
+}
+.form-control:-ms-input-placeholder,
+.form-group .form-control:-ms-input-placeholder {
+	color: #AAAAAA;
+	font-weight: 400;
+}
+.form-control::-webkit-input-placeholder,
+.form-group .form-control::-webkit-input-placeholder {
+	color: #AAAAAA;
+	font-weight: 400;
+}
+.form-control[readonly], .form-control[disabled], fieldset[disabled] .form-control,
+.form-group .form-control[readonly],
+.form-group .form-control[disabled], fieldset[disabled]
+.form-group .form-control {
+	background-color: transparent;
+}
+.form-control[disabled], fieldset[disabled] .form-control,
+.form-group .form-control[disabled], fieldset[disabled]
+.form-group .form-control {
+	background-image: none;
+	border-bottom: 1px dotted #D2D2D2;
+}
+
+.form-group {
+	position: relative;
+}
+.form-group.label-static label.control-label, .form-group.label-placeholder label.control-label, .form-group.label-floating label.control-label {
+	position: absolute;
+	pointer-events: none;
+	transition: 0.3s ease all;
+}
+.form-group.label-floating label.control-label {
+	will-change: left, top, contents;
+}
+.form-group.label-placeholder:not(.is-empty) label.control-label {
+	display: none;
+}
+
+.form-group label.control-label {
+	font-size: 11px;
+	line-height: 1.07143;
+	color: #AAAAAA;
+	font-weight: 400;
+	margin: 16px 0 0 0;
+}
+
+.form-group .help-block {
+	position: absolute;
+	display: none;
+}
+.form-group.is-focused .form-control {
+	outline: none;
+	background-image: linear-gradient(#2b2e7b, #2b2e7b), linear-gradient(#D2D2D2, #D2D2D2);
+	background-size: 100% 2px, 100% 1px;
+	box-shadow: none;
+	transition-duration: 0.3s;
+}
+.form-group.is-focused .form-control .material-input:after {
+	background-color: #2b2e7b;
+}
+.form-group.is-focused label,
+.form-group.is-focused label.control-label {
+	color: #2b2e7b;
+}
+.form-group.is-focused.label-placeholder label,
+.form-group.is-focused.label-placeholder label.control-label {
+	color: #AAAAAA;
+}
+.form-group.is-focused .help-block {
+	display: block;
+}
+.form-group.has-error .form-control {
+	box-shadow: none;
+}
+.form-group.has-error.is-focused .form-control {
+	background-image: linear-gradient(#f1702f, #f1702f), linear-gradient(#D2D2D2, #D2D2D2);
+}
+.form-group.has-error label.control-label,
+.form-group.has-error .help-block {
+	color: #f1702f;
+}
+.form-group textarea {
+	resize: none;
+}
+.form-group textarea ~ .form-control-highlight {
+	margin-top: -11px;
+}
+.form-group select {
+	appearance: none;
+}
+.form-group select ~ .material-input:after {
+	display: none;
+}
+
+.form-control {
+	margin-bottom: 7px;
+}
+.form-control::-moz-placeholder {
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #AAAAAA;
+	font-weight: 400;
+}
+.form-control:-ms-input-placeholder {
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #AAAAAA;
+	font-weight: 400;
+}
+.form-control::-webkit-input-placeholder {
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #AAAAAA;
+	font-weight: 400;
+}
+
+.form-group {
+	padding-bottom: 7px;
+	margin: 27px 0 0 0;
+}
+.form-group .form-control {
+	margin-bottom: 7px;
+}
+.form-group .form-control::-moz-placeholder {
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #AAAAAA;
+	font-weight: 400;
+}
+.form-group .form-control:-ms-input-placeholder {
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #AAAAAA;
+	font-weight: 400;
+}
+.form-group .form-control::-webkit-input-placeholder {
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #AAAAAA;
+	font-weight: 400;
+}
+
+.form-group.label-floating label.control-label, .form-group.label-placeholder label.control-label {
+	top: -7px;
+	font-size: 14px;
+	line-height: 1.42857;
+}
+.form-group.label-static label.control-label, .form-group.label-floating.is-focused label.control-label, .form-group.label-floating:not(.is-empty) label.control-label {
+	top: -28px;
+	left: 0;
+	font-size: 11px;
+	line-height: 1.07143;
+}
+.form-group.label-floating input.form-control:-webkit-autofill ~ label.control-label label.control-label {
+	top: -28px;
+	left: 0;
+	font-size: 11px;
+	line-height: 1.07143;
+}
+
+.input-group-btn .btn {
+	margin: 0 0 7px 0;
+}
+
+.form-group.form-group-sm .input-group-btn .btn {
+	margin: 0 0 3px 0;
+}
+.form-group.form-group-lg .input-group-btn .btn {
+	margin: 0 0 9px 0;
+}
+
+.input-group .input-group-btn {
+	padding: 0 12px;
+}
+.input-group .input-group-addon {
+	border: 0;
+	background: transparent;
+	padding: 12px 15px 0px;
+}
+
+.form-group input[type=file] {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+
+.form-control-feedback {
+	opacity: 0;
+}
+.has-success .form-control-feedback {
+	color: #4caf50;
+	opacity: 1;
+}
+.has-error .form-control-feedback {
+	color: #f1702f;
+	opacity: 1;
+}
+
+.nav-pills > li > a {
+	line-height: 24px;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: 500;
+	min-width: 100px;
+	text-align: center;
+	color: #555555;
+	transition: all .3s;
+}
+.nav-pills > li > a:hover {
+	background-color: rgba(200, 200, 200, 0.2);
+}
+.nav-pills > li i {
+	display: block;
+	font-size: 30px;
+	padding: 15px 0;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+	background-color: #2b2e7b;
+	color: #FFFFFF;
+	box-shadow: 0 16px 26px -10px rgba(43, 46, 123, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(43, 46, 123, 0.2);
+}
+
+.navbar {
+	border: 0;
+	border-radius: 0;
+	box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	padding: 10px 0;
+}
+.navbar .navbar-brand {
+	position: relative;
+	height: 40px;
+	line-height: 30px;
+	color: inherit;
+	padding: 5px 15px;
+}
+.navbar .navbar-brand:hover, .navbar .navbar-brand:focus {
+	color: inherit;
+	background-color: transparent;
+}
+.navbar .navbar-text {
+	color: inherit;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.navbar .navbar-nav > li > a {
+	color: inherit;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-weight: 400;
+	font-size: 12px;
+	text-transform: uppercase;
+	border-radius: 3px;
+}
+.navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus {
+	color: inherit;
+	background-color: transparent;
+}
+.navbar .navbar-nav > li > a .material-icons,
+.navbar .navbar-nav > li > a .fa {
+	font-size: 20px;
+	max-width: 20px;
+}
+.navbar .navbar-nav > li > a:not(.btn-just-icon) .fa {
+	position: relative;
+	top: 2px;
+	margin-top: -4px;
+	margin-right: 4px;
+}
+.navbar .navbar-nav > li > .dropdown-menu {
+	margin-top: -20px;
+}
+.navbar .navbar-nav > li.open > .dropdown-menu {
+	margin-top: 0;
+}
+.navbar .navbar-nav > .active > a, .navbar .navbar-nav > .active > a:hover, .navbar .navbar-nav > .active > a:focus {
+	color: inherit;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+.navbar .navbar-nav > .disabled > a, .navbar .navbar-nav > .disabled > a:hover, .navbar .navbar-nav > .disabled > a:focus {
+	color: inherit;
+	background-color: transparent;
+	opacity: 0.9;
+}
+.navbar .navbar-toggle {
+	border: 0;
+}
+.navbar .navbar-toggle:hover, .navbar .navbar-toggle:focus {
+	background-color: transparent;
+}
+.navbar .navbar-toggle .icon-bar {
+	background-color: inherit;
+	border: 1px solid;
+}
+.navbar .navbar-default .navbar-toggle,
+.navbar .navbar-inverse .navbar-toggle {
+	border-color: transparent;
+}
+.navbar .navbar-collapse,
+.navbar .navbar-form {
+	border-top: none;
+	box-shadow: none;
+}
+.navbar .navbar-nav > .open > a, .navbar .navbar-nav > .open > a:hover, .navbar .navbar-nav > .open > a:focus {
+	background-color: transparent;
+	color: inherit;
+}
+@media (max-width: 767px) {
+	.navbar .navbar-nav .navbar-text {
+		color: inherit;
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	.navbar .navbar-nav .open .dropdown-menu > .dropdown-header {
+		border: 0;
+		color: inherit;
+	}
+	.navbar .navbar-nav .open .dropdown-menu .divider {
+		border-bottom: 1px solid;
+		opacity: 0.08;
+	}
+	.navbar .navbar-nav .open .dropdown-menu > li > a {
+		color: inherit;
+	}
+	.navbar .navbar-nav .open .dropdown-menu > li > a:hover, .navbar .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: inherit;
+		background-color: rgba(255,255,255,0.1);
+	}
+	.navbar .navbar-nav .open .dropdown-menu > .active > a, .navbar .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
+		color: inherit;
+		background-color: rgba(255,255,255,0.1);
+	}
+	.navbar .navbar-nav .open .dropdown-menu > .disabled > a, .navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+		color: inherit;
+		background-color: rgba(255,255,255,0.1);
+	}
+}
+.navbar.navbar-default .logo-container .brand {
+	color: #555555;
+}
+.navbar .navbar-link {
+	color: inherit;
+}
+.navbar .navbar-link:hover {
+	color: inherit;
+}
+.navbar .btn {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.navbar .btn-link {
+	color: inherit;
+}
+.navbar .btn-link:hover, .navbar .btn-link:focus {
+	color: inherit;
+}
+.navbar .btn-link[disabled]:hover, .navbar .btn-link[disabled]:focus, fieldset[disabled] .navbar .btn-link:hover, fieldset[disabled] .navbar .btn-link:focus {
+	color: inherit;
+}
+.navbar .navbar-form {
+	margin: 4px 0 0;
+}
+.navbar .navbar-form .form-group {
+	margin: 0;
+	padding: 0;
+}
+.navbar .navbar-form .form-group .material-input:before, .navbar .navbar-form .form-group.is-focused .material-input:after {
+	background-color: inherit;
+}
+.navbar .navbar-form .form-group .form-control,
+.navbar .navbar-form .form-control {
+	border-color: inherit;
+	color: inherit;
+	padding: 0;
+	margin: 0;
+	height: 28px;
+	font-size: 14px;
+	line-height: 1.42857;
+}
+.navbar, .navbar.navbar-default {
+	background-color: #2b2e7b;
+	color: #ffffff;
+}
+.navbar .navbar-form .form-group input.form-control::-moz-placeholder,
+.navbar .navbar-form input.form-control::-moz-placeholder, .navbar.navbar-default .navbar-form .form-group input.form-control::-moz-placeholder,
+.navbar.navbar-default .navbar-form input.form-control::-moz-placeholder {
+	color: #ffffff;
+}
+.navbar .navbar-form .form-group input.form-control:-ms-input-placeholder,
+.navbar .navbar-form input.form-control:-ms-input-placeholder, .navbar.navbar-default .navbar-form .form-group input.form-control:-ms-input-placeholder,
+.navbar.navbar-default .navbar-form input.form-control:-ms-input-placeholder {
+	color: #ffffff;
+}
+.navbar .navbar-form .form-group input.form-control::-webkit-input-placeholder,
+.navbar .navbar-form input.form-control::-webkit-input-placeholder, .navbar.navbar-default .navbar-form .form-group input.form-control::-webkit-input-placeholder,
+.navbar.navbar-default .navbar-form input.form-control::-webkit-input-placeholder {
+	color: #ffffff;
+}
+.navbar .dropdown-menu, .navbar.navbar-default .dropdown-menu {
+	border-radius: 3px !important;
+}
+.navbar .dropdown-menu li > a:hover, .navbar .dropdown-menu li > a:focus, .navbar.navbar-default .dropdown-menu li > a:hover, .navbar.navbar-default .dropdown-menu li > a:focus {
+	color: #FFFFFF;
+	background-color: #2b2e7b;
+}
+.navbar .dropdown-menu .active > a, .navbar.navbar-default .dropdown-menu .active > a {
+	background-color: #2b2e7b;
+	color: #ffffff;
+}
+.navbar .dropdown-menu .active > a:hover, .navbar .dropdown-menu .active > a:focus, .navbar.navbar-default .dropdown-menu .active > a:hover, .navbar.navbar-default .dropdown-menu .active > a:focus {
+	color: #ffffff;
+}
+.navbar.navbar-inverse {
+	background-color: #3f51b5;
+	color: contrast-color(#3f51b5, #000000, #ffffff);
+}
+.navbar.navbar-inverse .navbar-form .form-group input.form-control::-moz-placeholder,
+.navbar.navbar-inverse .navbar-form input.form-control::-moz-placeholder {
+	color: contrast-color(#3f51b5, #000000, #ffffff);
+}
+.navbar.navbar-inverse .navbar-form .form-group input.form-control:-ms-input-placeholder,
+.navbar.navbar-inverse .navbar-form input.form-control:-ms-input-placeholder {
+	color: contrast-color(#3f51b5, #000000, #ffffff);
+}
+.navbar.navbar-inverse .navbar-form .form-group input.form-control::-webkit-input-placeholder,
+.navbar.navbar-inverse .navbar-form input.form-control::-webkit-input-placeholder {
+	color: contrast-color(#3f51b5, #000000, #ffffff);
+}
+.navbar.navbar-inverse .dropdown-menu {
+	border-radius: 3px !important;
+}
+.navbar.navbar-inverse .dropdown-menu li > a:hover, .navbar.navbar-inverse .dropdown-menu li > a:focus {
+	color: #FFFFFF;
+	background-color: #3f51b5;
+}
+.navbar.navbar-inverse .dropdown-menu .active > a {
+	background-color: #3f51b5;
+	color: contrast-color(#3f51b5, #000000, #ffffff);
+}
+.navbar.navbar-inverse .dropdown-menu .active > a:hover, .navbar.navbar-inverse .dropdown-menu .active > a:focus {
+	color: contrast-color(#3f51b5, #000000, #ffffff);
+}
+.navbar.navbar-primary {
+	background-color: #2b2e7b;
+	color: #ffffff;
+}
+.navbar.navbar-primary .navbar-form .form-group input.form-control::-moz-placeholder,
+.navbar.navbar-primary .navbar-form input.form-control::-moz-placeholder {
+	color: #ffffff;
+}
+.navbar.navbar-primary .navbar-form .form-group input.form-control:-ms-input-placeholder,
+.navbar.navbar-primary .navbar-form input.form-control:-ms-input-placeholder {
+	color: #ffffff;
+}
+.navbar.navbar-primary .navbar-form .form-group input.form-control::-webkit-input-placeholder,
+.navbar.navbar-primary .navbar-form input.form-control::-webkit-input-placeholder {
+	color: #ffffff;
+}
+.navbar.navbar-primary .dropdown-menu {
+	border-radius: 3px !important;
+}
+.navbar.navbar-primary .dropdown-menu li > a:hover, .navbar.navbar-primary .dropdown-menu li > a:focus {
+	color: #FFFFFF;
+	background-color: #2b2e7b;
+}
+.navbar.navbar-primary .dropdown-menu .active > a {
+	background-color: #2b2e7b;
+	color: #ffffff;
+}
+.navbar.navbar-primary .dropdown-menu .active > a:hover, .navbar.navbar-primary .dropdown-menu .active > a:focus {
+	color: #ffffff;
+}
+
+
+.dropdown-menu {
+	border: 0;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+.dropdown-menu .divider {
+	background-color: rgba(0, 0, 0, 0.12);
+}
+.dropdown-menu li > a {
+	font-size: 13px;
+	padding: 10px 20px;
+	margin: 0 5px;
+	border-radius: 2px;
+	-webkit-transition: all 150ms linear;
+	-moz-transition: all 150ms linear;
+	-o-transition: all 150ms linear;
+	-ms-transition: all 150ms linear;
+	transition: all 150ms linear;
+}
+.dropdown-menu li > a:hover, .dropdown-menu li > a:focus {
+	box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+.dropdown-menu li {
+	position: relative;
+}
+.dropdown-menu li a:hover,
+.dropdown-menu li a:focus,
+.dropdown-menu li a:active {
+	background-color: #2b2e7b;
+	color: #FFFFFF;
+}
+.dropdown-menu .divider {
+	margin: 5px 0;
+}
+
+@media (min-width: 992px) {
+	.dropdown .dropdown-menu {
+		-webkit-transition: all 150ms linear;
+		-moz-transition: all 150ms linear;
+		-o-transition: all 150ms linear;
+		-ms-transition: all 150ms linear;
+		transition: all 150ms linear;
+		margin-top: -20px;
+		opacity: 0;
+		visibility: hidden;
+		display: block;
+	}
+	.dropdown.open .dropdown-menu {
+		opacity: 1;
+		visibility: visible;
+		margin-top: 1px;
+	}
+}
+.info {
+	max-width: 360px;
+	margin: 0 auto;
+	padding: 70px 0 30px;
+}
+.info .icon {
+	color: #999999;
+}
+.info .icon > i {
+	font-size: 4.4em;
+}
+.info .info-title {
+	color: #3C4858;
+	margin: 30px 0 15px;
+}
+.info p {
+	color: #999999;
+}
+
+.icon.icon-primary {
+	color: #2b2e7b;
+}
+.icon.icon-danger {
+	color: #f1702f;
+}
+
+
+h1, .h1 {
+	font-size: 3.8em;
+	line-height: 1.15em;
+}
+
+h2, .h2 {
+	font-size: 2.6em;
+}
+
+h3, .h3 {
+	font-size: 1.825em;
+	line-height: 1.4em;
+	margin: 20px 0 10px;
+}
+
+h4, .h4 {
+	font-size: 1.3em;
+	line-height: 1.4em;
+}
+
+h5, .h5 {
+	font-size: 1.25em;
+	line-height: 1.4em;
+	margin-bottom: 15px;
+}
+
+h6, .h6 {
+	font-size: 1em;
+	text-transform: uppercase;
+}
+
+.title,
+.card-title,
+.info-title,
+.media .media-heading {
+	font-weight: 700;
+}
+.title,
+.title a,
+.card-title,
+.card-title a,
+.info-title,
+.info-title a,
+.media .media-heading,
+.media .media-heading a {
+	color: #3C4858;
+	text-decoration: none;
+}
+
+h2.title {
+	margin-bottom: 30px;
+}
+
+.description,
+.card-description,
+.footer-big p {
+	color: #999999;
+}
+
+.text-warning {
+	color: #fbc02d;
+}
+
+.text-primary {
+	color: #2b2e7b;
+}
+
+.text-danger {
+	color: #f1702f;
+}
+
+.text-success {
+	color: #4caf50;
+}
+
+.text-info {
+	color: #03a9f4;
+}
+
+.nav-tabs {
+	background: #2b2e7b;
+	border: 0;
+	border-radius: 3px;
+	padding: 0 15px;
+}
+.nav-tabs > li > a {
+	color: #FFFFFF;
+	border: 0;
+	margin: 0;
+	border-radius: 3px;
+	line-height: 24px;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+.nav-tabs > li > a:hover {
+	background-color: transparent;
+	border: 0;
+}
+.nav-tabs > li > a, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+	background-color: transparent;
+	border: 0 !important;
+	color: #FFFFFF !important;
+	font-weight: 500;
+}
+.nav-tabs > li.disabled > a, .nav-tabs > li.disabled > a:hover {
+	color: rgba(255, 255, 255, 0.5);
+}
+.nav-tabs > li .material-icons {
+	margin: -1px 5px 0 0;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+	background-color: rgba(255, 255, 255, 0.2);
+	transition: background-color .1s .2s;
+}
+
+
+.card {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	border-radius: 3px;
+	color: rgba(0,0,0, 0.87);
+	background: #fff;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.card .card-height-indicator {
+	margin-top: 100%;
+}
+.card .card-content {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.card .card-image {
+	height: 60%;
+	position: relative;
+	overflow: hidden;
+}
+.card .card-image img {
+	width: 100%;
+	height: 100%;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	pointer-events: none;
+}
+.card .card-image .card-image-headline {
+	position: absolute;
+	bottom: 16px;
+	left: 18px;
+	color: #fff;
+	font-size: 2em;
+}
+.card .content {
+	padding: 15px;
+}
+.card .card-body {
+	height: 30%;
+	padding: 18px;
+}
+.card .card-footer {
+	height: 10%;
+	padding: 18px;
+}
+.card .card-footer button, .card .card-footer a {
+	margin: 0 !important;
+	position: relative;
+	/*bottom: 25px;*/
+	width: auto;
+}
+.card .card-footer button:first-child, .card .card-footer a:first-child {
+	left: -15px;
+}
+.card .header {
+	box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	margin: 15px;
+	border-radius: 3px;
+	padding: 15px 0;
+	background-color: #FFFFFF;
+}
+
+
+hr.on-dark {
+	color: #1a1a1a;
+}
+hr.on-light {
+	color: white;
+}
+@media (-webkit-min-device-pixel-ratio: 0.75), (min--moz-device-pixel-ratio: 0.75), (-o-device-pixel-ratio: 3 / 4), (min-device-pixel-ratio: 0.75), (min-resolution: 0.75dppx), (min-resolution: 120dpi) {
+	hr {
+		height: 0.75px;
+	}
+}
+@media (-webkit-min-device-pixel-ratio: 1), (min--moz-device-pixel-ratio: 1), (-o-device-pixel-ratio: 1), (min-device-pixel-ratio: 1), (min-resolution: 1dppx), (min-resolution: 160dpi) {
+	hr {
+		height: 1px;
+	}
+}
+@media (-webkit-min-device-pixel-ratio: 1.33), (min--moz-device-pixel-ratio: 1.33), (-o-device-pixel-ratio: 133 / 100), (min-device-pixel-ratio: 1.33), (min-resolution: 1.33dppx), (min-resolution: 213dpi) {
+	hr {
+		height: 1.333px;
+	}
+}
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 240dpi) {
+	hr {
+		height: 1.5px;
+	}
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-device-pixel-ratio: 2 / 1), (min-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 380dpi) {
+	hr {
+		height: 2px;
+	}
+}
+@media (-webkit-min-device-pixel-ratio: 3), (min--moz-device-pixel-ratio: 3), (-o-device-pixel-ratio: 3 / 1), (min-device-pixel-ratio: 3), (min-resolution: 3dppx), (min-resolution: 480dpi) {
+	hr {
+		height: 3px;
+	}
+}
+@media (-webkit-min-device-pixel-ratio: 4), (min--moz-device-pixel-ratio: 4), (-o-device-pixel-ratio: 4 / 1), (min-device-pixel-ratio: 3), (min-resolution: 4dppx), (min-resolution: 640dpi) {
+	hr {
+		height: 4px;
+	}
+}
+
+.img-thumbnail {
+	border-radius: 16px;
+}
+
+.img-raised {
+	box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+* {
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	-webkit-tap-highlight-color: transparent;
+}
+*:focus {
+	outline: 0;
+}
+
+a:focus, a:active,
+button:active, button:focus, button:hover,
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+select::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+	outline: 0 !important;
+}
+
 .withripple {
 	position: relative;
 }

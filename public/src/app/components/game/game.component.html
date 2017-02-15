@@ -5,7 +5,7 @@
             <!--<app-game-card [game]="game"></app-game-card>-->
                 <!--<app-game-intro *ngIf="isIntro" [game]="game" (playGame)="handlePlayGame($event)"></app-game-intro>-->
                 <!--GAMEINTRO-->
-                <div *ngIf="game && isIntro" class="text-center intro-frame">
+                <div @fadeIn *ngIf="game && isIntro" class="text-center intro-frame">
                     <div class="card-image">
                         <img class="img img-responsive" [src]="game.thumb">
                         <div class="ripple-container"></div>
@@ -19,15 +19,15 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <md-spinner class="md-spinner-load" *ngIf="isLoading" color="warn" color="primary"></md-spinner>
-                        <a *ngIf="!isLoading" class="btn btn-lg btn-primary btn-md" (click)="playGame()"> <i class="ion-flash"></i> PLAY NOW</a>
+                        <md-spinner class="md-spinner-load" *ngIf="!isInit && isLoading" color="warn" color="primary"></md-spinner>
+                        <a *ngIf="isInit" class="btn btn-lg btn-primary btn-md" (click)="playGame()"> <i class="ion-flash"></i> PLAY NOW</a>
                     </div>
                 </div>
                 <!--GAMEINTRO-->
-                <app-iframe-game *ngIf="game" [id]="game._id" [hidden]="isIntro || isEnd" (updateResult)="handleUpdateResult($event)" (librariesLoadDone)="handleLibrariesLoadDoneDone()"></app-iframe-game>
+                <app-iframe-game @fadeIn *ngIf="game" [id]="game._id" [hidden]="isIntro || isEnd" (updateResult)="handleUpdateResult($event)" (librariesLoadDone)="handleLibrariesLoadDoneDone()"></app-iframe-game>
                 <!--<app-game-share *ngIf="isEnd" class="ads-frame"  (continueGame)="handleContinueGame($event)"></app-game-share>-->
                 <!--GAMERESULT-->
-                <div *ngIf="game" [hidden]="!isEnd" class="ads-frame text-center result-panel">
+                <div @fadeIn *ngIf="game" [hidden]="!isEnd" class="ads-frame text-center result-panel">
                     <div class="result-image">
                         <!--<img [src]="imageData" style="width:180px;height:300px;position: absolute; top: 6px;-->
                         <!--left: 6px;-->
@@ -60,7 +60,7 @@
                     <app-game-recommend-left [games]="leftrcmGames"></app-game-recommend-left>
                 </div>
                 <div class="col-md-8">
-                    <div *ngIf="facebookCommentShowed && game">
+                    <div @fadeIn *ngIf="facebookCommentShowed && game">
                         <app-facebook-comment [id]="game._id"></app-facebook-comment>
                     </div>
                     <!--<app-game-recommend-bottom></app-game-recommend-bottom>-->
