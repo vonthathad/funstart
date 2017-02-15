@@ -70,7 +70,11 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
         this.isShowAds = true;
         var time = Date.now() - this.initTime;
         this.angulartics2.eventTrack.next({ action: 'loadDone', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
-        this.isInit = true;
+        setTimeout(()=>{
+          if(!this.isInit){
+            this.isInit = true;
+          }
+        },3000);
         this.channelID = '8152950647';
         this.isIntro = true;
         this.isLoading = true;
@@ -161,6 +165,11 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
 
     // this.iframeGameComponent.setVisible(true);
     // this.gameShareComponent.setVisible(false);
+  }
+  handleLoadAds(){
+    if(!this.isInit){
+      this.isInit = true;
+    }
   }
   handleUpdateResult(result) {
     this.angulartics2.eventTrack.next({ action: 'endGame', properties: { category: 'gamePlay' }});

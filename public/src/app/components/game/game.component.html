@@ -52,7 +52,7 @@
                     <!--<button (click)="shareTwitter()">Share Twitter</button>-->
                 </div>
                 <!--GAMERESULT-->
-                <app-iframe-ads *ngIf="isShowAds" [initTime]="initTime" [ruid]="ruid" [channelID]="channelID" (closeAds)="handleCloseAds($event)"></app-iframe-ads>
+                <app-iframe-ads *ngIf="isShowAds" [initTime]="initTime" [ruid]="ruid" [channelID]="channelID" (loadAdsDone)="handleLoadAds($event)" (closeAds)="handleCloseAds($event)"></app-iframe-ads>
             </div>
             <div class="devider"></div>
             <div class="row">
