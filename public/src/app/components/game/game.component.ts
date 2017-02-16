@@ -94,11 +94,12 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
         this.loadRecommendGame(1);
         this.facebookCommentShowed = false;
         this.facebookCommentShowed = true;
-        setTimeout(()=>{
-          this.isInit = true;
-          this.isWait = false;
-          this.cd.markForCheck();
-        },1000);
+        // setTimeout(()=>{
+        //
+        //   this.cd.markForCheck();
+        // },1000);
+        this.isInit = true;
+        this.isWait = false;
         this.cd.markForCheck();
       });
     });
