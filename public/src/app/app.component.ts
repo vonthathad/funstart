@@ -7,7 +7,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent{
   constructor(private translate: TranslateService, private facebookService: FacebookService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
     translate.addLangs(["en", "fr"]);
     translate.setDefaultLang('en');

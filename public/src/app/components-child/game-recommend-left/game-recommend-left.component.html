@@ -1,6 +1,22 @@
-<h4 class="section-heading">Recommended Games</h4>
-<div class="row" id="list-recommend">
-  <div class="col-md-12 col-sm-4 col-xs-6" *ngFor="let game of games;let index = index" [ngClass]="{'visible-sm': index == 2}">
-     <app-game-card [game]="game" [link]="'rcmleft'"></app-game-card>
-  </div>
+<!--<h4 class="section-heading">SO HOT!!! MUST TRY</h4>-->
+<!--<div class="row" id="list-recommend">-->
+  <!--<div class="col-md-12 col-sm-4 col-xs-6" *ngFor="let game of games;let index = index" [ngClass]="{'visible-sm': index == 2}">-->
+     <!--<app-game-card [game]="game" [link]="'rcmleft'"></app-game-card>-->
+  <!--</div>-->
+<!--</div>-->
+<div class="rec-area">
+    <div class="card">
+        <div class="card-header card-header-icon card-header-game" data-background-color="orange">
+            <i class="ion-android-star"></i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">So Hot !!! Must Try</h4>
+            <div class="game-list-sm">
+                <div class="game-item" *ngFor="let game of games">
+                    <app-game-card-horizontal [game]="game" [link]="'rcmleft'"></app-game-card-horizontal>
+                </div>
+                <!--/.row-->
+            </div>
+        </div>
+    </div>
 </div>

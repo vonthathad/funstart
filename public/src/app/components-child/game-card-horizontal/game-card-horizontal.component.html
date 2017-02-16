@@ -1,12 +1,12 @@
-<div class="game-item">
+<div @fadeIn class="game-item">
     <a [routerLink]="['/game', game._id]" [queryParams]="{utm_campaign:'tracking',utm_source:link,utm_medium:'card'}" (click)="scrollTop()">
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 <a [routerLink]="['/game', game._id]" (click)="scrollTop()"  [queryParams]="{utm_campaign:'tracking',utm_source:link,utm_medium:'thumb'}">
-                    <img class="img img-circle img-raised game-thumb-sm" [src]="game.thumb">
+                    <img class="img img-rounded img-raised img-responsive" [src]="game.thumb">
                 </a>
             </div>
-            <div class="col-xs-9">
+            <div class="col-xs-8">
                 <p class="game-heading-sm">
                     <a [routerLink]="['/game', game._id]" [queryParams]="{utm_campaign:'tracking',utm_source:link,utm_medium:'title'}" (click)="scrollTop()">
                         {{game.title}}
@@ -16,6 +16,7 @@
                     </a>-->
                 </p>
                 <p class="game-desc-sm">{{game.des}}</p>
+                <p class="game-desc-sm"><i class="ion-play"></i> {{game.plays}}</p>
             </div>
         </div>
     </a>

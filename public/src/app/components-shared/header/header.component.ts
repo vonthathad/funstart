@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { overlayConfigFactory } from "angular2-modal";
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
@@ -12,21 +12,23 @@ import { User } from '../../classes/user';
 import { Game } from '../../classes/game';
 
 import { AccountDialogComponent } from '../../components-child/account-dialog/account-dialog.component';
+import {ParentComponent} from "../../parent.component";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent extends ParentComponent implements OnInit, OnDestroy {
   private topics = ConstantService.TOPICS;
   private games: Game[];
   private user: User;
 
-  constructor(private gameService: GameService, private userService: UserService, private route: ActivatedRoute, private modal: Modal) {
+  constructor(private gameService: GameService, private userService: UserService, private route: ActivatedRoute, private modal: Modal,private cd: ChangeDetectorRef) {
     // listening for registered user, if there is one, render to user
-    userService.loggedUser$.subscribe(user => {this.renderUser(user, { from: "change" })});
+    super();
+    this.disposable = userService.loggedUser$.subscribe(user => {this.renderUser(user, { from: "change" })});
   }
-
   ngOnInit() {
 
     // load games for menu
@@ -39,20 +41,20 @@ export class HeaderComponent implements OnInit {
     // get  token if there is one in url
     this.route.queryParams.subscribe(queryParam => {
       token = queryParam['token'];
-      console.log("TOKEN " + token);
+      //console.log("TOKEN " + token);
       // if there is one, take user in db and render to user
       if (token) {
-        console.log("1234");
+        //console.log("1234");
         localStorage.setItem("token", token);
-        this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user, { from: "queryParam" }));
+        this.disposable = this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user, { from: "queryParam" }));
       }
     });
 
     // get token from localstorage if there is one
     token = localStorage.getItem("token");
-    console.log("TOKEN HERE" + token);
+    //console.log("TOKEN HERE" + token);
     if (token && token != "undefined") {
-      this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user, { from: "localStorage" }));
+      this.disposable = this.userService.getUser(token).subscribe((res: any) => this.renderUser(res.user, { from: "localStorage" }));
     }
   }
   processError(err){
@@ -67,7 +69,7 @@ export class HeaderComponent implements OnInit {
   renderUser(user, obj) {
     if (obj.from == "queryParam" || obj.from == "localStorage") {
       this.user = new User();
-      console.log("USER" + JSON.stringify(user));
+      //console.log("USER" + JSON.stringify(user));
       this.user._id = user._id;
       this.user.token = user.accessToken;
       this.user.displayName = user.displayName;
@@ -79,6 +81,7 @@ export class HeaderComponent implements OnInit {
     }  else {
       this.user = user;
     }
+    this.cd.markForCheck();
   }
   openDialog() {
     this.modal
@@ -94,5 +97,8 @@ export class HeaderComponent implements OnInit {
     // delete this.user;
     // location.reload();
     // });
+  }
+  ngOnDestroy() {
+    this.disposeSubscriptions();
   }
 }

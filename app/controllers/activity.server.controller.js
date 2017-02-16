@@ -118,6 +118,7 @@ exports.createActivity = function (req,res,next) {
                             data.image = req.body.pictureUrl;
                             data.save();
                         };
+                        res.json({score: data.score});
                     } else {
                         var newActivity = new Activity({
                             game: parseInt(req.body.game),
@@ -126,6 +127,7 @@ exports.createActivity = function (req,res,next) {
                             image : req.body.pictureUrl
                         });
                         newActivity.save();
+                        res.json({data: req.body.score});
                     }
                 });
             var isPlayGame = false;
@@ -139,17 +141,8 @@ exports.createActivity = function (req,res,next) {
             req.user.exp += parseInt(req.body.score/100);
             req.user.games++;
             req.user.active = Date.now();
-            req.user.save(function(err,user){
-                if(err) return res.status(400).send();
-                return res.json({data:user});
-                // User.find({exp : {$gt : user.exp}}).count(function (err,count){
-                //     if(err) return res.json({data:user});
-                //     var rank = 0;
-                //     if(!err) rank = count + 1;
-                //     user.rank = rank;
-                //     return res.json({data:user});
-                // });
-            });
+            req.user.save();
+            return;
 
 
         } else {

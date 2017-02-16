@@ -26,7 +26,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" [routerLink]="['/']" style="font-size: 22px;letter-spacing: 2px"><img style="height: 25px" src="./assets/img/logofunstart.svg"></a>
+            <ul class="nav navbar-nav nav-logo">
+                <li >
+                    <a [routerLink]="['/']" class="branding"><img src="./assets/img/logofunstart.svg"></a>
+                </li>
+            </ul>
+
         </div>
         <div class="collapse navbar-collapse" id="example-navbar">
             <ul class="nav navbar-nav">
@@ -39,7 +44,7 @@
 
                         <li *ngFor="let game of games">
                             <a [routerLink]="['/game', game._id]" [queryParams]="{utm_campaign:'tracking',utm_source:'explore',utm_medium:'card'}">
-                            <img class="submenu-thumb" src="{{game.thumb}}" alt="{{game.title}}">
+                            <img class="submenu-thumb img-raised  img-circle" src="{{game.thumb}}" alt="{{game.title}}">
                             {{game.title}}
                             </a>
                         </li>

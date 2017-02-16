@@ -1,29 +1,20 @@
-import { Component, OnInit,  } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { GameService } from '../../services/game.service';
-
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Game } from '../../classes/game';
 @Component({
   selector: 'app-game-recommend-left',
   templateUrl: './game-recommend-left.component.html',
-  styleUrls: ['./game-recommend-left.component.scss']
+  styleUrls: ['./game-recommend-left.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameRecommendLeftComponent implements OnInit {
-  private games: Game[];
+  @Input() games: Game[];
   
-  constructor(private router: Router, private gameService: GameService) { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.loadRecommendGame();
+    // this.loadRecommendGame();
   }
-  renderGames(games: Game[]) {
-    this.games = games;
-  }
-  loadRecommendGame(){
-    this.gameService
-      .getGames({ order: "random", paging: 3 })
-      .subscribe((res: any) => this.renderGames(res.data));
-  }
-
+  
+  
 }

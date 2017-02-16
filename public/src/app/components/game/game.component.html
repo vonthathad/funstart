@@ -1,35 +1,76 @@
 <div class="wrapper">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="game-frame">
             <!--<app-game-card [game]="game"></app-game-card>-->
-                <app-game-intro  (playGame)="handlePlayGame($event)"></app-game-intro>
-                <app-iframe-game [hidden]="game==undefined" (updateResult)="handleUpdateResult($event)" (librariesLoadDone)="handleLibrariesLoadDoneDone()"></app-iframe-game>
-                <app-game-share class="ads-frame"  (continueGame)="handleContinueGame($event)"></app-game-share>
-                <app-iframe-ads (closeAds)="handleCloseAds($event)"></app-iframe-ads>
+                <!--<app-game-intro *ngIf="isIntro" [game]="game" (playGame)="handlePlayGame($event)"></app-game-intro>-->
+                <!--GAMEINTRO-->
+                <div @fadeIn *ngIf="game && isIntro" class="text-center intro-frame">
+                    <div class="card-image">
+                        <img class="img img-responsive" [src]="game.thumb">
+                        <div class="ripple-container"></div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">
+                            {{game.title}}
+                        </h4>
+                        <div class="card-description">
+                            {{game.des}}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <md-spinner class="md-spinner-load" *ngIf="!isInit && isLoading" color="warn" color="primary"></md-spinner>
+                        <a *ngIf="isInit && !isWait" class="btn btn-lg btn-primary btn-md" (click)="playGame()"> <i class="ion-flash"></i> PLAY NOW</a>
+                    </div>
+                </div>
+                <!--GAMEINTRO-->
+                <app-iframe-game @fadeIn *ngIf="game" [id]="game._id" [hidden]="isIntro || isEnd" (updateResult)="handleUpdateResult($event)" (librariesLoadDone)="handleLibrariesLoadDoneDone()"></app-iframe-game>
+                <!--<app-game-share *ngIf="isEnd" class="ads-frame"  (continueGame)="handleContinueGame($event)"></app-game-share>-->
+                <!--GAMERESULT-->
+                <div @fadeIn *ngIf="game" [hidden]="!isEnd" class="ads-frame text-center result-panel">
+                    <div class="result-image">
+                        <!--<img [src]="imageData" style="width:180px;height:300px;position: absolute; top: 6px;-->
+                        <!--left: 6px;-->
+                        <!--border-radius: 6px;" >-->
+                        <!--<img [src]="['/'game.thumbResult]">-->
+                        <img [src]="[game.thumbResult]">
+                        <div *ngIf="result" class="result-text">{{result.score}}</div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-social btn-danger" (click)="continueGame()"><i class="ion-play"></i> Continue</button>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary btn-social btn-facebook" [disabled]="shareDisable" (click)="shareFacebook()"><i class="ion-android-share-alt"></i> Share on Facebook</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!--<app-users-ranked-sidebar *ngIf="isShowRank" [id]="game._id" [user]="user"></app-users-ranked-sidebar>-->
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                    <!--<button (click)="shareTwitter()">Share Twitter</button>-->
+                </div>
+                <!--GAMERESULT-->
+                <app-iframe-ads *ngIf="isShowAds" [initTime]="initTime" [ruid]="ruid" [channelID]="channelID" (closeAds)="handleCloseAds($event)"></app-iframe-ads>
             </div>
             <div class="devider"></div>
             <div class="row">
                 <div class="col-md-4">
-                    <app-game-recommend-left></app-game-recommend-left>
+                    <app-game-recommend-left [games]="leftrcmGames"></app-game-recommend-left>
                 </div>
                 <div class="col-md-8">
-                    <div *ngIf="facebookCommentShowed">
-                        <h4 class="section-heading">Facebook Comments</h4>
-                        <app-facebook-comment ></app-facebook-comment>
-
+                    <div @fadeIn *ngIf="facebookCommentShowed && game">
+                        <app-facebook-comment [id]="game._id"></app-facebook-comment>
                     </div>
-                    <app-game-recommend-bottom></app-game-recommend-bottom>
+                    <!--<app-game-recommend-bottom></app-game-recommend-bottom>-->
                 </div>
 
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="action-area">
-                Statistics
-            </div>
-            <app-users-ranked-sidebar ></app-users-ranked-sidebar>
-            <app-game-recommend-right></app-game-recommend-right>
+        <div class="col-md-3">
+
+            <app-game-recommend-right [games]="rightrcmGames"></app-game-recommend-right>
         </div>
     </div>
 </div>
