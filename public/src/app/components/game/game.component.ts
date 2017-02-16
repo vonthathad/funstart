@@ -35,6 +35,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
   private rightrcmGames: Game[];
   private isIntro: boolean = true;
   private isInit: boolean = false;
+  private isWait: boolean = true;
   private isLoading: boolean = true;
   private isPlay: boolean = false;
   private isEnd: boolean = false;
@@ -64,6 +65,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
       this.initTime = Date.now();
       this.isShowAds = false;
       this.isInit = false;
+      this.isWait = true;
       this.isLoading = true;
       this.ruid = Math.floor(Math.random()*1000);
       this.gameService.getGame(params['id']).subscribe((res: any) => {
@@ -75,6 +77,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
         this.isLoading = true;
         this.isPlay = false;
         this.isEnd = false;
+
         this.shareDisable = false;
         this.isShowRank = false;
         // console.log("IN PUT " + JSON.stringify(res.data));
@@ -91,6 +94,7 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
         this.facebookCommentShowed = true;
         setTimeout(()=>{
           this.isInit = true;
+          this.isWait = false;
           this.cd.markForCheck();
         },1000);
         this.cd.markForCheck();
@@ -125,13 +129,12 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
     console.log('done');
 
     this.isLoading = false;
-    if(!this.isInit){
+    if(!this.isInit && !this.isWait){
       this.angulartics2.eventTrack.next({ action: 'startGame', properties: { category: 'gamePlay' }});
       this.isIntro = false;
       this.isPlay = true;
       this.iframeGameComponent._playGame();
     }
-
     // setTimeout(()=> {
       // this.iframeAdsComponent._showAds();
     // });
