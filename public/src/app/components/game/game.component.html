@@ -20,7 +20,7 @@
                     </div>
                     <div class="card-footer">
                         <md-spinner class="md-spinner-load" *ngIf="!isInit && isLoading" color="warn" color="primary"></md-spinner>
-                        <a *ngIf="isInit && !isWait" class="btn btn-lg btn-primary btn-md" (click)="playGame()"> <i class="ion-flash"></i> PLAY NOW</a>
+                        <a *ngIf="isInit" class="btn btn-lg btn-primary btn-md" (click)="playGame()"> <i class="ion-flash"></i> PLAY NOW</a>
                     </div>
                 </div>
                 <!--GAMEINTRO-->
