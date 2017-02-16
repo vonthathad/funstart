@@ -69,7 +69,6 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
       this.isLoading = true;
       this.ruid = Math.floor(Math.random()*1000);
       this.gameService.getGame(params['id']).subscribe((res: any) => {
-        this.isShowAds = true;
         var time = Date.now() - this.initTime;
         this.angulartics2.eventTrack.next({ action: 'loadDone', properties: { category: 'Adsense', label: 'u' + this.ruid + 't' + time + 'playVisible' }});
         this.channelID = '8152950647';
@@ -83,6 +82,9 @@ export class GameComponent extends ParentComponent implements OnInit,OnDestroy {
         // console.log("IN PUT " + JSON.stringify(res.data));
         this.gameService.gameSource.next(res.data);
         this.game = res.data;
+        if(this.game.publish){
+          this.isShowAds = true;
+        }
         this.setInfoShareService();
         // setTimeout(()=>{
           // this.iframeGameComponent.setVisible(false);
