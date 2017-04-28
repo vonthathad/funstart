@@ -86,6 +86,7 @@ export class IframeGameComponent implements OnInit, OnChanges {
       console.log('set src');
       // set timeout to load after onLoad()
       this.src = "/sources/games/" + id + "/index.html";
+      // this.src = "http://localhost:8235/sources/games/" + id + "/index.html";
       this.loadOnce = true;
       this.playGame = false;
       this._preload = false;
